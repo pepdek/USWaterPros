@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import Sources from '@/components/Sources';
 import Icon from '@/components/Icon';
 import LeadForm from '@/components/LeadForm';
 import ReportCta from '@/components/ReportCta';
@@ -38,7 +39,7 @@ export default function ServicePage({ params }: Props) {
             <section><h2>What is {s.name.toLowerCase()}?</h2><p className="mt-2">{s.what}</p></section>
             <div className="text-aqua"><Icon name="drop" size={56} /></div>
             <section><h2>How does it work?</h2><p className="mt-2">{s.how}</p></section>
-            <p className="bg-ice text-navy rounded-lg p-4 font-semibold border-l-4 border-coral">{s.stat}</p>
+            <div className="bg-ice text-navy rounded-lg p-4 border-l-4 border-coral"><p className="font-semibold">{s.stat}</p><Sources ids={s.cite} className="mt-1" /></div>
             <section>
               <h2>Benefits</h2>
               <ul className="mt-2 list-disc pl-5">{s.benefits.map((b) => <li key={b}>{b}</li>)}</ul>

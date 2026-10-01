@@ -1,9 +1,11 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import LeadForm from '@/components/LeadForm';
+import Sources from '@/components/Sources';
 import ServiceCard from '@/components/ServiceCard';
 import ReportCta from '@/components/ReportCta';
 import StickyBottomCTA from '@/components/StickyBottomCTA';
+import { CITIES } from '@/lib/cities';
 import { LOCATIONS } from '@/lib/locations';
 import { SERVICES } from '@/lib/services';
 
@@ -47,6 +49,7 @@ export default function LocationPage({ params }: Props) {
         {l.challenges.map((p) => <p key={p}>{p}</p>)}
         <h3 className="text-2xl mt-4">Testing and local guidance</h3>
         <p>{l.testing}</p>
+        <Sources ids={l.cite} />
       </section>
 
       <div className="bg-ice py-12">
@@ -87,7 +90,7 @@ export default function LocationPage({ params }: Props) {
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {l.cities.map(([c, note]) => (
               <div key={c} id={id(c)} className="card p-6 scroll-mt-20">
-                <h3 className="text-xl">{c}, {l.state}</h3>
+                <h3 className="text-xl">{CITIES.some((x) => x.name === c) ? <a href={`/services/whole-home-water-filtration-${id(c)}`} className="underline">{c}, {l.state}</a> : <>{c}, {l.state}</>}</h3>
                 <p className="mt-2">{note}</p>
                 <a href="#quote" className="font-semibold text-navy underline min-h-12 inline-flex items-center">Get a free quote in {c} →</a>
               </div>

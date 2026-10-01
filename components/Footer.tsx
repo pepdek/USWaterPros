@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { SERVICES } from '@/lib/services';
 import { PHONE, PHONE_HREF, SMS_HREF } from '@/lib/constants';
+import { CITIES } from '@/lib/cities';
 import { LOCATIONS } from '@/lib/locations';
 
 // ponytail: no About or Reviews links until those sections exist.
@@ -23,7 +24,7 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-4 py-12 grid gap-8 sm:grid-cols-2 md:grid-cols-3">
         <Col title="Quick Links" links={QUICK} />
         <Col title="Services" links={SERVICES.map((s) => [s.name, `/services/${s.slug}`])} />
-        <Col title="Service Areas" links={LOCATIONS.map((l) => [`${l.name}, ${l.state}`, `/locations/${l.slug}`])} />
+        <Col title="Service Areas" links={[...LOCATIONS.map((l) => [`${l.name}, ${l.state}`, `/locations/${l.slug}`]), ...CITIES.map((c) => [`${c.name}, WA`, `/services/whole-home-water-filtration-${c.slug}`])]} />
       </div>
       <p className="text-center pb-6">Call or text us directly: <a href={PHONE_HREF} className="font-semibold text-aqua">{PHONE}</a> · <a href={SMS_HREF} className="font-semibold text-aqua">Text us</a></p>
       <p className="text-center text-white/60 border-t border-white/10 p-6">© {new Date().getFullYear()} US Water Pros · USWaterPros.com</p>
