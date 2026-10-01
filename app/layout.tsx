@@ -10,8 +10,8 @@ const sans = Inter({ subsets: ['latin'], weight: ['400', '600', '700'], variable
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://uswaterpros.com'),
-  title: 'US Water Pros | Compare Local Water Treatment Pros',
-  description: 'Get a free water quality report for your ZIP code and compare local water treatment pros.',
+  title: 'US Water Pros | Water Filtration & Treatment Experts in Tacoma, WA',
+  description: 'Dedicated water filtration and treatment experts in Tacoma, WA. Get a free water quality report for your ZIP code.',
   openGraph: { siteName: 'US Water Pros', type: 'website' },
 };
 

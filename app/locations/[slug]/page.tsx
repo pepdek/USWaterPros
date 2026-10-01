@@ -33,7 +33,7 @@ export default function LocationPage({ params }: Props) {
         <div id="quote" className="mx-auto max-w-6xl px-4 py-10 md:py-16 grid gap-8 md:grid-cols-2 md:items-center">
           <div>
             <p className="text-navy font-semibold">{l.name}, {l.state}</p>
-            <h1 className="!text-white mt-2">Better water for {l.name} homes. Compare local pros.</h1>
+            <h1 className="!text-white mt-2">The {l.adj} Water Filtration &amp; Treatment Experts In {l.name}, {l.state}</h1>
             <p className="mt-4 text-white md:text-lg">{l.blurb}</p>
             <p className="mt-4 text-navy text-sm font-semibold">Serving {l.cities.map((c) => c[0]).join(', ')} and nearby.</p>
           </div>
@@ -50,7 +50,7 @@ export default function LocationPage({ params }: Props) {
 
       <div className="bg-ice py-12">
         <section className="mx-auto max-w-6xl px-4">
-          <h2 className="text-center">Compare Certified Local Water Treatment Options</h2>
+          <h2 className="text-center">Water Treatment Options for Your Home</h2>
           <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {SERVICES.filter((s) => CORE.includes(s.slug)).map((s) => <ServiceCard key={s.slug} s={s} />)}
           </div>
@@ -59,12 +59,12 @@ export default function LocationPage({ params }: Props) {
       </div>
 
       <section className="mx-auto max-w-3xl px-4 py-12 flex flex-col gap-3">
-        <h2>How Our Water Pro Marketplace Works in Washington</h2>
+        <h2>How Working With Us Works</h2>
         <ol className="list-decimal pl-5 flex flex-col gap-2">
           <li>Tell us about your home and water concerns. It takes about 30 seconds.</li>
-          <li>We review your area’s water and match you with local pros.</li>
-          <li>You compare options and get clear answers, with no pressure and no obligation.</li>
-          <li>You pick the pro and system that fit your home and budget.</li>
+          <li>We review your area’s water and recommend the right system.</li>
+          <li>We explain your options clearly, with no pressure and no obligation.</li>
+          <li>You choose, and we install it with care.</li>
         </ol>
       </section>
 

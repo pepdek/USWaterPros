@@ -77,8 +77,8 @@ export default function LeadForm({ service }: { service: string }) {
       <label className="flex items-center gap-3 min-h-12"><input type="checkbox" className="w-5 h-5 accent-[var(--aqua)]" checked={f.report} onChange={(e) => setF({ ...f, report: e.target.checked })} />I'd like a free water quality report</label>
       <button className="btn btn-aqua w-full" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : cta}</button>
       {state === 'error' && <p className="text-coral font-semibold text-sm">Something went wrong. Please try again or call us.</p>}
-      <p className="text-xs text-center">✓ No credit card required | ✓ Licensed contractors only</p>
-      <p className="text-xs text-center">Compare certified local pros in minutes — no obligation, 100% free.</p>
+      <p className="text-xs text-center">✓ No credit card required | ✓ Licensed technicians</p>
+      <p className="text-xs text-center">Straight answers from our water experts — no obligation, 100% free.</p>
       <p className="text-xs text-center">We'll call you within 1 hour during business hours</p>
     </form>
   );

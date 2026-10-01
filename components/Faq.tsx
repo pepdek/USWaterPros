@@ -1,8 +1,8 @@
 const COMMON: [string, string][] = [
-  ['How much does whole-home filtration cost?', 'Most homes land between $1,200 and $4,000 installed, depending on the system and your plumbing. Compare free quotes to get your number.'],
-  ['How long does installation take?', 'Typically about a day. Your pro will confirm after a quick look at your plumbing.'],
-  ['How often do filters need changing?', 'It depends on the system and your water. Many cartridges last several months to a few years, and your pro will set a schedule.'],
-  ['Will it lower my water pressure?', 'A properly sized system should not noticeably reduce pressure. Your pro sizes it to your home.'],
+  ['How much does whole-home filtration cost?', 'Most homes land between $1,200 and $4,000 installed, depending on the system and your plumbing. Get a free quote for your exact number.'],
+  ['How long does installation take?', 'Typically about a day. Our team will confirm after a quick look at your plumbing.'],
+  ['How often do filters need changing?', 'It depends on the system and your water. Many cartridges last several months to a few years, and our team will set a schedule.'],
+  ['Will it lower my water pressure?', 'A properly sized system should not noticeably reduce pressure. Our team sizes it to your home.'],
 ];
 const UNCOMMON: [string, string][] = [
   ['Does it remove fluoride?', 'Standard carbon and sediment filters generally do not. Reverse osmosis at the kitchen tap is the usual add-on for that.'],

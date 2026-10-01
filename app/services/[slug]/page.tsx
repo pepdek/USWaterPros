@@ -28,7 +28,7 @@ export default function ServicePage({ params }: Props) {
           <div className="relative rounded-xl overflow-hidden bg-navy h-[40vh] md:h-[420px] flex items-end">
             <div className="absolute inset-0 bg-aqua/30 flex items-center justify-center text-white/30"><Icon name={s.icon} size={200} /></div>
             <div className="relative p-6 text-white">
-              <h1 className="!text-white md:!text-[40px]">{s.name}</h1>
+              <h1 className="!text-white md:!text-[40px]">The {s.adj} {s.name} Experts In Tacoma, WA</h1>
               <p className="md:text-lg">{s.tagline}</p>
             </div>
           </div>
@@ -43,14 +43,14 @@ export default function ServicePage({ params }: Props) {
               <ul className="mt-2 list-disc pl-5">{s.benefits.map((b) => <li key={b}>{b}</li>)}</ul>
             </section>
             <div className="text-aqua"><Icon name={s.icon} size={56} /></div>
-            <section><h2>Price range</h2><p className="mt-2">Typically {s.price}. Compare free quotes to find your number.</p></section>
+            <section><h2>Price range</h2><p className="mt-2">Typically {s.price}. Get a free quote to find your number.</p></section>
           </div>
         </div>
 
         <aside className="md:sticky md:top-4 self-start flex flex-col gap-6">
           <LeadForm service={s.slug} />
           <ul className="flex flex-col gap-3 text-navy font-semibold">
-            <li className="flex gap-3 items-center"><Icon name="shield" size={24} />Vetted, licensed pros</li>
+            <li className="flex gap-3 items-center"><Icon name="shield" size={24} />Licensed, certified technicians</li>
             <li className="flex gap-3 items-center"><Icon name="clock" size={24} />Callback within 1 hour</li>
             <li className="flex gap-3 items-center"><Icon name="badge" size={24} />Free quotes, no obligation</li>
           </ul>

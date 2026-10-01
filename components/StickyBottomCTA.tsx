@@ -21,7 +21,7 @@ export default function StickyBottomCTA() {
             <a href={PHONE_HREF} className="btn btn-aqua flex-1">Call Now</a>
             <a href={SMS_HREF} className="btn btn-aqua flex-1">Text Us</a>
           </div>
-          <span className="text-xs opacity-80">🔒 Privacy Secured | Verified Network — no hoops, no obligation</span>
+          <span className="text-xs opacity-80">🔒 Privacy Secured — no hoops, no obligation</span>
         </div>
       </div>
     </>
