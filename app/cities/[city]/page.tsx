@@ -45,10 +45,6 @@ export default function CityPage({ params }: Props) {
             <Breadcrumb items={[{ label: 'Service Areas', href: '/#areas' }, { label: c.name }]} />
             <h1 className="!text-white">{h1}</h1>
             <p className="mt-4 text-white md:text-lg">{c.headline}</p>
-            <div className="mt-6 flex flex-col sm:flex-row gap-3">
-              <a href="#report" className="btn btn-aqua">Get My Free Water Report</a>
-              <a href="#quote-form" className="btn btn-navy">Schedule Consultation</a>
-            </div>
             <p className="mt-4 text-navy text-sm font-semibold">✓ Licensed technicians | ✓ Same-day quotes | ✓ Local since 2009</p>
           </div>
           <div id="quote-form"><LeadForm service="whole-home-water-filtration" /></div>

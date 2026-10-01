@@ -70,7 +70,7 @@ export default function LeadForm({ service }: { service: string }) {
       </div>
       <Field label="Name" error={show('name')}><input className="field" autoComplete="name" {...bind('name')} /></Field>
       <Field label="Email" error={show('email')}><input className="field" type="email" autoComplete="email" {...bind('email')} /></Field>
-      <Field label="Phone (for your callback)" badge="We'll call you once" error={show('phone')}><input className="field" type="tel" autoComplete="tel" {...bind('phone')} /></Field>
+      <Field label="Phone (for your callback)" error={show('phone')}><input className="field" type="tel" autoComplete="tel" {...bind('phone')} /></Field>
       <Field label="ZIP Code" error={show('zip')}><input className="field" inputMode="numeric" maxLength={5} autoComplete="postal-code" {...bind('zip')} /></Field>
       <input type="hidden" name="service_type" value={service} />
       <button className="btn btn-aqua w-full" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : CTA}</button>
