@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Breadcrumb from '@/components/Breadcrumb';
 import LeadForm from '@/components/LeadForm';
 import ReportCta from '@/components/ReportCta';
 import StickyBottomCTA from '@/components/StickyBottomCTA';
@@ -34,8 +35,6 @@ export default function CityPage({ params }: Props) {
         telephone: '+1-253-777-0901', url: `https://uswaterpros.com${path(c.slug)}`, priceRange: '$$',
         areaServed: { '@type': 'City', name: `${c.name}, WA` } },
       { '@type': 'FAQPage', mainEntity: c.faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
-      { '@type': 'BreadcrumbList', itemListElement: [['Home', '/'], ['Services', '/#services'], ['Whole-Home Filtration', '/services/whole-home-water-filtration'], [c.name, path(c.slug)]]
-        .map(([name, item], i) => ({ '@type': 'ListItem', position: i + 1, name, item: `https://uswaterpros.com${item}` })) },
     ],
   };
   return (
@@ -43,9 +42,7 @@ export default function CityPage({ params }: Props) {
       <section className="bg-surge">
         <div id="quote" className="mx-auto max-w-6xl px-4 py-10 md:py-16 grid gap-8 md:grid-cols-2 md:items-center">
           <div>
-            <nav aria-label="Breadcrumb" className="text-sm text-navy font-semibold mb-2">
-              <Link href="/">Home</Link> › <Link href="/#services">Services</Link> › <Link href="/services/whole-home-water-filtration">Whole-Home Filtration</Link> › {c.name}
-            </nav>
+            <Breadcrumb items={[{ label: 'Service Areas', href: '/#areas' }, { label: c.name }]} />
             <h1 className="!text-white">{h1}</h1>
             <p className="mt-4 text-white md:text-lg">{c.headline}</p>
             <div className="mt-6 flex flex-col sm:flex-row gap-3">

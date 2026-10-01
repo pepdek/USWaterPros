@@ -7,6 +7,7 @@ import { MAINTENANCE as MAINT, PRICE, type Service } from '@/lib/services';
 import type { SourceId } from '@/lib/sources';
 import { CITIES } from '@/lib/cities';
 import Link from 'next/link';
+import Breadcrumb from '@/components/Breadcrumb';
 
 const Check = ({ children }: { children: React.ReactNode }) => <li className="flex gap-2"><span className="text-aqua font-bold">✓</span>{children}</li>;
 
@@ -15,6 +16,7 @@ export function ServiceHero({ s }: { s: Service }) {
     <section className="bg-surge">
       <div className="mx-auto max-w-6xl px-4 py-10 md:py-14 grid gap-8 md:grid-cols-[3fr_2fr] md:items-center md:min-h-[40vh]">
         <div>
+          <Breadcrumb items={[{ label: 'Services', href: '/#services' }, { label: s.name }]} />
           <h1 className="!text-white">{s.h1}</h1>
           <p className="mt-4 text-navy text-lg md:text-xl font-semibold">{s.sub}</p>
           <a href="#quote" className="btn btn-navy mt-6 w-full md:w-auto">Schedule Consultation</a>

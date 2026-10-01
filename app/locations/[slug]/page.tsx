@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import Breadcrumb from '@/components/Breadcrumb';
 import LeadForm from '@/components/LeadForm';
 import Sources from '@/components/Sources';
 import ServiceCard from '@/components/ServiceCard';
@@ -35,6 +36,7 @@ export default function LocationPage({ params }: Props) {
       <section className="bg-surge">
         <div id="quote" className="mx-auto max-w-6xl px-4 py-10 md:py-16 grid gap-8 md:grid-cols-2 md:items-center">
           <div>
+            <Breadcrumb items={[{ label: 'Service Areas', href: '/#areas' }, { label: l.name }]} />
             <p className="text-navy font-semibold">{l.name}, {l.state}</p>
             <h1 className="!text-white mt-2">The {l.adj} Water Filtration &amp; Treatment Experts In {l.name}, {l.state}</h1>
             <p className="mt-4 text-white md:text-lg">{l.blurb}</p>
