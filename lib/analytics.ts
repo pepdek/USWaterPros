@@ -6,4 +6,4 @@ export function track(event: string, props: Record<string, unknown> = {}) {
   else if (process.env.NODE_ENV !== 'production') console.log('[track]', event, props);
 }
 
-export const CTA = 'Get A Free Consultation';
+export const CTA = 'Schedule Consultation';

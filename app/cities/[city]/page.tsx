@@ -34,7 +34,7 @@ export default function CityPage({ params }: Props) {
         telephone: '+1-253-777-0901', url: `https://uswaterpros.com${path(c.slug)}`, priceRange: '$$',
         areaServed: { '@type': 'City', name: `${c.name}, WA` } },
       { '@type': 'FAQPage', mainEntity: c.faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
-      { '@type': 'BreadcrumbList', itemListElement: [['Home', '/'], ['Services', '/#services'], ['Whole-Home Filtration', '/services/whole-home-filtration'], [c.name, path(c.slug)]]
+      { '@type': 'BreadcrumbList', itemListElement: [['Home', '/'], ['Services', '/#services'], ['Whole-Home Filtration', '/services/whole-home-water-filtration'], [c.name, path(c.slug)]]
         .map(([name, item], i) => ({ '@type': 'ListItem', position: i + 1, name, item: `https://uswaterpros.com${item}` })) },
     ],
   };
@@ -44,7 +44,7 @@ export default function CityPage({ params }: Props) {
         <div id="quote" className="mx-auto max-w-6xl px-4 py-10 md:py-16 grid gap-8 md:grid-cols-2 md:items-center">
           <div>
             <nav aria-label="Breadcrumb" className="text-sm text-navy font-semibold mb-2">
-              <Link href="/">Home</Link> › <Link href="/#services">Services</Link> › <Link href="/services/whole-home-filtration">Whole-Home Filtration</Link> › {c.name}
+              <Link href="/">Home</Link> › <Link href="/#services">Services</Link> › <Link href="/services/whole-home-water-filtration">Whole-Home Filtration</Link> › {c.name}
             </nav>
             <h1 className="!text-white">{h1}</h1>
             <p className="mt-4 text-white md:text-lg">{c.headline}</p>
@@ -54,7 +54,7 @@ export default function CityPage({ params }: Props) {
             </div>
             <p className="mt-4 text-navy text-sm font-semibold">✓ Licensed technicians | ✓ Same-day quotes | ✓ Local since 2009</p>
           </div>
-          <div id="quote-form"><LeadForm service="whole-home-filtration" /></div>
+          <div id="quote-form"><LeadForm service="whole-home-water-filtration" /></div>
         </div>
       </section>
 
@@ -109,7 +109,7 @@ export default function CityPage({ params }: Props) {
             <p className="pb-2">{a}</p>
           </details>
         ))}
-        <p className="mt-6 text-sm">More on <Link href={`/locations/${county.slug}`} className="underline font-semibold">water in {county.name}</Link> and our <Link href="/services/whole-home-filtration" className="underline font-semibold">whole-home filtration service</Link>.</p>
+        <p className="mt-6 text-sm">More on <Link href={`/locations/${county.slug}`} className="underline font-semibold">water in {county.name}</Link> and our <Link href="/services/whole-home-water-filtration" className="underline font-semibold">whole-home filtration service</Link>.</p>
         <p className="mt-2 text-xs text-navy/70">Last updated: {new Date(UPDATED).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}</p>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       </section>

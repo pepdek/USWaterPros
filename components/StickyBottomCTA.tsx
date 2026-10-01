@@ -21,7 +21,7 @@ export default function StickyBottomCTA() {
           <div className="flex gap-2 w-full md:w-auto">
             <a href={PHONE_HREF} className={`${b} bg-white text-navy`}>Call Now</a>
             <a href={SMS_HREF} className={`${b} bg-white text-navy`}>Text Us</a>
-            <a href="#quote" className={`${b} btn-aqua`}>Book Free Consultation</a>
+            <a href="#quote" className={`${b} btn-aqua`}>Schedule Consultation</a>
           </div>
           <span className="text-xs opacity-80">🔒 Privacy Secured — no hoops, no obligation</span>
         </div>

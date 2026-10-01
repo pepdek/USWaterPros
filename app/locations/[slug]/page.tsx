@@ -12,7 +12,7 @@ import { SERVICES } from '@/lib/services';
 type Props = { params: { slug: string } };
 const find = (slug: string) => LOCATIONS.find((l) => l.slug === slug);
 const id = (s: string) => s.toLowerCase().replace(/\s+/g, '-');
-const CORE = ['whole-home-filtration', 'water-softening', 'well-water-testing', 'reverse-osmosis'];
+const CORE = ['whole-home-water-filtration', 'water-softening-systems', 'well-water-treatment', 'reverse-osmosis-systems'];
 
 export const generateStaticParams = () => LOCATIONS.map((l) => ({ slug: l.slug }));
 
@@ -40,7 +40,7 @@ export default function LocationPage({ params }: Props) {
             <p className="mt-4 text-white md:text-lg">{l.blurb}</p>
             <p className="mt-4 text-navy text-sm font-semibold">Serving {l.cities.map((c) => c[0]).join(', ')} and nearby.</p>
           </div>
-          <LeadForm service="whole-home-filtration" />
+          <LeadForm service="whole-home-water-filtration" />
         </div>
       </section>
 
