@@ -3,6 +3,7 @@ import ServiceCard from '@/components/ServiceCard';
 import StickyBottomCTA from '@/components/StickyBottomCTA';
 import BenefitsScroll from '@/components/BenefitsScroll';
 import Risks from '@/components/Risks';
+import ReportCta from '@/components/ReportCta';
 import Faq from '@/components/Faq';
 import { LOCATIONS } from '@/lib/locations';
 import Icon from '@/components/Icon';
@@ -25,6 +26,7 @@ export default function Home() {
           <Link key={p.label} href={p.href} className={`shrink-0 min-h-12 inline-flex items-center rounded-full px-5 font-semibold text-sm lowercase bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] text-navy hover:bg-navy hover:text-white focus:bg-navy focus:text-white ${i === 0 ? '!bg-navy !text-white' : ''}`}>{p.label}</Link>
         ))}
       </nav>
+      <Risks />
       <div className="bg-ice py-10"><section id="services" className="mx-auto max-w-6xl px-4 grid gap-6 md:grid-cols-3">
         {SERVICES.map((s) => <ServiceCard key={s.slug} s={s} />)}
       </section></div>
@@ -50,7 +52,7 @@ export default function Home() {
           {LOCATIONS.map((l) => <Link key={l.slug} href={`/locations/${l.slug}`} className="min-h-12 inline-flex items-center lowercase rounded-full bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] px-5 font-semibold text-navy hover:bg-navy hover:text-white">{l.name}</Link>)}
         </div>
       </section>
-      <Risks />
+      <ReportCta />
       <Faq />
       <StickyBottomCTA />
     </main>

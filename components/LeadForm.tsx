@@ -1,21 +1,18 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { CTA_VARIANTS, ctaVariant, track } from '@/lib/analytics';
-import WaterReport from './WaterReport';
+import { CTA, track } from '@/lib/analytics';
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function LeadForm({ service }: { service: string }) {
-  const [f, setF] = useState({ name: '', email: '', phone: '', zip: '', report: true });
+  const [f, setF] = useState({ name: '', email: '', phone: '', zip: '' });
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [state, setState] = useState<'idle' | 'sending' | 'done' | 'error'>('idle');
-  const [cta, setCta] = useState(CTA_VARIANTS[0]);
   const start = useRef(0);
   const focusAt = useRef<Record<string, number>>({});
   const submitted = useRef(false);
 
   useEffect(() => {
-    setCta(ctaVariant());
     const abandon = () => {
       if (start.current && !submitted.current) track('form_abandon', { service, fields: Object.keys(touched) });
     };
@@ -44,11 +41,11 @@ export default function LeadForm({ service }: { service: string }) {
     setState('sending');
     const res = await fetch('/api/leads', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: f.name, email: f.email, phone: f.phone, zip_code: f.zip, service_type: service, page_source: location.pathname, report: f.report }),
+      body: JSON.stringify({ name: f.name, email: f.email, phone: f.phone, zip_code: f.zip, service_type: service, page_source: location.pathname }),
     }).catch(() => null);
     if (!res?.ok) return setState('error');
     submitted.current = true;
-    track('lead_submit', { service, variant: cta, seconds_to_submit: Math.round((Date.now() - start.current) / 1000) });
+    track('lead_submit', { service, seconds_to_submit: Math.round((Date.now() - start.current) / 1000) });
     window.dispatchEvent(new Event('lead-submitted'));
     setState('done');
   }
@@ -67,19 +64,20 @@ export default function LeadForm({ service }: { service: string }) {
 
   return (
     <form onSubmit={submit} className="card p-6 flex flex-col gap-3" noValidate>
-      <h2 className="text-2xl">Get a free quote</h2>
+      <div>
+        <h2 className="text-2xl">Talk to a local water specialist</h2>
+        <p className="text-sm mt-1">Free and no obligation. Takes about a minute.</p>
+      </div>
       <Field label="Name" error={show('name')}><input className="field" autoComplete="name" {...bind('name')} /></Field>
       <Field label="Email" error={show('email')}><input className="field" type="email" autoComplete="email" {...bind('email')} /></Field>
-      <Field label="Phone" badge="We'll call you once" error={show('phone')}><input className="field" type="tel" autoComplete="tel" {...bind('phone')} /></Field>
+      <Field label="Phone (for your callback)" badge="We'll call you once" error={show('phone')}><input className="field" type="tel" autoComplete="tel" {...bind('phone')} /></Field>
       <Field label="ZIP Code" error={show('zip')}><input className="field" inputMode="numeric" maxLength={5} autoComplete="postal-code" {...bind('zip')} /></Field>
-      <WaterReport zip={f.zip} />
       <input type="hidden" name="service_type" value={service} />
-      <label className="flex items-center gap-3 min-h-12"><input type="checkbox" className="w-5 h-5 accent-[var(--aqua)]" checked={f.report} onChange={(e) => setF({ ...f, report: e.target.checked })} />I'd like a free water quality report</label>
-      <button className="btn btn-aqua w-full" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : cta}</button>
+      <button className="btn btn-aqua w-full" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : CTA}</button>
       {state === 'error' && <p className="text-coral font-semibold text-sm">Something went wrong. Please try again or call us.</p>}
+      <p className="text-xs text-center">✓ We'll call you within 1 hour during business hours</p>
       <p className="text-xs text-center">✓ No credit card required | ✓ Licensed technicians</p>
-      <p className="text-xs text-center">Straight answers from our water experts — no obligation, 100% free.</p>
-      <p className="text-xs text-center">We'll call you within 1 hour during business hours</p>
+      <p className="text-xs text-center text-navy/70">🔒 Your information is private. We never sell it, and there's no spam.</p>
     </form>
   );
 }

@@ -11,15 +11,17 @@ export default function StickyBottomCTA() {
     return () => window.removeEventListener('lead-submitted', f);
   }, []);
   if (done) return null;
+  const b = 'btn flex-1 !px-2 text-xs md:text-base leading-tight text-center';
   return (
     <>
       <div className="md:hidden h-28" />
       <div className="fixed bottom-0 inset-x-0 z-40 md:static md:max-w-6xl md:mx-auto md:my-12 bg-navy text-white p-3 md:p-8 md:rounded-xl text-center md:flex md:items-center md:justify-between md:gap-6">
-        <p className="text-sm md:text-lg font-semibold mb-2 md:mb-0">Need immediate assistance? Call or text us directly.</p>
+        <p className="text-sm md:text-lg font-semibold mb-2 md:mb-0">Your local water professional is standing by</p>
         <div className="flex flex-col items-center gap-1 md:items-end">
           <div className="flex gap-2 w-full md:w-auto">
-            <a href={PHONE_HREF} className="btn btn-aqua flex-1">Call Now</a>
-            <a href={SMS_HREF} className="btn btn-aqua flex-1">Text Us</a>
+            <a href={PHONE_HREF} className={`${b} bg-white text-navy`}>Call Now</a>
+            <a href={SMS_HREF} className={`${b} bg-white text-navy`}>Text Us</a>
+            <a href="#quote" className={`${b} btn-aqua`}>Book Free Consultation</a>
           </div>
           <span className="text-xs opacity-80">🔒 Privacy Secured — no hoops, no obligation</span>
         </div>

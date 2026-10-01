@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Icon from '@/components/Icon';
 import LeadForm from '@/components/LeadForm';
+import ReportCta from '@/components/ReportCta';
 import StickyBottomCTA from '@/components/StickyBottomCTA';
 import { SERVICES } from '@/lib/services';
 
@@ -47,7 +48,7 @@ export default function ServicePage({ params }: Props) {
           </div>
         </div>
 
-        <aside className="md:sticky md:top-4 self-start flex flex-col gap-6">
+        <aside id="quote" className="md:sticky md:top-4 self-start flex flex-col gap-6">
           <LeadForm service={s.slug} />
           <ul className="flex flex-col gap-3 text-navy font-semibold">
             <li className="flex gap-3 items-center"><Icon name="shield" size={24} />Licensed, certified technicians</li>
@@ -60,6 +61,7 @@ export default function ServicePage({ params }: Props) {
           </div>
         </aside>
       </div>
+      <ReportCta />
       <StickyBottomCTA />
     </main>
   );

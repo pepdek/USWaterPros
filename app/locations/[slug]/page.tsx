@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import LeadForm from '@/components/LeadForm';
 import ServiceCard from '@/components/ServiceCard';
+import ReportCta from '@/components/ReportCta';
 import StickyBottomCTA from '@/components/StickyBottomCTA';
 import { LOCATIONS } from '@/lib/locations';
 import { SERVICES } from '@/lib/services';
@@ -68,7 +69,8 @@ export default function LocationPage({ params }: Props) {
         </ol>
       </section>
 
-      <section className="mx-auto max-w-3xl px-4 pb-12">
+      <ReportCta />
+      <section className="mx-auto max-w-3xl px-4 py-12">
         <h2>Frequently Asked Questions in {l.name}</h2>
         {l.faqs.map(([q, a]) => (
           <details key={q} className="border-b border-black/10 py-3">
