@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/supabase';
+import { supabase } from '@/lib/supabase';
 import { SERVICES } from '@/lib/services';
 
 export async function POST(req: NextRequest) {
@@ -15,7 +15,8 @@ export async function POST(req: NextRequest) {
     || !(lead.service_type === 'water-report' || SERVICES.some((x) => x.slug === lead.service_type))) {
     return NextResponse.json({ error: 'invalid' }, { status: 400 });
   }
-  const { error } = await supabaseAdmin().from('leads').insert(lead);
+  // RLS lets the public site insert new leads only; everything else needs an admin login.
+  const { error } = await supabase().from('leads').insert(lead);
   if (error) { console.error(error); return NextResponse.json({ error: 'db' }, { status: 500 }); }
 
   // ponytail: SendGrid via fetch, skipped silently if unconfigured. Failure never blocks the lead.
