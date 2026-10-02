@@ -9,8 +9,6 @@ module.exports = {
   // pretty city URLs -> /cities/[city]
   async rewrites() {
     return { beforeFiles: [
-      // crm.uswaterpros.com/ -> the CRM
-      { source: '/', has: [{ type: 'host', value: 'crm.uswaterpros.com' }], destination: '/admin/dashboard' },
       { source: '/services/whole-home-water-filtration-:city', destination: '/cities/:city' }] };
   },
 };
