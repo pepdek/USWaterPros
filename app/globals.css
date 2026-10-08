@@ -6,7 +6,9 @@ h1, h2, h3 { font-family: var(--font-serif), Georgia, serif; color: var(--navy);
 h1 { font-size: 28px; line-height: 1.15; } @media (min-width: 768px) { h1 { font-size: 48px; line-height: 56px; } }
 h2 { font-size: 28px; line-height: 1.2; }
 input, select { font-size: 16px; min-height: 48px; }
-.btn { display:inline-flex; align-items:center; justify-content:center; min-height:48px; min-width:48px; padding:0 24px; border-radius:8px; font-weight:600; transition:.15s; }
+.btn { display:inline-flex; align-items:center; justify-content:center; min-height:48px; min-width:48px; padding:0 24px; border-radius:8px; font-family:var(--font-sans), system-ui, sans-serif; font-size:14px; line-height:20px; font-weight:600; white-space:nowrap; transition:.15s; }
+/* Rule: one primary (aqua) + one secondary (white) per CTA group. Never three side by side. */
+.btn-secondary { background:#fff; color:var(--navy); border:1px solid rgba(10,25,47,.15); } .btn-secondary:hover { background:var(--ice); }
 .btn-aqua { background: var(--aqua); color: var(--navy); } .btn-aqua:hover { filter: brightness(.92); }
 .btn-navy { background: var(--navy); color: #fff; } .btn-navy:hover { filter: brightness(1.25); }
 .card { background:#fff; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,.05); transition:.2s; }

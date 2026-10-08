@@ -197,8 +197,8 @@ export function CTASection() {
       <div className="mx-auto max-w-3xl px-4">
         <h2 className="!text-white">Ready to Improve Your Water?</h2>
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
-          <a href={PHONE_HREF} className="btn btn-navy">📞 Call Now: {PHONE}</a>
-          <a href="#quote" className="btn bg-white text-navy">🗓 Schedule Consultation</a>
+          <a href="#quote" className="btn btn-navy">Schedule Consultation</a>
+          <a href={PHONE_HREF} className="btn btn-secondary">{PHONE}</a>
         </div>
         <p className="mt-4 text-sm text-navy font-semibold">✓ Free consultation | ✓ Licensed technicians | ✓ Fixed price quote | ✓ No obligation</p>
       </div>

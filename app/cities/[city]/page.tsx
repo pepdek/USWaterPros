@@ -112,7 +112,7 @@ export default function CityPage({ params }: Props) {
           <h2 className="!text-white">Ready to Fix Your Water?</h2>
           <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
             <a href="#report" className="btn btn-aqua">Get Free Water Report</a>
-            <a href={PHONE_HREF} className="btn bg-white text-navy">Call {PHONE}</a>
+            <a href={PHONE_HREF} className="btn btn-secondary">Call {PHONE}</a>
           </div>
           <p className="mt-4 text-sm text-white/80">Licensed technicians · Same-day quotes</p>
         </div>
