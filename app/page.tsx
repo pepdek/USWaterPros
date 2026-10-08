@@ -2,6 +2,7 @@ import HeroSection from '@/components/HeroSection';
 import ServiceCard from '@/components/ServiceCard';
 import StickyBottomCTA from '@/components/StickyBottomCTA';
 import BenefitsScroll from '@/components/BenefitsScroll';
+import ProblemBlocks from '@/components/ProblemBlocks';
 import Risks from '@/components/Risks';
 import ReportCta from '@/components/ReportCta';
 import QuizCta from '@/components/QuizCta';
@@ -22,16 +23,12 @@ export default function Home() {
     <main>
       <HeroSection />
       <BenefitsScroll />
-      <nav className="mx-auto max-w-6xl px-4 py-6 flex gap-2 overflow-x-auto md:flex-wrap md:justify-center" aria-label="Services">
-        {PILLS.map((p, i) => (
-          <Link key={p.label} href={p.href} className={`shrink-0 min-h-12 inline-flex items-center rounded-full px-5 font-semibold text-sm lowercase bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] text-navy hover:bg-navy hover:text-white focus:bg-navy focus:text-white ${i === 0 ? '!bg-navy !text-white' : ''}`}>{p.label}</Link>
-        ))}
-      </nav>
+      <ProblemBlocks />
+      <div className="bg-ice py-12"><section id="services" className="mx-auto max-w-6xl px-4 scroll-mt-24"><h2 className="text-center">Our Solutions</h2><div className="mt-8 grid gap-6 md:grid-cols-3">
+        {SERVICES.map((s) => <ServiceCard key={s.slug} s={s} />)}
+      </div></section></div>
       <Risks />
       <QuizCta />
-      <div className="bg-ice py-10"><section id="services" className="mx-auto max-w-6xl px-4 grid gap-6 md:grid-cols-3">
-        {SERVICES.map((s) => <ServiceCard key={s.slug} s={s} />)}
-      </section></div>
       <section id="process" className="mx-auto max-w-6xl px-4 py-14 grid gap-10 md:grid-cols-2 md:items-center">
         <div>
           <h2>A Simple, No-Pressure Water Treatment Experience</h2>
@@ -51,10 +48,15 @@ export default function Home() {
       <section id="areas" className="mx-auto max-w-6xl px-4 py-8 text-center">
         <h2>Serving Western Washington</h2>
         <div className="mt-4 flex flex-wrap justify-center gap-2">
-          {LOCATIONS.map((l) => <Link key={l.slug} href={`/locations/${l.slug}`} className="min-h-12 inline-flex items-center lowercase rounded-full bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] px-5 font-semibold text-navy hover:bg-navy hover:text-white">{l.name}</Link>)}
+          {LOCATIONS.map((l) => <Link key={l.slug} href={`/locations/${l.slug}`} className="min-h-12 inline-flex items-center rounded-full bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] px-5 font-semibold text-navy hover:bg-navy hover:text-white">{l.name}</Link>)}
         </div>
       </section>
       <ReportCta />
+      <nav className="mx-auto max-w-6xl px-4 py-6 flex gap-2 overflow-x-auto md:flex-wrap md:justify-center" aria-label="Services">
+        {PILLS.map((p, i) => (
+          <Link key={p.label} href={p.href} className={`shrink-0 min-h-12 inline-flex items-center rounded-full px-5 font-semibold text-sm lowercase bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] text-navy hover:bg-navy hover:text-white focus:bg-navy focus:text-white ${i === 0 ? '!bg-navy !text-white' : ''}`}>{p.label}</Link>
+        ))}
+      </nav>
       <Faq />
       <StickyBottomCTA />
     </main>

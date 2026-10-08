@@ -54,7 +54,7 @@ export default function ServicePage({ params }: Props) {
           <BeforeAfterSlider s={s} />
           <PricingTimeline s={s} />
         </div>
-        <aside id="quote" className="md:sticky md:top-4 self-start scroll-mt-4"><LeadForm service={s.slug} /></aside>
+        <aside id="quote" className="md:sticky md:top-24 md:max-h-[calc(100vh-7rem)] md:overflow-y-auto self-start scroll-mt-24"><LeadForm service={s.slug} /></aside>
       </div>
       <ComparisonTable s={s} />
       <MaintenanceFAQ />
@@ -74,8 +74,8 @@ export default function ServicePage({ params }: Props) {
         <h2 className="text-2xl">Also interested in</h2>
         <div className="mt-4 flex flex-wrap gap-2">
           {s.related.map((r) => { const x = find(r)!; return <Link key={r} href={`/services/${r}`} className="lowercase min-h-12 inline-flex items-center rounded-full bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] px-5 font-semibold text-navy hover:bg-navy hover:text-white">{x.name}</Link>; })}
-          <Link href="/locations/pierce-county" className="lowercase min-h-12 inline-flex items-center rounded-full bg-ice px-5 font-semibold text-navy">Pierce County water guide</Link>
-          <Link href="/locations/kitsap-county" className="lowercase min-h-12 inline-flex items-center rounded-full bg-ice px-5 font-semibold text-navy">Kitsap County water guide</Link>
+          <Link href="/locations/pierce-county" className="min-h-12 inline-flex items-center rounded-full bg-ice px-5 font-semibold text-navy">Pierce County water guide</Link>
+          <Link href="/locations/kitsap-county" className="min-h-12 inline-flex items-center rounded-full bg-ice px-5 font-semibold text-navy">Kitsap County water guide</Link>
         </div>
       </section>
     </main>

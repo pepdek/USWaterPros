@@ -12,10 +12,12 @@ export async function POST(req: NextRequest) {
     location: s('location', 60), currentSituation: s('currentSituation', 60), servicePathA: s('servicePathA', 60), servicePathB: s('servicePathB', 60),
     householdSize: s('householdSize', 20), budgetComfort: s('budgetComfort', 60), timeline: s('timeline', 60),
     communicationPreference: s('communicationPreference', 20), urgencyPriority: s('urgencyPriority', 10),
+    waterSourceType: s('waterSourceType', 20) || null, showedWellWaterBranch: b.showedWellWaterBranch === true,
+    tags: (Array.isArray(b.tags) ? b.tags : []).slice(0, 5).map((x: unknown) => String(x).slice(0, 40)) as string[], recommendedPriceRange: s('recommendedPriceRange', 30),
     waterConcerns: (Array.isArray(b.waterConcerns) ? b.waterConcerns : []).slice(0, 8).map((x: unknown) => String(x).slice(0, 40)) as string[],
     recommendedSystem: rec, recommendedPrice: Number(b.recommendedPrice) || 0,
   } : null;
-  const quizService = /dual|softener/i.test(rec) ? 'water-softening-systems' : 'reverse-osmosis-systems';
+  const quizService = /well/i.test(rec) ? 'well-water-treatment' : /dual|softener/i.test(rec) ? 'water-softening-systems' : 'reverse-osmosis-systems';
   const lead = {
     id: crypto.randomUUID(),
     name: s('name', 255) || 'Water report request', email: s('email', 255), phone: s('phone', 20) || null,
@@ -24,7 +26,7 @@ export async function POST(req: NextRequest) {
     user_agent: req.headers.get('user-agent'),
     ...(quiz && {
       quiz,
-      notes: `QUIZ: ${rec} ($${quiz.recommendedPrice}) | urgency ${quiz.urgencyPriority} | prefers ${quiz.communicationPreference} | timeline ${quiz.timeline} | household ${quiz.householdSize} | ${quiz.currentSituation} | budget: ${quiz.budgetComfort} | concerns: ${quiz.waterConcerns.join(', ')} | ${quiz.location}`,
+      notes: `QUIZ${quiz.tags.length ? ' [' + quiz.tags.join(',') + ']' : ''}: ${rec} (${quiz.recommendedPriceRange || '$' + quiz.recommendedPrice}) | urgency ${quiz.urgencyPriority} | prefers ${quiz.communicationPreference} | timeline ${quiz.timeline} | household ${quiz.householdSize} | ${quiz.currentSituation} | budget: ${quiz.budgetComfort} | concerns: ${quiz.waterConcerns.join(', ')} | ${quiz.location}`,
     }),
   };
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email);

@@ -40,7 +40,7 @@ export default function CityPage({ params }: Props) {
   return (
     <main>
       <section className="bg-surge">
-        <div id="quote" className="mx-auto max-w-6xl px-4 py-10 md:py-16 grid gap-8 md:grid-cols-2 md:items-center">
+        <div id="quote" className="scroll-mt-24 mx-auto max-w-6xl px-4 py-10 md:py-16 grid gap-8 md:grid-cols-2 md:items-center">
           <div>
             <Breadcrumb items={[{ label: 'Service Areas', href: '/#areas' }, { label: c.name }]} />
             <h1 className="!text-white">{h1}</h1>

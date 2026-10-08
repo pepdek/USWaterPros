@@ -22,6 +22,12 @@ export const SOURCES = {
   tpchdTest: ['Tacoma-Pierce County Health Dept: test your water', 'https://tpchd.org/homes/drinking-water/testing/'],
   tpchdWells: ['Tacoma-Pierce County Health Dept: individual wells', 'https://tpchd.org/homes/drinking-water/individual-wells/'],
   tpuSource: ['Tacoma Public Utilities: water source', 'https://www.mytpu.org/about-tpu/services/water/water-source/100-years-clean-reliable-water/'],
+  acsPfas: ['EWG study (ES&T Letters 2020): PFAS in US drinking water', 'https://pubs.acs.org/doi/10.1021/acs.estlett.0c00713'],
+  awwaBuried: ['AWWA: Buried No Longer (2012)', 'https://www.awwa.org/wp-content/uploads/Buried-No-Longer.pdf'],
+  awwaBeyond: ['AWWA: Beyond the Replacement Era (2026)', 'https://www.inrecap.com/wp-content/uploads/2026/04/Beyond-the-Replacement-Era-awwa-2026-report.pdf'],
+  ewgPfas: ['EWG: 200 million Americans likely have PFAS in their water', 'https://www.ewg.org/news-insights/news/ewg-news-roundup-1016-200-million-americans-likely-have-pfas-their-water-solar'],
+  epaPfas: ['EPA: health and environmental risks of PFAS', 'https://www.epa.gov/pfas/our-current-understanding-human-health-and-environmental-risks-pfas'],
+  niehsPfas: ['NIEHS: PFAS', 'https://www.niehs.nih.gov/health/topics/agents/pfc'],
 } as const;
 
 export type SourceId = keyof typeof SOURCES;

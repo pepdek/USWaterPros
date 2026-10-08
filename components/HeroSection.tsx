@@ -3,7 +3,7 @@ import LeadForm from './LeadForm';
 export default function HeroSection() {
   return (
     <section className="bg-surge">
-      <div id="quote" className="mx-auto max-w-6xl px-4 py-10 md:py-20 grid gap-8 md:grid-cols-2 md:items-center">
+      <div id="quote" className="scroll-mt-24 mx-auto max-w-6xl px-4 py-10 md:py-20 grid gap-8 md:grid-cols-2 md:items-center">
         <div>
           <p className="text-navy font-semibold">Tacoma, WA Water Filtration &amp; Treatment</p>
           <h1 className="!text-white mt-2">Whole-Home Water Filtration Services for Washington Families</h1>
