@@ -4,6 +4,7 @@ import StickyBottomCTA from '@/components/StickyBottomCTA';
 import BenefitsScroll from '@/components/BenefitsScroll';
 import Risks from '@/components/Risks';
 import ReportCta from '@/components/ReportCta';
+import QuizCta from '@/components/QuizCta';
 import Faq from '@/components/Faq';
 import { LOCATIONS } from '@/lib/locations';
 import Icon from '@/components/Icon';
@@ -27,6 +28,7 @@ export default function Home() {
         ))}
       </nav>
       <Risks />
+      <QuizCta />
       <div className="bg-ice py-10"><section id="services" className="mx-auto max-w-6xl px-4 grid gap-6 md:grid-cols-3">
         {SERVICES.map((s) => <ServiceCard key={s.slug} s={s} />)}
       </section></div>

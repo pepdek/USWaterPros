@@ -219,6 +219,7 @@ export function StickyBookCta() {
   if (!show) return null;
   return (
     <div className="md:hidden fixed bottom-0 inset-x-0 z-40 p-3 bg-navy">
+      <Link href="/quiz" className="block text-center text-xs text-white underline mb-2">Not sure which system? Take the quiz →</Link>
       <a href="#quote" className="btn btn-aqua w-full">Schedule Consultation</a>
     </div>
   );

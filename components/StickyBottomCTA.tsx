@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { PHONE, PHONE_HREF, SMS_HREF } from '@/lib/constants';
 
 // Two buttons only. Mobile: Text Us (primary) + Call Us (secondary). Desktop: Schedule Consultation (primary) + phone number (secondary).
@@ -14,8 +15,9 @@ export default function StickyBottomCTA() {
   if (done) return null;
   return (
     <>
-      <div className="md:hidden h-28" />
+      <div className="md:hidden h-36" />
       <div className="fixed bottom-0 inset-x-0 z-40 md:static md:max-w-6xl md:mx-auto md:my-12 bg-navy text-white p-3 md:p-8 md:rounded-xl text-center md:flex md:items-center md:justify-between md:gap-6">
+        <Link href="/quiz" className="md:hidden block text-xs underline mb-2">Not sure which system? Take the quiz →</Link>
         <p className="text-sm md:text-lg font-semibold mb-2 md:mb-0">Your local water professional is standing by</p>
         <div className="flex flex-col items-center gap-1 md:items-end">
           <div className="flex gap-2 w-full md:hidden">

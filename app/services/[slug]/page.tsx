@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import QuizCta from '@/components/QuizCta';
 import LeadForm from '@/components/LeadForm';
 import {
   ServiceHero, BuyerDecisionTree, ContaminationChart, SystemDiagram, BeforeAfterSlider, PricingTimeline,
@@ -47,6 +48,7 @@ export default function ServicePage({ params }: Props) {
       <div className="mx-auto max-w-6xl px-4 py-12 grid gap-10 md:grid-cols-[3fr_2fr]">
         <div className="flex flex-col gap-14">
           <BuyerDecisionTree s={s} />
+          <QuizCta compact />
           <ContaminationChart s={s} />
           <SystemDiagram s={s} />
           <BeforeAfterSlider s={s} />

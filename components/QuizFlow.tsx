@@ -22,10 +22,10 @@ const BENEFIT: Record<string, string> = {
   'Private well water': 'Professional testing and custom filtration',
 };
 const RECS: Record<'softness' | 'purity' | 'both' | 'drinking', Rec> = {
-  softness: { name: 'Whole-Home Softener', price: 2199 },
-  purity: { name: 'Reverse Osmosis Drinking Water System', price: 899 },
-  both: { name: 'Dual System: Softener + RO', price: 2699 },
-  drinking: { name: 'RO Drinking Water System', price: 899 },
+  softness: { name: 'Whole-Home Softener', price: 2700 },
+  purity: { name: 'Reverse Osmosis Drinking Water System', price: 2700 },
+  both: { name: 'Dual System: Softener + RO', price: 2700 },
+  drinking: { name: 'RO Drinking Water System', price: 2700 },
 };
 const QUESTIONS: Partial<Record<Screen, Q>> = {
   q1: { key: 'location', title: 'Where is your home?', options: [['Tacoma, WA'], ['Puyallup, WA'], ['Bremerton, WA'], ['Port Orchard, WA'], ['Other']] },
