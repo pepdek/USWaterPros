@@ -5,7 +5,7 @@ import QuizCta from '@/components/QuizCta';
 import LeadForm from '@/components/LeadForm';
 import {
   ServiceHero, BuyerDecisionTree, ContaminationChart, SystemDiagram, BeforeAfterSlider, PricingTimeline,
-  ComparisonTable, MaintenanceFAQ, ServiceAreaCallout, CTASection, StickyBookCta,
+  ComparisonTable, MaintenanceFAQ, ServiceAreaCallout, CTASection,
 } from '@/components/service';
 import { MAINTENANCE, PRICE, SERVICES } from '@/lib/services';
 
@@ -78,7 +78,6 @@ export default function ServicePage({ params }: Props) {
           <Link href="/locations/kitsap-county" className="lowercase min-h-12 inline-flex items-center rounded-full bg-ice px-5 font-semibold text-navy">Kitsap County water guide</Link>
         </div>
       </section>
-      <StickyBookCta />
     </main>
   );
 }

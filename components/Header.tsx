@@ -52,7 +52,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-ripple border-b border-black/5">
       <div className={`mx-auto max-w-6xl px-4 flex items-center justify-between gap-3 transition-all ${scrolled ? 'h-14' : 'h-16'}`}>
-        <Link href="/" className="font-serif text-2xl font-bold text-navy flex items-center gap-1.5 shrink-0"><span className="text-aqua"><Icon name="drop" size={22} /></span>US Water <span className="text-aqua">Pros</span></Link>
+        <Link href="/" className="font-serif text-lg md:text-2xl font-bold text-navy flex items-center gap-1 md:gap-1.5 shrink-0"><span className="text-aqua"><Icon name="drop" size={18} /></span>US Water <span className="text-aqua">Pros</span></Link>
 
         <nav aria-label="Main" className={`${scrolled ? 'hidden' : 'hidden md:flex'} items-center gap-6 text-sm`}>
           <Dropdown label="Services" links={SERVICE_LINKS} />
@@ -61,7 +61,10 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <a href={PHONE_HREF} className="btn btn-navy !px-3 sm:!px-6"><span className="sm:hidden">Call</span><span className="hidden sm:inline">{PHONE}</span></a>
+          <a href={PHONE_HREF} aria-label={`Call ${PHONE}`} className="btn btn-navy !px-0 w-12 sm:!px-6 sm:w-auto">
+            <svg className="sm:hidden" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z" /></svg>
+            <span className="hidden sm:inline">{PHONE}</span>
+          </a>
           <a href="#quote" className="btn btn-aqua hidden md:inline-flex">Schedule Consultation</a>
           <button type="button" aria-label="Open menu" aria-expanded={menu} onClick={() => setMenu(true)}
             className={`${scrolled ? 'inline-flex' : 'md:hidden inline-flex'} min-h-12 min-w-12 items-center justify-center text-navy`}>
@@ -69,6 +72,8 @@ export default function Header() {
           </button>
         </div>
       </div>
+
+      <Link href="/quiz" className="md:hidden block text-center text-xs font-semibold text-navy bg-ice py-2 underline">Not sure which system?</Link>
 
       {menu && (
         <div role="dialog" aria-modal="true" aria-label="Menu" className="fixed inset-0 z-[60] bg-white overflow-y-auto">

@@ -205,22 +205,3 @@ export function CTASection() {
     </section>
   );
 }
-
-// One sticky button, mobile only: appears after scrolling past the hero, hides once a lead is submitted.
-export function StickyBookCta() {
-  const [show, setShow] = useState(false);
-  useEffect(() => {
-    const on = () => setShow(window.scrollY > 500);
-    const off = () => setShow(false);
-    window.addEventListener('scroll', on, { passive: true });
-    window.addEventListener('lead-submitted', off);
-    return () => { window.removeEventListener('scroll', on); window.removeEventListener('lead-submitted', off); };
-  }, []);
-  if (!show) return null;
-  return (
-    <div className="md:hidden fixed bottom-0 inset-x-0 z-40 p-3 bg-navy">
-      <Link href="/quiz" className="block text-center text-xs text-white underline mb-2">Not sure which system? Take the quiz →</Link>
-      <a href="#quote" className="btn btn-aqua w-full">Schedule Consultation</a>
-    </div>
-  );
-}
