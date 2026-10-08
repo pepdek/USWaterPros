@@ -8,6 +8,7 @@ const BASE = 'https://uswaterpros.com';
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     '/',
+    '/quiz',
     ...SERVICES.map((s) => `/services/${s.slug}`),
     ...LOCATIONS.map((l) => `/locations/${l.slug}`),
     ...CITIES.map((c) => `/services/whole-home-water-filtration-${c.slug}`),
