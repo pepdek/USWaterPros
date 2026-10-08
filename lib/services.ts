@@ -6,7 +6,7 @@ type Treat = { icon: string; item: string; how: string };
 type Stage = { title: string; what: string; removes: string };
 
 export type Service = {
-  slug: string; name: string; icon: string; blurb: string;
+  slug: string; image: string; imageAlt: string; name: string; icon: string; blurb: string;
   h1: string; sub: string; summary: string;
   problems: Problem[]; treats: Treat[]; stages: Stage[];
   before: string; after: string;
@@ -19,7 +19,7 @@ export const PRICE = '$2,700';
 
 export const SERVICES: Service[] = [
   {
-    slug: 'whole-home-water-filtration', name: 'Whole-Home Water Filtration', icon: 'house',
+    slug: 'whole-home-water-filtration', image: '/images/services/whole-home-water-filtration.webp', imageAlt: 'Whole-home water filtration system with carbon filter tank and brine tank', name: 'Whole-Home Water Filtration', icon: 'house',
     blurb: 'Clean, great-tasting water from every tap. Protect your pipes and appliances.',
     h1: 'Whole-Home Water Filtration to Remove Chlorine, Sediment & Odors',
     sub: 'Clean water from every tap. Fixed price: $2,700 installed by licensed technicians in about 4 hours.',
@@ -53,7 +53,7 @@ export const SERVICES: Service[] = [
     stat: 'Most US public water systems disinfect with chlorine or chloramine.', cite: ['epaDbp'],
   },
   {
-    slug: 'water-softening-systems', name: 'Water Softening Systems', icon: 'drop',
+    slug: 'water-softening-systems', image: '/images/services/water-softening-systems.webp', imageAlt: 'Water softener system with brine tank and reverse osmosis drinking water faucet', name: 'Water Softening Systems', icon: 'drop',
     blurb: 'Say goodbye to limescale, spotty dishes and dry skin. Softer water, lower bills.',
     h1: 'Water Softening Systems to Stop Hard Water Scale & Dry Skin',
     sub: 'Softer water, cleaner fixtures. Fixed price: $2,700 installed by licensed technicians in about 4 hours.',
@@ -86,7 +86,7 @@ export const SERVICES: Service[] = [
     stat: 'An estimated 85% of US homes have hard water.', cite: ['usgs', 'wqa'],
   },
   {
-    slug: 'well-water-treatment', name: 'Well Water Treatment', icon: 'flask',
+    slug: 'well-water-treatment', image: '/images/services/well-water-treatment.webp', imageAlt: 'Well water treatment system with softener tank, carbon tank and chemical feed', name: 'Well Water Treatment', icon: 'flask',
     blurb: 'Fix iron staining, sulfur smell and sediment. Safe, clean well water without boiling.',
     h1: 'Well Water Treatment to Fix Iron Staining, Sulfur Smell & Sediment',
     sub: 'Clean, safe well water. Fixed price: $2,700 installed by licensed technicians in about 4 hours.',
@@ -120,7 +120,7 @@ export const SERVICES: Service[] = [
     stat: 'Private wells are not regulated by the EPA, so testing is up to the owner.', cite: ['epaWells'],
   },
   {
-    slug: 'reverse-osmosis-systems', name: 'Reverse Osmosis Systems', icon: 'glass',
+    slug: 'reverse-osmosis-systems', image: '/images/services/reverse-osmosis-systems.webp', imageAlt: 'Five-stage reverse osmosis drinking water system with storage tank', name: 'Reverse Osmosis Systems', icon: 'glass',
     blurb: 'Bottled-water quality from your kitchen faucet. Stop buying jugs.',
     h1: 'Reverse Osmosis Drinking Water Systems for Clean, Great-Tasting Water',
     sub: 'Premium drinking water on tap. Fixed price: $2,700 installed by licensed technicians in about 4 hours.',
@@ -154,7 +154,7 @@ export const SERVICES: Service[] = [
     stat: 'Health agencies list reverse osmosis among the home treatments for PFAS.', cite: ['mdhPfas'],
   },
   {
-    slug: 'carbon-filtration', name: 'Carbon Filtration', icon: 'layers',
+    slug: 'carbon-filtration', image: '/images/services/carbon-filtration.webp', imageAlt: 'Activated carbon filter tank cutaway', name: 'Carbon Filtration', icon: 'layers',
     blurb: 'Fresh-tasting water with no chlorine smell. A simple, affordable upgrade.',
     h1: 'Carbon Filtration to Remove Chlorine Taste & Odors',
     sub: 'Fresh taste, simple system. Fixed price: $2,700 installed by licensed technicians in about 4 hours.',
@@ -187,7 +187,7 @@ export const SERVICES: Service[] = [
     stat: 'Most city water is disinfected with chlorine or chloramine.', cite: ['epaDbp'],
   },
   {
-    slug: 'city-water-treatment', name: 'City Water Treatment', icon: 'building',
+    slug: 'city-water-treatment', image: '/images/services/city-water-treatment.webp', imageAlt: 'City water treatment system with softener tank, carbon tank and brine tank', name: 'City Water Treatment', icon: 'building',
     blurb: 'Municipal water is safe to drink, not always good to drink. Upgrade it at home.',
     h1: 'City Water Treatment to Reduce Chlorine & Improve Taste',
     sub: 'Better tasting city water. Fixed price: $2,700 installed by licensed technicians in about 4 hours.',

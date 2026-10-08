@@ -7,6 +7,7 @@ import { MAINTENANCE as MAINT, PRICE, type Service } from '@/lib/services';
 import type { SourceId } from '@/lib/sources';
 import { CITIES } from '@/lib/cities';
 import Link from 'next/link';
+import Image from 'next/image';
 import Breadcrumb from '@/components/Breadcrumb';
 
 const Check = ({ children }: { children: React.ReactNode }) => <li className="flex gap-2"><span className="text-aqua font-bold">✓</span>{children}</li>;
@@ -22,9 +23,8 @@ export function ServiceHero({ s }: { s: Service }) {
           <a href="#quote" className="btn btn-navy mt-6 w-full md:w-auto">Schedule Consultation</a>
           <p className="mt-3 text-sm text-navy font-semibold">No credit card | Licensed technician | 15 minutes | Fixed price quote</p>
         </div>
-        {/* ponytail: illustration, not a photo. Swap for a real install photo when you have one. */}
-        <div className="hidden md:flex relative rounded-xl bg-navy/30 aspect-[4/3] items-center justify-center text-white/80" role="img" aria-label={`${s.name} illustration`}>
-          <Icon name={s.icon} size={140} />
+        <div className="relative rounded-xl bg-white/90 h-56 md:h-auto md:aspect-[4/3]">
+          <Image src={s.image} alt={s.imageAlt} fill priority sizes="(min-width: 768px) 40vw, 90vw" className="object-contain p-4" />
         </div>
       </div>
     </section>
