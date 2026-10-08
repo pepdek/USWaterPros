@@ -2,7 +2,14 @@
 :root { --aqua:#00C853; --navy:#0A192F; --ripple:#F8F9FA; --ice:#E0F7FA; --coral:#FF6F61; --color-primary: var(--aqua); --color-accent: var(--navy); }
 body { background: var(--ripple); color: color-mix(in srgb, var(--navy) 80%, transparent); font-size: 14px; line-height: 24px; }
 @media (min-width: 768px) { body { font-size: 16px; } }
-h1, h2, h3 { font-family: var(--font-serif), Georgia, serif; color: var(--navy); font-weight: 700; letter-spacing: -0.02em; }
+/* Body copy */
+p { font-family: var(--font-body), 'Lato', sans-serif; font-size: 1.125rem; line-height: 1.556; margin: 0; padding: 0.75rem 0; }
+/* Small print (text-xs / text-sm utilities set the size) keeps tight spacing */
+p[class*="text-xs"], p[class*="text-sm"] { padding: 0.25rem 0; }
+/* Serif is for H1 and H2 only. Everything else is Inter. */
+h1, h2 { font-family: var(--font-serif), Georgia, serif; letter-spacing: -0.02em; }
+h1, h2, h3 { color: var(--navy); font-weight: 700; }
+h3 { font-family: var(--font-sans), system-ui, sans-serif; letter-spacing: normal; }
 h1 { font-size: 28px; line-height: 1.15; } @media (min-width: 768px) { h1 { font-size: 48px; line-height: 56px; } }
 h2 { font-size: 28px; line-height: 1.2; }
 input, select { font-size: 16px; min-height: 48px; }

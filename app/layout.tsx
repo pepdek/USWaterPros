@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
-import { Instrument_Serif, Inter } from 'next/font/google';
+import { Instrument_Serif, Inter, Lato } from 'next/font/google';
 import './globals.css';
 import QuizPrompts from '@/components/QuizPrompts';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
 const serif = Instrument_Serif({ subsets: ['latin'], weight: '400', variable: '--font-serif' });
+const lato = Lato({ subsets: ['latin'], weight: ['400', '700'], variable: '--font-body' });
 const sans = Inter({ subsets: ['latin'], weight: ['400', '600', '700'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
@@ -20,7 +21,7 @@ const PH = process.env.NEXT_PUBLIC_POSTHOG_KEY;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${serif.variable} ${sans.variable}`}>
+    <html lang="en" className={`${serif.variable} ${sans.variable} ${lato.variable}`}>
       <body className="font-sans">
         <Header />
         {children}

@@ -78,7 +78,7 @@ export default function Header() {
       {menu && (
         <div role="dialog" aria-modal="true" aria-label="Menu" className="fixed inset-0 z-[60] bg-white overflow-y-auto">
           <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
-            <span className="font-serif text-2xl font-bold text-navy">Menu</span>
+            <span className="text-2xl font-bold text-navy">Menu</span>
             <button type="button" aria-label="Close menu" onClick={close} className="min-h-12 min-w-12 inline-flex items-center justify-center text-navy">
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M5 5l14 14M19 5L5 19" /></svg>
             </button>
@@ -86,11 +86,11 @@ export default function Header() {
           <div className="mx-auto max-w-6xl px-4 pb-10 flex flex-col gap-6">
             {([['Services', SERVICE_LINKS], ['Service Areas', AREA_LINKS]] as [string, string[][]][]).map(([h, links]) => (
               <div key={h}>
-                <p className="font-serif text-xl font-bold text-navy">{h}</p>
+                <p className="text-xl font-bold text-navy">{h}</p>
                 {links.map(([t, href]) => <Link key={href} href={href} onClick={close} className="block min-h-12 py-3 text-navy hover:text-aqua">{t}</Link>)}
               </div>
             ))}
-            <Link href="/#process" onClick={close} className="font-serif text-xl font-bold text-navy min-h-12">Process</Link>
+            <Link href="/#process" onClick={close} className="text-xl font-bold text-navy min-h-12">Process</Link>
             <a href={PHONE_HREF} className="btn btn-navy">{PHONE}</a>
             <a href="#quote" onClick={close} className="btn btn-aqua">Schedule Consultation</a>
           </div>

@@ -201,7 +201,7 @@ export default function QuizFlow() {
           <h2>{headline(r.currentSituation)}</h2>
           <div className="card p-6 !transform-none border-t-4 border-[var(--color-primary)]">
             <p className="text-sm font-semibold uppercase tracking-wide">{well ? 'Your custom recommendation' : 'Your recommended system'}</p>
-            <p className="font-serif text-2xl font-bold text-[var(--color-accent)] mt-1">{rec.name}</p>
+            <p className="text-2xl font-bold text-[var(--color-accent)] mt-1">{rec.name}</p>
             <p className="text-3xl font-bold text-[var(--color-accent)]">{rec.range ?? `$${rec.price.toLocaleString()}`} <span className="text-sm font-normal">{well ? 'depending on your well' : 'installed'}</span></p>
             <ul className="mt-3 flex flex-col gap-1">
               {well && <><li>✓ We’ll test your water for iron, sulfur, and hardness levels</li><li>✓ Inspector consultation included</li></>}
