@@ -263,3 +263,19 @@ export function LeanLinks() {
     </section>
   );
 }
+
+export function InstallGallery({ s }: { s: Service }) {
+  if (!s.gallery) return null;
+  return (
+    <section>
+      <h2>Recent Installs</h2>
+      <div className="mt-6 grid grid-cols-2 gap-4">
+        {s.gallery.map(([src, alt]) => (
+          <div key={src} className="relative aspect-[3/4] rounded-xl overflow-hidden">
+            <Image src={src} alt={alt} fill sizes="(min-width: 768px) 25vw, 45vw" className="object-cover" />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}

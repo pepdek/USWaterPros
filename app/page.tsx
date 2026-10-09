@@ -8,9 +8,9 @@ import ReportCta from '@/components/ReportCta';
 import QuizCta from '@/components/QuizCta';
 import Faq from '@/components/Faq';
 import { LOCATIONS } from '@/lib/locations';
-import Icon from '@/components/Icon';
 import { PILLS, SERVICES } from '@/lib/services';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const STEPS = [
   ['Water Quality Review', 'We discuss your home’s water source, concerns, and goals to better understand what type of filtration or treatment solution may be right for you.'],
@@ -43,7 +43,7 @@ export default function Home() {
           </ol>
         </div>
         {/* placeholder: swap for a real image */}
-        <div className="rounded-xl bg-ice min-h-[320px] md:min-h-[480px] flex items-center justify-center text-aqua" role="img" aria-label="Image placeholder"><Icon name="house" size={96} /></div>
+        <div className="relative rounded-xl overflow-hidden aspect-[3/4] md:aspect-auto md:min-h-[480px] md:h-full"><Image src="/images/installs/softener-carbon-garage.jpg" alt="Black filter tank with digital control head and brine tank installed in a garage" fill sizes="(min-width: 768px) 45vw, 92vw" className="object-cover" /></div>
       </section>
       <section id="areas" className="mx-auto max-w-6xl px-4 py-10 text-center">
         <h2>Serving Western Washington</h2>

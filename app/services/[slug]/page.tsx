@@ -6,7 +6,7 @@ import QuizCta from '@/components/QuizCta';
 import LeadForm from '@/components/LeadForm';
 import {
   ServiceHero, BuyerDecisionTree, ContaminationChart, SystemDiagram, BeforeAfterSlider, PricingTimeline,
-  ComparisonTable, MaintenanceFAQ, ServiceAreaCallout, CTASection, UnfaqSection, LeanLinks,
+  ComparisonTable, MaintenanceFAQ, ServiceAreaCallout, CTASection, UnfaqSection, LeanLinks, InstallGallery,
 } from '@/components/service';
 import { MAINTENANCE, SERVICES, UAQ_SHARED } from '@/lib/services';
 import { PRICING, TAX_NOTE, flagshipPrice } from '@/lib/pricing';
@@ -65,6 +65,7 @@ export default function ServicePage({ params }: Props) {
           <SystemDiagram s={s} />
           <BeforeAfterSlider s={s} />
           <PricingTimeline s={s} />
+          <InstallGallery s={s} />
         </div>
         <aside id="quote" className="[@media(min-width:768px)_and_(min-height:900px)]:sticky top-24 self-start scroll-mt-24"><LeadForm service={s.slug} /></aside>
       </div>

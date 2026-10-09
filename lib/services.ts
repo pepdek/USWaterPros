@@ -14,6 +14,7 @@ export type Service = {
   problems: Problem[]; treats: Treat[]; stages: Stage[];
   before: string; after: string;
   faqs: [string, string][]; related: string[];
+  gallery?: [src: string, alt: string][]; // real install photos
   lean?: boolean; // skips the shared install/warranty/area blocks (they live on the whole-home page)
   uaq?: [string, string]; // service-specific "Questions People Rarely Ask" entry
   stat: string; cite: SourceId[];
@@ -57,6 +58,7 @@ export const SERVICES: Service[] = [
       ['Will this help if my water tests high for PFOA or PFAS?', 'Partly, and it depends on the compound. Carbon reduces some PFAS but not all of them. Health agencies list reverse osmosis among the home treatments for PFAS, so we pair it at the kitchen tap if that is your concern. A lab test shows what is actually in your water, and we are straight about what a filter can and cannot do.'],
     ],
     uaq: ['Why shouldn’t I just use a pitcher filter?', 'A pitcher filters one glass at a time. Your shower, washing machine, dishwasher and water heater still get unfiltered water, and showers are where you breathe in chlorine. A pitcher is like taking vitamins while eating fast food. Whole-home treats the water everywhere it is used.'],
+    gallery: [['/images/installs/dual-tank-garage.jpg', 'Two black filter tanks with a control head and brine tank installed against a garage wall'], ['/images/installs/softener-garage-small.jpg', 'Water softener tank and brine tank installed in a garage next to a water heater']],
     related: ['reverse-osmosis-systems', 'water-softening-systems', 'carbon-filtration'],
     stat: 'Most US public water systems disinfect with chlorine or chloramine.', cite: ['epaDbp'],
   },
@@ -92,6 +94,7 @@ export const SERVICES: Service[] = [
       ['Does a softener remove chlorine or make water safe to drink?', 'No. A softener treats hardness only. For chlorine taste we add carbon filtration, and for drinking water reverse osmosis.'],
       ['Will softened water taste salty?', 'No. Softened water does not taste salty, and the system is sized so it does not.'],
     ],
+    gallery: [['/images/installs/softener-garage-light.jpg', 'Black resin tank with digital control head and brine tank installed in a garage'], ['/images/installs/tank-garage-angle.jpg', 'Water treatment tank with control valve plumbed to the wall of a garage']],
     lean: true,
     uaq: ['Isn’t softened water bad for you?', 'Not for most people. Softened water does not taste salty, and the system is sized so it does not. Softening adds a small amount of sodium, so if you are on a strict low-sodium diet, ask your doctor. Our whole-home system also includes a reverse osmosis faucet for drinking water.'],
     related: ['whole-home-water-filtration', 'well-water-treatment', 'carbon-filtration'],
@@ -131,6 +134,7 @@ export const SERVICES: Service[] = [
       ['How often should I test my well?', 'Local health districts recommend testing for bacteria every year and nitrate every three years.'],
       ['Will this make my well water safe to drink?', 'It treats what your test finds, including iron, sulfur and bacteria. If your test shows other contaminants, we recommend an add-on such as reverse osmosis.'],
     ],
+    gallery: [['/images/installs/dual-tank-garage.jpg', 'Two black treatment tanks with a control head and brine tank installed against a garage wall'], ['/images/installs/tank-garage-angle.jpg', 'Water treatment tank with control valve plumbed to the wall of a garage']],
     lean: true,
     uaq: ['My well has been fine for 20 years. Why test now?', `Because wells change, and you can’t see most of what matters. Health districts recommend testing for bacteria every year and nitrate every three years even when the water looks fine. Our ${formatUSD(PRICING.wellTest.basic.displayPrice)} basic test checks nitrate and coliform bacteria, and it is credited toward your install.`],
     related: ['whole-home-water-filtration', 'water-softening-systems', 'reverse-osmosis-systems'],
@@ -168,6 +172,7 @@ export const SERVICES: Service[] = [
       ['How does RO compare to a pitcher filter?', 'Pitcher filters mainly reduce taste and odor. RO also reduces many dissolved contaminants that pitchers do not, such as lead and PFAS, depending on the filter.'],
       ['Will RO treat my whole house?', 'No, RO is for drinking and cooking water at the kitchen. For the whole house we pair it with whole-home filtration.'],
     ],
+    gallery: [['/images/installs/ro-under-sink.jpg', 'Reverse osmosis system with storage tank and filters installed under a kitchen sink'], ['/images/installs/ro-faucet-sink.jpg', 'Dedicated reverse osmosis drinking water faucet running at a kitchen sink'], ['/images/installs/ro-faucet-countertop.jpg', 'Reverse osmosis faucet dispensing water into a countertop sink'], ['/images/installs/ro-faucet-kitchen.jpg', 'Reverse osmosis faucet installed next to a kitchen sink']],
     related: ['whole-home-water-filtration', 'carbon-filtration', 'city-water-treatment'],
     stat: 'Health agencies list reverse osmosis among the home treatments for PFAS.', cite: ['mdhPfas'],
   },
@@ -236,6 +241,7 @@ export const SERVICES: Service[] = [
       ['Isn’t city water already treated?', 'Yes, it is treated and tested. Treatment at home addresses what is left, mainly taste, smell and anything picked up from older plumbing.'],
       ['Will this remove lead?', 'A carbon system alone does not. Reverse osmosis at the kitchen tap reduces lead, so we add it if you are in an older home.'],
     ],
+    gallery: [['/images/installs/softener-carbon-garage.jpg', 'Black filter tank with digital control head and brine tank installed in a garage'], ['/images/installs/softener-garage-small.jpg', 'Water softener tank and brine tank installed in a garage next to a water heater']],
     related: ['carbon-filtration', 'reverse-osmosis-systems', 'whole-home-water-filtration'],
     stat: 'Homes built before 1986 may have lead pipes, solder or fixtures.', cite: ['epaLead'],
   },
