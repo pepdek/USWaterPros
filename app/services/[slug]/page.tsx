@@ -6,9 +6,9 @@ import QuizCta from '@/components/QuizCta';
 import LeadForm from '@/components/LeadForm';
 import {
   ServiceHero, BuyerDecisionTree, ContaminationChart, SystemDiagram, BeforeAfterSlider, PricingTimeline,
-  ComparisonTable, MaintenanceFAQ, ServiceAreaCallout, CTASection,
+  ComparisonTable, MaintenanceFAQ, ServiceAreaCallout, CTASection, UnfaqSection, LeanLinks,
 } from '@/components/service';
-import { MAINTENANCE, SERVICES } from '@/lib/services';
+import { MAINTENANCE, SERVICES, UAQ_SHARED } from '@/lib/services';
 import { PRICING, TAX_NOTE, flagshipPrice } from '@/lib/pricing';
 
 type Props = { params: { slug: string } };
@@ -26,13 +26,14 @@ export function generateMetadata({ params }: Props): Metadata {
 export default function ServicePage({ params }: Props) {
   const s = find(params.slug);
   if (!s) notFound();
-  const faqs: [string, string][] = [
+  const faqs: [string, string][] = s.lean ? [...s.faqs, ...(s.uaq ? [s.uaq, ...UAQ_SHARED] : [])] : [
     ...s.faqs,
     ['What’s the installation process like?', 'Our technician arrives, shuts off your water for about 4 hours, installs the system, pressure tests it and makes sure everything flows correctly. You are back to normal water use that day.'],
     ['What warranty do you offer?', 'A 1-year warranty on all equipment, plus our satisfaction guarantee: if you are not happy, we will adjust or replace.'],
     ['Can you service my existing system?', 'Yes. We can maintain or upgrade any water system. We assess it during your free consultation.'],
     ['Do you serve my area?', 'Yes. We serve Tacoma, Puyallup, Bremerton, Port Orchard, Olympia, Lacey and surrounding areas.'],
     ...MAINTENANCE,
+    ...(s.uaq ? [s.uaq, ...UAQ_SHARED] : []),
   ];
   const offer = (name: string, price: number, description: string) => ({ '@type': 'Offer', name, price, priceCurrency: 'USD', description, itemOffered: { '@type': 'Service', name } });
   const offers =
@@ -68,11 +69,11 @@ export default function ServicePage({ params }: Props) {
         <aside id="quote" className="[@media(min-width:768px)_and_(min-height:900px)]:sticky top-24 self-start scroll-mt-24"><LeadForm service={s.slug} /></aside>
       </div>
       {s.kind === 'flagship' && <ComparisonTable s={s} />}
-      <MaintenanceFAQ />
+      {!s.lean && <MaintenanceFAQ />}
       <section className="mx-auto max-w-6xl px-4 pb-12">
         <h2>Frequently Asked Questions</h2>
         <div className="mt-6 md:grid md:grid-cols-2 md:items-start md:[&>details:nth-child(odd)]:pr-8 md:[&>details:nth-child(even)]:pl-8 md:[&>details:nth-child(even)]:border-l md:[&>details:nth-child(even)]:border-l-black/10">
-        {s.faqs.concat(faqs.slice(s.faqs.length, s.faqs.length + 4)).map(([q, a]) => (
+        {(s.lean ? s.faqs : s.faqs.concat(faqs.slice(s.faqs.length, s.faqs.length + 4))).map(([q, a]) => (
           <details key={q} className="border-b border-black/10 py-3">
             <summary className="cursor-pointer min-h-12 flex items-center"><h3 className="text-lg !font-sans !tracking-normal">{q}</h3></summary>
             <p className="pb-2">{a}</p>
@@ -81,7 +82,8 @@ export default function ServicePage({ params }: Props) {
         </div>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       </section>
-      <ServiceAreaCallout />
+      <UnfaqSection s={s} />
+      {s.lean ? <LeanLinks /> : <ServiceAreaCallout />}
       <CTASection />
       <section className="mx-auto max-w-6xl px-4 py-10">
         <h2 className="text-2xl">Also interested in</h2>

@@ -14,6 +14,8 @@ export type Service = {
   problems: Problem[]; treats: Treat[]; stages: Stage[];
   before: string; after: string;
   faqs: [string, string][]; related: string[];
+  lean?: boolean; // skips the shared install/warranty/area blocks (they live on the whole-home page)
+  uaq?: [string, string]; // service-specific "Questions People Rarely Ask" entry
   stat: string; cite: SourceId[];
 };
 
@@ -49,9 +51,12 @@ export const SERVICES: Service[] = [
     after: 'Clear, fresh-tasting water at every faucet, shower and appliance.',
     faqs: [
       ['Is whole-home filtration right for city water or well water?', 'It works for both. City water is usually about chlorine taste. On a well we recommend a water test first, because wells often need iron or bacteria treatment too.'],
-      ['How does whole-home filtration compare to a pitcher or faucet filter?', 'Pitchers and faucet filters treat one tap. Whole-home filtration treats every tap, shower and appliance, so you also get chlorine-free showers.'],
-      ['Will this remove hard water minerals?', 'No. A filter does not soften water. If you also have scale, we pair it with a softener.'],
+      ['Will this remove hard water minerals?', 'Yes. The whole-home system includes a water softener (resin and brine) alongside the carbon filter, so scale-causing calcium and magnesium are treated too.'],
+      ['Will whole-home filtration remove fluoride?', 'No. Carbon media removes chlorine, taste, odor and many chemicals, but not fluoride. If removing fluoride is your goal, a reverse osmosis faucet for drinking water is the right tool, and our whole-home system includes one.'],
+      ['What’s the difference between your system and a cheap hardware-store filter?', 'Cartridge filters are small, so water passes through the carbon quickly and the cartridge clogs and needs frequent swaps. Ours uses a full-size carbon tank with an automatic control valve that backwashes the bed to keep it from clogging. How long the media lasts depends on your water and usage, and we will tell you what to expect after a look at your water.'],
+      ['Will this help if my water tests high for PFOA or PFAS?', 'Partly, and it depends on the compound. Carbon reduces some PFAS but not all of them. Health agencies list reverse osmosis among the home treatments for PFAS, so we pair it at the kitchen tap if that is your concern. A lab test shows what is actually in your water, and we are straight about what a filter can and cannot do.'],
     ],
+    uaq: ['Why shouldn’t I just use a pitcher filter?', 'A pitcher filters one glass at a time. Your shower, washing machine, dishwasher and water heater still get unfiltered water, and showers are where you breathe in chlorine. A pitcher is like taking vitamins while eating fast food. Whole-home treats the water everywhere it is used.'],
     related: ['reverse-osmosis-systems', 'water-softening-systems', 'carbon-filtration'],
     stat: 'Most US public water systems disinfect with chlorine or chloramine.', cite: ['epaDbp'],
   },
@@ -59,8 +64,8 @@ export const SERVICES: Service[] = [
     kind: 'component',
     slug: 'water-softening-systems', image: '/images/services/water-softening-systems.webp', imageAlt: 'Water softener system with brine tank and reverse osmosis drinking water faucet', name: 'Water Softening Systems', icon: 'drop',
     blurb: 'Say goodbye to limescale, spotty dishes and dry skin. Softer water, lower bills.',
-    h1: 'Water Softening Systems to Stop Hard Water Scale & Dry Skin',
-    sub: 'Softer water, cleaner fixtures. Installed as part of our whole-home water system.',
+    h1: 'Why Your Whole-Home System Includes Water Softening',
+    sub: 'Softening is always included in our whole-home system. Here is why.',
     summary: 'Water softening for scale, spotty dishes and dry skin, installed as part of our whole-home water system. Licensed technicians in Washington.',
     problems: [
       { icon: 'building', problem: 'White scale on faucets, showerheads and glass', solution: 'Ion exchange resin removes the calcium and magnesium that cause scale', outcome: 'Fixtures stay clean and cleaning gets easier' },
@@ -82,10 +87,13 @@ export const SERVICES: Service[] = [
     before: 'Scale crusted on a faucet and spots on glass. This is hard water at work.',
     after: 'Clean fixtures and clear glass, with far less scrubbing.',
     faqs: [
-      ['Is a water softener right for city water or well water?', 'Both. Hardness comes from your source, not whether it is city or well. A quick test shows how hard your water is.'],
+      ['Does my water actually need softening?', 'It depends on your source. Surface-sourced supplies such as Tacoma Water are generally soft, while groundwater and well water vary from one neighborhood and one well to the next. A quick hardness test tells you, and if yours is low we will say so.'],
+      ['What does scale cost me compared with a softener?', 'Scale builds up on heating elements and inside your water heater, which makes it work harder and can shorten its life. Replacing a water heater is a big expense, so preventing scale is one of the better reasons to soften hard water. If your water is not hard, you don’t need one.'],
       ['Does a softener remove chlorine or make water safe to drink?', 'No. A softener treats hardness only. For chlorine taste we add carbon filtration, and for drinking water reverse osmosis.'],
       ['Will softened water taste salty?', 'No. Softened water does not taste salty, and the system is sized so it does not.'],
     ],
+    lean: true,
+    uaq: ['Isn’t softened water bad for you?', 'Not for most people. Softened water does not taste salty, and the system is sized so it does not. Softening adds a small amount of sodium, so if you are on a strict low-sodium diet, ask your doctor. Our whole-home system also includes a reverse osmosis faucet for drinking water.'],
     related: ['whole-home-water-filtration', 'well-water-treatment', 'carbon-filtration'],
     stat: 'An estimated 85% of US homes have hard water.', cite: ['usgs', 'wqa'],
   },
@@ -117,10 +125,14 @@ export const SERVICES: Service[] = [
     before: 'Orange staining and discolored water from iron in the well.',
     after: 'Clear water and clean fixtures once the iron is filtered out.',
     faqs: [
-      ['Is this treatment right for my well?', 'Almost certainly, but wells vary a lot, so we test first. Your results decide which stages we install.'],
+      ['Why test my well if it has been fine for years?', 'Well water changes. Drought and a falling water table, nearby construction, an aging well casing or bacteria growth can all shift what comes out of the tap. A test shows what you have now, not what you had years ago.'],
+      ['What’s the difference between iron staining and rust?', 'Dissolved iron is clear in the glass, then stains orange when it meets air. Rust is iron that is already oxidized, which is why the water looks red or brown right away. The treatment differs slightly, and the test shows which one you have.'],
+      ['Can you fix sulfur (rotten egg) smell?', 'Usually. Hydrogen sulfide can come from the aquifer itself or from bacteria in the well, and we treat it where the water enters your home. If the smell keeps coming back, we may recommend disinfecting the well or taking a closer look at it. We explain this at your consultation.'],
       ['How often should I test my well?', 'Local health districts recommend testing for bacteria every year and nitrate every three years.'],
       ['Will this make my well water safe to drink?', 'It treats what your test finds, including iron, sulfur and bacteria. If your test shows other contaminants, we recommend an add-on such as reverse osmosis.'],
     ],
+    lean: true,
+    uaq: ['My well has been fine for 20 years. Why test now?', `Because wells change, and you can’t see most of what matters. Health districts recommend testing for bacteria every year and nitrate every three years even when the water looks fine. Our ${formatUSD(PRICING.wellTest.basic.displayPrice)} basic test checks nitrate and coliform bacteria, and it is credited toward your install.`],
     related: ['whole-home-water-filtration', 'water-softening-systems', 'reverse-osmosis-systems'],
     stat: 'Private wells are not regulated by the EPA, so testing is up to the owner.', cite: ['epaWells'],
   },
@@ -233,6 +245,13 @@ export const PILLS = [
   { label: 'Top Rated Services', href: '#services' },
   ...SERVICES.map((s) => ({ label: s.name, href: `/services/${s.slug}` })),
   { label: 'Emergency Repair', href: PHONE_HREF },
+];
+
+// "Questions people rarely ask but should": three shared entries plus one per service (service.uaq).
+export const UAQ_SHARED: [string, string][] = [
+  ['Why should I trust a local operator over a national brand?', 'National brands sell volume and rotate technicians. We have been here since 2009, and our reputation in Pierce, Kitsap and Thurston Counties depends on how your water turns out, not on a quarterly earnings call.'],
+  ['Will you try to upsell me into a system I don’t need?', 'We test first and recommend only what your water needs. A customer we served well who refers a neighbor is worth far more to us than one we oversold. The whole-home system is a fixed price, so there is no quote game to play.'],
+  ['What if I’m skeptical that I need water treatment at all?', 'Good. You should be. Schedule a consultation and we will look at your water. If the results show it is fine, we will tell you it is fine. Not every home needs treatment, and if yours does, you will see why in the data and the decision is yours.'],
 ];
 
 export const MAINTENANCE: [string, string][] = [

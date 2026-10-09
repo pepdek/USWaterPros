@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Icon from '@/components/Icon';
 import Sources from '@/components/Sources';
 import { PHONE, PHONE_HREF } from '@/lib/constants';
-import { MAINTENANCE as MAINT, type Service } from '@/lib/services';
+import { MAINTENANCE as MAINT, UAQ_SHARED, type Service } from '@/lib/services';
 import { ANNUAL_FILTERS, MARKET, PRICING, TAX_NOTE, flagshipPrice, formatRange, formatUSD, wellCredit } from '@/lib/pricing';
 import type { SourceId } from '@/lib/sources';
 import { CITIES } from '@/lib/cities';
@@ -154,7 +154,7 @@ export function PricingTimeline({ s }: { s: Service }) {
         {(s.kind === 'component' || s.kind === 'city') && (
           <div className="card p-8 md:p-10 !transform-none">
             <p className="text-xl font-bold text-ink">Installed as part of our whole-home system</p>
-            <p>This service is installed with the {PRICING.flagship.label}. {s.kind === 'city' ? 'We confirm exactly what your home needs at your free consultation.' : PRICING.headline}</p>
+            <p>{s.kind === 'city' ? <>This service is installed with the {PRICING.flagship.label}. We confirm exactly what your home needs at your free consultation.</> : <>Water softening is always included in our {formatUSD(PRICING.flagship.displayPrice)} whole-home system. Here’s why: softening works best with filtration. Hard water minerals vary around Pierce, Kitsap and Thurston Counties, and groundwater is more likely to be hard than surface-sourced supplies. Our whole-home approach treats hardness at the source while filtering the sediment and chlorine that can add to scale and wear.</>}</p>
             <Pill href={FLAGSHIP_HREF}>See the whole-home system</Pill>
           </div>
         )}
@@ -200,7 +200,7 @@ export function ComparisonTable({ s }: { s: Service }) {
 
 export function MaintenanceFAQ() {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-12">
+    <section id="after-installation" className="mx-auto max-w-6xl px-4 py-12 scroll-mt-24">
       <h2>What Happens After Installation?</h2>
       <div className="mt-6 md:grid md:grid-cols-2 md:items-start md:[&>details:nth-child(odd)]:pr-8 md:[&>details:nth-child(even)]:pl-8 md:[&>details:nth-child(even)]:border-l md:[&>details:nth-child(even)]:border-l-black/10">{MAINT.map(([q, a]) => (
         <details key={q} className="border-b border-black/10 py-3"><summary className="cursor-pointer font-semibold text-ink min-h-12 flex items-center">{q}</summary><p className="pb-2">{a}</p></details>
@@ -234,6 +234,32 @@ export function CTASection() {
         </div>
         <p className="mt-4 text-sm text-ink font-semibold">✓ Free consultation | ✓ Licensed technicians | ✓ Fixed price quote | ✓ No obligation</p>
       </div>
+    </section>
+  );
+}
+
+const ROW = 'md:grid md:grid-cols-2 md:items-start md:[&>div:nth-child(odd)]:pr-8 md:[&>div:nth-child(even)]:pl-8 md:[&>div:nth-child(even)]:border-l md:[&>div:nth-child(even)]:border-l-black/10';
+
+export function UnfaqSection({ s }: { s: Service }) {
+  if (!s.uaq) return null;
+  return (
+    <section className="mx-auto max-w-6xl px-4 pb-12">
+      <h2>Questions People Rarely Ask But Should</h2>
+      <div className={`mt-6 ${ROW}`}>
+        {[s.uaq, ...UAQ_SHARED].map(([q, a]) => (
+          <div key={q} className="border-b border-black/10 py-4"><h3 className="text-lg !font-sans !tracking-normal">{q}</h3><p className="mt-2">{a}</p></div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// Lean pages (well, softening) point to the whole-home page instead of repeating its install/warranty/area blocks.
+export function LeanLinks() {
+  return (
+    <section className="mx-auto max-w-6xl px-4 pb-12 flex flex-wrap gap-2">
+      <Link href="/services/whole-home-water-filtration#after-installation" className="min-h-12 inline-flex items-center rounded-full bg-ice px-5 font-semibold text-ink">See maintenance &amp; warranty details in our full FAQ</Link>
+      <Link href="/#areas" className="min-h-12 inline-flex items-center rounded-full bg-ice px-5 font-semibold text-ink">Service areas &amp; locations</Link>
     </section>
   );
 }
