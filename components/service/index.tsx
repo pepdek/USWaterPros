@@ -16,15 +16,15 @@ const Check = ({ children }: { children: React.ReactNode }) => <li className="fl
 export function ServiceHero({ s }: { s: Service }) {
   return (
     <section data-track-source="hero" className="bg-surge">
-      <div className="mx-auto max-w-6xl px-4 py-10 md:py-14 grid gap-8 md:grid-cols-[3fr_2fr] md:items-center md:min-h-[40vh]">
+      <div className="mx-auto max-w-6xl px-4 py-16 md:py-24 grid gap-10 md:gap-14 md:grid-cols-[3fr_2fr] md:items-center md:min-h-[40vh]">
         <div>
           <Breadcrumb items={[{ label: 'Services', href: '/#services' }, { label: s.name }]} />
           <h1 className="!text-white">{s.h1}</h1>
-          <p className="mt-4 text-navy text-lg md:text-xl font-semibold">{s.sub}</p>
-          <a href="#quote" className="btn btn-navy mt-6 w-full md:w-auto">Schedule Consultation</a>
-          <p className="mt-3 text-sm text-navy font-semibold">No credit card | Licensed technician | 15 minutes | Fixed price quote</p>
+          <p className="mt-4 text-white font-semibold">{s.sub}</p>
+          <a href="#quote" className="btn btn-cta mt-6 w-full md:w-auto">Schedule Consultation</a>
+          <p className="mt-3 text-sm text-white font-semibold">No credit card | Licensed technician | 15 minutes | Fixed price quote</p>
         </div>
-        <div className="relative rounded-xl bg-white/90 h-56 md:h-auto md:aspect-[4/3]">
+        <div className="relative rounded-3xl bg-white/80 backdrop-blur-xl h-56 md:h-auto md:aspect-[4/3]">
           <Image src={s.image} alt={s.imageAlt} fill priority sizes="(min-width: 768px) 40vw, 90vw" className="object-contain p-4" />
         </div>
       </div>
@@ -38,15 +38,15 @@ export function BuyerDecisionTree({ s }: { s: Service }) {
       <h2>Is This the Right Solution for Your Water?</h2>
       <div className="mt-6 grid gap-4 lg:grid-cols-3">
         {s.problems.map((p) => (
-          <div key={p.problem} className="card p-5 flex flex-col gap-2">
+          <div key={p.problem} className="card p-8 md:p-10 flex flex-col gap-2">
             <span className="text-aqua"><Icon name={p.icon} size={36} /></span>
-            <p className="font-semibold text-navy">You have: {p.problem}</p>
+            <p className="font-semibold text-ink">You have: {p.problem}</p>
             <p>{p.solution}.</p>
-            <p className="font-semibold text-navy">Result: {p.outcome}</p>
+            <p className="font-semibold text-ink">Result: {p.outcome}</p>
           </div>
         ))}
       </div>
-      <div className="mt-4 bg-ice rounded-lg p-4 border-l-4 border-coral text-navy">
+      <div className="mt-4 bg-ice rounded-2xl p-6 md:p-8 border-l-4 border-teal text-ink">
         <p className="font-semibold">{s.stat}</p>
         <Sources ids={s.cite as SourceId[]} className="mt-1" />
       </div>
@@ -62,7 +62,7 @@ export function ContaminationChart({ s }: { s: Service }) {
         {s.treats.map((t) => (
           <li key={t.item} className="flex items-center gap-3 bg-white rounded-lg p-3 shadow-[0_2px_10px_rgba(0,0,0,.05)]">
             <span className="text-aqua shrink-0"><Icon name={t.icon} size={32} /></span>
-            <span><span className="font-semibold text-navy block">{t.item}</span><span className="text-sm">{t.how}</span></span>
+            <span><span className="font-semibold text-ink block">{t.item}</span><span className="text-sm">{t.how}</span></span>
           </li>
         ))}
       </ul>
@@ -84,9 +84,9 @@ export function SystemDiagram({ s }: { s: Service }) {
               {i < steps.length - 1 && <span className="w-0.5 flex-1 bg-aqua min-h-6" />}
             </div>
             <div className="pb-5">
-              <p className="font-semibold text-navy">{st.title}</p>
+              <p className="font-semibold text-ink">{st.title}</p>
               {st.what && <p className="text-sm">{st.what}</p>}
-              {st.removes && <p className="text-sm text-navy">Removes or handles: <b>{st.removes}</b></p>}
+              {st.removes && <p className="text-sm text-ink">Removes or handles: <b>{st.removes}</b></p>}
             </div>
           </li>
         ))}
@@ -114,15 +114,15 @@ export function BeforeAfterSlider({ s, beforeSrc, afterSrc }: { s: Service; befo
       </div>
       {!beforeSrc && <p className="mt-1 text-xs">Illustration.</p>}
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        <p><b className="text-navy">Before:</b> {s.before}</p>
-        <p><b className="text-navy">After:</b> {s.after}</p>
+        <p><b className="text-ink">Before:</b> {s.before}</p>
+        <p><b className="text-ink">After:</b> {s.after}</p>
       </div>
     </section>
   );
 }
 
 const FLAGSHIP_HREF = '/services/whole-home-water-filtration';
-const Pill = ({ href, children }: { href: string; children: React.ReactNode }) => <Link href={href} className="btn btn-aqua mt-4">{children}</Link>;
+const Pill = ({ href, children }: { href: string; children: React.ReactNode }) => <Link href={href} className="btn btn-cta mt-4">{children}</Link>;
 
 export function PricingTimeline({ s }: { s: Service }) {
   const days = [['Day 1', 'Free 15-minute consultation and fixed-price quote'], ['Day 2–3', 'Schedule your installation'], ['Install day', 'About 4 hours with a licensed technician'], ['Day after', 'System testing completed'], ['Ongoing', `Annual filter replacements, about ${formatUSD(ANNUAL_FILTERS.low)}–${ANNUAL_FILTERS.high} a year`]];
@@ -131,42 +131,42 @@ export function PricingTimeline({ s }: { s: Service }) {
   return (
     <section>
       <h2>Pricing &amp; Installation</h2>
-      <div className="mt-6 grid gap-6 md:grid-cols-2">
+      <div className="mt-6 grid gap-8 md:gap-10 md:grid-cols-2">
         {s.kind === 'flagship' && (
-          <div className="card p-6 !transform-none">
+          <div className="card p-8 md:p-10 !transform-none">
             <p className="text-sm font-semibold">{PRICING.flagship.label}</p>
-            <p className="text-4xl font-bold text-navy">{flagshipPrice} <span className="text-base font-normal">{TAX_NOTE}</span></p>
-            <p className="font-semibold text-navy">What’s included</p>
+            <p className="text-4xl font-bold text-ink">{flagshipPrice} <span className="text-base font-normal">{TAX_NOTE}</span></p>
+            <p className="font-semibold text-ink">What’s included</p>
             <ul className="flex flex-col gap-1">{PRICING.flagship.includes.map((i) => <Check key={i}>{i}</Check>)}<Check>Testing after installation</Check><Check>1-year warranty</Check></ul>
             <p className="mt-2 text-sm">Add reverse osmosis drinking water for {formatUSD(PRICING.addons.ro.displayPrice)} or carbon filtration for {formatUSD(PRICING.addons.carbon.displayPrice)}, installed on the same visit.</p>
           </div>
         )}
         {addon && (
-          <div className="card p-6 !transform-none">
+          <div className="card p-8 md:p-10 !transform-none">
             <p className="text-sm font-semibold">Add-on</p>
-            <p className="text-4xl font-bold text-navy">{formatUSD(addon.displayPrice)} <span className="text-base font-normal">{TAX_NOTE}</span></p>
+            <p className="text-4xl font-bold text-ink">{formatUSD(addon.displayPrice)} <span className="text-base font-normal">{TAX_NOTE}</span></p>
             <p>{addon.label}, installed on the same visit as your whole-home system.</p>
             <Pill href={FLAGSHIP_HREF}>See the whole-home system</Pill>
           </div>
         )}
         {(s.kind === 'component' || s.kind === 'city') && (
-          <div className="card p-6 !transform-none">
-            <p className="text-xl font-bold text-navy">Installed as part of our whole-home system</p>
+          <div className="card p-8 md:p-10 !transform-none">
+            <p className="text-xl font-bold text-ink">Installed as part of our whole-home system</p>
             <p>This service is installed with the {PRICING.flagship.label}. {s.kind === 'city' ? 'We confirm exactly what your home needs at your free consultation.' : PRICING.headline}</p>
             <Pill href={FLAGSHIP_HREF}>See the whole-home system</Pill>
           </div>
         )}
         {s.kind === 'well' && (
-          <div className="card p-6 !transform-none">
-            <p className="text-xl font-bold text-navy">Test first, then we recommend</p>
+          <div className="card p-8 md:p-10 !transform-none">
+            <p className="text-xl font-bold text-ink">Test first, then we recommend</p>
             <ul className="mt-2 flex flex-col gap-3">
-              {Object.values(PRICING.wellTest).map((t) => <li key={t.id}><span className="font-bold text-navy">{formatUSD(t.displayPrice)}</span> {t.label}</li>)}
+              {Object.values(PRICING.wellTest).map((t) => <li key={t.id}><span className="font-bold text-ink">{formatUSD(t.displayPrice)}</span> {t.label}</li>)}
             </ul>
             <p>{wellCredit}</p>
           </div>
         )}
         <ol className="flex flex-col gap-3">
-          {(s.kind === 'well' ? wellSteps : days).map(([d, t]) => <li key={d} className="flex gap-3"><span className="shrink-0 w-24 font-bold text-navy">{d}</span><span>{t}</span></li>)}
+          {(s.kind === 'well' ? wellSteps : days).map(([d, t]) => <li key={d} className="flex gap-3"><span className="shrink-0 w-24 font-bold text-ink">{d}</span><span>{t}</span></li>)}
         </ol>
       </div>
     </section>
@@ -182,12 +182,12 @@ export function ComparisonTable({ s }: { s: Service }) {
     ['Typical lifespan', '8–10 years', '10+ years', '2–3 years'],
   ];
   return (
-    <section className="mx-auto max-w-6xl px-4 py-12">
+    <section className="mx-auto max-w-6xl px-4 py-10">
       <h2>How {s.name} Compares</h2>
       <div className="mt-6 overflow-x-auto">
         <table className="w-full text-left text-sm min-w-[560px]">
-          <thead><tr className="text-navy"><th className="p-3">Feature</th><th className="p-3 bg-aqua/20 rounded-t">US Water Pros</th><th className="p-3">Premium brand</th><th className="p-3">Budget option</th></tr></thead>
-          <tbody>{rows.map(([f, a, b, c]) => <tr key={f} className="border-t border-black/10"><td className="p-3 font-semibold text-navy">{f}</td><td className="p-3 bg-aqua/20">{a}</td><td className="p-3">{b}</td><td className="p-3">{c}</td></tr>)}</tbody>
+          <thead><tr className="text-ink"><th className="p-3">Feature</th><th className="p-3 bg-aqua/20 rounded-t">US Water Pros</th><th className="p-3">Premium brand</th><th className="p-3">Budget option</th></tr></thead>
+          <tbody>{rows.map(([f, a, b, c]) => <tr key={f} className="border-t border-black/10"><td className="p-3 font-semibold text-ink">{f}</td><td className="p-3 bg-aqua/20">{a}</td><td className="p-3">{b}</td><td className="p-3">{c}</td></tr>)}</tbody>
         </table>
       </div>
       <p className="mt-2 text-xs">Typical ranges for the local market. Actual prices vary by brand and home.</p>
@@ -198,10 +198,10 @@ export function ComparisonTable({ s }: { s: Service }) {
 
 export function MaintenanceFAQ() {
   return (
-    <section className="mx-auto max-w-3xl px-4 py-12">
+    <section className="mx-auto max-w-3xl px-4 py-10">
       <h2>What Happens After Installation?</h2>
       <div className="mt-4">{MAINT.map(([q, a]) => (
-        <details key={q} className="border-b border-black/10 py-3"><summary className="cursor-pointer font-semibold text-navy min-h-12 flex items-center">{q}</summary><p className="pb-2">{a}</p></details>
+        <details key={q} className="border-b border-black/10 py-3"><summary className="cursor-pointer font-semibold text-ink min-h-12 flex items-center">{q}</summary><p className="pb-2">{a}</p></details>
       ))}</div>
     </section>
   );
@@ -209,11 +209,11 @@ export function MaintenanceFAQ() {
 
 export function ServiceAreaCallout() {
   return (
-    <section className="bg-navy text-white py-12">
+    <section className="bg-navy text-white py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-4 text-center">
         <h2 className="!text-white">Serving Tacoma, Puyallup, Bremerton &amp; Port Orchard</h2>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
-          {CITIES.map((c) => <Link key={c.slug} href={`/services/whole-home-water-filtration-${c.slug}`} className="min-h-12 inline-flex items-center rounded-full bg-white text-navy px-5 font-semibold">{c.name}</Link>)}
+          {CITIES.map((c) => <Link key={c.slug} href={`/services/whole-home-water-filtration-${c.slug}`} className="min-h-12 inline-flex items-center rounded-full bg-white text-ink px-5 font-semibold">{c.name}</Link>)}
         </div>
         <p className="mt-4 text-sm text-white/80">{CITIES.flatMap((c) => c.neighborhoods.slice(0, 2)).join(' · ')} and surrounding areas</p>
       </div>
@@ -223,14 +223,14 @@ export function ServiceAreaCallout() {
 
 export function CTASection() {
   return (
-    <section data-track-source="final_cta" className="bg-surge py-12 text-center">
+    <section data-track-source="final_cta" className="bg-surge py-16 md:py-20 text-center">
       <div className="mx-auto max-w-3xl px-4">
         <h2 className="!text-white">Ready to Improve Your Water?</h2>
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
-          <a href="#quote" className="btn btn-navy">Schedule Consultation</a>
+          <a href="#quote" className="btn btn-cta">Schedule Consultation</a>
           <a href={PHONE_HREF} className="btn btn-secondary">{PHONE}</a>
         </div>
-        <p className="mt-4 text-sm text-navy font-semibold">✓ Free consultation | ✓ Licensed technicians | ✓ Fixed price quote | ✓ No obligation</p>
+        <p className="mt-4 text-sm text-ink font-semibold">✓ Free consultation | ✓ Licensed technicians | ✓ Fixed price quote | ✓ No obligation</p>
       </div>
     </section>
   );

@@ -23,10 +23,10 @@ function Dropdown({ label, links }: { label: string; links: string[][] }) {
   return (
     <div ref={ref} className="relative" onBlur={(e) => { if (!ref.current?.contains(e.relatedTarget as Node)) setOpen(false); }}>
       <button type="button" aria-expanded={open} aria-haspopup="true" onClick={() => setOpen(!open)}
-        className="min-h-12 inline-flex items-center gap-1 font-semibold text-navy hover:text-aqua">{label} <span aria-hidden className="text-xs">▼</span></button>
+        className="min-h-12 inline-flex items-center gap-1 font-semibold text-ink hover:text-aqua">{label} <span aria-hidden className="text-xs">▼</span></button>
       {open && (
         <div className="absolute left-0 top-full mt-1 min-w-[200px] w-max bg-white rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.1)] p-2 z-50">
-          {links.map(([t, href]) => <Link key={href} href={href} onClick={() => setOpen(false)} className="block rounded-lg px-3 py-3 text-sm text-navy hover:bg-ice">{t}</Link>)}
+          {links.map(([t, href]) => <Link key={href} href={href} onClick={() => setOpen(false)} className="block rounded-lg px-3 py-3 text-sm text-ink hover:bg-cyan">{t}</Link>)}
         </div>
       )}
     </div>
@@ -52,47 +52,47 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-ripple border-b border-black/5">
       <div className={`mx-auto max-w-6xl px-4 flex items-center justify-between gap-3 transition-all ${scrolled ? 'h-14' : 'h-16'}`}>
-        <Link href="/" className="font-serif text-lg md:text-2xl font-bold text-navy flex items-center gap-1 md:gap-1.5 shrink-0"><span className="text-aqua"><Icon name="drop" size={18} /></span>US Water <span className="text-aqua">Pros</span></Link>
+        <Link href="/" className="font-serif text-lg md:text-2xl font-bold text-ink flex items-center gap-1 md:gap-1.5 shrink-0"><span className="text-blue"><Icon name="drop" size={18} /></span>US Water <span className="text-blue">Pros</span></Link>
 
-        <nav aria-label="Main" className={`${scrolled ? 'hidden' : 'hidden md:flex'} items-center gap-6 text-sm`}>
+        <nav aria-label="Main" className={`${scrolled ? 'hidden' : 'hidden md:flex'} items-center gap-8 md:gap-10 text-sm`}>
           <Dropdown label="Services" links={SERVICE_LINKS} />
           <Dropdown label="Service Areas" links={AREA_LINKS} />
-          <Link href="/#process" className="min-h-12 inline-flex items-center font-semibold text-navy hover:text-aqua">Process</Link>
+          <Link href="/#process" className="min-h-12 inline-flex items-center font-semibold text-ink hover:text-aqua">Process</Link>
         </nav>
 
         <div className="flex items-center gap-2">
-          <a href={PHONE_HREF} aria-label={`Call ${PHONE}`} className="btn btn-navy !px-0 w-12 sm:!px-6 sm:w-auto">
+          <a href={PHONE_HREF} aria-label={`Call ${PHONE}`} className="btn btn-secondary !px-0 w-12 sm:!px-6 sm:w-auto">
             <svg className="sm:hidden" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z" /></svg>
             <span className="hidden sm:inline">{PHONE}</span>
           </a>
-          <a href="#quote" className="btn btn-aqua hidden md:inline-flex">Schedule Consultation</a>
+          <a href="#quote" className="btn btn-cta hidden md:inline-flex">Schedule Consultation</a>
           <button type="button" aria-label="Open menu" aria-expanded={menu} onClick={() => setMenu(true)}
-            className={`${scrolled ? 'inline-flex' : 'md:hidden inline-flex'} min-h-12 min-w-12 items-center justify-center text-navy`}>
+            className={`${scrolled ? 'inline-flex' : 'md:hidden inline-flex'} min-h-12 min-w-12 items-center justify-center text-ink`}>
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
           </button>
         </div>
       </div>
 
-      <Link href="/quiz" className="md:hidden block text-center text-xs font-semibold text-navy bg-ice py-2 underline">Not sure which system?</Link>
+      <Link href="/quiz" className="md:hidden block text-center text-xs font-semibold text-ink bg-ice py-2 underline">Not sure which system?</Link>
 
       {menu && (
         <div role="dialog" aria-modal="true" aria-label="Menu" className="fixed inset-0 z-[60] bg-white overflow-y-auto">
           <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
-            <span className="text-2xl font-bold text-navy">Menu</span>
-            <button type="button" aria-label="Close menu" onClick={close} className="min-h-12 min-w-12 inline-flex items-center justify-center text-navy">
+            <span className="text-2xl font-bold text-ink">Menu</span>
+            <button type="button" aria-label="Close menu" onClick={close} className="min-h-12 min-w-12 inline-flex items-center justify-center text-ink">
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M5 5l14 14M19 5L5 19" /></svg>
             </button>
           </div>
-          <div className="mx-auto max-w-6xl px-4 pb-10 flex flex-col gap-6">
+          <div className="mx-auto max-w-6xl px-4 pb-10 flex flex-col gap-8 md:gap-10">
             {([['Services', SERVICE_LINKS], ['Service Areas', AREA_LINKS]] as [string, string[][]][]).map(([h, links]) => (
               <div key={h}>
-                <p className="text-xl font-bold text-navy">{h}</p>
-                {links.map(([t, href]) => <Link key={href} href={href} onClick={close} className="block min-h-12 py-3 text-navy hover:text-aqua">{t}</Link>)}
+                <p className="text-xl font-bold text-ink">{h}</p>
+                {links.map(([t, href]) => <Link key={href} href={href} onClick={close} className="block min-h-12 py-3 text-ink hover:text-aqua">{t}</Link>)}
               </div>
             ))}
-            <Link href="/#process" onClick={close} className="text-xl font-bold text-navy min-h-12">Process</Link>
-            <a href={PHONE_HREF} className="btn btn-navy">{PHONE}</a>
-            <a href="#quote" onClick={close} className="btn btn-aqua">Schedule Consultation</a>
+            <Link href="/#process" onClick={close} className="text-xl font-bold text-ink min-h-12">Process</Link>
+            <a href={PHONE_HREF} className="btn btn-secondary">{PHONE}</a>
+            <a href="#quote" onClick={close} className="btn btn-cta">Schedule Consultation</a>
           </div>
         </div>
       )}

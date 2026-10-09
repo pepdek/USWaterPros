@@ -24,19 +24,19 @@ export default function Home() {
       <HeroSection />
       <BenefitsScroll />
       <ProblemBlocks />
-      <div className="bg-ice py-12"><section id="services" className="mx-auto max-w-6xl px-4 scroll-mt-24"><h2 className="text-center">Our Solutions</h2><div className="mt-8 grid gap-6 md:grid-cols-3">
+      <div className="bg-ice py-16 md:py-20"><section id="services" className="mx-auto max-w-6xl px-4 scroll-mt-24"><h2 className="text-center">Our Solutions</h2><div className="mt-8 grid gap-8 md:gap-10 md:grid-cols-3">
         {SERVICES.map((s) => <ServiceCard key={s.slug} s={s} />)}
       </div></section></div>
       <Risks />
       <QuizCta />
-      <section id="process" className="mx-auto max-w-6xl px-4 py-14 grid gap-10 md:grid-cols-2 md:items-center">
+      <section id="process" className="mx-auto max-w-6xl px-4 py-10 grid gap-10 md:grid-cols-2 md:items-center">
         <div>
           <h2>A Simple, No-Pressure Water Treatment Experience</h2>
           <p className="mt-3">We make the process easy from start to finish. First, we review your water concerns, then recommend the right solution, and finally install your system with care so you can enjoy better water with confidence.</p>
-          <ol className="mt-8 flex flex-col gap-6">
+          <ol className="mt-8 flex flex-col gap-8 md:gap-10">
             {STEPS.map(([t, d], i) => (
               <li key={t} className="flex gap-4">
-                <span className="shrink-0 w-10 h-10 rounded-full bg-aqua text-navy font-bold flex items-center justify-center">{i + 1}</span>
+                <span className="shrink-0 w-10 h-10 rounded-full bg-aqua text-ink font-bold flex items-center justify-center">{i + 1}</span>
                 <div><h3 className="text-xl">{t}</h3><p className="mt-1">{d}</p></div>
               </li>
             ))}
@@ -45,16 +45,16 @@ export default function Home() {
         {/* placeholder: swap for a real image */}
         <div className="rounded-xl bg-ice min-h-[320px] md:min-h-[480px] flex items-center justify-center text-aqua" role="img" aria-label="Image placeholder"><Icon name="house" size={96} /></div>
       </section>
-      <section id="areas" className="mx-auto max-w-6xl px-4 py-8 text-center">
+      <section id="areas" className="mx-auto max-w-6xl px-4 py-10 text-center">
         <h2>Serving Western Washington</h2>
         <div className="mt-4 flex flex-wrap justify-center gap-2">
-          {LOCATIONS.map((l) => <Link key={l.slug} href={`/locations/${l.slug}`} className="min-h-12 inline-flex items-center rounded-full bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] px-5 font-semibold text-navy hover:bg-navy hover:text-white">{l.name}</Link>)}
+          {LOCATIONS.map((l) => <Link key={l.slug} href={`/locations/${l.slug}`} className="min-h-12 inline-flex items-center rounded-full bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] px-5 font-semibold text-ink hover:bg-navy hover:text-white">{l.name}</Link>)}
         </div>
       </section>
       <ReportCta />
       <nav className="mx-auto max-w-6xl px-4 py-6 flex gap-2 overflow-x-auto md:flex-wrap md:justify-center" aria-label="Services">
         {PILLS.map((p, i) => (
-          <Link key={p.label} href={p.href} className={`shrink-0 min-h-12 inline-flex items-center rounded-full px-5 font-semibold text-sm lowercase bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] text-navy hover:bg-navy hover:text-white focus:bg-navy focus:text-white ${i === 0 ? '!bg-navy !text-white' : ''}`}>{p.label}</Link>
+          <Link key={p.label} href={p.href} className={`shrink-0 min-h-12 inline-flex items-center rounded-full px-5 font-semibold text-sm lowercase bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] text-ink hover:bg-navy hover:text-white focus:bg-navy focus:text-white ${i === 0 ? '!bg-navy !text-white' : ''}`}>{p.label}</Link>
         ))}
       </nav>
       <Faq />

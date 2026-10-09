@@ -13,12 +13,12 @@ const RISKS: [string, string, SourceId[]][] = [
 
 export default function Risks() {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-14">
+    <section className="mx-auto max-w-6xl px-4 py-10">
       <h2 className="text-center">The Risks</h2>
       <p className="text-center mt-2">The effects of unfiltered tap water can include the following:</p>
-      <div className="mt-8 grid gap-6 md:grid-cols-3">
+      <div className="mt-8 grid gap-8 md:gap-10 md:grid-cols-3">
         {RISKS.map(([t, d, ids]) => (
-          <div key={t} className="card p-6 border-t-4 border-coral flex flex-col gap-2">
+          <div key={t} className="card p-8 md:p-10 border-t-4 border-teal flex flex-col gap-2">
             <h3 className="text-xl">{t}</h3>
             <p>{d}</p>
             <Sources ids={ids} className="mt-auto pt-2" />

@@ -40,44 +40,44 @@ export default function CityPage({ params }: Props) {
   return (
     <main>
       <section data-track-source="hero" className="bg-surge">
-        <div id="quote" className="scroll-mt-24 mx-auto max-w-6xl px-4 py-10 md:py-16 grid gap-8 md:grid-cols-2 md:items-center">
+        <div id="quote" className="scroll-mt-24 mx-auto max-w-6xl px-4 py-16 md:py-24 grid gap-10 md:gap-14 md:grid-cols-2 md:items-center">
           <div>
             <Breadcrumb items={[{ label: 'Service Areas', href: '/#areas' }, { label: c.name }]} />
             <h1 className="!text-white">{h1}</h1>
             <p className="mt-4 text-white md:text-lg">{c.headline}</p>
-            <p className="mt-4 text-navy text-sm font-semibold">✓ Licensed technicians | ✓ Same-day quotes | ✓ Local since 2009</p>
+            <p className="mt-4 text-white text-sm font-semibold">✓ Licensed technicians | ✓ Same-day quotes | ✓ Local since 2009</p>
           </div>
           <div id="quote-form"><LeadForm service="whole-home-water-filtration" /></div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-8">
-        <div className="card p-6 grid gap-4 md:grid-cols-3 !transform-none">
+      <section className="mx-auto max-w-6xl px-4 py-10">
+        <div className="card p-8 md:p-10 grid gap-4 md:grid-cols-3 !transform-none">
           <div>
             <h2 className="text-xl">{c.name} water at a glance</h2>
             <p className="mt-1 text-sm">Common issues we see:</p>
           </div>
-          <ul className="flex flex-wrap gap-2 md:col-span-1 items-start">{c.issues.map((i) => <li key={i} className="lowercase bg-ice rounded-full px-3 py-2 text-sm font-semibold text-navy">{i}</li>)}</ul>
-          <div className="flex flex-col gap-1 text-sm font-semibold underline text-navy">
+          <ul className="flex flex-wrap gap-2 md:col-span-1 items-start">{c.issues.map((i) => <li key={i} className="lowercase bg-ice rounded-full px-3 py-2 text-sm font-semibold text-ink">{i}</li>)}</ul>
+          <div className="flex flex-col gap-1 text-sm font-semibold underline text-ink">
             <a href={EWG_URL} target="_blank" rel="noopener noreferrer">EWG Tap Water Database (look up your ZIP) ↗</a>
             <a href={c.authority[1]} target="_blank" rel="noopener noreferrer">{c.authority[0]} ↗</a>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-8 grid gap-8 md:grid-cols-[3fr_2fr]">
-        <div className="flex flex-col gap-4">
+      <section className="mx-auto max-w-6xl px-4 py-10 grid gap-8 md:grid-cols-[3fr_2fr]">
+        <div className="prose-breaks flex flex-col gap-4">
           <h2>Why {c.name} Homeowners Choose Whole-Home Filtration</h2>
           {c.paras.map((p) => <p key={p}>{p}</p>)}
         </div>
-        <div className="card p-6 self-start !transform-none">
+        <div className="card p-8 md:p-10 self-start !transform-none">
           <h3 className="text-xl">What our system removes</h3>
           <ul className="mt-2 list-disc pl-5">{c.removes.map((r) => <li key={r}>{r}</li>)}</ul>
           <p className="text-xs mt-3">Results depend on your water. We test first.</p>
         </div>
       </section>
 
-      <section className="bg-ice py-12">
+      <section className="bg-ice py-16 md:py-20">
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="text-center">We Serve {c.name} and Surrounding Areas</h2>
           <iframe title={`Map of ${c.name}, WA`} loading="lazy" className="mt-6 w-full h-72 rounded-xl border-0"
@@ -86,15 +86,15 @@ export default function CityPage({ params }: Props) {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-12 grid gap-6 md:grid-cols-3 text-center">
-        <div className="card p-6"><h3 className="text-xl">Local since 2009</h3><p className="mt-1">Fixed, upfront pricing.</p></div>
-        <div className="card p-6"><h3 className="text-xl">Licensed technicians</h3><p className="mt-1">Installed with care and tested.</p></div>
-        <div className="card p-6"><h3 className="text-xl">Free consultation</h3><p className="mt-1">No obligation, no pressure.</p></div>
+      <section className="mx-auto max-w-6xl px-4 py-10 grid gap-8 md:gap-10 md:grid-cols-3 text-center">
+        <div className="card p-8 md:p-10"><h3 className="text-xl">Local since 2009</h3><p className="mt-1">Fixed, upfront pricing.</p></div>
+        <div className="card p-8 md:p-10"><h3 className="text-xl">Licensed technicians</h3><p className="mt-1">Installed with care and tested.</p></div>
+        <div className="card p-8 md:p-10"><h3 className="text-xl">Free consultation</h3><p className="mt-1">No obligation, no pressure.</p></div>
       </section>
 
       <div id="report"><ReportCta /></div>
 
-      <section className="mx-auto max-w-3xl px-4 py-12">
+      <section className="mx-auto max-w-3xl px-4 py-10">
         <h2>Frequently Asked Questions in {c.name}</h2>
         {c.faqs.map(([q, a]) => (
           <details key={q} className="border-b border-black/10 py-3">
@@ -103,15 +103,15 @@ export default function CityPage({ params }: Props) {
           </details>
         ))}
         <p className="mt-6 text-sm">More on <Link href={`/locations/${county.slug}`} className="underline font-semibold">water in {county.name}</Link> and our <Link href="/services/whole-home-water-filtration" className="underline font-semibold">whole-home filtration service</Link>.</p>
-        <p className="mt-2 text-xs text-navy/70">Last updated: {new Date(UPDATED).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}</p>
+        <p className="mt-2 text-xs text-ink/70">Last updated: {new Date(UPDATED).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}</p>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       </section>
 
-      <section className="bg-navy text-white py-12 text-center">
+      <section className="bg-navy text-white py-16 md:py-20 text-center">
         <div className="mx-auto max-w-3xl px-4">
           <h2 className="!text-white">Ready to Fix Your Water?</h2>
           <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="#report" className="btn btn-aqua">Get Free Water Report</a>
+            <a href="#report" className="btn btn-cta">Get Free Water Report</a>
             <a href={PHONE_HREF} className="btn btn-secondary">Call {PHONE}</a>
           </div>
           <p className="mt-4 text-sm text-white/80">Licensed technicians · Same-day quotes</p>

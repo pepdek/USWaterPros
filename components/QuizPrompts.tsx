@@ -42,19 +42,19 @@ export default function QuizPrompts() {
   return (
     <>
       {banner && (
-        <aside data-track-source="corner_banner" className="hidden lg:block fixed right-4 bottom-4 z-30 w-60 card p-4 !transform-none" aria-label="Quiz">
-          <button type="button" onClick={() => setBanner(false)} aria-label="Dismiss" className="absolute top-1 right-2 min-h-8 min-w-8 text-navy/60">✕</button>
-          <p className="font-semibold text-navy">Not sure which system?</p>
-          <Link href="/quiz" className="font-semibold text-navy underline min-h-12 inline-flex items-center">Take the quiz →</Link>
+        <aside data-track-source="corner_banner" className="hidden lg:block fixed right-4 bottom-4 z-30 w-60 card p-8 md:p-10 !transform-none" aria-label="Quiz">
+          <button type="button" onClick={() => setBanner(false)} aria-label="Dismiss" className="absolute top-1 right-2 min-h-8 min-w-8 text-ink/60">✕</button>
+          <p className="font-semibold text-ink">Not sure which system?</p>
+          <Link href="/quiz" className="font-semibold text-ink underline min-h-12 inline-flex items-center">Take the quiz →</Link>
         </aside>
       )}
       {exit && (
         <div data-track-source="exit_intent_modal" role="dialog" aria-modal="true" aria-labelledby="exit-h" className="fixed inset-0 z-[70] bg-navy/60 flex items-center justify-center p-4" onClick={() => setExit(false)}>
-          <div className="card p-8 max-w-md text-center !transform-none relative" onClick={(e) => e.stopPropagation()}>
-            <button type="button" onClick={() => setExit(false)} aria-label="Close" className="absolute top-2 right-3 min-h-10 min-w-10 text-navy/60">✕</button>
+          <div className="card p-8 md:p-10 max-w-md text-center !transform-none relative" onClick={(e) => e.stopPropagation()}>
+            <button type="button" onClick={() => setExit(false)} aria-label="Close" className="absolute top-2 right-3 min-h-10 min-w-10 text-ink/60">✕</button>
             <h2 id="exit-h">Wait — See Your Custom System First</h2>
             <p className="mt-2">2-min quiz. No phone number required yet.</p>
-            <Link href="/quiz" onClick={() => setExit(false)} className="btn btn-aqua mt-6 w-full">Start the Quiz</Link>
+            <Link href="/quiz" onClick={() => setExit(false)} className="btn btn-cta mt-6 w-full">Start the Quiz</Link>
           </div>
         </div>
       )}

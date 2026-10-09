@@ -55,7 +55,7 @@ export default function ServicePage({ params }: Props) {
   return (
     <main>
       <ServiceHero s={s} />
-      <div className="mx-auto max-w-6xl px-4 py-12 grid gap-10 md:grid-cols-[3fr_2fr]">
+      <div className="mx-auto max-w-6xl px-4 py-10 grid gap-10 md:grid-cols-[3fr_2fr]">
         <div className="flex flex-col gap-14">
           <BuyerDecisionTree s={s} />
           <QuizCta compact />
@@ -83,9 +83,9 @@ export default function ServicePage({ params }: Props) {
       <section className="mx-auto max-w-6xl px-4 py-10">
         <h2 className="text-2xl">Also interested in</h2>
         <div className="mt-4 flex flex-wrap gap-2">
-          {s.related.map((r) => { const x = find(r)!; return <Link key={r} href={`/services/${r}`} className="lowercase min-h-12 inline-flex items-center rounded-full bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] px-5 font-semibold text-navy hover:bg-navy hover:text-white">{x.name}</Link>; })}
-          <Link href="/locations/pierce-county" className="min-h-12 inline-flex items-center rounded-full bg-ice px-5 font-semibold text-navy">Pierce County water guide</Link>
-          <Link href="/locations/kitsap-county" className="min-h-12 inline-flex items-center rounded-full bg-ice px-5 font-semibold text-navy">Kitsap County water guide</Link>
+          {s.related.map((r) => { const x = find(r)!; return <Link key={r} href={`/services/${r}`} className="lowercase min-h-12 inline-flex items-center rounded-full bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] px-5 font-semibold text-ink hover:bg-navy hover:text-white">{x.name}</Link>; })}
+          <Link href="/locations/pierce-county" className="min-h-12 inline-flex items-center rounded-full bg-ice px-5 font-semibold text-ink">Pierce County water guide</Link>
+          <Link href="/locations/kitsap-county" className="min-h-12 inline-flex items-center rounded-full bg-ice px-5 font-semibold text-ink">Kitsap County water guide</Link>
         </div>
       </section>
     </main>

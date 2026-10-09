@@ -27,7 +27,7 @@ export default function ReportCta() {
 
   return (
     <section className="bg-surge">
-      <div className="mx-auto max-w-3xl px-4 py-12 text-center">
+      <div className="mx-auto max-w-3xl px-4 py-16 md:py-20 text-center">
         <h2 className="!text-white">Get a free water quality report for your ZIP code in 30 seconds.</h2>
         {done ? (
           <div className="mt-6 text-left"><WaterReport zip={done} /></div>
@@ -35,10 +35,10 @@ export default function ReportCta() {
           <form onSubmit={go} noValidate className="mt-6 flex flex-col sm:flex-row gap-3">
             <input className="field flex-1" type="email" placeholder="Email" aria-label="Email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
             <input className="field sm:w-36" inputMode="numeric" maxLength={5} placeholder="ZIP code" aria-label="ZIP code" autoComplete="postal-code" value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, ''))} />
-            <button className="btn btn-navy">Go</button>
+            <button className="btn btn-cta">Go</button>
           </form>
         )}
-        {err && <p className="mt-2 text-navy font-semibold text-sm">{err}</p>}
+        {err && <p className="mt-2 text-white font-semibold text-sm">{err}</p>}
         <p className="mt-3 text-white/90 text-xs">🔒 Private. No spam, no obligation.</p>
       </div>
     </section>

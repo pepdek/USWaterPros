@@ -13,7 +13,7 @@ export default function WaterReport({ zip }: { zip: string }) {
   }, [zip]);
   if (!r) return null;
   return (
-    <div className="bg-ice text-navy rounded-lg p-4 border-l-4 border-coral">
+    <div className="bg-ice text-ink rounded-2xl p-6 md:p-8 border-l-4 border-teal">
       <p className="font-semibold">⚠ {r.city}: {r.warning}</p>
       <p className="text-sm">Hard water detected in {r.hardPct}% of homes in your area.</p>
     </div>

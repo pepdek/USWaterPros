@@ -42,8 +42,8 @@ export default function ProblemBlocks() {
   return (
     <div>
       {BLOCKS.map((b) => (
-        <section key={b.h} className="mx-auto max-w-6xl px-4 py-10 md:py-14 grid gap-8 md:grid-cols-2 md:items-center">
-          <div className={b.imgFirst ? 'md:order-2' : ''}>
+        <section key={b.h} className="mx-auto max-w-6xl px-4 py-10 md:py-10 grid gap-8 md:grid-cols-2 md:items-center">
+          <div className={`prose-breaks ${b.imgFirst ? 'md:order-2' : ''}`}>
             <h2>{b.h}</h2>
             {b.body.map((p) => <p key={p} className="mt-3">{p}</p>)}
             <Sources ids={b.ids} className="mt-3" />

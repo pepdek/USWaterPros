@@ -19,7 +19,7 @@ function Col({ title, items }: { title: string; items: [string, string][] }) {
       <h3 className="text-2xl mb-3">{title}</h3>
       {items.map(([q, a]) => (
         <details key={q} className="border-b border-black/10 py-3 group">
-          <summary className="cursor-pointer font-semibold text-navy min-h-12 flex items-center">{q}</summary>
+          <summary className="cursor-pointer font-semibold text-ink min-h-12 flex items-center">{q}</summary>
           <p className="pb-2">{a}</p>
         </details>
       ))}
@@ -29,7 +29,7 @@ function Col({ title, items }: { title: string; items: [string, string][] }) {
 
 export default function Faq() {
   return (
-    <section id="faq" className="mx-auto max-w-6xl px-4 py-14">
+    <section id="faq" className="mx-auto max-w-6xl px-4 py-10">
       <h2 className="text-center mb-8">Frequently asked questions</h2>
       <div className="grid gap-10 md:grid-cols-2">
         <Col title="Common questions" items={COMMON} />

@@ -34,19 +34,19 @@ export default function LocationPage({ params }: Props) {
   return (
     <main>
       <section data-track-source="hero" className="bg-surge">
-        <div id="quote" className="scroll-mt-24 mx-auto max-w-6xl px-4 py-10 md:py-16 grid gap-8 md:grid-cols-2 md:items-center">
+        <div id="quote" className="scroll-mt-24 mx-auto max-w-6xl px-4 py-16 md:py-24 grid gap-10 md:gap-14 md:grid-cols-2 md:items-center">
           <div>
             <Breadcrumb items={[{ label: 'Service Areas', href: '/#areas' }, { label: l.name }]} />
-            <p className="text-navy font-semibold">{l.name}, {l.state}</p>
+            <p className="text-white font-semibold text-sm">{l.name}, {l.state}</p>
             <h1 className="!text-white mt-2">The {l.adj} Water Filtration &amp; Treatment Experts In {l.name}, {l.state}</h1>
             <p className="mt-4 text-white md:text-lg">{l.blurb}</p>
-            <p className="mt-4 text-navy text-sm font-semibold">Serving {l.cities.map((c) => c[0]).join(', ')} and nearby.</p>
+            <p className="mt-4 text-white text-sm font-semibold">Serving {l.cities.map((c) => c[0]).join(', ')} and nearby.</p>
           </div>
           <LeadForm service="whole-home-water-filtration" />
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-4 py-12 flex flex-col gap-4">
+      <section className="prose-breaks mx-auto max-w-3xl px-4 py-10 flex flex-col gap-4">
         <h2>Water Challenges Unique to {l.name}</h2>
         {l.challenges.map((p) => <p key={p}>{p}</p>)}
         <h3 className="text-2xl mt-4">Testing and local guidance</h3>
@@ -54,17 +54,17 @@ export default function LocationPage({ params }: Props) {
         <Sources ids={l.cite} />
       </section>
 
-      <div className="bg-ice py-12">
+      <div className="bg-ice py-16 md:py-20">
         <section className="mx-auto max-w-6xl px-4">
           <h2 className="text-center">Water Treatment Options for Your Home</h2>
-          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-8 md:gap-10 md:grid-cols-2 lg:grid-cols-4">
             {SERVICES.filter((s) => CORE.includes(s.slug)).map((s) => <ServiceCard key={s.slug} s={s} />)}
           </div>
           <p className="mt-8 max-w-3xl mx-auto">{l.solutions}</p>
         </section>
       </div>
 
-      <section className="mx-auto max-w-3xl px-4 py-12 flex flex-col gap-3">
+      <section className="mx-auto max-w-3xl px-4 py-10 flex flex-col gap-3">
         <h2>How Working With Us Works</h2>
         <ol className="list-decimal pl-5 flex flex-col gap-2">
           <li>Tell us about your home and water concerns. It takes about 30 seconds.</li>
@@ -75,7 +75,7 @@ export default function LocationPage({ params }: Props) {
       </section>
 
       <ReportCta />
-      <section className="mx-auto max-w-3xl px-4 py-12">
+      <section className="mx-auto max-w-3xl px-4 py-10">
         <h2>Frequently Asked Questions in {l.name}</h2>
         {l.faqs.map(([q, a]) => (
           <details key={q} className="border-b border-black/10 py-3">
@@ -86,15 +86,15 @@ export default function LocationPage({ params }: Props) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       </section>
 
-      <div className="bg-ice py-12">
+      <div className="bg-ice py-16 md:py-20">
         <section className="mx-auto max-w-6xl px-4">
           <h2 className="text-center">Cities &amp; Communities We Serve in {l.name}</h2>
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
+          <div className="mt-8 grid gap-8 md:gap-10 md:grid-cols-3">
             {l.cities.map(([c, note]) => (
-              <div key={c} id={id(c)} className="card p-6 scroll-mt-20">
+              <div key={c} id={id(c)} className="card p-8 md:p-10 scroll-mt-20">
                 <h3 className="text-xl">{CITIES.some((x) => x.name === c) ? <a href={`/services/whole-home-water-filtration-${id(c)}`} className="underline">{c}, {l.state}</a> : <>{c}, {l.state}</>}</h3>
                 <p className="mt-2">{note}</p>
-                <a href="#quote" className="font-semibold text-navy underline min-h-12 inline-flex items-center">Get a free quote in {c} →</a>
+                <a href="#quote" className="font-semibold text-ink underline min-h-12 inline-flex items-center">Get a free quote in {c} →</a>
               </div>
             ))}
           </div>

@@ -21,7 +21,7 @@ function Col({ title, links }: { title: string; links: string[][] }) {
 export default function Footer() {
   return (
     <footer className="bg-navy text-white/80 text-sm">
-      <div className="mx-auto max-w-6xl px-4 py-12 grid gap-8 sm:grid-cols-2 md:grid-cols-3">
+      <div className="mx-auto max-w-6xl px-4 py-10 grid gap-8 sm:grid-cols-2 md:grid-cols-3">
         <Col title="Quick Links" links={QUICK} />
         <Col title="Services" links={SERVICES.map((s) => [s.name, `/services/${s.slug}`])} />
         <Col title="Service Areas" links={[...LOCATIONS.map((l) => [`${l.name}, ${l.state}`, `/locations/${l.slug}`]), ...CITIES.map((c) => [`${c.name}, WA`, `/services/whole-home-water-filtration-${c.slug}`])]} />

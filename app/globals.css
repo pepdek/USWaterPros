@@ -1,31 +1,70 @@
 @tailwind base; @tailwind components; @tailwind utilities;
-:root { --aqua:#00C853; --navy:#0A192F; --ripple:#F8F9FA; --ice:#E0F7FA; --coral:#FF6F61; --color-primary: var(--aqua); --color-accent: var(--navy); }
-body { background: var(--ripple); color: color-mix(in srgb, var(--navy) 80%, transparent); font-size: 14px; line-height: 24px; }
-@media (min-width: 768px) { body { font-size: 16px; } }
-/* Body copy */
-p { font-family: var(--font-body), 'Lato', sans-serif; font-size: 1.125rem; line-height: 1.556; margin: 0; padding: 0.75rem 0; }
-/* Small print (text-xs / text-sm utilities set the size) keeps tight spacing */
-p[class*="text-xs"], p[class*="text-sm"] { padding: 0.25rem 0; }
-/* Serif is for H1 and H2 only. Everything else is Inter. */
-h1, h2 { font-family: var(--font-serif), Georgia, serif; letter-spacing: -0.02em; }
-h1, h2, h3 { color: var(--navy); font-weight: 700; }
-h3 { font-family: var(--font-sans), system-ui, sans-serif; letter-spacing: normal; }
-h1 { font-size: 28px; line-height: 1.15; } @media (min-width: 768px) { h1 { font-size: 48px; line-height: 56px; } }
-h2 { font-size: 28px; line-height: 1.2; }
-input, select { font-size: 16px; min-height: 48px; }
-@layer components {
-.btn { display:inline-flex; align-items:center; justify-content:center; min-height:48px; min-width:48px; padding:0 24px; border-radius:8px; font-family:var(--font-sans), system-ui, sans-serif; font-size:14px; line-height:20px; font-weight:600; white-space:nowrap; transition:.15s; }
-/* Rule: one primary (aqua) + one secondary (white) per CTA group. Never three side by side. */
-.btn-secondary { background:#fff; color:var(--navy); border:1px solid rgba(10,25,47,.15); } .btn-secondary:hover { background:var(--ice); }
-.btn-aqua { background: var(--aqua); color: var(--navy); } .btn-aqua:hover { filter: brightness(.92); }
-.btn-navy { background: var(--navy); color: #fff; } .btn-navy:hover { filter: brightness(1.25); }
-.card { background:#fff; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,.05); transition:.2s; }
-.card:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,.09); }
-.field { width:100%; border:1px solid #cfd8dc; border-radius:8px; padding:0 12px; background:#fff; color:var(--navy); }
-.field:focus { outline:2px solid var(--aqua); border-color:transparent; }
+
+/* Crystal Clear color system. 60% blue/white/neutral, 30% negative space, 10% orange + teal accents.
+   Orange is the spark: ONLY on action buttons and urgent moments. */
+:root {
+  --blue-rgb: 0 102 204;       /* #0066cc  Primary Blue: headers, hero, identity */
+  --cta-rgb: 255 107 53;       /* #ff6b35  Warm Orange: ALL CTAs, action moments only */
+  --navy-rgb: 27 73 101;       /* #1b4965  Deep Teal: certifications, credibility, results, dark surfaces */
+  --teal-rgb: 0 160 191;       /* #00a0bf  Secondary Teal: secondary buttons, borders, dividers */
+  --cyan-rgb: 168 233 239;     /* #a8e9ef  Light Cyan: hover states, micro-interactions */
+  --ice-rgb: 239 254 248;      /* #effef8  Background: cards, breathing room */
+  --ink-rgb: 26 26 26;         /* #1a1a1a  text on light */
+  --err-rgb: 180 35 24;        /* form errors only */
+  --blue: rgb(var(--blue-rgb)); --cta: rgb(var(--cta-rgb)); --navy: rgb(var(--navy-rgb)); --teal: rgb(var(--teal-rgb));
+  --cyan: rgb(var(--cyan-rgb)); --ice: rgb(var(--ice-rgb)); --ink: rgb(var(--ink-rgb));
+  --color-primary: var(--blue); --color-accent: var(--ink); --color-cta: var(--cta);
+  /* Three sizes: H1, H2, body. (Labels and microcopy share one small size.) */
+  --fs-h1: clamp(2rem, 1.2rem + 3vw, 3.25rem);
+  --fs-h2: clamp(1.625rem, 1.2rem + 1.4vw, 2.125rem);
+  --fs-body: 1.125rem;
+  --fs-label: 0.875rem;
+  --space-section: clamp(2.5rem, 2rem + 2vw, 3.75rem);   /* 40-60px each side = 80-120px between plain sections */
 }
-.bg-surge { background: linear-gradient(135deg, #00C853 0%, #00BFA5 100%); }
+
+body { background: #fff; color: var(--ink); font-size: var(--fs-body); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+/* Body copy: 18px / 1.7, max 70 characters a line, room above and below. */
+p, li { font-family: var(--font-body), 'Lato', sans-serif; line-height: 1.7; }
+p { font-size: var(--fs-body); max-width: 70ch; margin: 0; padding: 0.75rem 0; }
+.text-center > p, p.text-center { margin-left: auto; margin-right: auto; }
+/* Small text and labels: +0.5px tracking, tight padding. */
+p[class*="text-xs"], p[class*="text-sm"] { padding: 0.25rem 0; }
+.text-xs, .text-sm, label, summary { letter-spacing: 0.5px; }
+/* Long runs of text get a hairline between paragraphs so they never read as a wall. */
+.prose-breaks > p + p { border-top: 1px solid rgb(var(--teal-rgb) / 0.25); margin-top: 1.25rem; padding-top: 1.75rem; }
+
+/* Serif is for H1 and H2 only. Everything else is Inter. */
+h1, h2 { font-family: var(--font-serif), Georgia, serif; letter-spacing: -0.02em; color: var(--blue); font-weight: 700; }
+h3 { font-family: var(--font-sans), system-ui, sans-serif; letter-spacing: normal; color: var(--ink); font-weight: 700; font-size: var(--fs-body); line-height: 1.5; }
+h1 { font-size: var(--fs-h1); line-height: 1.15; }
+h2 { font-size: var(--fs-h2); line-height: 1.25; }
+input, select { font-size: 16px; min-height: 48px; }
+
+@layer components {
+  .btn { display:inline-flex; align-items:center; justify-content:center; min-height:48px; min-width:48px; padding:0 28px; border-radius:999px; font-family:var(--font-sans), system-ui, sans-serif; font-size:var(--fs-label); line-height:20px; font-weight:600; letter-spacing:.5px; white-space:nowrap; transition:background .2s, box-shadow .2s, transform .2s, border-color .2s; }
+  .btn:active { transform: translateY(1px); }
+  /* One primary + one secondary per CTA group. Never three side by side. */
+  .btn-cta { background: var(--cta); color: var(--ink); box-shadow: 0 6px 20px rgb(var(--cta-rgb) / .28); }
+  .btn-cta:hover { background: #ff7d4f; box-shadow: 0 8px 26px rgb(var(--cta-rgb) / .38); }
+  .btn-blue { background: var(--blue); color: #fff; }
+  .btn-blue:hover { background: #0a74dc; }
+  .btn-secondary { background: rgb(255 255 255 / .72); backdrop-filter: blur(12px); color: var(--navy); border: 1.5px solid var(--teal); }
+  .btn-secondary:hover { background: var(--cyan); border-color: var(--teal); }
+
+  /* Apple-style glass: translucent white, blur, hairline border, soft shadow. */
+  .card { background: rgb(255 255 255 / .84); -webkit-backdrop-filter: blur(20px) saturate(1.6); backdrop-filter: blur(20px) saturate(1.6); border: 1px solid rgb(255 255 255 / .8); outline: 1px solid rgb(var(--blue-rgb) / .07); outline-offset: -1px; border-radius: 24px; box-shadow: 0 12px 40px rgb(var(--navy-rgb) / .08); transition: transform .25s ease, box-shadow .25s ease, outline-color .25s ease; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 18px 50px rgb(var(--navy-rgb) / .12); outline-color: var(--cyan); }
+  .field { width:100%; border:1px solid rgb(var(--teal-rgb) / .35); border-radius:14px; padding:0 14px; background: rgb(255 255 255 / .9); color: var(--ink); transition: border-color .2s, box-shadow .2s; }
+  .field:hover { border-color: var(--teal); }
+  .field:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 4px rgb(var(--cyan-rgb) / .7); }
+}
+
+/* Hero: Primary Blue with a soft glow so the glass form card has something to sit on. */
+.bg-surge { background: radial-gradient(900px 500px at 85% 10%, rgb(var(--cyan-rgb) / .35), transparent 60%), linear-gradient(135deg, #0066cc 0%, #0a74dc 55%, #0090c4 100%); }
+.bg-wash { background: linear-gradient(180deg, #fff 0%, var(--ice) 100%); }
+
 @keyframes marquee { to { transform: translateX(-50%); } }
 .marquee { display:flex; width:max-content; animation: marquee 35s linear infinite; }
 .marquee:hover { animation-play-state: paused; }
-@media (prefers-reduced-motion: reduce) { .marquee { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .marquee { animation: none; } .card, .btn { transition: none; } }

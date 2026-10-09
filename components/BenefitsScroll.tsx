@@ -13,7 +13,7 @@ export default function BenefitsScroll() {
       <div className="marquee gap-4">
         {[...BENEFITS, ...BENEFITS].map(([icon, t], i) => (
           <span key={i} aria-hidden={i >= BENEFITS.length} className="flex items-center gap-2 mr-10 whitespace-nowrap font-semibold">
-            <span className="text-aqua"><Icon name={icon} size={24} /></span>{t}
+            <span className="text-cyan"><Icon name={icon} size={24} /></span>{t}
           </span>
         ))}
       </div>

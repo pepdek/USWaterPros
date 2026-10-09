@@ -54,7 +54,7 @@ export default function LeadForm({ service }: { service: string }) {
   if (state === 'done') {
     const now = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
     return (
-      <div className="card p-6 text-center">
+      <div className="card p-8 md:p-10 text-center">
         <div className="mx-auto w-14 h-14 rounded-full bg-aqua text-white flex items-center justify-center text-3xl">✓</div>
         <h2 className="mt-4">You're all set!</h2>
         <p className="mt-2">We'll call you within 1 hour.</p>
@@ -64,7 +64,7 @@ export default function LeadForm({ service }: { service: string }) {
   }
 
   return (
-    <form onSubmit={submit} className="card p-6 flex flex-col gap-3" noValidate>
+    <form onSubmit={submit} className="card p-8 md:p-10 flex flex-col gap-3" noValidate>
       <div>
         <h2 className="text-2xl">Talk to a local water specialist</h2>
         <p className="text-sm mt-1">Free and no obligation. Takes about a minute.</p>
@@ -74,11 +74,11 @@ export default function LeadForm({ service }: { service: string }) {
       <Field label="Phone (for your callback)" error={show('phone')}><input className="field" type="tel" autoComplete="tel" {...bind('phone')} /></Field>
       <Field label="ZIP Code" error={show('zip')}><input className="field" inputMode="numeric" maxLength={5} autoComplete="postal-code" {...bind('zip')} /></Field>
       <input type="hidden" name="service_type" value={service} />
-      <button className="btn btn-aqua w-full" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : CTA}</button>
+      <button className="btn btn-cta w-full" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : CTA}</button>
       {state === 'error' && <p className="text-coral font-semibold text-sm">Something went wrong. Please try again or call us.</p>}
       <p className="text-xs text-center">✓ We'll call you within 1 hour during business hours</p>
       <p className="text-xs text-center">✓ No credit card required | ✓ Licensed technicians</p>
-      <p className="text-xs text-center text-navy/70">🔒 Your information is private. We never sell it, and there's no spam.</p>
+      <p className="text-xs text-center text-ink/70">🔒 Your information is private. We never sell it, and there's no spam.</p>
     </form>
   );
 }
@@ -86,7 +86,7 @@ export default function LeadForm({ service }: { service: string }) {
 function Field({ label, badge, error, children }: { label: string; badge?: string; error?: string | false; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="font-semibold text-navy text-sm">{label}{badge && <span className="ml-2 text-xs bg-ice rounded-full px-2 py-0.5 font-normal">{badge}</span>}</span>
+      <span className="font-semibold text-ink text-sm">{label}{badge && <span className="ml-2 text-xs bg-ice rounded-full px-2 py-0.5 font-normal">{badge}</span>}</span>
       {children}
       {error && <span className="text-coral text-xs">{error}</span>}
     </label>

@@ -186,15 +186,16 @@ export default function QuizFlow() {
     setStatus('idle'); setScreen('thanks');
   }
 
-  const btnNext = 'btn bg-[var(--color-primary)] text-[var(--color-accent)] hover:opacity-90 disabled:opacity-40 flex-1';
-  const btnBack = 'btn bg-white border border-black/10 text-[var(--color-accent)] hover:opacity-90';
+  const btnNext = 'btn btn-blue disabled:opacity-40 flex-1';
+  const btnCta = 'btn btn-cta disabled:opacity-40 flex-1';
+  const btnBack = 'btn btn-secondary';
   const qs = screens.filter(isQuestion);
   const num = qs.indexOf(screen) + 1;
   const qsRef = useRef<Screen[]>([]); qsRef.current = qs;
   const total = qs.length;
 
   return (
-    <div className="mx-auto max-w-xl px-4 py-8">
+    <div className="mx-auto max-w-xl px-4 py-10">
       {num > 0 && (
         <div className="mb-6" aria-label="Progress">
           <p className="text-sm font-semibold text-[var(--color-accent)]">{num} of {total}</p>
@@ -208,12 +209,12 @@ export default function QuizFlow() {
         <div className="text-center flex flex-col gap-4">
           <h1>Before we find your perfect water solution…</h1>
           <p>Answer a few quick questions and we’ll recommend the right system for your home. It takes about a minute.</p>
-          <button className={`${btnNext} w-full flex-none`} onClick={start}>Get Started</button>
+          <button className={`${btnCta} w-full flex-none`} onClick={start}>Get Started</button>
         </div>
       )}
 
       {INTERSTITIAL[screen] && (
-        <div className="card p-8 text-center flex flex-col gap-3 !transform-none">
+        <div className="card p-8 md:p-10 text-center flex flex-col gap-3 !transform-none">
           <span className="text-4xl" aria-hidden>{INTERSTITIAL[screen]![0]}</span>
           <h2>{INTERSTITIAL[screen]![1]}</h2>
           <p>{INTERSTITIAL[screen]![2]}</p>
@@ -229,7 +230,7 @@ export default function QuizFlow() {
               const on = screen === 'q3' ? r.waterConcerns?.includes(label) : r[q!.key] === val(label);
               return (
                 <button key={label} type="button" onClick={() => (screen === 'q3' ? toggle(label) : pick(label))} aria-pressed={on}
-                  className={`relative min-h-[60px] rounded-lg shadow-md p-4 text-left text-[var(--color-accent)] border-2 flex flex-col sm:flex-row sm:items-center gap-2 ${on ? 'border-[var(--color-primary)] bg-ice' : 'border-transparent bg-white'}`}>
+                  className={`relative min-h-[60px] rounded-2xl shadow-sm p-5 text-left text-[var(--color-accent)] border-2 flex flex-col sm:flex-row sm:items-center gap-2 ${on ? 'border-[var(--color-primary)] bg-ice' : 'border-teal/25 bg-white'}`}>
                   <span className="text-2xl leading-none shrink-0" aria-hidden>{icon}</span>
                   <span className="flex-1"><span className="font-semibold">{label}</span>{sub && <span className="block text-sm font-normal">{sub}</span>}</span>
                   {screen === 'q3' && <span aria-hidden className={`absolute top-3 right-3 sm:static shrink-0 w-6 h-6 rounded border-2 flex items-center justify-center text-sm ${on ? 'bg-[var(--color-primary)] border-[var(--color-primary)] text-white' : 'border-black/20'}`}>{on ? '✓' : ''}</span>}
@@ -247,7 +248,7 @@ export default function QuizFlow() {
       {screen === 'result' && (
         <form onSubmit={submit} noValidate className="flex flex-col gap-4">
           <h2>{headline(r.currentSituation)}</h2>
-          <div className="card p-6 !transform-none border-t-4 border-[var(--color-primary)]">
+          <div className="card p-8 md:p-10 !transform-none border-t-4 border-[var(--color-primary)]">
             {rec.path === 'whole-home' ? (
               <>
                 <p className="text-sm font-semibold uppercase tracking-wide">Your recommended system</p>
@@ -262,7 +263,7 @@ export default function QuizFlow() {
                 <p className="mt-4 font-semibold text-sm text-[var(--color-accent)]">Optional add-ons, installed on the same visit</p>
                 {(Object.keys(PRICING.addons) as AddonId[]).map((id) => (
                   <label key={id} className="flex items-center gap-3 min-h-[60px] rounded-lg border-2 border-black/10 px-3 mt-2 cursor-pointer">
-                    <input type="checkbox" className="w-5 h-5 accent-[var(--aqua)]" checked={selected.includes(id)} onChange={() => toggleAddon(id)} />
+                    <input type="checkbox" className="w-5 h-5 accent-[var(--blue)]" checked={selected.includes(id)} onChange={() => toggleAddon(id)} />
                     <span className="flex-1"><span className="font-semibold">{PRICING.addons[id].label}</span>{rec.suggestedAddons.includes(id) && <span className="ml-2 text-xs bg-ice rounded-full px-2 py-0.5">Suggested for you</span>}</span>
                     <span className="font-bold">+{formatUSD(PRICING.addons[id].displayPrice)}</span>
                   </label>
@@ -275,7 +276,7 @@ export default function QuizFlow() {
                 <p className="mt-1">We test your water for iron, sulfur and hardness, then recommend the right system. No fixed install price until your results are in.</p>
                 {(Object.keys(PRICING.wellTest) as WellTestId[]).map((id) => (
                   <label key={id} className="flex items-center gap-3 min-h-[60px] rounded-lg border-2 border-black/10 px-3 mt-2 cursor-pointer">
-                    <input type="radio" name="welltest" className="w-5 h-5 accent-[var(--aqua)]" checked={wellTest === id} onChange={() => setWellTest(id)} />
+                    <input type="radio" name="welltest" className="w-5 h-5 accent-[var(--blue)]" checked={wellTest === id} onChange={() => setWellTest(id)} />
                     <span className="flex-1 font-semibold">{PRICING.wellTest[id].label}</span>
                     <span className="font-bold">{formatUSD(PRICING.wellTest[id].displayPrice)}</span>
                   </label>
@@ -286,7 +287,7 @@ export default function QuizFlow() {
           </div>
           {([['name', 'Name', 'text', 'name'], ['email', 'Email', 'email', 'email'], ['phone', 'Phone', 'tel', 'tel']] as const).map(([k, label, type, ac]) => (
             <label key={k} className="block">
-              <span className="font-semibold text-navy text-sm">{label}</span>
+              <span className="font-semibold text-ink text-sm">{label}</span>
               <input className="field" type={type} autoComplete={ac} value={contact[k]} onChange={(e) => setContact({ ...contact, [k]: e.target.value })} />
               {touched && errs[k] && <span className="text-coral text-xs">Enter a valid {label.toLowerCase()}</span>}
             </label>
@@ -294,14 +295,14 @@ export default function QuizFlow() {
           {status === 'error' && <p className="text-coral font-semibold text-sm">Something went wrong. Please try again or call us.</p>}
           <div className="flex gap-3">
             <button type="button" className={btnBack} onClick={() => go(-1)}>Previous</button>
-            <button className={btnNext} disabled={status === 'loading'}>{status === 'loading' ? 'Sending…' : 'Schedule My Consultation'}</button>
+            <button className={btnCta} disabled={status === 'loading'}>{status === 'loading' ? 'Sending…' : 'Schedule My Consultation'}</button>
           </div>
           <p className="text-xs text-center">Free, no obligation. 🔒 Your information is private.</p>
         </form>
       )}
 
       {screen === 'thanks' && (
-        <div className="card p-8 text-center flex flex-col gap-3 !transform-none">
+        <div className="card p-8 md:p-10 text-center flex flex-col gap-3 !transform-none">
           <div className="mx-auto w-14 h-14 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center text-3xl">✓</div>
           <h2>You’re all set, {contact.name.split(' ')[0]}!</h2>
           <p>We’ll {r.communicationPreference === 'Call' ? 'call' : 'text'} you within 1 hour during business hours to schedule your free consultation.</p>
