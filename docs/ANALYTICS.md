@@ -70,6 +70,8 @@ Property: US Water Pros, stream `US Water Pros Site`, `G-FN39ESKXNW`. Enhanced m
 Custom dimensions (event scope): traffic_source, lead_source, device_type, city, quiz_type, urgency_flag, recommended_path, communication_pref, form_type, element_source, question_id, answer_selected, service.
 Custom metrics (event scope): time_to_complete (seconds), recommended_price (currency).
 
+**Status as of 2026-10-09:** GTM published (Version 2) and verified live; custom dimensions and metrics created; events are arriving in GA4 Realtime. GA4 lists new events in Admin > Events only after up to 24 hours, so marking key events and creating the audiences below is the one remaining manual step.
+
 Key events to mark (an event must arrive once before GA4 lets you star it; see Events > Recent events): `quiz_completed`, `lead_form_submission`, `water_report_submit`. Optional: `phone_click`, `sms_click`, `schedule_cta_click`.
 
 Audiences to create (Admin > Audiences):
