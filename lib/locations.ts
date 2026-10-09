@@ -64,4 +64,29 @@ export const LOCATIONS: Location[] = [
       ['Which system is right for my home?', 'It depends on your source and your goals. Our team reviews your water, explains the options clearly, and recommends a system that fits your budget.'],
     ],
   },
+  {
+    slug: 'thurston-county', adj: 'Dedicated', name: 'Thurston County', state: 'WA',
+    blurb: 'From Olympia and Lacey city water to private wells across the county, get the right filtration for your home.',
+    challenges: [
+      'Thurston County sits at the south end of Puget Sound and relies heavily on groundwater. City systems such as Olympia and Lacey pump from wells, and many homes outside city service have private wells of their own.',
+      'Olympia’s main source is the McAllister Wellfield, and the Washington Department of Health notes its groundwater has a naturally low pH that the city treats to protect pipes. Lacey reports that all of its water comes from groundwater wells drawing on three aquifers.',
+      'On city water, the most common request is better taste and smell. On private wells the owner is responsible for testing, and results can vary from one well to the next, even between neighbors.',
+    ],
+    testing: 'Thurston County’s environmental health water lab in Olympia runs bacteria and nitrate tests on drinking water samples. Confirm current drop-off times with the county before you go.',
+    solutions: 'In Thurston County, homes on city water usually want better taste and smell, so a whole-home carbon filter is the common choice, often with reverse osmosis at the kitchen tap. Private-well homes start with a test, then add whatever the results call for.',
+    cite: ['thurstonLab', 'laceyWater', 'olympiaWsp'],
+    cities: [
+      ['Olympia', 'Served by city groundwater wells. Taste, odor and older plumbing drive most requests.'],
+      ['Lacey', 'All city water is groundwater. Taste, odor and mineral spotting are common concerns, and private wells should be tested.'],
+      ['Tumwater', 'City water plus nearby private wells. Testing helps pick the right treatment.'],
+      ['Yelm', 'A mix of public systems and private wells. Well testing matters for many properties.'],
+    ],
+    faqs: [
+      ['Where does Olympia’s water come from?', 'The city’s primary source is the McAllister Wellfield, supplemented by additional wells. It is all groundwater.'],
+      ['Where does Lacey’s water come from?', 'The City of Lacey says all of its drinking water comes from groundwater wells that draw on three aquifers.'],
+      ['Do Thurston County private wells need testing?', 'Yes. Private wells are not regulated like public systems, so the owner is responsible. The county water lab in Olympia tests drinking water for bacteria and nitrate.'],
+      ['Why does my city water taste like chlorine?', 'Public systems add disinfectant to keep water safe on its way to your home. A carbon filter removes most of the chlorine taste and smell.'],
+      ['Which system is right for my home?', 'It depends on your source and your goals. Our team reviews your water, explains the options clearly, and recommends a system that fits your budget.'],
+    ],
+  },
 ];

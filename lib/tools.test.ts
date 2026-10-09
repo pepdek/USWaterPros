@@ -32,7 +32,26 @@ describe('Tacoma measured data (from the Tacoma Water 2025 report)', () => {
     expect(get('Haloacetic').result).toContain('2.0 ppb');
     expect(get('Lead').result).toContain('0 of 51');
   });
-  it('only Tacoma has measured data so far', () => { expect(profileForZip('98371')?.measured).toBeUndefined(); });
+  it('Puyallup, Bremerton and Port Orchard have measured data from their own reports', () => {
+    const rows = (zip: string) => profileForZip(zip)!.measured!.rows;
+    expect(profileForZip('98371')!.measured!.utility).toBe('City of Puyallup');
+    expect(rows('98371').find((r) => r.name === 'Arsenic')!.result).toContain('7.9 ppb');
+    expect(rows('98371').find((r) => r.name === 'Water hardness')!.result).toContain('89 ppm');
+    expect(profileForZip('98310')!.measured!.utility).toBe('City of Bremerton');
+    expect(rows('98310').find((r) => r.name.startsWith('Total trihalomethanes'))!.result).toContain('65 ppb');
+    expect(profileForZip('98366')!.measured!.utility).toBe('City of Port Orchard');
+    expect(rows('98366').find((r) => r.name.startsWith('PFOA'))!.result).toContain('3.67 ppt');
+  });
+  it('county-level profiles do not borrow a city utility’s numbers', () => {
+    expect(profileForZip('98383')?.measured).toBeUndefined();
+    expect(profileForZip('98335')?.measured).toBeUndefined();
+  });
+  it('every percent-of-limit is between 0 and 100 and every row names its limit', () => {
+    for (const z of ['98402', '98371', '98310', '98366']) for (const r of profileForZip(z)!.measured!.rows) {
+      if (r.pct !== undefined) { expect(r.pct).toBeGreaterThanOrEqual(0); expect(r.pct).toBeLessThanOrEqual(100); }
+      expect(r.limit.length).toBeGreaterThan(0);
+    }
+  });
 });
 
 describe('estimateCosts', () => {

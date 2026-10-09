@@ -13,6 +13,7 @@ Clicks on call, text, schedule and quiz links carry `element_source` = `tool_rep
 
 ## Where the numbers come from
 
+- **Tool 1 measured data** comes straight from each utility's published annual report, in `lib/waterProfiles.ts` (`measured`): Tacoma Water 2025 report, City of Puyallup 2025 report (testing Dec 2024 to Dec 2025), City of Bremerton report (2025 data), City of Port Orchard 2025 report. "Percent of the legal limit" is the report's highest result divided by its limit. When a utility publishes its next report (usually spring), update the rows and the year.
 - **Tool 1** shows how each area is supplied and what homeowners there should check. It is not a lab test of anyone's tap. For Tacoma it also shows the measured results from the Tacoma Water 2025 Water Quality Report next to the legal limits. To add another utility, copy its published report table into a `measured` block in `lib/waterProfiles.ts` and cite the report.
 - **Tools 2 and 3** use typical-cost assumptions in `lib/costModel.ts`. The calculator shows them and lets the visitor change them. Health costs are not priced.
 - No countdown timers or "24 hours only" offers. The price is fixed (see `docs/PRICING.md`).

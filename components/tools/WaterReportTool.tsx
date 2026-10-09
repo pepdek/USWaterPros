@@ -47,7 +47,10 @@ export default function WaterReportTool() {
         <div className="card p-5 sm:p-8 md:p-10 flex flex-col gap-5" aria-live="polite">
           {profile ? (
             <>
-              <div><p className="text-sm font-semibold !p-0 text-navy">Report card · {shown}</p><h3>{profile.area}</h3><p>{profile.supply}</p></div>
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4" data-track-source="tool_report_header">
+                <div><p className="text-sm font-semibold !p-0 text-navy">Report card · {shown}</p><h3>{profile.area}</h3><p>{profile.supply}</p></div>
+                <a href="#quote" className="btn btn-cta shrink-0 !whitespace-normal !h-auto py-3 text-center">Schedule Your Free Consultation</a>
+              </div>
               <ul className="flex flex-col divide-y divide-teal/20">
                 {profile.rows.map((r) => (
                   <li key={r.label} className="py-4 grid gap-2 sm:grid-cols-[200px_1fr] sm:gap-6">
@@ -58,7 +61,19 @@ export default function WaterReportTool() {
               </ul>
               {profile.measured && (
                 <div className="rounded-3xl bg-ice border border-cyan p-5 sm:p-8 flex flex-col gap-3">
-                  <p className="font-semibold !p-0 text-navy">What {profile.measured.source.split(' Water Quality')[0]} measured ({profile.measured.year})</p>
+                  <p className="font-semibold !p-0 text-navy">What {profile.measured.utility} measured ({profile.measured.year})</p>
+                  {profile.measured.note && <p className="text-sm !p-0">{profile.measured.note}</p>}
+                  <p className="text-sm font-semibold !p-0 mt-2">Closest to the legal limit</p>
+                  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                    {[...profile.measured.rows].filter((m) => m.pct !== undefined).sort((a, b) => (b.pct ?? 0) - (a.pct ?? 0)).slice(0, 4).map((m) => (
+                      <div key={m.name} className="rounded-2xl bg-white border border-cyan p-4 flex flex-col gap-2">
+                        <p className="font-semibold !p-0 text-sm">{m.name}</p>
+                        <p className="!p-0 text-sm">{m.result}</p>
+                        <div className="h-2 rounded-full bg-ice" aria-hidden><div className="h-2 rounded-full bg-blue" style={{ width: `${Math.min(100, Math.max(m.pct ?? 0, 2))}%` }} /></div>
+                        <p className="!p-0 text-xs"><b>{m.pct}% of the legal limit</b> ({m.limit.split(' (')[0]})</p>
+                      </div>))}
+                  </div>
+                  <p className="text-xs !p-0">Every result is within the legal limit. Legal limits are the floor, not a health guarantee, and some limits are being lowered. The full table follows.</p>
                   <p className="text-sm !p-0">Real results from the utility’s own annual report, next to the legal limit. Meeting the legal limit is the minimum. Many families still choose to filter chlorine, disinfection byproducts and PFAS at home.</p>
                   <div className="overflow-x-auto"><table className="w-full text-left text-sm min-w-[520px]"><thead><tr className="text-navy"><th className="py-2 pr-4">Substance</th><th className="py-2 pr-4">Result</th><th className="py-2">Legal limit</th></tr></thead>
                     <tbody>{profile.measured.rows.map((m) => (

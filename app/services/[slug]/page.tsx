@@ -30,7 +30,7 @@ export default function ServicePage({ params }: Props) {
     ['What’s the installation process like?', 'Our technician arrives, shuts off your water for about 4 hours, installs the system, pressure tests it and makes sure everything flows correctly. You are back to normal water use that day.'],
     ['What warranty do you offer?', 'A 1-year warranty on all equipment, plus our satisfaction guarantee: if you are not happy, we will adjust or replace.'],
     ['Can you service my existing system?', 'Yes. We can maintain or upgrade any water system. We assess it during your free consultation.'],
-    ['Do you serve my area?', 'Yes. We serve Tacoma, Puyallup, Bremerton, Port Orchard and surrounding areas.'],
+    ['Do you serve my area?', 'Yes. We serve Tacoma, Puyallup, Bremerton, Port Orchard, Olympia, Lacey and surrounding areas.'],
     ...MAINTENANCE,
   ];
   const offer = (name: string, price: number, description: string) => ({ '@type': 'Offer', name, price, priceCurrency: 'USD', description, itemOffered: { '@type': 'Service', name } });
@@ -46,7 +46,7 @@ export default function ServicePage({ params }: Props) {
     '@context': 'https://schema.org',
     '@graph': [
       { '@type': 'Service', name: s.name, description: s.summary,
-        provider: { '@type': 'LocalBusiness', name: 'US Water Pros', telephone: '+1-253-777-0901', areaServed: ['Tacoma, WA', 'Puyallup, WA', 'Bremerton, WA', 'Port Orchard, WA'] },
+        provider: { '@type': 'LocalBusiness', name: 'US Water Pros', telephone: '+1-253-777-0901', areaServed: ['Tacoma, WA', 'Puyallup, WA', 'Bremerton, WA', 'Port Orchard, WA', 'Olympia, WA', 'Lacey, WA'] },
         ...(offers.length && { offers }),
         availableChannel: { '@type': 'ServiceChannel', serviceUrl: `https://uswaterpros.com/services/${s.slug}` } },
       { '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
@@ -58,24 +58,26 @@ export default function ServicePage({ params }: Props) {
       <div className="mx-auto max-w-6xl px-4 py-10 grid gap-10 md:grid-cols-[3fr_2fr]">
         <div className="flex flex-col gap-14">
           <BuyerDecisionTree s={s} />
-          <QuizCta compact />
+          <QuizCta compact service={s.slug} />
           <ContaminationChart s={s} />
           <SystemDiagram s={s} />
           <BeforeAfterSlider s={s} />
           <PricingTimeline s={s} />
         </div>
-        <aside id="quote" className="md:sticky md:top-24 md:max-h-[calc(100vh-7rem)] md:overflow-y-auto self-start scroll-mt-24"><LeadForm service={s.slug} /></aside>
+        <aside id="quote" className="[@media(min-width:768px)_and_(min-height:900px)]:sticky top-24 self-start scroll-mt-24"><LeadForm service={s.slug} /></aside>
       </div>
       {s.kind === 'flagship' && <ComparisonTable s={s} />}
       <MaintenanceFAQ />
-      <section className="mx-auto max-w-3xl px-4 pb-12">
+      <section className="mx-auto max-w-6xl px-4 pb-12">
         <h2>Frequently Asked Questions</h2>
+        <div className="mt-6 md:grid md:grid-cols-2 md:items-start md:[&>details:nth-child(odd)]:pr-8 md:[&>details:nth-child(even)]:pl-8 md:[&>details:nth-child(even)]:border-l md:[&>details:nth-child(even)]:border-l-black/10">
         {s.faqs.concat(faqs.slice(s.faqs.length, s.faqs.length + 4)).map(([q, a]) => (
           <details key={q} className="border-b border-black/10 py-3">
             <summary className="cursor-pointer min-h-12 flex items-center"><h3 className="text-lg !font-sans !tracking-normal">{q}</h3></summary>
             <p className="pb-2">{a}</p>
           </details>
         ))}
+        </div>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       </section>
       <ServiceAreaCallout />

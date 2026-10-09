@@ -36,13 +36,15 @@ export function BuyerDecisionTree({ s }: { s: Service }) {
   return (
     <section>
       <h2>Is This the Right Solution for Your Water?</h2>
-      <div className="mt-6 grid gap-4 lg:grid-cols-3">
+      <div className="mt-6 flex flex-col gap-4">
         {s.problems.map((p) => (
-          <div key={p.problem} className="card p-8 md:p-10 flex flex-col gap-2">
-            <span className="text-aqua"><Icon name={p.icon} size={36} /></span>
-            <p className="font-semibold text-ink">You have: {p.problem}</p>
-            <p>{p.solution}.</p>
-            <p className="font-semibold text-ink">Result: {p.outcome}</p>
+          <div key={p.problem} className="card p-6 md:p-8 flex gap-5">
+            <span className="text-aqua shrink-0"><Icon name={p.icon} size={36} /></span>
+            <dl className="grid gap-3 max-w-[65ch]">
+              <div><dt className="text-sm font-semibold uppercase tracking-wide text-teal">You have</dt><dd className="font-semibold text-ink">{p.problem}</dd></div>
+              <div><dt className="text-sm font-semibold uppercase tracking-wide text-teal">What we do</dt><dd>{p.solution}.</dd></div>
+              <div><dt className="text-sm font-semibold uppercase tracking-wide text-teal">Result</dt><dd className="font-semibold text-ink">{p.outcome}</dd></div>
+            </dl>
           </div>
         ))}
       </div>
@@ -198,9 +200,9 @@ export function ComparisonTable({ s }: { s: Service }) {
 
 export function MaintenanceFAQ() {
   return (
-    <section className="mx-auto max-w-3xl px-4 py-10">
+    <section className="mx-auto max-w-6xl px-4 py-12">
       <h2>What Happens After Installation?</h2>
-      <div className="mt-4">{MAINT.map(([q, a]) => (
+      <div className="mt-6 md:grid md:grid-cols-2 md:items-start md:[&>details:nth-child(odd)]:pr-8 md:[&>details:nth-child(even)]:pl-8 md:[&>details:nth-child(even)]:border-l md:[&>details:nth-child(even)]:border-l-black/10">{MAINT.map(([q, a]) => (
         <details key={q} className="border-b border-black/10 py-3"><summary className="cursor-pointer font-semibold text-ink min-h-12 flex items-center">{q}</summary><p className="pb-2">{a}</p></details>
       ))}</div>
     </section>
@@ -211,7 +213,7 @@ export function ServiceAreaCallout() {
   return (
     <section className="bg-navy text-white py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-4 text-center">
-        <h2 className="!text-white">Serving Tacoma, Puyallup, Bremerton &amp; Port Orchard</h2>
+        <h2 className="!text-white">Serving Pierce, Kitsap &amp; Thurston Counties</h2>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           {CITIES.map((c) => <Link key={c.slug} href={`/services/whole-home-water-filtration-${c.slug}`} className="min-h-12 inline-flex items-center rounded-full bg-white text-ink px-5 font-semibold">{c.name}</Link>)}
         </div>
