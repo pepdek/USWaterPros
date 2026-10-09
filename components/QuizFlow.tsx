@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { track } from '@/lib/analytics';
+import { citySlug, getAttribution, trackEvent } from '@/lib/analytics/track';
 import { PRICING, TAX_NOTE, formatUSD, wellCredit } from '@/lib/pricing';
 import { addonsTotal, hasWell, isWellProspect, quoteTotal, routeQuiz, type AddonId, type WellTestId } from '@/lib/quizRouting';
 
@@ -82,7 +82,7 @@ export default function QuizFlow() {
   const send = (screenName: string, extra: Record<string, unknown> = {}) => {
     if (!sessionId.current) return;
     fetch('/api/quiz-event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
-      body: JSON.stringify({ sessionId: sessionId.current, screen: screenName, answers: r, ...extra }) }).catch(() => {});
+      body: JSON.stringify({ sessionId: sessionId.current, screen: screenName, answers: r, attribution: getAttribution(), ...extra }) }).catch(() => {});
   };
   useEffect(() => {
     try { sessionId.current = sessionStorage.getItem('quiz-session') || ''; if (!sessionId.current) { sessionId.current = crypto.randomUUID(); sessionStorage.setItem('quiz-session', sessionId.current); } }
@@ -91,13 +91,54 @@ export default function QuizFlow() {
   useEffect(() => {
     if (screen === 'intro' || screen === 'thanks') return;
     send(screen, screen === 'result' ? { recommendation: { path: routeQuiz(r as Responses).path, label: routeQuiz(r as Responses).path === 'whole-home' ? PRICING.flagship.label : 'Well Water Test' } } : {});
+    if (screen === 'result') {
+      const rr = routeQuiz(r as Responses);
+      const wellPath = rr.path === 'well-test';
+      finished.current = true;
+      trackEvent('quiz_completed', {
+        quiz_type: wellPath ? 'well_water' : 'whole_home', urgency_flag: (r.timeline || 'considering').toLowerCase(),
+        recommended_path: wellPath ? 'well_test' : 'whole_home', communication_pref: r.communicationPreference === 'Call' ? 'phone' : 'sms',
+        city: citySlug(r.location), time_to_complete: t0.current ? Math.round((Date.now() - t0.current) / 1000) : undefined,
+      });
+      trackEvent('recommendation_viewed', {
+        recommended_system: rr.path === 'whole-home' ? PRICING.flagship.label : 'Well Water Test',
+        recommended_price: rr.path === 'whole-home' ? PRICING.flagship.displayPrice : PRICING.wellTest.basic.displayPrice,
+        recommended_path: wellPath ? 'well_test' : 'whole_home',
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [screen]);
 
   const screens = flow(r);
   const idx = screens.indexOf(screen);
-  const go = (d: number) => { const next = screens[idx + d]; if (next) { setScreen(next); window.scrollTo({ top: 0 }); } };
-  const start = () => { track('quiz_start'); go(1); };
+  const t0 = useRef(0);
+  const finished = useRef(false);
+  const go = (d: number) => {
+    const next = screens[idx + d];
+    if (!next) return;
+    // GA4: one event per answered question (moving forward only). Answers are option labels, never contact details.
+    const qq = QUESTIONS[screen];
+    if (d > 0 && (qq || screen === 'q3')) {
+      const key = screen === 'q3' ? 'waterConcerns' : qq!.key;
+      const val = r[key];
+      if (screen === 'q1') { try { sessionStorage.setItem('uswp_city', citySlug(r.location)); } catch { /* private mode */ } }
+      trackEvent('quiz_question_answered', { question_number: num, question_id: screen, answer_selected: Array.isArray(val) ? val.join('|') : String(val ?? '') });
+    }
+    setScreen(next); window.scrollTo({ top: 0 });
+  };
+  const start = () => { t0.current = Date.now(); trackEvent('quiz_start', { quiz_type: 'whole_home' }); go(1); };
+
+  // Drop-off: leaving mid-quiz (before the result screen) fires quiz_abandoned once.
+  useEffect(() => {
+    const leave = () => {
+      if (t0.current && !finished.current && screen !== 'intro' && screen !== 'result' && screen !== 'thanks') {
+        finished.current = true;
+        trackEvent('quiz_abandoned', { last_question: screen, question_number: qsRef.current.indexOf(screen) + 1 });
+      }
+    };
+    window.addEventListener('pagehide', leave);
+    return () => window.removeEventListener('pagehide', leave);
+  }, [screen]);
 
   const q = QUESTIONS[screen];
   const answered = q && (q.key === 'waterConcerns' ? (r.waterConcerns?.length ?? 0) > 0 : !!r[q.key]);
@@ -110,7 +151,10 @@ export default function QuizFlow() {
 
   const rec = routeQuiz(r as Responses);
   const well = rec.path === 'well-test';
-  const toggleAddon = (id: AddonId) => setAddons((cur) => (cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id]));
+  const toggleAddon = (id: AddonId) => {
+    trackEvent('quiz_addon_toggled', { addon: id, selected: !addons.includes(id) });
+    setAddons((cur) => (cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id]));
+  };
   const selected = addons.filter((a) => a in PRICING.addons);
   const quote = quoteTotal(rec, selected);
   const systemName = rec.path === 'whole-home' ? rec.label : PRICING.wellTest[wellTest].label;
@@ -132,12 +176,12 @@ export default function QuizFlow() {
         tags: rec.path === 'well-test' ? [rec.tag] : [],
         recommendedSystem: systemName, recommendedPrice: systemPrice, urgencyPriority: urgency(r.timeline),
         addons: rec.path === 'whole-home' ? selected : [], wellTest: rec.path === 'well-test' ? PRICING.wellTest[wellTest].id : null,
-        ...contact, sessionId: sessionId.current, timestamp: new Date().toISOString(), page_source: '/quiz',
+        ...contact, sessionId: sessionId.current, attribution: getAttribution(), timestamp: new Date().toISOString(), page_source: '/quiz',
       }),
     }).then((x) => x.json() as Promise<{ success: boolean; leadId?: string; error?: string }>).catch(() => null);
     if (!res?.success) return setStatus('error');
     send('submitted');
-    track('quiz_complete', { system: systemName, urgency: urgency(r.timeline) });
+    trackEvent('lead_form_submission', { form_type: 'quiz_result', quiz_completed: true, recommended_path: rec.path === 'well-test' ? 'well_test' : 'whole_home', urgency_flag: (r.timeline || 'considering').toLowerCase() });
     window.dispatchEvent(new Event('lead-submitted'));
     setStatus('idle'); setScreen('thanks');
   }
@@ -146,6 +190,7 @@ export default function QuizFlow() {
   const btnBack = 'btn bg-white border border-black/10 text-[var(--color-accent)] hover:opacity-90';
   const qs = screens.filter(isQuestion);
   const num = qs.indexOf(screen) + 1;
+  const qsRef = useRef<Screen[]>([]); qsRef.current = qs;
   const total = qs.length;
 
   return (

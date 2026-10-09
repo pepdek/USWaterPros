@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { CTA, track } from '@/lib/analytics';
+import { CTA } from '@/lib/analytics';
+import { formTypeFor, getAttribution, trackEvent } from '@/lib/analytics/track';
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -14,7 +15,7 @@ export default function LeadForm({ service }: { service: string }) {
 
   useEffect(() => {
     const abandon = () => {
-      if (start.current && !submitted.current) track('form_abandon', { service, fields: Object.keys(touched) });
+      if (start.current && !submitted.current) trackEvent('form_abandon', { service, form_type: formTypeFor(location.pathname), fields_touched: Object.keys(touched).join(',') });
     };
     window.addEventListener('pagehide', abandon);
     return () => window.removeEventListener('pagehide', abandon);
@@ -29,8 +30,8 @@ export default function LeadForm({ service }: { service: string }) {
   const bind = (k: keyof typeof f) => ({
     value: f[k] as string,
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => setF({ ...f, [k]: k === 'zip' ? e.target.value.replace(/\D/g, '') : e.target.value }),
-    onFocus: () => { if (!start.current) { start.current = Date.now(); track('form_start', { service }); } focusAt.current[k] = Date.now(); },
-    onBlur: () => { setTouched((t) => ({ ...t, [k]: true })); track('field_focus_time', { field: k, ms: Date.now() - focusAt.current[k] }); },
+    onFocus: () => { if (!start.current) { start.current = Date.now(); trackEvent('form_start', { service, form_type: formTypeFor(location.pathname) }); } focusAt.current[k] = Date.now(); },
+    onBlur: () => { setTouched((t) => ({ ...t, [k]: true })); },
   });
   const show = (k: string) => touched[k] && err[k];
 
@@ -41,11 +42,11 @@ export default function LeadForm({ service }: { service: string }) {
     setState('sending');
     const res = await fetch('/api/leads', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: f.name, email: f.email, phone: f.phone, zip_code: f.zip, service_type: service, page_source: location.pathname }),
+      body: JSON.stringify({ name: f.name, email: f.email, phone: f.phone, zip_code: f.zip, service_type: service, page_source: location.pathname, attribution: getAttribution() }),
     }).catch(() => null);
     if (!res?.ok) return setState('error');
     submitted.current = true;
-    track('lead_submit', { service, seconds_to_submit: Math.round((Date.now() - start.current) / 1000) });
+    trackEvent('lead_form_submission', { service, form_type: formTypeFor(location.pathname), seconds_to_submit: Math.round((Date.now() - start.current) / 1000), quiz_completed: false });
     window.dispatchEvent(new Event('lead-submitted'));
     setState('done');
   }

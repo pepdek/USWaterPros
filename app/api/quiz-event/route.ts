@@ -17,7 +17,10 @@ export async function POST(req: NextRequest) {
   };
   const r = (b.recommendation ?? null) as { path?: string; label?: string } | null;
   const recommendation = r ? { path: String(r.path ?? '').slice(0, 20), label: String(r.label ?? '').slice(0, 80) } : null;
-  const { error } = await supabase().from('quiz_events').insert({ session_id: b.sessionId, screen: b.screen, answers, recommendation });
+  const at = (b.attribution?.last ?? null) as Record<string, unknown> | null;
+  const g = (k: string) => (at && typeof at[k] === 'string' ? (at[k] as string).slice(0, 80) : '');
+  const attribution = at ? { source: g('source'), medium: g('medium'), campaign: g('campaign'), traffic_source: g('traffic_source'), landing_page: g('landing_page') } : null;
+  const { error } = await supabase().from('quiz_events').insert({ session_id: b.sessionId, screen: b.screen, answers, recommendation, attribution });
   if (error) { console.error(error); return NextResponse.json({ ok: false }, { status: 500 }); }
   return NextResponse.json({ ok: true });
 }

@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { track } from '@/lib/analytics';
+import { getAttribution, trackEvent } from '@/lib/analytics/track';
 import WaterReport from './WaterReport';
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -18,10 +18,10 @@ export default function ReportCta() {
     setErr('');
     const res = await fetch('/api/leads', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, zip_code: zip, service_type: 'water-report', page_source: location.pathname }),
+      body: JSON.stringify({ email, zip_code: zip, service_type: 'water-report', page_source: location.pathname, attribution: getAttribution() }),
     }).catch(() => null);
     if (!res?.ok) return setErr('Something went wrong. Please try again.');
-    track('report_submit', { zip });
+    trackEvent('water_report_submit', { form_type: 'water_report_block' });
     setDone(zip);
   }
 

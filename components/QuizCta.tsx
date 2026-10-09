@@ -10,6 +10,6 @@ export default function QuizCta({ compact = false }: { compact?: boolean }) {
     </>
   );
   return compact
-    ? <div className="bg-ice rounded-xl p-6 text-center">{body}</div>
-    : <section className="bg-ice py-12"><div className="mx-auto max-w-3xl px-4 text-center">{body}</div></section>;
+    ? <div data-track-source="inline_quiz_cta" className="bg-ice rounded-xl p-6 text-center">{body}</div>
+    : <section data-track-source="inline_quiz_cta" className="bg-ice py-12"><div className="mx-auto max-w-3xl px-4 text-center">{body}</div></section>;
 }

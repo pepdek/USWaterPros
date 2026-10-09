@@ -15,7 +15,7 @@ const Check = ({ children }: { children: React.ReactNode }) => <li className="fl
 
 export function ServiceHero({ s }: { s: Service }) {
   return (
-    <section className="bg-surge">
+    <section data-track-source="hero" className="bg-surge">
       <div className="mx-auto max-w-6xl px-4 py-10 md:py-14 grid gap-8 md:grid-cols-[3fr_2fr] md:items-center md:min-h-[40vh]">
         <div>
           <Breadcrumb items={[{ label: 'Services', href: '/#services' }, { label: s.name }]} />
@@ -223,7 +223,7 @@ export function ServiceAreaCallout() {
 
 export function CTASection() {
   return (
-    <section className="bg-surge py-12 text-center">
+    <section data-track-source="final_cta" className="bg-surge py-12 text-center">
       <div className="mx-auto max-w-3xl px-4">
         <h2 className="!text-white">Ready to Improve Your Water?</h2>
         <div className="mt-6 grid gap-3 sm:grid-cols-2">

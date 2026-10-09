@@ -19,8 +19,13 @@ export async function POST(req: NextRequest) {
     recommendedSystem: rec, recommendedPrice: Number(b.recommendedPrice) || 0,
   } : null;
   const quizService = quiz?.wellTest || /well/i.test(rec) ? 'well-water-treatment' : 'whole-home-water-filtration';
+  // Lead source: whitelist the attribution object so only campaign/referrer fields are stored.
+  const touch = (t: unknown) => { const o = (t ?? {}) as Record<string, unknown>; const g = (k: string) => (typeof o[k] === 'string' ? (o[k] as string).slice(0, 120) : ''); return { source: g('source'), medium: g('medium'), campaign: g('campaign'), traffic_source: g('traffic_source'), landing_page: g('landing_page'), referrer: g('referrer'), gclid: g('gclid') ? 'yes' : '' }; };
+  const at = (b.attribution ?? {}) as Record<string, unknown>;
+  const attribution = b.attribution ? { first: touch(at.first), last: touch(at.last), lead_source: typeof at.lead_source === 'string' ? at.lead_source.slice(0, 120) : '' } : null;
   const lead = {
     id: crypto.randomUUID(),
+    attribution, lead_source: attribution?.lead_source || null,
     name: s('name', 255) || 'Water report request', email: s('email', 255), phone: s('phone', 20) || null,
     zip_code: isQuiz ? null : s('zip_code', 10), service_type: isQuiz ? quizService : s('service_type', 255), page_source: s('page_source', 255),
     ip_address: req.headers.get('x-forwarded-for')?.split(',')[0].trim() || null,
