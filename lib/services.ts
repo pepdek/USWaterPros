@@ -1,4 +1,5 @@
 import { PHONE_HREF } from './constants';
+import { ANNUAL_FILTERS, PRICING, TAX_NOTE, carbonPrice, flagshipPrice, formatUSD, roPrice } from './pricing';
 import type { SourceId } from './sources';
 
 type Problem = { icon: string; problem: string; solution: string; outcome: string };
@@ -6,6 +7,8 @@ type Treat = { icon: string; item: string; how: string };
 type Stage = { title: string; what: string; removes: string };
 
 export type Service = {
+  // flagship = the whole-home system; component = installed as part of it; addon = priced add-on; well = test-first; city = no fixed price
+  kind: 'flagship' | 'component' | 'addon' | 'well' | 'city'; addon?: 'ro' | 'carbon';
   slug: string; image: string; imageAlt: string; name: string; icon: string; blurb: string;
   h1: string; sub: string; summary: string;
   problems: Problem[]; treats: Treat[]; stages: Stage[];
@@ -14,16 +17,16 @@ export type Service = {
   stat: string; cite: SourceId[];
 };
 
-// Company facts supplied by the owner: $2,700 fixed, ~4h install, 1-year warranty, since 2009.
-export const PRICE = '$2,700';
+// Company facts supplied by the owner: ~4h install, 1-year warranty, since 2009. Prices live in lib/pricing.ts.
 
 export const SERVICES: Service[] = [
   {
+    kind: 'flagship',
     slug: 'whole-home-water-filtration', image: '/images/services/whole-home-water-filtration.webp', imageAlt: 'Whole-home water filtration system with carbon filter tank and brine tank', name: 'Whole-Home Water Filtration', icon: 'house',
     blurb: 'Clean, great-tasting water from every tap. Protect your pipes and appliances.',
     h1: 'Whole-Home Water Filtration to Remove Chlorine, Sediment & Odors',
-    sub: 'Clean water from every tap. Fixed price: $2,700 installed by licensed technicians in about 4 hours.',
-    summary: 'Whole-home water filtration at a fixed $2,700 installed. Removes chlorine taste, sediment and odors from every tap. Licensed technicians in Washington.',
+    sub: `${PRICING.headline} Licensed technicians, about 4 hours.`,
+    summary: `${PRICING.headline} Softening, carbon filtration and a reverse osmosis drinking faucet. Licensed technicians in Washington.`,
     problems: [
       { icon: 'drop', problem: 'Chlorine taste and smell in your tap water', solution: 'Carbon filtration media reduces chlorine taste and odor', outcome: 'Fresh, clean water from every tap' },
       { icon: 'layers', problem: 'Sediment and particles clouding your water', solution: 'A 5-micron pre-filter catches particles before they enter your home', outcome: 'Clearer water and longer appliance life' },
@@ -53,11 +56,12 @@ export const SERVICES: Service[] = [
     stat: 'Most US public water systems disinfect with chlorine or chloramine.', cite: ['epaDbp'],
   },
   {
+    kind: 'component',
     slug: 'water-softening-systems', image: '/images/services/water-softening-systems.webp', imageAlt: 'Water softener system with brine tank and reverse osmosis drinking water faucet', name: 'Water Softening Systems', icon: 'drop',
     blurb: 'Say goodbye to limescale, spotty dishes and dry skin. Softer water, lower bills.',
     h1: 'Water Softening Systems to Stop Hard Water Scale & Dry Skin',
-    sub: 'Softer water, cleaner fixtures. Fixed price: $2,700 installed by licensed technicians in about 4 hours.',
-    summary: 'Water softener installation at a fixed $2,700. Stops scale, spotty dishes and dry skin. Licensed technicians in Washington.',
+    sub: 'Softer water, cleaner fixtures. Installed as part of our whole-home water system.',
+    summary: 'Water softening for scale, spotty dishes and dry skin, installed as part of our whole-home water system. Licensed technicians in Washington.',
     problems: [
       { icon: 'building', problem: 'White scale on faucets, showerheads and glass', solution: 'Ion exchange resin removes the calcium and magnesium that cause scale', outcome: 'Fixtures stay clean and cleaning gets easier' },
       { icon: 'glass', problem: 'Spotty dishes and cloudy glassware', solution: 'Softened water rinses clean without mineral spots', outcome: 'Dishes and glass come out clear' },
@@ -86,11 +90,12 @@ export const SERVICES: Service[] = [
     stat: 'An estimated 85% of US homes have hard water.', cite: ['usgs', 'wqa'],
   },
   {
+    kind: 'well',
     slug: 'well-water-treatment', image: '/images/services/well-water-treatment.webp', imageAlt: 'Well water treatment system with softener tank, carbon tank and chemical feed', name: 'Well Water Treatment', icon: 'flask',
     blurb: 'Fix iron staining, sulfur smell and sediment. Safe, clean well water without boiling.',
     h1: 'Well Water Treatment to Fix Iron Staining, Sulfur Smell & Sediment',
-    sub: 'Clean, safe well water. Fixed price: $2,700 installed by licensed technicians in about 4 hours.',
-    summary: 'Well water treatment at a fixed $2,700 installed. Fixes iron staining, sulfur smell and sediment. Licensed technicians in Washington.',
+    sub: `Start with a ${formatUSD(PRICING.wellTest.basic.displayPrice)} water test, credited toward your install.`,
+    summary: `Well water testing from ${formatUSD(PRICING.wellTest.basic.displayPrice)}, credited toward your install if you purchase. Fixes iron staining, sulfur smell and sediment. Licensed technicians in Washington.`,
     problems: [
       { icon: 'building', problem: 'Orange or brown iron staining on fixtures and laundry', solution: 'An iron filter removes iron and manganese before it reaches your plumbing', outcome: 'Fixtures and laundry stop staining' },
       { icon: 'flask', problem: 'A rotten-egg sulfur smell', solution: 'Oxidizing filter media treats the hydrogen sulfide that causes it', outcome: 'No more smell from taps and showers' },
@@ -120,11 +125,12 @@ export const SERVICES: Service[] = [
     stat: 'Private wells are not regulated by the EPA, so testing is up to the owner.', cite: ['epaWells'],
   },
   {
+    kind: 'addon', addon: 'ro',
     slug: 'reverse-osmosis-systems', image: '/images/services/reverse-osmosis-systems.webp', imageAlt: 'Five-stage reverse osmosis drinking water system with storage tank', name: 'Reverse Osmosis Systems', icon: 'glass',
     blurb: 'Bottled-water quality from your kitchen faucet. Stop buying jugs.',
     h1: 'Reverse Osmosis Drinking Water Systems for Clean, Great-Tasting Water',
-    sub: 'Premium drinking water on tap. Fixed price: $2,700 installed by licensed technicians in about 4 hours.',
-    summary: 'Reverse osmosis drinking water system at a fixed $2,700 installed. Reduces lead, PFAS and chlorine taste. Licensed technicians in Washington.',
+    sub: `Premium drinking water on tap. Add-on: ${roPrice} ${TAX_NOTE}.`,
+    summary: `Reverse osmosis drinking water add-on for ${roPrice}, ${TAX_NOTE}, on the same visit as your whole-home system. Reduces lead, PFAS and chlorine taste.`,
     problems: [
       { icon: 'glass', problem: 'Tap water that tastes off, or worries you for your kids', solution: 'A reverse osmosis membrane filters water down to a very fine level', outcome: 'Premium drinking water from the tap' },
       { icon: 'shield', problem: 'Concerns about lead, PFAS or nitrate', solution: 'RO reduces many dissolved contaminants that basic filters miss', outcome: 'Peace of mind for drinking and cooking' },
@@ -154,11 +160,12 @@ export const SERVICES: Service[] = [
     stat: 'Health agencies list reverse osmosis among the home treatments for PFAS.', cite: ['mdhPfas'],
   },
   {
+    kind: 'addon', addon: 'carbon',
     slug: 'carbon-filtration', image: '/images/services/carbon-filtration.webp', imageAlt: 'Activated carbon filter tank cutaway', name: 'Carbon Filtration', icon: 'layers',
     blurb: 'Fresh-tasting water with no chlorine smell. A simple, affordable upgrade.',
     h1: 'Carbon Filtration to Remove Chlorine Taste & Odors',
-    sub: 'Fresh taste, simple system. Fixed price: $2,700 installed by licensed technicians in about 4 hours.',
-    summary: 'Carbon filtration at a fixed $2,700 installed. Removes chlorine taste and odors. Licensed technicians in Washington.',
+    sub: `Fresh taste, simple add-on: ${carbonPrice} ${TAX_NOTE}.`,
+    summary: `Carbon filtration add-on for ${carbonPrice}, ${TAX_NOTE}, on the same visit as your whole-home system. Removes chlorine taste and odors.`,
     problems: [
       { icon: 'drop', problem: 'Chlorine taste and pool-like smell', solution: 'Activated carbon traps chlorine as water flows through', outcome: 'Fresh-tasting water' },
       { icon: 'flask', problem: 'Concerns about chemicals in your water', solution: 'Carbon captures many common chemicals and organic compounds', outcome: 'Cleaner water without a complicated system' },
@@ -187,11 +194,12 @@ export const SERVICES: Service[] = [
     stat: 'Most city water is disinfected with chlorine or chloramine.', cite: ['epaDbp'],
   },
   {
+    kind: 'city',
     slug: 'city-water-treatment', image: '/images/services/city-water-treatment.webp', imageAlt: 'City water treatment system with softener tank, carbon tank and brine tank', name: 'City Water Treatment', icon: 'building',
     blurb: 'Municipal water is safe to drink, not always good to drink. Upgrade it at home.',
     h1: 'City Water Treatment to Reduce Chlorine & Improve Taste',
-    sub: 'Better tasting city water. Fixed price: $2,700 installed by licensed technicians in about 4 hours.',
-    summary: 'City water treatment at a fixed $2,700 installed. Reduces chlorine and improves taste. Licensed technicians in Washington.',
+    sub: 'Better tasting city water. Installed as part of our whole-home water system.',
+    summary: 'City water treatment for chlorine taste and older plumbing, installed as part of our whole-home water system. Licensed technicians in Washington.',
     problems: [
       { icon: 'drop', problem: 'Chlorine taste and smell from municipal water', solution: 'Catalytic carbon reduces chlorine and chloramine taste and odor', outcome: 'Water that tastes like water' },
       { icon: 'shield', problem: 'Older pipes, and lead in older homes', solution: 'A point-of-use reverse osmosis tap reduces lead at the kitchen sink', outcome: 'Safer drinking and cooking water' },
@@ -229,7 +237,7 @@ export const PILLS = [
 
 export const MAINTENANCE: [string, string][] = [
   ['How often do filters need replacing?', 'Typically annually for the sediment filter and every 3–5 years for carbon or resin media. We send reminders.'],
-  ['What’s the annual maintenance cost?', 'About $150–300 a year for filter cartridges. No technician visits are needed for routine maintenance.'],
+  ['What’s the annual maintenance cost?', `About ${formatUSD(ANNUAL_FILTERS.low)}–${ANNUAL_FILTERS.high} a year for filter cartridges. No technician visits are needed for routine maintenance.`],
   ['How long does the system last?', 'Typically 8–10 years for whole-home systems. Some components, like resin, regenerate. Others are replaced.'],
   ['What if something breaks?', 'Your warranty covers manufacturing defects. We repair or replace at no cost within the first year.'],
   ['Can I service it myself?', 'Filter changes are simple, and we give you guidance. Major repairs are done by a licensed technician.'],

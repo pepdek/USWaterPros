@@ -1,3 +1,4 @@
+import { costAnswer } from './pricing';
 export type City = {
   slug: string; name: string; county: string; // county = locations slug
   headline: string; issues: string[]; paras: string[]; removes: string[];
@@ -24,7 +25,7 @@ export const CITIES: City[] = [
     authority: ['Tacoma Public Utilities water quality', 'https://www.mytpu.org/about-tpu/services/water/water-quality/'],
     faqs: [
       ['What is the water quality like in Tacoma?', 'Tacoma Water treats and tests its supply and publishes annual reports. The most common complaints are chlorine taste and smell, and older plumbing in pre-1986 homes.'],
-      ['How much does whole-home filtration cost in Tacoma?', 'Most whole-home systems run $1,200 to $4,000 installed. Our typical price is $2,700, and we give you the number up front.'],
+      ['How much does whole-home filtration cost in Tacoma?', costAnswer()],
       ['How long does installation take?', 'Usually about a day. We confirm after a quick look at your plumbing.'],
       ['Do you serve my Tacoma neighborhood?', 'Yes. We serve all of Tacoma, including Proctor, the North End, Hilltop, the Stadium District, Old Town and South Tacoma.'],
       ['Can you fix the chlorine taste in my water?', 'Yes. Carbon filtration removes most chlorine taste and odor, for the whole house or at a single tap.'],
@@ -45,7 +46,7 @@ export const CITIES: City[] = [
     authority: EPA_CCR,
     faqs: [
       ['What is the water quality like in Puyallup?', 'It depends on your source. City-served homes and private wells differ, and groundwater here commonly carries iron and manganese. A test tells you for sure.'],
-      ['How much does whole-home filtration cost in Puyallup?', 'Most whole-home systems run $1,200 to $4,000 installed. Our typical price is $2,700.'],
+      ['How much does whole-home filtration cost in Puyallup?', costAnswer()],
       ['How long does installation take?', 'Usually about a day.'],
       ['Do you serve South Hill and the Puyallup Valley?', 'Yes. We serve all of Puyallup and the surrounding area.'],
       ['My well water stains everything orange. Can you fix it?', 'Usually, yes. Iron and manganese respond to the right filter. We test first so the system matches your water.'],
@@ -66,7 +67,7 @@ export const CITIES: City[] = [
     authority: EPA_CCR,
     faqs: [
       ['What is the water quality like in Bremerton?', 'City water is treated and tested, and wells vary. Common issues are chlorine taste, older plumbing and, on wells, iron and manganese.'],
-      ['How much does whole-home filtration cost in Bremerton?', 'Most whole-home systems run $1,200 to $4,000 installed. Our typical price is $2,700.'],
+      ['How much does whole-home filtration cost in Bremerton?', costAnswer()],
       ['How long does installation take?', 'Usually about a day.'],
       ['Do you serve Manette and Navy Yard City?', 'Yes. We serve all of Bremerton and nearby communities.'],
       ['Do you offer service for military families?', 'We serve Bremerton’s Navy and military community. Ask about scheduling around your needs.'],
@@ -87,7 +88,7 @@ export const CITIES: City[] = [
     authority: EPA_CCR,
     faqs: [
       ['What is the water quality like in Port Orchard?', 'It depends on your source. City and well water differ, and staining minerals are a common issue. A test tells you what is in yours.'],
-      ['How much does whole-home filtration cost in Port Orchard?', 'Most whole-home systems run $1,200 to $4,000 installed. Our typical price is $2,700.'],
+      ['How much does whole-home filtration cost in Port Orchard?', costAnswer()],
       ['How long does installation take?', 'Usually about a day.'],
       ['Do you serve Horseshoe Lake, Burley and Olalla?', 'Yes. We serve Port Orchard and the surrounding South Kitsap area.'],
       ['Will filtration protect my appliances?', 'It can help. Reducing sediment and minerals is easier on fixtures, water heaters and dishwashers.'],

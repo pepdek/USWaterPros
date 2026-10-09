@@ -1,16 +1,17 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { track } from '@/lib/analytics';
+import { PRICING, TAX_NOTE, formatUSD, wellCredit } from '@/lib/pricing';
+import { addonsTotal, hasWell, isWellProspect, quoteTotal, routeQuiz, type AddonId, type WellTestId } from '@/lib/quizRouting';
 
 // ---- Types -------------------------------------------------------------------------------
 type Urgency = 'HIGH' | 'MEDIUM' | 'LOW';
 type SourceType = 'private_well' | 'municipal';
 type Responses = {
-  location: string; currentSituation: string; waterConcerns: string[]; waterSourceType?: SourceType; servicePathA?: string; servicePathB?: string;
+  location: string; currentSituation: string; waterConcerns: string[]; waterSourceType?: SourceType; servicePathA?: string;
   householdSize: string; budgetComfort: string; timeline: string; communicationPreference: string;
 };
-type Screen = 'intro' | 'q1' | 'q2' | 'i1' | 'q3' | 'i2' | 'qwell' | 'q4a' | 'q4b' | 'q5' | 'q6' | 'i3' | 'q7' | 'q8' | 'result' | 'thanks';
-type Rec = { name: string; price: number; range?: string };
+type Screen = 'intro' | 'q1' | 'q2' | 'i1' | 'q3' | 'i2' | 'qwell' | 'q4a' | 'q5' | 'q6' | 'i3' | 'q7' | 'q8' | 'result' | 'thanks';
 type Opt = [label: string, sub: string | undefined, icon: string];
 type Q = { key: keyof Responses; title: string; options: Opt[]; cards?: boolean };
 
@@ -26,14 +27,6 @@ const BENEFIT: Record<string, string> = {
   'Scale buildup': 'Protects appliances from scale buildup',
   'Private well water': 'Professional testing and custom filtration',
 };
-const RECS: Record<'softness' | 'purity' | 'both' | 'drinking', Rec> = {
-  softness: { name: 'Whole-Home Softener', price: 2700 },
-  purity: { name: 'Reverse Osmosis Drinking Water System', price: 2700 },
-  both: { name: 'Dual System: Softener + RO', price: 2700 },
-  drinking: { name: 'RO Drinking Water System', price: 2700 },
-};
-// Private-well prospects get a custom analysis and a price range instead of a fixed price.
-const WELL_REC: Rec = { name: 'Custom Well Water Analysis', price: 2999, range: '$2,999–$4,599' };
 const QUESTIONS: Partial<Record<Screen, Q>> = {
   q1: { key: 'location', title: 'Where is your home?', options: [['Tacoma, WA', undefined, '💧'], ['Puyallup, WA', undefined, '💧'], ['Bremerton, WA', undefined, '💧'], ['Port Orchard, WA', undefined, '💧'], ['Other', undefined, '📍']] },
   q2: { key: 'currentSituation', title: 'Which sounds most like you right now?', cards: true, options: [
@@ -44,10 +37,7 @@ const QUESTIONS: Partial<Record<Screen, Q>> = {
     ['Private well', 'We’ll build a custom approach', '🏞️'], ['Municipal', 'City or utility water', '🏙️'],
   ] },
   q4a: { key: 'servicePathA', title: 'If you could fix ONE thing about your whole-home water, what matters most?', options: [
-    ['Softness', 'Whole-Home Softener', '🧴'], ['Purity', 'Reverse Osmosis System', '💎'], ['Both', 'Dual System', '⚡'],
-  ] },
-  q4b: { key: 'servicePathB', title: 'Just to confirm: are you interested in drinking water purity only?', options: [
-    ['Yes, drinking only', undefined, '🥤'], ['Actually, want whole-home too', undefined, '🏠'],
+    ['Softness', 'Scale, spots and dry skin', '🧴'], ['Purity', 'Taste and drinking water', '💎'], ['Both', 'Softer and cleaner', '⚡'],
   ] },
   q5: { key: 'householdSize', title: 'How many people live in your home?', options: [['1-2', undefined, '👫'], ['3-4', undefined, '👨‍👩‍👧'], ['5-6', undefined, '👨‍👩‍👧‍👦'], ['7+', undefined, '🏡']] },
   q6: { key: 'budgetComfort', title: 'When it comes to home improvements like water systems, how do you usually decide?', cards: true, options: [
@@ -63,23 +53,10 @@ const INTERSTITIAL: Partial<Record<Screen, [icon: string, title: string, body: s
 };
 
 // ---- Logic -------------------------------------------------------------------------------
-const route = (c: string[]): 'q4a' | 'q4b' => (c.length === 1 && c[0] === 'Chlorine taste' && !c.includes('Multiple problems') ? 'q4b' : 'q4a');
-
-const hasWell = (r: Partial<Responses>) => (r.waterConcerns ?? []).includes('Private well water');
-const isWellProspect = (r: Partial<Responses>) => hasWell(r) && r.waterSourceType === 'private_well';
-
-// Ordered list of screens for the current answers.
-// Q3 decides Q4a vs Q4b. Picking "Private well water" inserts the well question (qwell) before Q4; "Private well" skips Q4 entirely.
+// Ordered list of screens. Picking "Private well water" inserts the well question (qwell) before Q4; a private-well answer skips Q4 entirely.
 function flow(r: Partial<Responses>): Screen[] {
-  const path: Screen[] = isWellProspect(r) ? [] : route(r.waterConcerns ?? []) === 'q4b' ? (r.servicePathB?.startsWith('Actually') ? ['q4b', 'q4a'] : ['q4b']) : ['q4a'];
-  return ['intro', 'q1', 'q2', 'i1', 'q3', 'i2', ...(hasWell(r) ? (['qwell'] as Screen[]) : []), ...path, 'q5', 'q6', 'i3', 'q7', 'q8', 'result', 'thanks'];
-}
-function recommend(r: Partial<Responses>): Rec {
-  if (isWellProspect(r)) return WELL_REC;
-  if (flow(r).includes('q4a')) {
-    return r.servicePathA === 'Purity' ? RECS.purity : r.servicePathA === 'Both' ? RECS.both : RECS.softness;
-  }
-  return RECS.drinking;
+  const path: Screen[] = isWellProspect(r as Responses) ? [] : ['q4a'];
+  return ['intro', 'q1', 'q2', 'i1', 'q3', 'i2', ...(hasWell(r as Responses) ? (['qwell'] as Screen[]) : []), ...path, 'q5', 'q6', 'i3', 'q7', 'q8', 'result', 'thanks'];
 }
 const urgency = (t?: string): Urgency => (t === 'ASAP' ? 'HIGH' : t === 'Future' ? 'LOW' : 'MEDIUM');
 const isQuestion = (s: Screen) => !!QUESTIONS[s] || s === 'q3';
@@ -97,6 +74,25 @@ export default function QuizFlow() {
   const [contact, setContact] = useState({ name: '', email: '', phone: '' });
   const [touched, setTouched] = useState(false);
   const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle');
+  const [addons, setAddons] = useState<AddonId[]>([]);
+  const [wellTest, setWellTest] = useState<WellTestId>('basic');
+
+  // Anonymous step-by-step capture (answers only, never contact details) so the CRM can see abandoned quizzes too.
+  const sessionId = useRef('');
+  const send = (screenName: string, extra: Record<string, unknown> = {}) => {
+    if (!sessionId.current) return;
+    fetch('/api/quiz-event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
+      body: JSON.stringify({ sessionId: sessionId.current, screen: screenName, answers: r, ...extra }) }).catch(() => {});
+  };
+  useEffect(() => {
+    try { sessionId.current = sessionStorage.getItem('quiz-session') || ''; if (!sessionId.current) { sessionId.current = crypto.randomUUID(); sessionStorage.setItem('quiz-session', sessionId.current); } }
+    catch { sessionId.current = crypto.randomUUID(); }
+  }, []);
+  useEffect(() => {
+    if (screen === 'intro' || screen === 'thanks') return;
+    send(screen, screen === 'result' ? { recommendation: { path: routeQuiz(r as Responses).path, label: routeQuiz(r as Responses).path === 'whole-home' ? PRICING.flagship.label : 'Well Water Test' } } : {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [screen]);
 
   const screens = flow(r);
   const idx = screens.indexOf(screen);
@@ -112,8 +108,13 @@ export default function QuizFlow() {
     setR({ ...r, waterConcerns: cur.includes(v) ? cur.filter((x) => x !== v) : [...cur, v] });
   };
 
-  const rec = recommend(r);
-  const well = isWellProspect(r);
+  const rec = routeQuiz(r as Responses);
+  const well = rec.path === 'well-test';
+  const toggleAddon = (id: AddonId) => setAddons((cur) => (cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id]));
+  const selected = addons.filter((a) => a in PRICING.addons);
+  const quote = quoteTotal(rec, selected);
+  const systemName = rec.path === 'whole-home' ? rec.label : PRICING.wellTest[wellTest].label;
+  const systemPrice = rec.path === 'whole-home' ? quote : PRICING.wellTest[wellTest].displayPrice;
   const benefits = [...new Set((r.waterConcerns ?? []).map((c) => BENEFIT[c]).filter(Boolean))];
   const errs = {
     name: contact.name.trim().length < 2, email: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email),
@@ -127,14 +128,16 @@ export default function QuizFlow() {
     const res = await fetch('/api/leads', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        ...r, waterSourceType: hasWell(r) ? r.waterSourceType ?? null : null, showedWellWaterBranch: hasWell(r),
-        tags: isWellProspect(r) ? ['well-water-prospect'] : [],
-        recommendedSystem: rec.name, recommendedPrice: rec.price, recommendedPriceRange: rec.range ?? '', urgencyPriority: urgency(r.timeline),
-        ...contact, timestamp: new Date().toISOString(), page_source: '/quiz',
+        ...r, waterSourceType: hasWell(r as Responses) ? r.waterSourceType ?? null : null, showedWellWaterBranch: hasWell(r as Responses),
+        tags: rec.path === 'well-test' ? [rec.tag] : [],
+        recommendedSystem: systemName, recommendedPrice: systemPrice, urgencyPriority: urgency(r.timeline),
+        addons: rec.path === 'whole-home' ? selected : [], wellTest: rec.path === 'well-test' ? PRICING.wellTest[wellTest].id : null,
+        ...contact, sessionId: sessionId.current, timestamp: new Date().toISOString(), page_source: '/quiz',
       }),
     }).then((x) => x.json() as Promise<{ success: boolean; leadId?: string; error?: string }>).catch(() => null);
     if (!res?.success) return setStatus('error');
-    track('quiz_complete', { system: rec.name, urgency: urgency(r.timeline) });
+    send('submitted');
+    track('quiz_complete', { system: systemName, urgency: urgency(r.timeline) });
     window.dispatchEvent(new Event('lead-submitted'));
     setStatus('idle'); setScreen('thanks');
   }
@@ -200,15 +203,41 @@ export default function QuizFlow() {
         <form onSubmit={submit} noValidate className="flex flex-col gap-4">
           <h2>{headline(r.currentSituation)}</h2>
           <div className="card p-6 !transform-none border-t-4 border-[var(--color-primary)]">
-            <p className="text-sm font-semibold uppercase tracking-wide">{well ? 'Your custom recommendation' : 'Your recommended system'}</p>
-            <p className="text-2xl font-bold text-[var(--color-accent)] mt-1">{rec.name}</p>
-            <p className="text-3xl font-bold text-[var(--color-accent)]">{rec.range ?? `$${rec.price.toLocaleString()}`} <span className="text-sm font-normal">{well ? 'depending on your well' : 'installed'}</span></p>
-            <ul className="mt-3 flex flex-col gap-1">
-              {well && <><li>✓ We’ll test your water for iron, sulfur, and hardness levels</li><li>✓ Inspector consultation included</li></>}
-              {(benefits.length ? benefits : ['Better water at every tap']).map((b) => <li key={b}>✓ {b}</li>)}
-              <li>✓ Installation in about 4 hours</li>
-              {r.householdSize && <li>✓ Sized for a household of {r.householdSize}</li>}
-            </ul>
+            {rec.path === 'whole-home' ? (
+              <>
+                <p className="text-sm font-semibold uppercase tracking-wide">Your recommended system</p>
+                <p className="text-2xl font-bold text-[var(--color-accent)] mt-1">{rec.label}</p>
+                <p className="text-3xl font-bold text-[var(--color-accent)]">{formatUSD(quote)} <span className="text-sm font-normal">{TAX_NOTE}</span></p>
+                <ul className="mt-3 flex flex-col gap-1">
+                  {rec.includes.map((i) => <li key={i}>✓ {i}</li>)}
+                  {(benefits.length ? benefits : ['Better water at every tap']).map((b) => <li key={b}>✓ {b}</li>)}
+                  <li>✓ Installation in about 4 hours</li>
+                  {r.householdSize && <li>✓ Sized for a household of {r.householdSize}</li>}
+                </ul>
+                <p className="mt-4 font-semibold text-sm text-[var(--color-accent)]">Optional add-ons, installed on the same visit</p>
+                {(Object.keys(PRICING.addons) as AddonId[]).map((id) => (
+                  <label key={id} className="flex items-center gap-3 min-h-[60px] rounded-lg border-2 border-black/10 px-3 mt-2 cursor-pointer">
+                    <input type="checkbox" className="w-5 h-5 accent-[var(--aqua)]" checked={selected.includes(id)} onChange={() => toggleAddon(id)} />
+                    <span className="flex-1"><span className="font-semibold">{PRICING.addons[id].label}</span>{rec.suggestedAddons.includes(id) && <span className="ml-2 text-xs bg-ice rounded-full px-2 py-0.5">Suggested for you</span>}</span>
+                    <span className="font-bold">+{formatUSD(PRICING.addons[id].displayPrice)}</span>
+                  </label>
+                ))}
+              </>
+            ) : (
+              <>
+                <p className="text-sm font-semibold uppercase tracking-wide">Your recommended next step</p>
+                <p className="text-2xl font-bold text-[var(--color-accent)] mt-1">Well Water Test</p>
+                <p className="mt-1">We test your water for iron, sulfur and hardness, then recommend the right system. No fixed install price until your results are in.</p>
+                {(Object.keys(PRICING.wellTest) as WellTestId[]).map((id) => (
+                  <label key={id} className="flex items-center gap-3 min-h-[60px] rounded-lg border-2 border-black/10 px-3 mt-2 cursor-pointer">
+                    <input type="radio" name="welltest" className="w-5 h-5 accent-[var(--aqua)]" checked={wellTest === id} onChange={() => setWellTest(id)} />
+                    <span className="flex-1 font-semibold">{PRICING.wellTest[id].label}</span>
+                    <span className="font-bold">{formatUSD(PRICING.wellTest[id].displayPrice)}</span>
+                  </label>
+                ))}
+                <p className="mt-2 text-sm">{wellCredit}</p>
+              </>
+            )}
           </div>
           {([['name', 'Name', 'text', 'name'], ['email', 'Email', 'email', 'email'], ['phone', 'Phone', 'tel', 'tel']] as const).map(([k, label, type, ac]) => (
             <label key={k} className="block">

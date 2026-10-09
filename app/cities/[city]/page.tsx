@@ -87,7 +87,7 @@ export default function CityPage({ params }: Props) {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12 grid gap-6 md:grid-cols-3 text-center">
-        <div className="card p-6"><h3 className="text-xl">Local since 2009</h3><p className="mt-1">Same price since we started.</p></div>
+        <div className="card p-6"><h3 className="text-xl">Local since 2009</h3><p className="mt-1">Fixed, upfront pricing.</p></div>
         <div className="card p-6"><h3 className="text-xl">Licensed technicians</h3><p className="mt-1">Installed with care and tested.</p></div>
         <div className="card p-6"><h3 className="text-xl">Free consultation</h3><p className="mt-1">No obligation, no pressure.</p></div>
       </section>

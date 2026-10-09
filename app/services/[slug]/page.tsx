@@ -7,7 +7,8 @@ import {
   ServiceHero, BuyerDecisionTree, ContaminationChart, SystemDiagram, BeforeAfterSlider, PricingTimeline,
   ComparisonTable, MaintenanceFAQ, ServiceAreaCallout, CTASection,
 } from '@/components/service';
-import { MAINTENANCE, PRICE, SERVICES } from '@/lib/services';
+import { MAINTENANCE, SERVICES } from '@/lib/services';
+import { PRICING, TAX_NOTE, flagshipPrice } from '@/lib/pricing';
 
 type Props = { params: { slug: string } };
 const find = (slug: string) => SERVICES.find((s) => s.slug === slug);
@@ -17,7 +18,7 @@ export const generateStaticParams = () => SERVICES.map((s) => ({ slug: s.slug })
 export function generateMetadata({ params }: Props): Metadata {
   const s = find(params.slug);
   if (!s) return {};
-  const title = `${s.name} | Fixed $2,700 | US Water Pros`;
+  const title = s.kind === 'flagship' ? `${s.name} | from ${flagshipPrice} ${TAX_NOTE} | US Water Pros` : `${s.name} | US Water Pros`;
   return { title, description: s.summary, alternates: { canonical: `/services/${s.slug}` }, openGraph: { title, description: s.summary } };
 }
 
@@ -32,12 +33,21 @@ export default function ServicePage({ params }: Props) {
     ['Do you serve my area?', 'Yes. We serve Tacoma, Puyallup, Bremerton, Port Orchard and surrounding areas.'],
     ...MAINTENANCE,
   ];
+  const offer = (name: string, price: number, description: string) => ({ '@type': 'Offer', name, price, priceCurrency: 'USD', description, itemOffered: { '@type': 'Service', name } });
+  const offers =
+    s.kind === 'flagship' ? [
+      offer(PRICING.flagship.label, PRICING.flagship.displayPrice, `Installed, tax included. Includes ${PRICING.flagship.includes.join(', ')}.`),
+      ...Object.values(PRICING.addons).map((a) => offer(a.label, a.displayPrice, 'Add-on, installed on the same visit as the whole-home system. Tax included.')),
+    ]
+    : s.kind === 'addon' && s.addon ? [offer(PRICING.addons[s.addon].label, PRICING.addons[s.addon].displayPrice, 'Add-on, installed on the same visit as the whole-home system. Tax included.')]
+    : s.kind === 'well' ? Object.values(PRICING.wellTest).map((t) => offer(t.label, t.displayPrice, 'Credited toward your install if you purchase.'))
+    : [];
   const schema = {
     '@context': 'https://schema.org',
     '@graph': [
       { '@type': 'Service', name: s.name, description: s.summary,
         provider: { '@type': 'LocalBusiness', name: 'US Water Pros', telephone: '+1-253-777-0901', areaServed: ['Tacoma, WA', 'Puyallup, WA', 'Bremerton, WA', 'Port Orchard, WA'] },
-        offers: { '@type': 'Offer', price: PRICE.replace(/[^0-9]/g, ''), priceCurrency: 'USD' },
+        ...(offers.length && { offers }),
         availableChannel: { '@type': 'ServiceChannel', serviceUrl: `https://uswaterpros.com/services/${s.slug}` } },
       { '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
     ],
@@ -56,7 +66,7 @@ export default function ServicePage({ params }: Props) {
         </div>
         <aside id="quote" className="md:sticky md:top-24 md:max-h-[calc(100vh-7rem)] md:overflow-y-auto self-start scroll-mt-24"><LeadForm service={s.slug} /></aside>
       </div>
-      <ComparisonTable s={s} />
+      {s.kind === 'flagship' && <ComparisonTable s={s} />}
       <MaintenanceFAQ />
       <section className="mx-auto max-w-3xl px-4 pb-12">
         <h2>Frequently Asked Questions</h2>

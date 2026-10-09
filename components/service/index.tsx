@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import Icon from '@/components/Icon';
 import Sources from '@/components/Sources';
 import { PHONE, PHONE_HREF } from '@/lib/constants';
-import { MAINTENANCE as MAINT, PRICE, type Service } from '@/lib/services';
+import { MAINTENANCE as MAINT, type Service } from '@/lib/services';
+import { ANNUAL_FILTERS, MARKET, PRICING, TAX_NOTE, flagshipPrice, formatRange, formatUSD, wellCredit } from '@/lib/pricing';
 import type { SourceId } from '@/lib/sources';
 import { CITIES } from '@/lib/cities';
 import Link from 'next/link';
@@ -120,23 +121,52 @@ export function BeforeAfterSlider({ s, beforeSrc, afterSrc }: { s: Service; befo
   );
 }
 
+const FLAGSHIP_HREF = '/services/whole-home-water-filtration';
+const Pill = ({ href, children }: { href: string; children: React.ReactNode }) => <Link href={href} className="btn btn-aqua mt-4">{children}</Link>;
+
 export function PricingTimeline({ s }: { s: Service }) {
-  const days = [['Day 1', 'Free 15-minute consultation and fixed-price quote'], ['Day 2–3', 'Schedule your installation'], ['Install day', 'About 4 hours with a licensed technician'], ['Day after', 'System testing completed'], ['Ongoing', 'Annual filter replacements, about $150–300 a year']];
+  const days = [['Day 1', 'Free 15-minute consultation and fixed-price quote'], ['Day 2–3', 'Schedule your installation'], ['Install day', 'About 4 hours with a licensed technician'], ['Day after', 'System testing completed'], ['Ongoing', `Annual filter replacements, about ${formatUSD(ANNUAL_FILTERS.low)}–${ANNUAL_FILTERS.high} a year`]];
+  const wellSteps = [['Step 1', 'Choose a basic test or the full panel'], ['Step 2', 'We collect the sample and send it to the lab'], ['Step 3', 'We explain your results in plain English'], ['Step 4', 'We recommend a system, and your test fee is credited if you purchase']];
+  const addon = s.addon ? PRICING.addons[s.addon] : null;
   return (
     <section>
       <h2>Pricing &amp; Installation</h2>
       <div className="mt-6 grid gap-6 md:grid-cols-2">
-        <div className="card p-6 !transform-none">
-          <p className="text-4xl font-bold text-navy">{PRICE} <span className="text-base font-normal">installed</span></p>
-          <p className="mt-1 text-sm">Fixed price for {s.name.toLowerCase()}.</p>
-          <p className="mt-3 font-semibold text-navy">What’s included</p>
-          <ul className="mt-1 flex flex-col gap-1">
-            <Check>Professional assessment</Check><Check>System hardware for {s.name.toLowerCase()}</Check>
-            <Check>About 4-hour installation</Check><Check>Testing after installation</Check><Check>1-year warranty</Check>
-          </ul>
-        </div>
+        {s.kind === 'flagship' && (
+          <div className="card p-6 !transform-none">
+            <p className="text-sm font-semibold">{PRICING.flagship.label}</p>
+            <p className="text-4xl font-bold text-navy">{flagshipPrice} <span className="text-base font-normal">{TAX_NOTE}</span></p>
+            <p className="font-semibold text-navy">What’s included</p>
+            <ul className="flex flex-col gap-1">{PRICING.flagship.includes.map((i) => <Check key={i}>{i}</Check>)}<Check>Testing after installation</Check><Check>1-year warranty</Check></ul>
+            <p className="mt-2 text-sm">Add reverse osmosis drinking water for {formatUSD(PRICING.addons.ro.displayPrice)} or carbon filtration for {formatUSD(PRICING.addons.carbon.displayPrice)}, installed on the same visit.</p>
+          </div>
+        )}
+        {addon && (
+          <div className="card p-6 !transform-none">
+            <p className="text-sm font-semibold">Add-on</p>
+            <p className="text-4xl font-bold text-navy">{formatUSD(addon.displayPrice)} <span className="text-base font-normal">{TAX_NOTE}</span></p>
+            <p>{addon.label}, installed on the same visit as your whole-home system.</p>
+            <Pill href={FLAGSHIP_HREF}>See the whole-home system</Pill>
+          </div>
+        )}
+        {(s.kind === 'component' || s.kind === 'city') && (
+          <div className="card p-6 !transform-none">
+            <p className="text-xl font-bold text-navy">Installed as part of our whole-home system</p>
+            <p>This service is installed with the {PRICING.flagship.label}. {s.kind === 'city' ? 'We confirm exactly what your home needs at your free consultation.' : PRICING.headline}</p>
+            <Pill href={FLAGSHIP_HREF}>See the whole-home system</Pill>
+          </div>
+        )}
+        {s.kind === 'well' && (
+          <div className="card p-6 !transform-none">
+            <p className="text-xl font-bold text-navy">Test first, then we recommend</p>
+            <ul className="mt-2 flex flex-col gap-3">
+              {Object.values(PRICING.wellTest).map((t) => <li key={t.id}><span className="font-bold text-navy">{formatUSD(t.displayPrice)}</span> {t.label}</li>)}
+            </ul>
+            <p>{wellCredit}</p>
+          </div>
+        )}
         <ol className="flex flex-col gap-3">
-          {days.map(([d, t]) => <li key={d} className="flex gap-3"><span className="shrink-0 w-24 font-bold text-navy">{d}</span><span>{t}</span></li>)}
+          {(s.kind === 'well' ? wellSteps : days).map(([d, t]) => <li key={d} className="flex gap-3"><span className="shrink-0 w-24 font-bold text-navy">{d}</span><span>{t}</span></li>)}
         </ol>
       </div>
     </section>
@@ -145,7 +175,7 @@ export function PricingTimeline({ s }: { s: Service }) {
 
 export function ComparisonTable({ s }: { s: Service }) {
   const rows = [
-    ['Upfront cost', `${PRICE} fixed`, '$7,500–8,000', '$900'],
+    ['Upfront cost', `${flagshipPrice} ${TAX_NOTE}`, formatRange(MARKET.premium.low, MARKET.premium.high), formatUSD(MARKET.budget.price)],
     ['Installation', 'Licensed technician, about 4 hours', 'Sales rep plus install crew', 'DIY or discount installer'],
     ['Support', 'Included', 'Fee-based', 'Little or none'],
     ['Warranty', '1 year', 'Limited', '6 months'],
