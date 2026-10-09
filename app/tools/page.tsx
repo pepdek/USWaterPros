@@ -9,7 +9,7 @@ import WaterReportTool from '@/components/tools/WaterReportTool';
 
 export const metadata: Metadata = {
   title: 'Water Tools & Resources | Know Your Water | US Water Pros',
-  description: 'Four free tools: a local water quality report locator, a true cost calculator, a savings diagnostic and a quiz to find your system. Tacoma, Puyallup, Bremerton and Port Orchard.',
+  description: 'Four free tools: a local water quality report locator, a true cost calculator, a savings diagnostic and a quiz to find your system. Tacoma, Puyallup, Bremerton, Port Orchard, Olympia, Lacey and Gig Harbor.',
   alternates: { canonical: '/tools' },
 };
 
@@ -81,7 +81,7 @@ export default function ToolsPage() {
       <section className="bg-ice">
         <div className="mx-auto max-w-6xl px-4 py-16 md:py-20 grid gap-10 md:gap-14 md:grid-cols-3">
           {[
-            ['shield', 'We know Tacoma water.', 'We’ve tested it. We’ve filtered it. Tacoma, Puyallup, Bremerton and Port Orchard each have their own supply, their own pipes and their own problems.'],
+            ['shield', 'We know Tacoma water.', 'We’ve tested it. We’ve filtered it. Tacoma, Puyallup, Bremerton, Port Orchard, Olympia, Lacey and Gig Harbor each have their own supply, their own pipes and their own problems.'],
             ['drop', 'Go further than the legal minimum.', 'Your utility’s job is to meet legal limits. Ours is to protect your family’s health at the tap, with a system built for your exact water.'],
             ['badge', 'Stop overpaying for generic solutions.', 'One fixed price, installed by licensed technicians, tax included. No countdown timers, no hidden fees.'],
           ].map(([icon, h, t]) => (

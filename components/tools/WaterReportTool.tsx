@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Icon from '@/components/Icon';
 import { trackEvent } from '@/lib/analytics/track';
@@ -23,6 +23,12 @@ export default function WaterReportTool() {
     start(); setShown(z);
     trackEvent('tool_result', { tool_name: 'water_report', result_bucket: profileForZip(z)?.id ?? 'out_of_area' });
   }
+
+  // A ZIP handed over by the site-wide "What filter is right for you?" banner.
+  useEffect(() => {
+    try { const z = sessionStorage.getItem('wr_zip'); if (z) { sessionStorage.removeItem('wr_zip'); setZip(z); run(z); } } catch { /* storage blocked */ }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div id="report" data-track-source="tool_report" className="scroll-mt-24 rounded-[28px] bg-ice border border-cyan p-5 sm:p-8 md:p-10 flex flex-col gap-6">
@@ -78,7 +84,7 @@ export default function WaterReportTool() {
                   <div className="overflow-x-auto"><table className="w-full text-left text-sm min-w-[520px]"><thead><tr className="text-navy"><th className="py-2 pr-4">Substance</th><th className="py-2 pr-4">Result</th><th className="py-2">Legal limit</th></tr></thead>
                     <tbody>{profile.measured.rows.map((m) => (
                       <tr key={m.name} className="border-t border-teal/20 align-top"><td className="py-3 pr-4 font-semibold">{m.name}{m.note && <span className="block font-normal text-xs">{m.note}</span>}</td><td className="py-3 pr-4">{m.result}</td><td className="py-3">{m.limit}</td></tr>))}</tbody></table></div>
-                  <p className="text-xs !p-0">Source: <a className="underline" href={profile.measured.url} target="_blank" rel="noopener noreferrer">{profile.measured.source}</a>. Applies to Tacoma Water customers. Check your own bill to confirm your utility.</p>
+                  <p className="text-xs !p-0">Source: <a className="underline" href={profile.measured.url} target="_blank" rel="noopener noreferrer">{profile.measured.source}</a>. Applies to {profile.measured.utility} customers. Check your own bill to confirm your utility.</p>
                 </div>
               )}
               <p className="text-xs !p-0">This is a typical profile for your area, not a lab test of your tap. For exact numbers, read your utility’s annual report:{' '}
@@ -87,7 +93,7 @@ export default function WaterReportTool() {
           ) : (
             <>
               <h3>We don’t have a profile for {shown} yet</h3>
-              <p>We serve Tacoma, Puyallup, Bremerton and Port Orchard. For any ZIP, the <a className="underline font-semibold" href={ewgZipUrl(shown)} target="_blank" rel="noopener noreferrer">EWG Tap Water Database</a> and your utility’s annual report show what was measured. Or book a free consultation and we’ll go over your water with you.</p>
+              <p>We serve Tacoma, Puyallup, Bremerton, Port Orchard, Olympia, Lacey and Gig Harbor. For any ZIP, the <a className="underline font-semibold" href={ewgZipUrl(shown)} target="_blank" rel="noopener noreferrer">EWG Tap Water Database</a> and your utility’s annual report show what was measured. Or book a free consultation and we’ll go over your water with you.</p>
             </>
           )}
           <div className="rounded-3xl bg-navy text-white p-6 sm:p-8 flex flex-col gap-3" data-track-source="tool_report_result">

@@ -6,6 +6,7 @@ import ProblemBlocks from '@/components/ProblemBlocks';
 import Risks from '@/components/Risks';
 import ReportCta from '@/components/ReportCta';
 import QuizCta from '@/components/QuizCta';
+import FilterFinder from '@/components/FilterFinder';
 import Faq from '@/components/Faq';
 import { LOCATIONS } from '@/lib/locations';
 import { PILLS, SERVICES } from '@/lib/services';
@@ -45,6 +46,7 @@ export default function Home() {
         {/* placeholder: swap for a real image */}
         <div className="relative rounded-xl overflow-hidden aspect-[3/4] md:aspect-auto md:min-h-[480px] md:h-full"><Image src="/images/installs/softener-carbon-garage.jpg" alt="Black filter tank with digital control head and brine tank installed in a garage" fill sizes="(min-width: 768px) 45vw, 92vw" className="object-cover" /></div>
       </section>
+      <FilterFinder />
       <section id="areas" className="mx-auto max-w-6xl px-4 py-10 text-center">
         <h2>Serving Western Washington</h2>
         <div className="mt-4 flex flex-wrap justify-center gap-2">

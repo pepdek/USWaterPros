@@ -13,7 +13,7 @@ describe('profileForZip', () => {
   });
   it('maps nearby Kitsap and Pierce ZIPs to their county profile', () => {
     expect(profileForZip('98383')?.id).toBe('kitsap');
-    expect(profileForZip('98335')?.id).toBe('pierce');
+    expect(profileForZip('98333')?.id).toBe('pierce');
   });
   it('returns null for bad or out-of-area ZIPs', () => {
     expect(profileForZip('9840')).toBeNull();
@@ -42,12 +42,34 @@ describe('Tacoma measured data (from the Tacoma Water 2025 report)', () => {
     expect(profileForZip('98366')!.measured!.utility).toBe('City of Port Orchard');
     expect(rows('98366').find((r) => r.name.startsWith('PFOA'))!.result).toContain('3.67 ppt');
   });
+  it('Olympia and Lacey have measured data from their own 2025 reports', () => {
+    const rows = (zip: string) => profileForZip(zip)!.measured!.rows;
+    expect(profileForZip('98501')!.measured!.utility).toBe('City of Olympia');
+    expect(rows('98501').find((r) => r.name.startsWith('PFOS'))!.result).toContain('2.0 ppt');
+    expect(profileForZip('98503')!.measured!.utility).toBe('City of Lacey');
+    expect(rows('98503').find((r) => r.name.startsWith('PFOA'))!.result).toContain('3.9 ppt');
+    expect(rows('98503').find((r) => r.name === 'Manganese')!.result).toContain('71 ppb');
+    expect(profileForZip('98597')?.measured).toBeUndefined();
+  });
+  it('Gig Harbor has measured data from the city report', () => {
+    const p = profileForZip('98335')!;
+    expect(p.measured!.utility).toBe('City of Gig Harbor');
+    expect(p.measured!.rows.find((r) => r.name === 'Manganese')!.result).toContain('129 ppb');
+    expect(p.measured!.rows.find((r) => r.name.startsWith('Lead'))!.result).toContain('1 of 30');
+  });
+  it('county fallbacks never quote another city’s numbers', () => {
+    for (const z of ['98333', '98597', '98383']) {
+      const p = profileForZip(z)!;
+      expect(p.measured).toBeUndefined();
+      expect(JSON.stringify(p.rows)).not.toMatch(/Puyallup|Olympia|Bremerton|89 ppm|49 to 54/);
+    }
+  });
   it('county-level profiles do not borrow a city utility’s numbers', () => {
     expect(profileForZip('98383')?.measured).toBeUndefined();
-    expect(profileForZip('98335')?.measured).toBeUndefined();
+    expect(profileForZip('98333')?.measured).toBeUndefined();
   });
   it('every percent-of-limit is between 0 and 100 and every row names its limit', () => {
-    for (const z of ['98402', '98371', '98310', '98366']) for (const r of profileForZip(z)!.measured!.rows) {
+    for (const z of ['98402', '98371', '98310', '98366', '98501', '98503', '98335']) for (const r of profileForZip(z)!.measured!.rows) {
       if (r.pct !== undefined) { expect(r.pct).toBeGreaterThanOrEqual(0); expect(r.pct).toBeLessThanOrEqual(100); }
       expect(r.limit.length).toBeGreaterThan(0);
     }

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import QuizCta from '@/components/QuizCta';
+import FilterFinder from '@/components/FilterFinder';
 import LeadForm from '@/components/LeadForm';
 import {
   ServiceHero, BuyerDecisionTree, ContaminationChart, SystemDiagram, BeforeAfterSlider, PricingTimeline,
@@ -83,6 +84,7 @@ export default function ServicePage({ params }: Props) {
         </div>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       </section>
+      <FilterFinder />
       <UnfaqSection s={s} />
       {s.lean ? <LeanLinks /> : <ServiceAreaCallout />}
       <CTASection />

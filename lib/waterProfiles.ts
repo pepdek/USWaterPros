@@ -124,12 +124,110 @@ const portOrchard: Profile = {
     ],
   },
 };
-const kitsap: Profile = { ...bremerton, measured: undefined, id: 'kitsap', area: 'Kitsap County', supply: 'Kitsap County relies heavily on groundwater, through water districts, city systems and thousands of private wells.' };
-const pierce: Profile = { ...puyallup, measured: undefined, id: 'pierce', area: 'Pierce County', supply: 'Pierce County water comes from surface sources, groundwater and private wells. Tacoma Water draws mainly on the Green River; many other systems use groundwater or springs.' };
+const gigHarbor: Profile = {
+  id: 'gig-harbor', area: 'Gig Harbor', supply: 'The City of Gig Harbor’s water is all groundwater, pumped from six wells. Many addresses on the Gig Harbor peninsula are on other water systems or private wells, so check your bill.',
+  rows: [
+    { label: 'Hardness', level: 'Less likely', note: 'The city reports its water averages 56 ppm, which is soft (the high end of soft). Other systems and wells differ.' },
+    { label: 'Chlorine and disinfectant', level: 'Common', note: 'The city adds a small amount of chlorine for taste and odor control. Chlorine taste and smell are the usual complaint.' },
+    { label: 'Iron and manganese', level: 'Common', note: 'The city’s own results are above the aesthetic guidelines, and it is studying manganese treatment. Staining on sinks, tubs and laundry is the sign.' },
+    LEAD,
+    { label: 'Private wells', level: 'Check yours', note: 'The Tacoma-Pierce County Health Department advises testing for bacteria yearly and nitrate every three years.' },
+  ],
+  links: [['City of Gig Harbor water FAQ', 'https://gigharborwa.gov/m/faq?cat=20'], ['Tacoma-Pierce County Health Department: individual wells', 'https://tpchd.org/homes/drinking-water/individual-wells/'], EPA_CCR],
+  // Source: City of Gig Harbor 2025 Consumer Confidence Report (testing January to December 2025; lead and copper sampled 2023).
+  measured: {
+    utility: 'City of Gig Harbor', source: 'City of Gig Harbor 2025 Water Quality Report', year: 2025, url: 'https://gemgrp.com/eReports/GigHarborWA2025CCR/',
+    note: 'The city’s system is six wells, and it adds a small amount of chlorine. It tested all six wells for PFAS in four rounds since July 2024 and found none above the detection limit. In 2026 it hired a firm to study manganese treatment, because the wells produce water with manganese that causes operational and customer concerns. Many peninsula addresses are served by other systems, so check your bill.',
+    rows: [
+      { name: 'Lead at the tap', pct: 20, result: '90th percentile 3 ppb (2023). 1 of 30 sites was above the action level (highest 38.9 ppb)', limit: '15 ppb action level', note: 'The system passes the rule, which uses the 90th percentile, but one home tested high. Lead from home plumbing varies house to house.' },
+      { name: 'Copper at the tap', pct: 11, result: '90th percentile 0.146 ppm (2023). 0 of 30 sites above the action level', limit: '1.3 ppm action level' },
+      { name: 'Total trihalomethanes (disinfection byproducts)', pct: 10, result: '4.34 ppb average (not detected to 8.12)', limit: '80 ppb' },
+      { name: 'Haloacetic acids (disinfection byproducts)', pct: 9, result: '2.99 ppb average (not detected to 5.54)', limit: '60 ppb' },
+      { name: 'PFAS', result: 'Not detected in four rounds of testing at all six wells', limit: 'PFOA and PFOS 4 ppt' },
+      { name: 'Nitrate', result: 'Not detected', limit: '10 ppm' },
+      { name: 'Manganese', result: '129 ppb (range 52 to 275 ppb)', limit: '50 ppb (aesthetic guideline, not a health limit)', note: 'Above the guideline. The city notes it can cause water quality concerns, and is studying treatment. It can stain fixtures and laundry dark brown or black.' },
+      { name: 'Iron', result: '326 ppb (not detected to 1,010 ppb)', limit: '300 ppb (aesthetic guideline, not a health limit)', note: 'Above the guideline. It can stain sinks and laundry orange.' },
+      { name: 'Hardness', result: '56 ppm average', limit: 'No limit set', note: 'Soft, at the high end of the soft range.' },
+    ],
+  },
+};
+const olympia: Profile = {
+  id: 'olympia', area: 'Olympia', supply: 'The City of Olympia’s water is all groundwater. In 2025 the McAllister Wellfield supplied 75% and two Allison Springs wells supplied 25%. Some addresses are on other water systems or private wells.',
+  rows: [
+    { label: 'Hardness', level: 'Possible', note: 'The city reports about 49 to 54 ppm as calcium carbonate at its active sources, which is slightly hard. A softener helps if you see spotting or scale.' },
+    { label: 'Chlorine and disinfectant', level: 'Common', note: 'City water is chlorinated. Chlorine taste and smell are the usual complaint.' },
+    { label: 'Iron and manganese', level: 'Less likely', note: 'Not detected at the city’s active sources. More likely on private wells.' },
+    LEAD,
+    { label: 'Private wells', level: 'Check yours', note: 'Thurston County’s water lab in Olympia tests drinking water for bacteria and nitrate.' },
+  ],
+  links: [['City of Olympia drinking water quality', 'https://www.olympiawa.gov/services/water_utilities/drinking_water/water_quality.php'], EPA_CCR],
+  // Source: City of Olympia 2026 Drinking Water Quality Report (2025 results; inorganic panels are 2019 to 2025 depending on the source, tested on a multi-year schedule).
+  measured: {
+    utility: 'City of Olympia', source: 'City of Olympia 2026 Drinking Water Quality Report', year: 2025, url: 'https://www.olympiawa.gov/Document_center/Services/Water%20Resources/Drinking%20Water/Water%20Quality/2026-WQR-031026.pdf',
+    note: 'Olympia chlorinates its water and uses air strippers to raise pH, which helps limit lead and copper from household plumbing. Shana Park Well #11 measured PFOS 4.8 ppt and PFOA 3.7 ppt in 2025, and the city lists it as offline, so it is not supplying water now.',
+    rows: [
+      { name: 'PFOS (PFAS)', pct: 50, result: '2.0 ppt at the Allison Springs wells (the highest at a source now in service)', limit: '4 ppt', note: 'Below the limit. Shana Park Well #11 (offline) measured 4.8 ppt.' },
+      { name: 'Chlorine residual', pct: 42, result: '0.48 to 1.68 ppm', limit: '4 ppm', note: 'The disinfectant you taste and smell.' },
+      { name: 'PFHxS (PFAS)', pct: 26, result: 'up to 2.6 ppt', limit: '10 ppt' },
+      { name: 'Lead at the tap', pct: 20, result: '90th percentile 3 ppb (range 0 to 3.5). 0 of 30 homes above the action level', limit: '15 ppb action level', note: 'Sampled every three years. Lead from home plumbing can still vary house to house.' },
+      { name: 'Nitrate', pct: 13, result: 'up to 1.30 ppm', limit: '10 ppm' },
+      { name: 'Total trihalomethanes (disinfection byproducts)', pct: 12, result: '8.6 to 9.8 ppb', limit: '80 ppb' },
+      { name: 'Arsenic', pct: 10, result: '1 ppb at McAllister Wellfield (2019). Not detected at the Allison Springs wells (2022)', limit: '10 ppb', note: 'Naturally occurring.' },
+      { name: 'Haloacetic acids (disinfection byproducts)', pct: 3, result: '1.5 to 1.8 ppb', limit: '60 ppb' },
+      { name: 'Copper at the tap', pct: 4, result: '90th percentile 0.056 ppm. 0 of 30 homes above the action level', limit: '1.3 ppm action level' },
+      { name: 'Hardness', result: '49 to 54 ppm as calcium carbonate at the sources now in service', limit: 'No limit set', note: 'Slightly hard.' },
+      { name: 'Iron and manganese', result: 'Not detected at McAllister Wellfield or the Allison Springs wells', limit: '300 ppb and 50 ppb (aesthetic guidelines)' },
+    ],
+  },
+};
+const lacey: Profile = {
+  id: 'lacey', area: 'Lacey', supply: 'All of the City of Lacey’s water is groundwater, pumped from 20 wells in three aquifers. Some addresses are on other water systems or private wells.',
+  rows: [
+    { label: 'Hardness', level: 'Check yours', note: 'Varies by well. Your utility’s report has the exact figure.' },
+    { label: 'Chlorine and disinfectant', level: 'Common', note: 'City water is chlorinated. Chlorine taste and smell are the usual complaint.' },
+    { label: 'Iron and manganese', level: 'Possible', note: 'The city’s highest readings were above the aesthetic guidelines at some wells. Staining on sinks and laundry is the sign.' },
+    LEAD,
+    { label: 'Private wells', level: 'Check yours', note: 'Thurston County’s water lab in Olympia tests drinking water for bacteria and nitrate.' },
+  ],
+  links: [['City of Lacey water quality', 'https://cityoflacey.org/lacey-water-quality-continues-to-meet-state-and-federal-standards/'], EPA_CCR],
+  // Source: City of Lacey 2026 Water Quality Report (2025 data). Highest levels are across all 20 wells; some dates are earlier years on a multi-year schedule.
+  measured: {
+    utility: 'City of Lacey', source: 'City of Lacey 2026 Water Quality Report', year: 2025, url: 'https://cityoflacey.org/wp-content/uploads/sites/3/2026/05/Lacey_WaterReport_5-26_web-1.pdf',
+    note: 'Ranges are the highest and lowest across all 20 wells, so your tap depends on which wells serve your area. The city reports no lead service lines, does not add fluoride, and says every PFAS result is below the federal limits.',
+    rows: [
+      { name: 'PFOA (PFAS)', pct: 98, result: 'up to 3.9 ppt (December 2025)', limit: '4 ppt', note: 'Below the limit, but very close to it. The city reports no plans to add PFAS treatment at its sources.' },
+      { name: 'PFOS (PFAS)', pct: 68, result: 'up to 2.7 ppt', limit: '4 ppt' },
+      { name: 'Nitrate', pct: 45, result: 'up to 4.5 ppm', limit: '10 ppm', note: 'Septic systems and fertilizer are typical sources.' },
+      { name: 'Lead at the tap', pct: 43, result: '90th percentile 6.4 ppb. 0 samples above the action level (2023)', limit: '15 ppb action level', note: 'Lead from home plumbing can still vary house to house.' },
+      { name: 'Copper at the tap', pct: 58, result: '90th percentile 749 ppb. 0 samples above the action level (2023)', limit: '1,300 ppb action level' },
+      { name: 'PFHxS (PFAS)', pct: 29, result: 'up to 2.9 ppt', limit: '10 ppt' },
+      { name: 'Chlorine residual', pct: 22, result: '0.30 to 0.89 ppm', limit: '4 ppm', note: 'The disinfectant you taste and smell.' },
+      { name: 'Arsenic', pct: 20, result: 'up to 2 ppb', limit: '10 ppb', note: 'Naturally occurring.' },
+      { name: 'Radium 228', pct: 20, result: 'up to 1 pCi/L', limit: '5 pCi/L' },
+      { name: 'Total trihalomethanes (disinfection byproducts)', pct: 16, result: 'up to 12.92 ppb', limit: '80 ppb' },
+      { name: 'Manganese', result: 'up to 71 ppb at the highest well (under 10 ppb at the lowest)', limit: '50 ppb (aesthetic guideline, not a health limit)', note: 'Above the guideline at some wells. It can stain fixtures and laundry dark brown or black.' },
+      { name: 'Iron', result: 'up to 370 ppb at the highest well (under 100 ppb at the lowest)', limit: '300 ppb (aesthetic guideline, not a health limit)', note: 'Above the guideline at some wells. It can stain sinks and laundry orange.' },
+    ],
+  },
+};
+// County fallbacks (ZIPs we have no utility report for). Neutral on purpose: no city's numbers or notes are borrowed.
+const COUNTY: Pick<Profile, 'rows' | 'links'> = {
+  rows: [
+    { label: 'Hardness', level: 'Check yours', note: 'Varies by water system and by well, even between neighbors. A quick test shows yours.' },
+    { label: 'Chlorine and disinfectant', level: 'Common', note: 'On city or district water, chlorine taste and smell are the usual complaint.' },
+    { label: 'Iron and manganese', level: 'Possible', note: 'South Sound groundwater can carry both. Orange or brown staining is the sign. A water test confirms the levels.' },
+    LEAD,
+    { label: 'Private wells', level: 'Check yours', note: 'Wells are not regulated like public systems, so the owner tests. Your county health department recommends bacteria yearly and nitrate every three years.' },
+  ],
+  links: [EPA_CCR],
+};
+const thurston: Profile = { ...COUNTY, links: [['Thurston County drinking water lab', 'https://www.thurstoncountywa.gov/departments/public-health-and-social-services/environmental-health/water/water-lab'], EPA_CCR], id: 'thurston', area: 'Thurston County', supply: 'Thurston County relies heavily on groundwater, through city systems such as Olympia and Lacey, water districts and many private wells.' };
+const kitsap: Profile = { ...COUNTY, links: [['Kitsap Public Health District: private wells', 'https://www.kitsappublichealth.org/dwos/privatewells'], EPA_CCR], id: 'kitsap', area: 'Kitsap County', supply: 'Kitsap County relies heavily on groundwater, through water districts, city systems and thousands of private wells.' };
+const pierce: Profile = { ...COUNTY, links: [['Tacoma-Pierce County Health Department: individual wells', 'https://tpchd.org/homes/drinking-water/individual-wells/'], EPA_CCR], id: 'pierce', area: 'Pierce County', supply: 'Pierce County water comes from surface sources, groundwater and private wells. Tacoma Water draws mainly on the Green River; many other systems use groundwater or springs.' };
 
-export const PROFILES = { tacoma, puyallup, bremerton, portOrchard, kitsap, pierce };
+export const PROFILES = { tacoma, puyallup, bremerton, portOrchard, olympia, lacey, gigHarbor, kitsap, pierce, thurston };
 // One ZIP to try for each area we serve (fills the field when a visitor taps the area).
-export const AREA_SHORTCUTS: [string, string][] = [['Tacoma', '98402'], ['Puyallup', '98371'], ['Bremerton', '98310'], ['Port Orchard', '98366']];
+export const AREA_SHORTCUTS: [string, string][] = [['Tacoma', '98402'], ['Puyallup', '98371'], ['Bremerton', '98310'], ['Port Orchard', '98366'], ['Olympia', '98501'], ['Lacey', '98503'], ['Gig Harbor', '98335']];
 
 const inList = (zip: string, list: string[]) => list.includes(zip);
 
@@ -140,6 +238,10 @@ export function profileForZip(zip: string): Profile | null {
   if (inList(zip, ['98371', '98372', '98373', '98374', '98375', '98390', '98391'])) return puyallup;
   if (inList(zip, ['98310', '98311', '98312', '98337'])) return bremerton;
   if (inList(zip, ['98366', '98367'])) return portOrchard;
+  if (inList(zip, ['98501', '98502', '98506', '98512'])) return olympia;
+  if (inList(zip, ['98503', '98513', '98516'])) return lacey;
+  if (inList(zip, ['98335', '98332', '98329'])) return gigHarbor;
+  if (inList(zip, ['98530', '98531', '98556', '98576', '98579', '98589', '98597'])) return thurston;
   if (inList(zip, ['98110', '98310', '98315', '98322', '98340', '98345', '98346', '98364', '98370', '98380', '98383', '98392'])) return kitsap;
   if (inList(zip, ['98321', '98327', '98328', '98329', '98332', '98333', '98335', '98338', '98354', '98356', '98360', '98387', '98388', '98303', '98304'])) return pierce;
   return null;
