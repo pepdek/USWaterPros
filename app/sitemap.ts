@@ -10,6 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/',
     '/quiz',
     '/tools',
+    '/privacy',
+    '/terms',
     ...SERVICES.map((s) => `/services/${s.slug}`),
     ...LOCATIONS.map((l) => `/locations/${l.slug}`),
     ...CITIES.map((c) => `/services/whole-home-water-filtration-${c.slug}`),

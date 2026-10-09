@@ -31,7 +31,7 @@ export default function Footer() {
         {SOCIAL.map(([n, u]) => <li key={n}><a href={u} target="_blank" rel="noopener noreferrer" aria-label={`US Water Pros on ${n} (opens in a new tab)`} className="min-h-12 inline-flex items-center px-3 font-semibold hover:text-aqua">{n}</a></li>)}
       </ul>
       <p className="text-center pb-6">Call or text us directly: <a href={PHONE_HREF} className="font-semibold text-aqua">{PHONE}</a> · <a href={SMS_HREF} className="font-semibold text-aqua">Text us</a></p>
-      <p className="text-center text-white/60 border-t border-white/10 p-6">© {new Date().getFullYear()} US Water Pros · USWaterPros.com</p>
+      <p className="text-center text-white/60 border-t border-white/10 p-6">© {new Date().getFullYear()} US Water Pros · USWaterPros.com · <Link href="/privacy" className="underline hover:text-aqua">Privacy</Link> · <Link href="/terms" className="underline hover:text-aqua">Terms</Link></p>
     </footer>
   );
 }
