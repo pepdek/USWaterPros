@@ -24,7 +24,7 @@ export default function Home() {
       <HeroSection />
       <BenefitsScroll />
       <ProblemBlocks />
-      <div className="bg-ice py-16 md:py-20"><section id="services" className="mx-auto max-w-6xl px-4 scroll-mt-24"><h2 className="text-center">Our Solutions</h2><div className="mt-8 grid gap-8 md:gap-10 md:grid-cols-3">
+      <div className="bg-ice py-16 md:py-20"><section id="services" className="mx-auto max-w-6xl px-4 scroll-mt-24"><h2 className="text-center">Our Solution</h2><p className="text-center mt-2">We created US Water Pros.</p><div className="mt-8 grid gap-8 md:gap-10 md:grid-cols-3">
         {SERVICES.map((s) => <ServiceCard key={s.slug} s={s} />)}
       </div></section></div>
       <Risks />

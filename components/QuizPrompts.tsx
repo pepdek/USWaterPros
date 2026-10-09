@@ -7,10 +7,9 @@ import { trackEvent } from '@/lib/analytics/track';
 const seen = (k: string) => { try { return sessionStorage.getItem(k) === '1'; } catch { return false; } };
 const mark = (k: string) => { try { sessionStorage.setItem(k, '1'); } catch { /* private mode */ } };
 
-// Desktop corner banner + exit-intent modal. Both skip /quiz and stay quiet once a lead is submitted.
+// Exit-intent modal. Skips /quiz and stays quiet once a lead is submitted.
 export default function QuizPrompts() {
   const path = usePathname();
-  const [banner, setBanner] = useState(true);
   const [exit, setExit] = useState(false);
   const acted = useRef(false);
   const off = path === '/quiz';
@@ -41,13 +40,6 @@ export default function QuizPrompts() {
   if (off) return null;
   return (
     <>
-      {banner && (
-        <aside data-track-source="corner_banner" className="hidden lg:block fixed right-4 bottom-4 z-30 w-60 card p-8 md:p-10 !transform-none" aria-label="Quiz">
-          <button type="button" onClick={() => setBanner(false)} aria-label="Dismiss" className="absolute top-1 right-2 min-h-8 min-w-8 text-ink/60">✕</button>
-          <p className="font-semibold text-ink">Not sure which system?</p>
-          <Link href="/quiz" className="font-semibold text-ink underline min-h-12 inline-flex items-center">Take the quiz →</Link>
-        </aside>
-      )}
       {exit && (
         <div data-track-source="exit_intent_modal" role="dialog" aria-modal="true" aria-labelledby="exit-h" className="fixed inset-0 z-[70] bg-navy/60 flex items-center justify-center p-4" onClick={() => setExit(false)}>
           <div className="card p-8 md:p-10 max-w-md text-center !transform-none relative" onClick={(e) => e.stopPropagation()}>

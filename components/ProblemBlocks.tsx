@@ -1,12 +1,11 @@
-import Icon from './Icon';
+import Image from 'next/image';
 import Sources from './Sources';
 import type { SourceId } from '@/lib/sources';
 
-// Swap the placeholder for a real <Image> when photos exist (corroded pipes, aging mains, petri dish).
-function Placeholder({ label, icon }: { label: string; icon: string }) {
+function Photo({ src, alt }: { src: string; alt: string }) {
   return (
-    <div role="img" aria-label={label} className="rounded-xl bg-ice min-h-[260px] md:min-h-[340px] flex items-center justify-center text-aqua">
-      <Icon name={icon} size={96} />
+    <div className="relative rounded-xl overflow-hidden aspect-[4/3]">
+      <Image src={src} alt={alt} fill sizes="(min-width: 768px) 45vw, 92vw" className="object-cover" />
     </div>
   );
 }
@@ -18,7 +17,7 @@ const BLOCKS: { h: string; body: string[]; ids: SourceId[]; img: [string, string
       'EWG’s analysis found that the tap water of most US utilities contains at least one contaminant above health-based guidelines.',
       'Legal limits are often far weaker than those guidelines. The EPA’s legal limit for arsenic is 10 parts per billion, while EWG’s one-in-a-million cancer-risk guideline is 0.004, which is 2,500 times lower.',
     ],
-    ids: ['ewgDb', 'ewgDbUpdate', 'ewgMethod'], img: ['Corroded water pipe', 'building'],
+    ids: ['ewgDb', 'ewgDbUpdate', 'ewgMethod'], img: ['/images/problems/corroded-pipe.jpg', 'Rust-colored water pipe with water pouring out and mineral deposits around the opening'],
   },
   {
     h: 'Our infrastructure is breaking down',
@@ -26,7 +25,7 @@ const BLOCKS: { h: string; body: string[]; ids: SourceId[]; img: [string, string
       'Much of our drinking water infrastructure is decades old. The American Water Works Association estimates that restoring buried water pipes alone will cost at least $1 trillion over 25 years.',
       'Its 2026 update puts total drinking water infrastructure needs at $2.1 to $2.4 trillion over the next 25 years.',
     ],
-    ids: ['awwaBuried', 'awwaBeyond'], img: ['Aging underground water main', 'layers'], imgFirst: true,
+    ids: ['awwaBuried', 'awwaBeyond'], img: ['/images/problems/aging-pipes.jpg', 'Two old, rusted pipe ends sticking out of cracked ground and rocks'], imgFirst: true,
   },
   {
     h: 'Our daily toxic cocktail',
@@ -34,7 +33,7 @@ const BLOCKS: { h: string; body: string[]; ids: SourceId[]; img: [string, string
       'EWG estimates that more than 200 million Americans could have forever chemicals (PFAS) in their tap water.',
       'Potential health impacts of PFAS exposure include reduced fertility, a weakened immune response, and some cancers.',
     ],
-    ids: ['acsPfas', 'ncbiFert', 'epaPfas', 'niehsPfas'], img: ['Petri dish with contaminated water sample', 'flask'],
+    ids: ['acsPfas', 'ncbiFert', 'epaPfas', 'niehsPfas'], img: ['/images/problems/petri-dish.jpg', 'Gloved hands holding a petri dish with colonies growing on it, as in a lab water test'],
   },
 ];
 
@@ -48,7 +47,7 @@ export default function ProblemBlocks() {
             {b.body.map((p) => <p key={p} className="mt-3">{p}</p>)}
             <Sources ids={b.ids} className="mt-3" />
           </div>
-          <div className={b.imgFirst ? 'md:order-1' : ''}><Placeholder label={b.img[0]} icon={b.img[1]} /></div>
+          <div className={b.imgFirst ? 'md:order-1' : ''}><Photo src={b.img[0]} alt={b.img[1]} /></div>
         </section>
       ))}
     </div>
