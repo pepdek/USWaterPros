@@ -5,7 +5,7 @@ import { CITIES } from '@/lib/cities';
 import { LOCATIONS } from '@/lib/locations';
 
 // ponytail: no About or Reviews links until those sections exist.
-const QUICK = [['Find Your System', '/quiz'], ['Services', '/#services'], ['Service Areas', '/#areas'], ['Process', '/#process'], ['FAQ', '/#faq']];
+const QUICK = [['Tools & Resources', '/tools'], ['Find Your System', '/quiz'], ['Services', '/#services'], ['Service Areas', '/#areas'], ['Process', '/#process'], ['FAQ', '/#faq']];
 
 function Col({ title, links }: { title: string; links: string[][] }) {
   return (

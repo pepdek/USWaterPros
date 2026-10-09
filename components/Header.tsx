@@ -58,6 +58,7 @@ export default function Header() {
           <Dropdown label="Services" links={SERVICE_LINKS} />
           <Dropdown label="Service Areas" links={AREA_LINKS} />
           <Link href="/#process" className="min-h-12 inline-flex items-center font-semibold text-ink hover:text-aqua">Process</Link>
+          <Link href="/tools" className="min-h-12 inline-flex items-center font-semibold text-ink hover:text-aqua">Tools</Link>
         </nav>
 
         <div className="flex items-center gap-2">
@@ -91,6 +92,7 @@ export default function Header() {
               </div>
             ))}
             <Link href="/#process" onClick={close} className="text-xl font-bold text-ink min-h-12">Process</Link>
+            <Link href="/tools" onClick={close} className="text-xl font-bold text-ink min-h-12">Tools</Link>
             <a href={PHONE_HREF} className="btn btn-secondary">{PHONE}</a>
             <a href="#quote" onClick={close} className="btn btn-cta">Schedule Consultation</a>
           </div>

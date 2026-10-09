@@ -37,6 +37,7 @@ Defined in `lib/analytics/config.ts`. Conversions (key events) are marked **KEY*
 | `faq_open` | FAQ item opened | question |
 | `outbound_click` | Citation or other external link clicked | link_domain |
 | `exit_intent_shown` | Exit-intent popup shown | element |
+| `tool_start` / `tool_result` | A /tools page tool is first used / produces a result | tool_name, result_bucket, result_value |
 
 Every event also carries: `traffic_source` (paid / organic / direct / referral / social / email), `lead_source` (e.g. `google / cpc / campaign`), `device_type`, `city` (once known), and `page_path`.
 
@@ -55,7 +56,7 @@ On the first page view the site records first-touch (kept 90 days) and last-touc
 
 ## GTM container (already published)
 
-Imported from `docs/gtm-container.json` as Version 2, "Analytics v1: GA4 + site events":
+Imported from `docs/gtm-container.json`. Version 2 "Analytics v1" added the tags; Version 3 "Analytics v2: tool events" (current, 2026-10-09) added tool_start and tool_result:
 
 - Tag **GA4 - Google tag (G-FN39ESKXNW)**, fires on All Pages (sends page views, including single-page navigation).
 - Tag **GA4 - Event - all US Water Pros events**, fires on trigger **CE - US Water Pros events** (a custom-event regex of the names above) and forwards the event name and 27 data layer parameters.
@@ -67,8 +68,8 @@ Imported from `docs/gtm-container.json` as Version 2, "Analytics v1: GA4 + site 
 
 Property: US Water Pros, stream `US Water Pros Site`, `G-FN39ESKXNW`. Enhanced measurement is on.
 
-Custom dimensions (event scope): traffic_source, lead_source, device_type, city, quiz_type, urgency_flag, recommended_path, communication_pref, form_type, element_source, question_id, answer_selected, service.
-Custom metrics (event scope): time_to_complete (seconds), recommended_price (currency).
+Custom dimensions (event scope): tool_name, result_bucket, traffic_source, lead_source, device_type, city, quiz_type, urgency_flag, recommended_path, communication_pref, form_type, element_source, question_id, answer_selected, service.
+Custom metrics (event scope): time_to_complete (seconds), recommended_price (currency), result_value (currency).
 
 **Status as of 2026-10-09:** GTM published (Version 2) and verified live; custom dimensions and metrics created; events are arriving in GA4 Realtime. GA4 lists new events in Admin > Events only after up to 24 hours, so marking key events and creating the audiences below is the one remaining manual step.
 

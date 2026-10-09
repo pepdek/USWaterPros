@@ -8,6 +8,9 @@ export async function POST(req: NextRequest) {
   const s = (k: string, n: number) => String(b[k] ?? '').trim().slice(0, n);
   // Quiz submissions (from /quiz) carry a recommendation; they have no ZIP and store the full answers.
   const isQuiz = typeof b.recommendedSystem === 'string';
+  const isTool = !isQuiz && b.service_type === 'water-diagnostic';
+  const tool = isTool ? (() => { const t = (b.tool ?? {}) as Record<string, unknown>; const n = (v: unknown) => (Number.isFinite(Number(v)) ? Number(v) : 0);
+    return { name: 'diagnostic', score: n(t.score), waste: n(t.waste), tier: String(t.tier ?? '').slice(0, 20), answers: (Array.isArray(t.answers) ? t.answers : []).slice(0, 10).map((x: unknown) => String(x).slice(0, 20)), sms_opt_in: t.sms_opt_in === true }; })() : null;
   const rec = s('recommendedSystem', 100);
   const quiz = isQuiz ? {
     location: s('location', 60), currentSituation: s('currentSituation', 60), servicePathA: s('servicePathA', 60), servicePathB: s('servicePathB', 60),
@@ -27,19 +30,20 @@ export async function POST(req: NextRequest) {
     id: crypto.randomUUID(),
     attribution, lead_source: attribution?.lead_source || null,
     name: s('name', 255) || 'Water report request', email: s('email', 255), phone: s('phone', 20) || null,
-    zip_code: isQuiz ? null : s('zip_code', 10), service_type: isQuiz ? quizService : s('service_type', 255), page_source: s('page_source', 255),
+    zip_code: isQuiz || isTool ? null : s('zip_code', 10), service_type: isQuiz ? quizService : s('service_type', 255), page_source: s('page_source', 255),
     ip_address: req.headers.get('x-forwarded-for')?.split(',')[0].trim() || null,
     user_agent: req.headers.get('user-agent'),
+    ...(tool && { quiz: tool, notes: `TOOL diagnostic: ${tool.score}/7 warning signs | est. waste ${formatUSD(tool.waste)}/yr | ${tool.tier} | SMS opt-in: ${tool.sms_opt_in ? 'YES' : 'no'} | yes: ${tool.answers.join(', ')}` }),
     ...(quiz && {
       quiz,
       notes: `QUIZ${quiz.tags.length ? ' [' + quiz.tags.join(',') + ']' : ''}: ${rec} (${formatUSD(quiz.recommendedPrice)}${quiz.addons.length ? ' incl. add-ons: ' + quiz.addons.join(', ') : ''}) | urgency ${quiz.urgencyPriority} | prefers ${quiz.communicationPreference} | timeline ${quiz.timeline} | household ${quiz.householdSize} | ${quiz.currentSituation} | budget: ${quiz.budgetComfort} | concerns: ${quiz.waterConcerns.join(', ')} | ${quiz.location}`,
     }),
   };
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email);
-  const phoneOk = !isQuiz || (lead.phone ?? '').replace(/\D/g, '').length >= 10;
-  const zipOk = isQuiz || /^\d{5}$/.test(lead.zip_code ?? '');
+  const phoneOk = !(isQuiz || tool?.sms_opt_in) || (lead.phone ?? '').replace(/\D/g, '').length >= 10;
+  const zipOk = isQuiz || isTool || /^\d{5}$/.test(lead.zip_code ?? '');
   if (lead.name.length < 2 || !emailOk || !phoneOk || !zipOk
-    || !(isQuiz || lead.service_type === 'water-report' || SERVICES.some((x) => x.slug === lead.service_type))) {
+    || !(isQuiz || isTool || lead.service_type === 'water-report' || SERVICES.some((x) => x.slug === lead.service_type))) {
     return NextResponse.json({ success: false, error: 'invalid' }, { status: 400 });
   }
   // RLS lets the public site insert new leads only; everything else needs an admin login.

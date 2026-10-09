@@ -5,6 +5,8 @@ const P: Record<string, string> = {
   glass: 'M6 3h12l-1.5 17a1 1 0 01-1 1h-7a1 1 0 01-1-1L6 3zM7 9h10',
   layers: 'M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5M3 17l9 5 9-5',
   building: 'M5 21V5a1 1 0 011-1h8a1 1 0 011 1v16M15 10h3a1 1 0 011 1v10M3 21h18M9 8h2M9 12h2M9 16h2',
+  calculator: 'M6 3h12v18H6zM9 7h6M9 12h.01M12 12h.01M15 12h.01M9 16h.01M12 16h.01M15 16h.01',
+  chart: 'M4 20V11M10 20V4M16 20v-7M22 20H2',
   clipboard: 'M9 4h6v3H9zM7 5H5v16h14V5h-2M9 12h6M9 16h4',
   check: 'M4 12l5 5L20 6',
   document: 'M6 3h8l4 4v14H6zM14 3v4h4M9 12h6M9 16h6',

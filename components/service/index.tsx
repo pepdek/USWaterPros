@@ -130,7 +130,7 @@ export function PricingTimeline({ s }: { s: Service }) {
   const addon = s.addon ? PRICING.addons[s.addon] : null;
   return (
     <section>
-      <h2>Pricing &amp; Installation</h2>
+      <h2 id="pricing" className="scroll-mt-24">Pricing &amp; Installation</h2>
       <div className="mt-6 grid gap-8 md:gap-10 md:grid-cols-2">
         {s.kind === 'flagship' && (
           <div className="card p-8 md:p-10 !transform-none">

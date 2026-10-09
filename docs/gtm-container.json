@@ -1,13 +1,13 @@
 {
   "exportFormatVersion": 2,
-  "exportTime": "2026-10-09 12:00:00",
+  "exportTime": "2026-10-09 18:00:00",
   "containerVersion": {
     "path": "accounts/0/containers/0/versions/0",
     "accountId": "0",
     "containerId": "0",
     "containerVersionId": "0",
-    "name": "US Water Pros analytics v1",
-    "description": "GA4 Google tag + one event tag for all site events pushed to the dataLayer by lib/analytics/track.ts",
+    "name": "Analytics v2: tool events",
+    "description": "Adds tool_start and tool_result events with tool_name, result_bucket and result_value",
     "container": {
       "path": "accounts/0/containers/0",
       "accountId": "0",
@@ -468,6 +468,51 @@
                     "value": "{{DLV - question}}"
                   }
                 ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "tool_name"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{DLV - tool_name}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "result_bucket"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{DLV - result_bucket}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "result_value"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{DLV - result_value}}"
+                  }
+                ]
               }
             ]
           },
@@ -506,7 +551,7 @@
               {
                 "type": "TEMPLATE",
                 "key": "arg1",
-                "value": "^(quiz_start|quiz_question_answered|quiz_completed|quiz_abandoned|recommendation_viewed|quiz_addon_toggled|quiz_cta_click|lead_form_submission|water_report_submit|form_start|form_abandon|phone_click|sms_click|schedule_cta_click|service_page_viewed|city_page_viewed|location_page_viewed|scroll_depth|faq_open|outbound_click|exit_intent_shown)$"
+                "value": "^(tool_start|tool_result|quiz_start|quiz_question_answered|quiz_completed|quiz_abandoned|recommendation_viewed|quiz_addon_toggled|quiz_cta_click|lead_form_submission|water_report_submit|form_start|form_abandon|phone_click|sms_click|schedule_cta_click|service_page_viewed|city_page_viewed|location_page_viewed|scroll_depth|faq_open|outbound_click|exit_intent_shown)$"
               }
             ]
           }
@@ -1212,6 +1257,84 @@
             "type": "TEMPLATE",
             "key": "name",
             "value": "question"
+          }
+        ],
+        "fingerprint": "0",
+        "formatValue": {}
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "37",
+        "name": "DLV - tool_name",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "tool_name"
+          }
+        ],
+        "fingerprint": "0",
+        "formatValue": {}
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "38",
+        "name": "DLV - result_bucket",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "result_bucket"
+          }
+        ],
+        "fingerprint": "0",
+        "formatValue": {}
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "39",
+        "name": "DLV - result_value",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "result_value"
           }
         ],
         "fingerprint": "0",
