@@ -1,3 +1,4 @@
+import { SAME_AS } from '@/lib/constants';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -31,7 +32,7 @@ export default function CityPage({ params }: Props) {
   const schema = {
     '@context': 'https://schema.org',
     '@graph': [
-      { '@type': 'LocalBusiness', name: `US Water Pros - Water Filtration Services in ${c.name}, WA`, description: `Professional whole-home water filtration services in ${c.name}, WA`,
+      { '@type': 'LocalBusiness', sameAs: SAME_AS, name: `US Water Pros - Water Filtration Services in ${c.name}, WA`, description: `Professional whole-home water filtration services in ${c.name}, WA`,
         telephone: '+1-253-777-0901', url: `https://uswaterpros.com${path(c.slug)}`, priceRange: '$$',
         areaServed: { '@type': 'City', name: `${c.name}, WA` } },
       { '@type': 'FAQPage', mainEntity: c.faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },

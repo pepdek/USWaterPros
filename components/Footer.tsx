@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { SERVICES } from '@/lib/services';
-import { PHONE, PHONE_HREF, SMS_HREF } from '@/lib/constants';
+import { PHONE, PHONE_HREF, SMS_HREF, SOCIAL } from '@/lib/constants';
 import { CITIES } from '@/lib/cities';
 import { LOCATIONS } from '@/lib/locations';
 
@@ -26,6 +26,10 @@ export default function Footer() {
         <Col title="Services" links={SERVICES.map((s) => [s.name, `/services/${s.slug}`])} />
         <Col title="Service Areas" links={[...LOCATIONS.map((l) => [`${l.name}, ${l.state}`, `/locations/${l.slug}`]), ...CITIES.map((c) => [`${c.name}, WA`, `/services/whole-home-water-filtration-${c.slug}`])]} />
       </div>
+      <p className="text-center pb-2">US Water Pros · Water filtration &amp; treatment · Serving Pierce, Kitsap &amp; Thurston Counties, WA</p>
+      <ul className="flex justify-center gap-2 pb-4">
+        {SOCIAL.map(([n, u]) => <li key={n}><a href={u} target="_blank" rel="noopener noreferrer" aria-label={`US Water Pros on ${n} (opens in a new tab)`} className="min-h-12 inline-flex items-center px-3 font-semibold hover:text-aqua">{n}</a></li>)}
+      </ul>
       <p className="text-center pb-6">Call or text us directly: <a href={PHONE_HREF} className="font-semibold text-aqua">{PHONE}</a> · <a href={SMS_HREF} className="font-semibold text-aqua">Text us</a></p>
       <p className="text-center text-white/60 border-t border-white/10 p-6">© {new Date().getFullYear()} US Water Pros · USWaterPros.com</p>
     </footer>

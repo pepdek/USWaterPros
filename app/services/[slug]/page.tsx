@@ -1,3 +1,4 @@
+import { SAME_AS } from '@/lib/constants';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -46,7 +47,7 @@ export default function ServicePage({ params }: Props) {
     '@context': 'https://schema.org',
     '@graph': [
       { '@type': 'Service', name: s.name, description: s.summary,
-        provider: { '@type': 'LocalBusiness', name: 'US Water Pros', telephone: '+1-253-777-0901', areaServed: ['Tacoma, WA', 'Puyallup, WA', 'Bremerton, WA', 'Port Orchard, WA', 'Olympia, WA', 'Lacey, WA'] },
+        provider: { '@type': 'LocalBusiness', sameAs: SAME_AS, name: 'US Water Pros', telephone: '+1-253-777-0901', areaServed: ['Tacoma, WA', 'Puyallup, WA', 'Bremerton, WA', 'Port Orchard, WA', 'Olympia, WA', 'Lacey, WA'] },
         ...(offers.length && { offers }),
         availableChannel: { '@type': 'ServiceChannel', serviceUrl: `https://uswaterpros.com/services/${s.slug}` } },
       { '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
