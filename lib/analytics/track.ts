@@ -6,11 +6,13 @@ export type Touch = { source: string; medium: string; campaign: string; traffic_
 export type Attribution = { first: Touch; last: Touch; lead_source: string };
 
 const SEARCH = /(^|\.)(google|bing|yahoo|duckduckgo|ecosia|brave)\./i;
+// AI assistants and AI search. Checked before SEARCH so gemini.google.com is not counted as Google organic.
+const AI = /(^|\.)(chatgpt\.com|chat\.openai\.com|openai\.com|claude\.ai|perplexity\.ai|gemini\.google\.com|bard\.google\.com|copilot\.microsoft\.com|you\.com|phind\.com|meta\.ai|grok\.com|deepseek\.com|kagi\.com)$/i;
 const SOCIAL = /(^|\.)(facebook|instagram|t\.co|twitter|x|linkedin|pinterest|tiktok|youtube|reddit|nextdoor)\./i;
 
 export const deviceType = (width: number) => (width < 768 ? 'mobile' : width < 1024 ? 'tablet' : 'desktop');
 
-// Classify a visit from its URL and referrer: paid | organic | email | social | referral | direct.
+// Classify a visit from its URL and referrer: paid | ai | organic | email | social | referral | direct.
 export function classifyTouch(url: string, referrer: string, ownHost = 'uswaterpros.com'): Omit<Touch, 'ts'> {
   const u = new URL(url, 'https://' + ownHost);
   const q = u.searchParams;
@@ -21,6 +23,7 @@ export function classifyTouch(url: string, referrer: string, ownHost = 'uswaterp
   const gclid = q.get('gclid') || q.get('gbraid') || q.get('wbraid') || q.get('fbclid') || undefined;
   let traffic_source = 'direct', source = utmSource || refHost || 'direct', medium = utmMedium || (refHost ? 'referral' : 'none');
   if (gclid || /^(cpc|ppc|paid|paidsearch|paid_social|display)/.test(utmMedium)) { traffic_source = 'paid'; if (!utmMedium) medium = 'cpc'; if (!utmSource && refHost) source = refHost.replace(/^www\./, ''); }
+  else if (AI.test(utmSource.replace(/^www\./, '')) || (!utmSource && AI.test(refHost))) { traffic_source = 'ai'; if (!utmMedium) medium = 'ai_referral'; }
   else if (utmMedium === 'email') traffic_source = 'email';
   else if (utmMedium.includes('social') || (!utmSource && SOCIAL.test(refHost))) traffic_source = 'social';
   else if (utmSource || utmMedium) traffic_source = utmMedium === 'organic' ? 'organic' : 'referral';

@@ -39,7 +39,7 @@ Defined in `lib/analytics/config.ts`. Conversions (key events) are marked **KEY*
 | `exit_intent_shown` | Exit-intent popup shown | element |
 | `tool_start` / `tool_result` | A /tools page tool is first used / produces a result | tool_name, result_bucket, result_value |
 
-Every event also carries: `traffic_source` (paid / organic / direct / referral / social / email), `lead_source` (e.g. `google / cpc / campaign`), `device_type`, `city` (once known), and `page_path`.
+Every event also carries: `traffic_source` (paid / ai / organic / direct / referral / social / email; `ai` = ChatGPT, Claude, Perplexity, Gemini, Copilot and similar, source shows which one), `lead_source` (e.g. `google / cpc / campaign`), `device_type`, `city` (once known), and `page_path`.
 
 `element_source` says where a click happened: header, footer, hero, cta_block, final_cta, corner_banner, exit_intent_modal, inline_quiz_cta, or page.
 

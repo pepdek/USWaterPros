@@ -12,6 +12,12 @@ describe('traffic classification', () => {
   });
   it('social, email, referral, direct', () => {
     expect(classifyTouch('https://uswaterpros.com/', 'https://l.facebook.com/').traffic_source).toBe('social');
+    expect(classifyTouch('https://uswaterpros.com/?utm_source=chatgpt.com', '')).toMatchObject({ traffic_source: 'ai', source: 'chatgpt.com', medium: 'ai_referral' });
+    expect(classifyTouch('https://uswaterpros.com/', 'https://claude.ai/')).toMatchObject({ traffic_source: 'ai', source: 'claude.ai' });
+    expect(classifyTouch('https://uswaterpros.com/', 'https://www.perplexity.ai/search')).toMatchObject({ traffic_source: 'ai', source: 'perplexity.ai' });
+    expect(classifyTouch('https://uswaterpros.com/', 'https://gemini.google.com/').traffic_source).toBe('ai');
+    expect(classifyTouch('https://uswaterpros.com/', 'https://www.google.com/').traffic_source).toBe('organic');
+    expect(classifyTouch('https://uswaterpros.com/?gclid=abc', 'https://chatgpt.com/').traffic_source).toBe('paid');
     expect(classifyTouch('https://uswaterpros.com/?utm_source=news&utm_medium=email', '').traffic_source).toBe('email');
     expect(classifyTouch('https://uswaterpros.com/', 'https://someblog.com/post').traffic_source).toBe('referral');
     expect(classifyTouch('https://uswaterpros.com/', '').traffic_source).toBe('direct');
