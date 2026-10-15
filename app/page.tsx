@@ -10,6 +10,7 @@ import FilterFinder from '@/components/FilterFinder';
 import Faq from '@/components/Faq';
 import { LOCATIONS } from '@/lib/locations';
 import { PILLS, SERVICES } from '@/lib/services';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -18,6 +19,8 @@ const STEPS = [
   ['Clear Recommendations', 'Our team explains your options clearly, answers your questions, and recommends a system based on your water needs, home setup, and budget.'],
   ['Professional Installation', 'Once you choose the right solution, we install your system with care, test performance, and make sure you understand how everything works.'],
 ];
+
+export const metadata: Metadata = { alternates: { canonical: '/' } };
 
 export default function Home() {
   return (

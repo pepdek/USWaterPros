@@ -20,7 +20,7 @@ export const generateStaticParams = () => SERVICES.map((s) => ({ slug: s.slug })
 export function generateMetadata({ params }: Props): Metadata {
   const s = find(params.slug);
   if (!s) return {};
-  const title = s.kind === 'flagship' ? `${s.name} | from ${flagshipPrice} ${TAX_NOTE} | US Water Pros` : `${s.name} | US Water Pros`;
+  const title = s.kind === 'flagship' ? `${s.name} from ${flagshipPrice} installed | US Water Pros` : `${s.name} | US Water Pros`;
   return { title, description: s.summary, alternates: { canonical: `/services/${s.slug}` }, openGraph: { title, description: s.summary } };
 }
 

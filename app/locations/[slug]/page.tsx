@@ -21,7 +21,7 @@ export function generateMetadata({ params }: Props): Metadata {
   const l = find(params.slug);
   if (!l) return {};
   const title = `Water Treatment in ${l.name}, ${l.state} | US Water Pros`;
-  return { title, description: l.blurb, openGraph: { title, description: l.blurb } };
+  return { title, description: l.blurb, alternates: { canonical: `/locations/${l.slug}` }, openGraph: { title, description: l.blurb } };
 }
 
 export default function LocationPage({ params }: Props) {

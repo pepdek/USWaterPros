@@ -88,7 +88,7 @@ function Field({ label, badge, error, children }: { label: string; badge?: strin
     <label className="block">
       <span className="font-semibold text-ink text-sm">{label}{badge && <span className="ml-2 text-xs bg-ice rounded-full px-2 py-0.5 font-normal">{badge}</span>}</span>
       {children}
-      {error && <span className="text-coral text-xs">{error}</span>}
+      {error && <span role="alert" className="text-coral text-xs">{error}</span>}
     </label>
   );
 }
