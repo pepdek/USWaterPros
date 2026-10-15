@@ -7,7 +7,7 @@ import FilterFinder from '@/components/FilterFinder';
 import LeadForm from '@/components/LeadForm';
 import {
   ServiceHero, BuyerDecisionTree, ContaminationChart, SystemDiagram, BeforeAfterSlider, PricingTimeline,
-  ComparisonTable, MaintenanceFAQ, ServiceAreaCallout, CTASection, UnfaqSection, LeanLinks, InstallGallery,
+  ComparisonTable, MaintenanceFAQ, ServiceAreaCallout, CTASection, UnfaqSection, LeanLinks, InstallGallery, FaqGroup, Band,
 } from '@/components/service';
 import { MAINTENANCE, SERVICES, UAQ_SHARED } from '@/lib/services';
 import { PRICING, TAX_NOTE, flagshipPrice } from '@/lib/pricing';
@@ -58,37 +58,29 @@ export default function ServicePage({ params }: Props) {
   return (
     <main>
       <ServiceHero s={s} />
-      <div className="mx-auto max-w-6xl px-4 py-10 grid gap-10 md:grid-cols-[3fr_2fr]">
-        <div className="flex flex-col gap-14">
+      <div className="mx-auto max-w-6xl px-4 py-16 md:py-20 grid gap-12 md:gap-16 md:grid-cols-[3fr_2fr]">
+        <div className="flex flex-col gap-16 md:gap-20">
           <BuyerDecisionTree s={s} />
-          <QuizCta compact service={s.slug} />
           <ContaminationChart s={s} />
-          <SystemDiagram s={s} />
-          <BeforeAfterSlider s={s} />
-          <PricingTimeline s={s} />
-          <InstallGallery s={s} />
         </div>
         <aside id="quote" className="[@media(min-width:768px)_and_(min-height:900px)]:sticky top-24 self-start scroll-mt-24"><LeadForm service={s.slug} /></aside>
       </div>
-      {s.kind === 'flagship' && <ComparisonTable s={s} />}
-      {!s.lean && <MaintenanceFAQ />}
-      <section className="mx-auto max-w-6xl px-4 pb-12">
-        <h2>Frequently Asked Questions</h2>
-        <div className="mt-6 md:grid md:grid-cols-2 md:items-start md:[&>details:nth-child(odd)]:pr-8 md:[&>details:nth-child(even)]:pl-8 md:[&>details:nth-child(even)]:border-l md:[&>details:nth-child(even)]:border-l-black/10">
-        {(s.lean ? s.faqs : s.faqs.concat(faqs.slice(s.faqs.length, s.faqs.length + 4))).map(([q, a]) => (
-          <details key={q} className="border-b border-black/10 py-3">
-            <summary className="cursor-pointer min-h-12 flex items-center"><h3 className="text-lg !font-sans !tracking-normal">{q}</h3></summary>
-            <p className="pb-2">{a}</p>
-          </details>
-        ))}
-        </div>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-      </section>
+      <QuizCta service={s.slug} />
+      <Band><SystemDiagram s={s} /></Band>
+      <Band tone="ice"><BeforeAfterSlider s={s} /></Band>
+      <Band><PricingTimeline s={s} />{s.gallery && <InstallGallery s={s} />}</Band>
       <FilterFinder />
-      <UnfaqSection s={s} />
-      {s.lean ? <LeanLinks /> : <ServiceAreaCallout />}
+      {s.kind === 'flagship' && <Band><ComparisonTable s={s} /></Band>}
+      <Band tone="ice">
+        {!s.lean && <MaintenanceFAQ />}
+        <FaqGroup title="Frequently Asked Questions" items={s.lean ? s.faqs : s.faqs.concat(faqs.slice(s.faqs.length, s.faqs.length + 4))} />
+        <UnfaqSection s={s} />
+        {s.lean && <LeanLinks />}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      </Band>
+      {!s.lean && <ServiceAreaCallout />}
       <CTASection />
-      <section className="mx-auto max-w-6xl px-4 py-10">
+      <section className="mx-auto max-w-6xl px-4 py-16">
         <h2 className="text-2xl">Also interested in</h2>
         <div className="mt-4 flex flex-wrap gap-2">
           {s.related.map((r) => { const x = find(r)!; return <Link key={r} href={`/services/${r}`} className="lowercase min-h-12 inline-flex items-center rounded-full bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] px-5 font-semibold text-ink hover:bg-navy hover:text-white">{x.name}</Link>; })}
