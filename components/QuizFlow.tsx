@@ -49,7 +49,7 @@ const QUESTIONS: Partial<Record<Screen, Q>> = {
 const INTERSTITIAL: Partial<Record<Screen, [icon: string, title: string, body: string]>> = {
   i1: ['📍', 'Here’s why we ask', 'Water is different from neighborhood to neighborhood. Knowing where you live helps us recommend what actually fits your water.'],
   i2: ['🤝', 'You’re not alone', 'These are common concerns, and they’re fixable. A few more questions and we’ll point you to the right system.'],
-  i3: ['✅', 'Why people choose us', 'Licensed technicians. Installation in about 4 hours. A 1-year warranty. Serving Washington homeowners since 2009.'],
+  i3: ['✅', 'Why people choose us', 'Licensed plumbers. Installation in about 4 hours. A 1-year warranty. Serving Washington homeowners since 2009.'],
 };
 
 // ---- Logic -------------------------------------------------------------------------------
@@ -305,7 +305,7 @@ export default function QuizFlow() {
         <div className="card p-8 md:p-10 text-center flex flex-col gap-3 !transform-none">
           <div className="mx-auto w-14 h-14 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center text-3xl">✓</div>
           <h2>You’re all set, {contact.name.split(' ')[0]}!</h2>
-          <p>We’ll {r.communicationPreference === 'Call' ? 'call' : 'text'} you within 1 hour during business hours to schedule your free consultation.</p>
+          <p>We’ll {r.communicationPreference === 'Call' ? 'call' : 'text'} you within 10 minutes during business hours to schedule your free consultation.</p>
         </div>
       )}
     </div>

@@ -9,6 +9,8 @@ import StickyBottomCTA from '@/components/StickyBottomCTA';
 import { CITIES, EWG_URL, UPDATED } from '@/lib/cities';
 import { PHONE, PHONE_HREF } from '@/lib/constants';
 import { LOCATIONS } from '@/lib/locations';
+import TacomaPage from '@/components/cro/TacomaPage';
+import { SITE } from '@/lib/site';
 
 type Props = { params: { city: string } };
 const find = (c: string) => CITIES.find((x) => x.slug === c);
@@ -19,14 +21,20 @@ export const generateStaticParams = () => CITIES.map((c) => ({ city: c.slug }));
 export function generateMetadata({ params }: Props): Metadata {
   const c = find(params.city);
   if (!c) return {};
+  if (c.slug === 'tacoma') {
+    const title = 'Whole-Home Water Filtration in Tacoma, WA | US Water Pros';
+    const description = `Whole-home water filtration in Tacoma, WA. Chlorine taste, sediment, hard water, and pre-1986 plumbing concerns. ${SITE.priceInstalled} installed.`;
+    return { title, description, alternates: { canonical: path(c.slug) }, openGraph: { title, description } };
+  }
   const title = `Whole-Home Water Filtration Services in ${c.name}, WA`;
-  const description = `Professional water filtration installation in ${c.name}, WA. Licensed technicians, same-day quotes. Get your free water quality report today.`;
+  const description = `Professional water filtration installation in ${c.name}, WA. Licensed plumbers, fixed-price quotes. Get your free water quality report today.`;
   return { title, description, alternates: { canonical: path(c.slug) }, openGraph: { title, description } };
 }
 
 export default function CityPage({ params }: Props) {
   const c = find(params.city);
   if (!c) notFound();
+  if (c.slug === 'tacoma') return <TacomaPage />;
   const county = LOCATIONS.find((l) => l.slug === c.county)!;
   const h1 = `Whole-Home Water Filtration Services in ${c.name}, WA`;
   const schema = {
@@ -46,7 +54,7 @@ export default function CityPage({ params }: Props) {
             <Breadcrumb items={[{ label: 'Service Areas', href: '/#areas' }, { label: c.name }]} />
             <h1 className="!text-white">{h1}</h1>
             <p className="mt-4 text-white md:text-lg">{c.headline}</p>
-            <p className="mt-4 text-white text-sm font-semibold">✓ Licensed technicians | ✓ Same-day quotes | ✓ Local since 2009</p>
+            <p className="mt-4 text-white text-sm font-semibold">✓ Licensed plumbers | ✓ Fixed-price quotes | ✓ Local since 2009</p>
           </div>
           <div id="quote-form"><LeadForm service="whole-home-water-filtration" /></div>
         </div>
@@ -89,7 +97,7 @@ export default function CityPage({ params }: Props) {
 
       <section className="mx-auto max-w-6xl px-4 py-10 grid gap-8 md:gap-10 md:grid-cols-3 text-center">
         <div className="card p-8 md:p-10"><h3 className="text-xl">Local since 2009</h3><p className="mt-1">Fixed, upfront pricing.</p></div>
-        <div className="card p-8 md:p-10"><h3 className="text-xl">Licensed technicians</h3><p className="mt-1">Installed with care and tested.</p></div>
+        <div className="card p-8 md:p-10"><h3 className="text-xl">Licensed plumbers</h3><p className="mt-1">Installed with care and tested.</p></div>
         <div className="card p-8 md:p-10"><h3 className="text-xl">Free consultation</h3><p className="mt-1">No obligation, no pressure.</p></div>
       </section>
 
@@ -112,10 +120,10 @@ export default function CityPage({ params }: Props) {
         <div className="mx-auto max-w-3xl px-4">
           <h2 className="!text-white">Ready to Fix Your Water?</h2>
           <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="#report" className="btn btn-cta">Get Free Water Report</a>
+            <a href="#report" className="btn btn-cta">See My Area’s Water Report</a>
             <a href={PHONE_HREF} className="btn btn-secondary">Call {PHONE}</a>
           </div>
-          <p className="mt-4 text-sm text-white/80">Licensed technicians · Same-day quotes</p>
+          <p className="mt-4 text-sm text-white/80">Licensed plumbers · Fixed-price quotes</p>
         </div>
       </section>
       <StickyBottomCTA />

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { SERVICES } from '@/lib/services';
 import { formatUSD } from '@/lib/pricing';
+import { notifyExtras } from '@/lib/leadAlerts';
 
 export async function POST(req: NextRequest) {
   const b = await req.json().catch(() => ({}));
@@ -26,11 +27,14 @@ export async function POST(req: NextRequest) {
   const touch = (t: unknown) => { const o = (t ?? {}) as Record<string, unknown>; const g = (k: string) => (typeof o[k] === 'string' ? (o[k] as string).slice(0, 120) : ''); return { source: g('source'), medium: g('medium'), campaign: g('campaign'), traffic_source: g('traffic_source'), landing_page: g('landing_page'), referrer: g('referrer'), gclid: g('gclid') ? 'yes' : '' }; };
   const at = (b.attribution ?? {}) as Record<string, unknown>;
   const attribution = b.attribution ? { first: touch(at.first), last: touch(at.last), lead_source: typeof at.lead_source === 'string' ? at.lead_source.slice(0, 120) : '' } : null;
+  const variant = s('form_variant', 10), builtYear = s('home_built', 20), bestTime = s('best_time', 20);
+  const formNotes = variant ? `Form: ${variant} | Home built: ${builtYear || 'n/a'} | Best time to call: ${bestTime || 'n/a'}` : null;
   const lead = {
     id: crypto.randomUUID(),
     attribution, lead_source: attribution?.lead_source || null,
-    name: s('name', 255) || 'Water report request', email: s('email', 255), phone: s('phone', 20) || null,
+    name: s('name', 255) || 'Water report request', email: s('email', 255) || null, phone: s('phone', 20) || null,
     zip_code: isQuiz || isTool ? null : s('zip_code', 10), service_type: isQuiz ? quizService : s('service_type', 255), page_source: s('page_source', 255),
+    ...(formNotes && { notes: formNotes }),
     ip_address: req.headers.get('x-forwarded-for')?.split(',')[0].trim() || null,
     user_agent: req.headers.get('user-agent'),
     ...(tool && { quiz: tool, notes: `TOOL diagnostic: ${tool.score}/7 warning signs | est. waste ${formatUSD(tool.waste)}/yr | ${tool.tier} | SMS opt-in: ${tool.sms_opt_in ? 'YES' : 'no'} | yes: ${tool.answers.join(', ')}` }),
@@ -39,7 +43,8 @@ export async function POST(req: NextRequest) {
       notes: `QUIZ${quiz.tags.length ? ' [' + quiz.tags.join(',') + ']' : ''}: ${rec} (${formatUSD(quiz.recommendedPrice)}${quiz.addons.length ? ' incl. add-ons: ' + quiz.addons.join(', ') : ''}) | urgency ${quiz.urgencyPriority} | prefers ${quiz.communicationPreference} | timeline ${quiz.timeline} | household ${quiz.householdSize} | ${quiz.currentSituation} | budget: ${quiz.budgetComfort} | concerns: ${quiz.waterConcerns.join(', ')} | ${quiz.location}`,
     }),
   };
-  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email);
+  const emailRequired = isQuiz || isTool || lead.service_type === 'water-report';
+  const emailOk = lead.email ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email) : !emailRequired;
   const phoneOk = !(isQuiz || tool?.sms_opt_in) || (lead.phone ?? '').replace(/\D/g, '').length >= 10;
   const zipOk = isQuiz || isTool || /^\d{5}$/.test(lead.zip_code ?? '');
   if (lead.name.length < 2 || !emailOk || !phoneOk || !zipOk
@@ -58,9 +63,10 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         personalizations: [{ to: [{ email: to }] }], from: { email: to },
         subject: `New lead: ${lead.service_type} (${lead.zip_code})`,
-        content: [{ type: 'text/plain', value: `${lead.name}\n${lead.email}\n${lead.phone ?? ''}\n${lead.zip_code}` }],
+        content: [{ type: 'text/plain', value: `${lead.name}\n${lead.email ?? ''}\n${lead.phone ?? ''}\n${lead.zip_code}` }],
       }),
     }).catch(console.error);
   }
+  if (variant) await notifyExtras(lead, { variant, builtYear, bestTime }).catch(console.error);
   return NextResponse.json({ ok: true, success: true, leadId: lead.id });
 }

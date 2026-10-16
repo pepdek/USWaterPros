@@ -10,9 +10,9 @@ const BASE = 'https://uswaterpros.com';
 export function GET() {
   const body = `# US Water Pros
 
-> Local water filtration and treatment company serving Pierce, Kitsap and Thurston Counties, WA (Tacoma, Puyallup, Bremerton, Port Orchard, Olympia, Lacey, Gig Harbor and nearby). In business since 2009. Licensed technicians. Phone or text: ${PHONE}.
+> Local water filtration and treatment company serving Pierce, Kitsap and Thurston Counties, WA (Tacoma, Puyallup, Bremerton, Port Orchard, Olympia, Lacey, Gig Harbor and nearby). In business since 2009. Licensed plumbers. Phone or text: ${PHONE}.
 
-${PRICING.headline} Includes ${PRICING.flagship.includes.join(', ').toLowerCase()}. Reverse osmosis drinking water add-on ${formatUSD(PRICING.addons.ro.displayPrice)}, carbon filtration add-on ${formatUSD(PRICING.addons.carbon.displayPrice)}. Well water tests ${formatUSD(PRICING.wellTest.basic.displayPrice)} (basic) and ${formatUSD(PRICING.wellTest.full.displayPrice)} (full panel), credited toward an install. A free consultation comes first.
+${PRICING.headline} Includes ${PRICING.flagship.includes.join(', ').toLowerCase()}. Well water tests ${formatUSD(PRICING.wellTest.basic.displayPrice)} (basic) and ${formatUSD(PRICING.wellTest.full.displayPrice)} (full panel), credited toward an install. We coordinate a licensed plumber for every install. A free consultation comes first.
 
 ## Services
 ${SERVICES.map((s) => `- [${s.name}](${BASE}/services/${s.slug}): ${s.summary}`).join('\n')}

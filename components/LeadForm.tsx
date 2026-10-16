@@ -1,12 +1,18 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { SITE } from '@/lib/site';
 import { CTA } from '@/lib/analytics';
 import { formTypeFor, getAttribution, trackEvent } from '@/lib/analytics/track';
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export default function LeadForm({ service }: { service: string }) {
-  const [f, setF] = useState({ name: '', email: '', phone: '', zip: '' });
+// `variant` switches on the direct-response form (name, mobile, ZIP, build year, best time; posts, then goes to /thanks).
+// Without it this is the original consultation form used on the other pages.
+export default function LeadForm({ service, variant }: { service: string; variant?: 'hero' | 'footer' }) {
+  const router = useRouter();
+  const path = usePathname();
+  const [f, setF] = useState({ name: '', email: '', phone: '', zip: '', built: 'Not sure', best: 'Anytime' });
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [state, setState] = useState<'idle' | 'sending' | 'done' | 'error'>('idle');
   const start = useRef(0);
@@ -23,13 +29,13 @@ export default function LeadForm({ service }: { service: string }) {
 
   const err: Record<string, string> = {};
   if (f.name.trim().length < 2) err.name = 'Enter your name';
-  if (!EMAIL.test(f.email)) err.email = 'Enter a valid email';
+  if (!variant && !EMAIL.test(f.email)) err.email = 'Enter a valid email';
   if (!/^\d{5}$/.test(f.zip)) err.zip = 'Enter a 5-digit ZIP';
-  if (f.phone && f.phone.replace(/\D/g, '').length < 10) err.phone = 'Enter a 10-digit phone';
+  if (variant ? f.phone.replace(/\D/g, '').length < 10 : f.phone && f.phone.replace(/\D/g, '').length < 10) err.phone = 'Enter a 10-digit mobile number';
 
   const bind = (k: keyof typeof f) => ({
     value: f[k] as string,
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => setF({ ...f, [k]: k === 'zip' ? e.target.value.replace(/\D/g, '') : e.target.value }),
+    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => setF({ ...f, [k]: k === 'zip' ? e.target.value.replace(/\D/g, '') : e.target.value }),
     onFocus: () => { if (!start.current) { start.current = Date.now(); trackEvent('form_start', { service, form_type: formTypeFor(location.pathname) }); } focusAt.current[k] = Date.now(); },
     onBlur: () => { setTouched((t) => ({ ...t, [k]: true })); },
   });
@@ -42,10 +48,17 @@ export default function LeadForm({ service }: { service: string }) {
     setState('sending');
     const res = await fetch('/api/leads', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: f.name, email: f.email, phone: f.phone, zip_code: f.zip, service_type: service, page_source: location.pathname, attribution: getAttribution() }),
+      body: JSON.stringify({ name: f.name, email: f.email, phone: f.phone, zip_code: f.zip, service_type: service, page_source: location.pathname, attribution: getAttribution(),
+        ...(variant && { form_variant: variant, home_built: f.built, best_time: f.best }) }),
     }).catch(() => null);
     if (!res?.ok) return setState('error');
     submitted.current = true;
+    if (variant) {
+      // The conversion event fires once, on /thanks (so a redirect can never drop it).
+      try { sessionStorage.setItem('lead_conversion', JSON.stringify({ service, form_type: formTypeFor(location.pathname), seconds_to_submit: Math.round((Date.now() - start.current) / 1000) })); } catch { /* storage blocked: skip the event */ }
+      window.dispatchEvent(new Event('lead-submitted'));
+      return router.push('/thanks');
+    }
     trackEvent('lead_form_submission', { service, form_type: formTypeFor(location.pathname), seconds_to_submit: Math.round((Date.now() - start.current) / 1000), quiz_completed: false });
     window.dispatchEvent(new Event('lead-submitted'));
     setState('done');
@@ -57,9 +70,25 @@ export default function LeadForm({ service }: { service: string }) {
       <div className="card p-8 md:p-10 text-center">
         <div className="mx-auto w-14 h-14 rounded-full bg-aqua text-white flex items-center justify-center text-3xl">✓</div>
         <h2 className="mt-4">You're all set!</h2>
-        <p className="mt-2">We'll call you within 1 hour.</p>
+        <p className="mt-2">We'll call you within 10 minutes.</p>
         <p className="text-sm">It's {now}, we're calling now.</p>
       </div>
+    );
+  }
+
+  if (variant) {
+    return (
+      <form onSubmit={submit} className="flex flex-col gap-3" noValidate aria-label="Get your fixed price">
+        <input type="hidden" name="source" value={`${path} (${variant})`} />
+        <Field label="Name" error={show('name')}><input className="field" autoComplete="name" {...bind('name')} /></Field>
+        <Field label="Mobile" error={show('phone')}><input className="field" type="tel" inputMode="tel" autoComplete="tel" {...bind('phone')} /></Field>
+        <Field label="ZIP code" error={show('zip')}><input className="field" inputMode="numeric" maxLength={5} autoComplete="postal-code" {...bind('zip')} /></Field>
+        <Field label="Home built year"><select className="field" value={f.built} onChange={(e) => setF({ ...f, built: e.target.value })}>{['Before 1986', '1986 or later', 'Not sure'].map((o) => <option key={o}>{o}</option>)}</select></Field>
+        <Field label="Best time to call"><select className="field" value={f.best} onChange={(e) => setF({ ...f, best: e.target.value })}>{['Morning', 'Afternoon', 'Evening', 'Anytime'].map((o) => <option key={o}>{o}</option>)}</select></Field>
+        <button className="btn btn-cta w-full" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : SITE.cta}</button>
+        {state === 'error' && <p role="alert" className="text-coral font-semibold text-sm">Something went wrong. Please try again or call {SITE.phoneDisplay}.</p>}
+        <p className="text-sm text-center">We call back within {SITE.callbackWindow} during business hours. No obligation. We never sell your number.</p>
+      </form>
     );
   }
 
@@ -76,8 +105,8 @@ export default function LeadForm({ service }: { service: string }) {
       <input type="hidden" name="service_type" value={service} />
       <button className="btn btn-cta w-full" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : CTA}</button>
       {state === 'error' && <p className="text-coral font-semibold text-sm">Something went wrong. Please try again or call us.</p>}
-      <p className="text-xs text-center">✓ We'll call you within 1 hour during business hours</p>
-      <p className="text-xs text-center">✓ No credit card required | ✓ Licensed technicians</p>
+      <p className="text-xs text-center">✓ We'll call you within 10 minutes during business hours</p>
+      <p className="text-xs text-center">✓ No credit card required | ✓ Licensed plumbers</p>
       <p className="text-xs text-center text-ink/70">🔒 Your information is private. We never sell it, and there's no spam.</p>
     </form>
   );

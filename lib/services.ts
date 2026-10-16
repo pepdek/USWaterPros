@@ -28,8 +28,8 @@ export const SERVICES: Service[] = [
     slug: 'whole-home-water-filtration', image: '/images/services/whole-home-water-filtration.webp', imageAlt: 'Whole-home water filtration system with carbon filter tank and brine tank', name: 'Whole-Home Water Filtration', icon: 'house',
     blurb: 'Clean, great-tasting water from every tap. Protect your pipes and appliances.',
     h1: 'Whole-Home Water Filtration to Remove Chlorine, Sediment & Odors',
-    sub: `${PRICING.headline} Licensed technicians, about 4 hours.`,
-    summary: `${PRICING.headline} Softening, carbon filtration and a reverse osmosis drinking faucet. Licensed technicians in Washington.`,
+    sub: `${PRICING.headline} Licensed plumbers, about 4 hours.`,
+    summary: `${PRICING.headline} Softening, carbon filtration and a reverse osmosis drinking faucet. Licensed plumbers in Washington.`,
     problems: [
       { icon: 'drop', problem: 'Chlorine taste and smell in your tap water', solution: 'Carbon filtration media reduces chlorine taste and odor', outcome: 'Fresh, clean water from every tap' },
       { icon: 'layers', problem: 'Sediment and particles clouding your water', solution: 'A 5-micron pre-filter catches particles before they enter your home', outcome: 'Clearer water and longer appliance life' },
@@ -68,7 +68,7 @@ export const SERVICES: Service[] = [
     blurb: 'Say goodbye to limescale, spotty dishes and dry skin. Softer water, lower bills.',
     h1: 'Why Your Whole-Home System Includes Water Softening',
     sub: 'Softening is always included in our whole-home system. Here is why.',
-    summary: 'Water softening for scale, spotty dishes and dry skin, installed as part of our whole-home water system. Licensed technicians in Washington.',
+    summary: 'Water softening for scale, spotty dishes and dry skin, installed as part of our whole-home water system. Licensed plumbers in Washington.',
     problems: [
       { icon: 'building', problem: 'White scale on faucets, showerheads and glass', solution: 'Ion exchange resin removes the calcium and magnesium that cause scale', outcome: 'Fixtures stay clean and cleaning gets easier' },
       { icon: 'glass', problem: 'Spotty dishes and cloudy glassware', solution: 'Softened water rinses clean without mineral spots', outcome: 'Dishes and glass come out clear' },
@@ -106,7 +106,7 @@ export const SERVICES: Service[] = [
     blurb: 'Fix iron staining, sulfur smell and sediment. Safe, clean well water without boiling.',
     h1: 'Well Water Treatment to Fix Iron Staining, Sulfur Smell & Sediment',
     sub: `Start with a ${formatUSD(PRICING.wellTest.basic.displayPrice)} water test, credited toward your install.`,
-    summary: `Well water testing from ${formatUSD(PRICING.wellTest.basic.displayPrice)}, credited toward your install if you purchase. Fixes iron staining, sulfur smell and sediment. Licensed technicians in Washington.`,
+    summary: `Well water testing from ${formatUSD(PRICING.wellTest.basic.displayPrice)}, credited toward your install if you purchase. Fixes iron staining, sulfur smell and sediment. Licensed plumbers in Washington.`,
     problems: [
       { icon: 'building', problem: 'Orange or brown iron staining on fixtures and laundry', solution: 'An iron filter removes iron and manganese before it reaches your plumbing', outcome: 'Fixtures and laundry stop staining' },
       { icon: 'flask', problem: 'A rotten-egg sulfur smell', solution: 'Oxidizing filter media treats the hydrogen sulfide that causes it', outcome: 'No more smell from taps and showers' },
@@ -216,7 +216,7 @@ export const SERVICES: Service[] = [
     blurb: 'Municipal water is safe to drink, not always good to drink. Upgrade it at home.',
     h1: 'City Water Treatment to Reduce Chlorine & Improve Taste',
     sub: 'Better tasting city water. Installed as part of our whole-home water system.',
-    summary: 'City water treatment for chlorine taste and older plumbing, installed as part of our whole-home water system. Licensed technicians in Washington.',
+    summary: 'City water treatment for chlorine taste and older plumbing, installed as part of our whole-home water system. Licensed plumbers in Washington.',
     problems: [
       { icon: 'drop', problem: 'Chlorine taste and smell from municipal water', solution: 'Catalytic carbon reduces chlorine and chloramine taste and odor', outcome: 'Water that tastes like water' },
       { icon: 'shield', problem: 'Older pipes, and lead in older homes', solution: 'A point-of-use reverse osmosis tap reduces lead at the kitchen sink', outcome: 'Safer drinking and cooking water' },
@@ -255,9 +255,9 @@ export const PILLS = [
 
 // "Questions people rarely ask but should": three shared entries plus one per service (service.uaq).
 export const UAQ_SHARED: [string, string][] = [
-  ['Why should I trust a local operator over a national brand?', 'National brands sell volume and rotate technicians. We have been here since 2009, and our reputation in Pierce, Kitsap and Thurston Counties depends on how your water turns out, not on a quarterly earnings call.'],
+  ['Why should I trust a local operator over a national brand?', 'National brands sell volume and rotate crews. We have been here since 2009, and our reputation in Pierce, Kitsap and Thurston Counties depends on how your water turns out, not on a quarterly earnings call.'],
   ['Will you try to upsell me into a system I don’t need?', 'We test first and recommend only what your water needs. A customer we served well who refers a neighbor is worth far more to us than one we oversold. The whole-home system is a fixed price, so there is no quote game to play.'],
-  ['What if I’m skeptical that I need water treatment at all?', 'Good. You should be. Schedule a consultation and we will look at your water. If the results show it is fine, we will tell you it is fine. Not every home needs treatment, and if yours does, you will see why in the data and the decision is yours.'],
+  ['What if I’m skeptical that I need water treatment at all?', 'Good, you should be. On the call we look at your water. If it’s fine, we’ll tell you it’s fine. Not every home needs treatment. If yours does, you’ll see why in the data, and the decision is yours.'],
 ];
 
 export const MAINTENANCE: [string, string][] = [
@@ -265,5 +265,5 @@ export const MAINTENANCE: [string, string][] = [
   ['What’s the annual maintenance cost?', `About ${formatUSD(ANNUAL_FILTERS.low)}–${ANNUAL_FILTERS.high} a year for filter cartridges. No technician visits are needed for routine maintenance.`],
   ['How long does the system last?', 'Typically 8–10 years for whole-home systems. Some components, like resin, regenerate. Others are replaced.'],
   ['What if something breaks?', 'Your warranty covers manufacturing defects. We repair or replace at no cost within the first year.'],
-  ['Can I service it myself?', 'Filter changes are simple, and we give you guidance. Major repairs are done by a licensed technician.'],
+  ['Can I service it myself?', 'Filter changes are simple, and we give you guidance. Major repairs are done by a licensed plumber.'],
 ];

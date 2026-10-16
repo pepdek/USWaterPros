@@ -22,7 +22,7 @@ export function ServiceHero({ s }: { s: Service }) {
           <h1 className="!text-white">{s.h1}</h1>
           <p className="mt-4 text-white font-semibold">{s.sub}</p>
           <a href="#quote" className="btn btn-cta mt-6 w-full md:w-auto">Schedule Consultation</a>
-          <p className="mt-3 text-sm text-white font-semibold">No credit card | Licensed technician | 15 minutes | Fixed price quote</p>
+          <p className="mt-3 text-sm text-white font-semibold">No credit card | Licensed plumber | 15 minutes | Fixed price quote</p>
         </div>
         <div className="relative rounded-3xl bg-white/80 backdrop-blur-xl h-56 md:h-auto md:aspect-[4/3]">
           <Image src={s.image} alt={s.imageAlt} fill priority sizes="(min-width: 768px) 40vw, 90vw" className="object-contain p-4" />
@@ -126,7 +126,7 @@ const FLAGSHIP_HREF = '/services/whole-home-water-filtration';
 const Pill = ({ href, children }: { href: string; children: React.ReactNode }) => <Link href={href} className="btn btn-cta mt-4">{children}</Link>;
 
 export function PricingTimeline({ s }: { s: Service }) {
-  const days = [['Day 1', 'Free 15-minute consultation and fixed-price quote'], ['Day 2–3', 'Schedule your installation'], ['Install day', 'About 4 hours with a licensed technician'], ['Day after', 'System testing completed'], ['Ongoing', `Annual filter replacements, about ${formatUSD(ANNUAL_FILTERS.low)}–${ANNUAL_FILTERS.high} a year`]];
+  const days = [['Day 1', 'Free 15-minute consultation and fixed-price quote'], ['Day 2–3', 'Schedule your installation'], ['Install day', 'About 4 hours with a licensed plumber'], ['Day after', 'System testing completed'], ['Ongoing', `Annual filter replacements, about ${formatUSD(ANNUAL_FILTERS.low)}–${ANNUAL_FILTERS.high} a year`]];
   const wellSteps = [['Step 1', 'Choose a basic test or the full panel'], ['Step 2', 'We collect the sample and send it to the lab'], ['Step 3', 'We explain your results in plain English'], ['Step 4', 'We recommend a system, and your test fee is credited if you purchase']];
   const addon = s.addon ? PRICING.addons[s.addon] : null;
   return (
@@ -177,10 +177,10 @@ export function PricingTimeline({ s }: { s: Service }) {
 export function ComparisonTable({ s }: { s: Service }) {
   const rows = [
     ['Upfront cost', `${flagshipPrice} ${TAX_NOTE}`, formatRange(MARKET.premium.low, MARKET.premium.high), formatUSD(MARKET.budget.price)],
-    ['Installation', 'Licensed technician, about 4 hours', 'Sales rep plus install crew', 'DIY or discount installer'],
-    ['Support', 'Included', 'Fee-based', 'Little or none'],
+    ['Installation', 'Licensed plumber, about 4 hours', 'Sales rep plus install crew', 'DIY or discount installer'],
+    ['Support', 'Included', 'Fee-based', 'Little or none'], // VERIFY: Support row of the comparison table
     ['Warranty', '1 year', 'Limited', '6 months'],
-    ['Typical lifespan', '8–10 years', '10+ years', '2–3 years'],
+    ['Typical lifespan', '8–10 years', '10+ years', '2–3 years'], // VERIFY: Typical lifespan row of the comparison table
   ];
   return (
     <div>
@@ -191,7 +191,7 @@ export function ComparisonTable({ s }: { s: Service }) {
           <tbody>{rows.map(([f, a, b, c]) => <tr key={f} className="border-t border-black/10"><td className="p-3 font-semibold text-ink">{f}</td><td className="p-3 bg-aqua/20">{a}</td><td className="p-3">{b}</td><td className="p-3">{c}</td></tr>)}</tbody>
         </table>
       </div>
-      <p className="mt-3 text-sm">Typical ranges for the local market. Actual prices vary by brand and home.</p>
+      <p className="mt-3 text-sm">Typical ranges for the local market.</p>
     </div>
   );
 }
@@ -242,7 +242,7 @@ export function CTASection() {
           <a href="#quote" className="btn btn-cta">Schedule Consultation</a>
           <a href={PHONE_HREF} className="btn btn-secondary">{PHONE}</a>
         </div>
-        <p className="mt-4 text-sm text-ink font-semibold">✓ Free consultation | ✓ Licensed technicians | ✓ Fixed price quote | ✓ No obligation</p>
+        <p className="mt-4 text-sm text-ink font-semibold">✓ Free consultation | ✓ Licensed plumbers | ✓ Fixed price quote | ✓ No obligation</p>
       </div>
     </section>
   );

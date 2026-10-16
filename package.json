@@ -16,6 +16,7 @@
     "react-dom": "^18.3.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.48.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "autoprefixer": "^10",

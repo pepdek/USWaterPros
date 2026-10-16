@@ -7,10 +7,12 @@ import FilterFinder from '@/components/FilterFinder';
 import LeadForm from '@/components/LeadForm';
 import {
   ServiceHero, BuyerDecisionTree, ContaminationChart, SystemDiagram, BeforeAfterSlider, PricingTimeline,
-  ComparisonTable, MaintenanceFAQ, ServiceAreaCallout, CTASection, UnfaqSection, LeanLinks, InstallGallery, FaqGroup, Band,
+  MaintenanceFAQ, ServiceAreaCallout, CTASection, UnfaqSection, LeanLinks, InstallGallery, FaqGroup, Band,
 } from '@/components/service';
 import { MAINTENANCE, SERVICES, UAQ_SHARED } from '@/lib/services';
 import { PRICING, TAX_NOTE, flagshipPrice } from '@/lib/pricing';
+import { SITE } from '@/lib/site';
+import WholeHomePage from '@/components/cro/WholeHomePage';
 
 type Props = { params: { slug: string } };
 const find = (slug: string) => SERVICES.find((s) => s.slug === slug);
@@ -20,13 +22,19 @@ export const generateStaticParams = () => SERVICES.map((s) => ({ slug: s.slug })
 export function generateMetadata({ params }: Props): Metadata {
   const s = find(params.slug);
   if (!s) return {};
-  const title = s.kind === 'flagship' ? `${s.name} from ${flagshipPrice} installed | US Water Pros` : `${s.name} | US Water Pros`;
+  if (s.kind === 'flagship') {
+    const title = `Whole-Home Water Filtration: ${SITE.priceInstalled} Installed | US Water Pros`;
+    const description = `Whole-home system: softening, carbon filtration, and RO drinking water for ${SITE.priceInstalled} installed, tax included. Installed in ${SITE.installHours} hours.`;
+    return { title, description, alternates: { canonical: `/services/${s.slug}` }, openGraph: { title, description } };
+  }
+  const title = `${s.name} | US Water Pros`;
   return { title, description: s.summary, alternates: { canonical: `/services/${s.slug}` }, openGraph: { title, description: s.summary } };
 }
 
 export default function ServicePage({ params }: Props) {
   const s = find(params.slug);
   if (!s) notFound();
+  if (s.kind === 'flagship') return <WholeHomePage />;
   const faqs: [string, string][] = s.lean ? [...s.faqs, ...(s.uaq ? [s.uaq, ...UAQ_SHARED] : [])] : [
     ...s.faqs,
     ['What’s the installation process like?', 'Our technician arrives, shuts off your water for about 4 hours, installs the system, pressure tests it and makes sure everything flows correctly. You are back to normal water use that day.'],
@@ -38,11 +46,7 @@ export default function ServicePage({ params }: Props) {
   ];
   const offer = (name: string, price: number, description: string) => ({ '@type': 'Offer', name, price, priceCurrency: 'USD', description, itemOffered: { '@type': 'Service', name } });
   const offers =
-    s.kind === 'flagship' ? [
-      offer(PRICING.flagship.label, PRICING.flagship.displayPrice, `Installed, tax included. Includes ${PRICING.flagship.includes.join(', ')}.`),
-      ...Object.values(PRICING.addons).map((a) => offer(a.label, a.displayPrice, 'Add-on, installed on the same visit as the whole-home system. Tax included.')),
-    ]
-    : s.kind === 'addon' && s.addon ? [offer(PRICING.addons[s.addon].label, PRICING.addons[s.addon].displayPrice, 'Add-on, installed on the same visit as the whole-home system. Tax included.')]
+    s.kind === 'addon' && s.addon ? [offer(PRICING.addons[s.addon].label, PRICING.addons[s.addon].displayPrice, 'Add-on, installed on the same visit as the whole-home system. Tax included.')]
     : s.kind === 'well' ? Object.values(PRICING.wellTest).map((t) => offer(t.label, t.displayPrice, 'Credited toward your install if you purchase.'))
     : [];
   const schema = {
@@ -70,7 +74,6 @@ export default function ServicePage({ params }: Props) {
       <Band tone="ice"><BeforeAfterSlider s={s} /></Band>
       <Band><PricingTimeline s={s} />{s.gallery && <InstallGallery s={s} />}</Band>
       <FilterFinder />
-      {s.kind === 'flagship' && <Band><ComparisonTable s={s} /></Band>}
       <Band tone="ice">
         {!s.lean && <MaintenanceFAQ />}
         <FaqGroup title="Frequently Asked Questions" items={s.lean ? s.faqs : s.faqs.concat(faqs.slice(s.faqs.length, s.faqs.length + 4))} />
