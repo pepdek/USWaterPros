@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { openWizard } from './openWizard';
+import { ZIP_EVENT } from '@/components/HeroHeadline';
 import { STORE } from '@/lib/store';
 import { SMS_HREF } from '@/lib/constants';
 
@@ -12,7 +13,7 @@ export default function InstantPriceBox({ heading = 'Get your instant price' }: 
       <h2 className="text-2xl">{heading}</h2>
       <p className="!py-0 text-sm">Enter your ZIP. See the price for your home in under a minute. No call needed.</p>
       <label className="block"><span className="font-semibold text-ink text-sm">ZIP code</span>
-        <input className="field" inputMode="numeric" maxLength={5} autoComplete="postal-code" value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, ''))} />
+        <input className="field" inputMode="numeric" maxLength={5} autoComplete="postal-code" value={zip} onChange={(e) => { const z = e.target.value.replace(/\D/g, ''); setZip(z); if (z.length === 5) window.dispatchEvent(new CustomEvent(ZIP_EVENT, { detail: z })); }} />
       </label>
       <button className="btn btn-cta w-full">{STORE.cta}</button>
       <a href={SMS_HREF} className="btn btn-secondary w-full">{STORE.secondary}</a>

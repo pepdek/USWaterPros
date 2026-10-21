@@ -7,6 +7,7 @@ import { WINDOWS, bookableRange, isoDay, validOrder } from '@/lib/order';
 import { STORE } from '@/lib/store';
 import { SMS_HREF } from '@/lib/constants';
 import { getAttribution, trackEvent } from '@/lib/analytics/track';
+import { PAIN, painForZip } from '@/lib/pain';
 
 type Step = 'zip' | 'waitlist' | 'waitlist-done' | 'price' | 'schedule' | 'pay' | 'pending';
 
@@ -37,7 +38,8 @@ export default function Wizard() {
     const onOpen = (e: Event) => {
       const d = ((e as CustomEvent).detail ?? {}) as WizardDetail;
       returnTo.current = document.activeElement;
-      if (d.tier && tierById(d.tier)) setTier(d.tier as TierId);
+      const area = d.zip ? painForZip(d.zip) : null;
+      if (d.tier && tierById(d.tier)) setTier(d.tier as TierId); else if (area) setTier(PAIN[area].tier);
       setErr('');
       if (d.zip && /^\d{5}$/.test(d.zip)) { setZip(d.zip); setStep(isServedZip(d.zip) ? 'price' : 'waitlist'); } else if (!zip) setStep('zip');
       setOpen(true);
