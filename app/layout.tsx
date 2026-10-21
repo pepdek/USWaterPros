@@ -10,7 +10,7 @@ import Header from '@/components/Header';
 
 const serif = Instrument_Serif({ subsets: ['latin'], weight: '400', variable: '--font-serif' });
 const lato = Lato({ subsets: ['latin'], weight: ['400', '700'], variable: '--font-body' });
-const sans = Inter({ subsets: ['latin'], weight: ['400', '600', '700'], variable: '--font-sans' });
+const sans = Inter({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://uswaterpros.com'),
