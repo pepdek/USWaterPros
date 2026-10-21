@@ -53,7 +53,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-ripple border-b border-black/5">
       <div className={`mx-auto max-w-6xl px-4 flex items-center justify-between gap-3 transition-all ${scrolled ? 'h-14' : 'h-16'}`}>
-        <Link href="/" className="font-serif text-lg md:text-2xl font-bold text-ink flex items-center gap-1 md:gap-1.5 shrink-0"><span className="text-blue"><Icon name="drop" size={18} /></span>US Water <span className="text-blue">Pros</span></Link>
+        <Link href="/" className="font-serif text-lg md:text-2xl font-bold text-ink flex items-center gap-1 md:gap-1.5 shrink-0 min-h-11"><span className="text-blue"><Icon name="drop" size={18} /></span>US Water <span className="text-blue">Pros</span></Link>
 
         <nav aria-label="Main" className={`${scrolled ? 'hidden' : 'hidden md:flex'} items-center gap-6 text-sm`}>
           <Dropdown label="Services" links={SERVICE_LINKS} />
@@ -64,7 +64,7 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <a href={PHONE_HREF} aria-label={`Call ${PHONE}`} className="btn btn-secondary !px-0 w-12 2xl:!px-6 2xl:w-auto">
+          <a href={PHONE_HREF} aria-label={`Call ${PHONE}`} className="btn btn-sm btn-secondary !px-0 w-12 2xl:!px-5 2xl:w-auto">
             <svg className="2xl:hidden" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z" /></svg>
             <span className="hidden 2xl:inline">{PHONE}</span>
           </a>
@@ -76,7 +76,7 @@ export default function Header() {
         </div>
       </div>
 
-      <Link href="/quiz" className="md:hidden block text-center text-xs font-semibold text-ink bg-ice py-2 underline">Not sure which system?</Link>
+      <Link href="/quiz" className="md:hidden flex items-center justify-center min-h-11 text-xs font-semibold text-ink bg-ice underline">Not sure which system?</Link>
 
       {menu && (
         <div role="dialog" aria-modal="true" aria-label="Menu" className="fixed inset-0 z-[60] bg-white overflow-y-auto">

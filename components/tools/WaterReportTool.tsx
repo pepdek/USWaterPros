@@ -47,7 +47,7 @@ export default function WaterReportTool() {
       </form>
       <div className="flex flex-wrap gap-2 items-center text-sm">
         <span>We serve:</span>
-        {AREA_SHORTCUTS.map(([a, z]) => <button key={z} type="button" onClick={() => { setZip(z); run(z); }} className="min-h-12 px-4 rounded-full bg-white border border-teal/40 text-navy font-semibold hover:bg-cyan transition-colors">{a}</button>)}
+        {AREA_SHORTCUTS.map(([a, z]) => <button key={z} type="button" onClick={() => { setZip(z); run(z); }} className="min-h-12 px-4 rounded-[10px] bg-white border border-teal/40 text-navy font-semibold hover:bg-cyan transition-colors">{a}</button>)}
       </div>
 
       {shown && (

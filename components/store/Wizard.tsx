@@ -169,10 +169,10 @@ export default function Wizard() {
         <header className="flex items-center justify-between gap-3 px-5 py-3">
           <span className="inline-flex items-center gap-1.5 rounded-xl bg-white border border-black/[.07] px-2.5 sm:px-3 py-2 font-semibold text-[14px] sm:text-[15px] whitespace-nowrap"><span className="text-[#0066cc]"><Icon name="drop" size={16} /></span>US Water <span className="text-[#0066cc]">Pros</span></span>
           <span className="flex items-center gap-2">
-            <button type="button" onClick={reset} className="inline-flex items-center gap-1.5 rounded-full bg-white border border-black/[.08] px-3 sm:px-4 min-h-11 text-[13px] sm:text-[14px] font-medium whitespace-nowrap">
+            <button type="button" onClick={reset} className="inline-flex items-center gap-1.5 rounded-lg bg-white border border-black/[.1] px-3 sm:px-4 min-h-11 text-[14px] font-medium whitespace-nowrap">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M21 12a9 9 0 11-3-6.7L21 8" /><path d="M21 3v5h-5" /></svg>Start over
             </button>
-            <button type="button" onClick={close} aria-label="Close" className="min-h-11 min-w-11 rounded-full bg-white border border-black/[.08] inline-flex items-center justify-center">
+            <button type="button" onClick={close} aria-label="Close" className="min-h-11 min-w-11 rounded-lg bg-white border border-black/[.1] inline-flex items-center justify-center">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden><path d="M6 6l12 12M18 6L6 18" /></svg>
             </button>
           </span>

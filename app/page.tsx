@@ -71,13 +71,13 @@ export default function Home() {
       <section id="areas" className="mx-auto max-w-6xl px-4 py-10 text-center">
         <h2>Serving Western Washington</h2>
         <div className="mt-4 flex flex-wrap justify-center gap-2">
-          {LOCATIONS.map((l) => <Link key={l.slug} href={`/locations/${l.slug}`} className="min-h-12 inline-flex items-center rounded-full bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] px-5 font-semibold text-ink hover:bg-navy hover:text-white">{l.name}</Link>)}
+          {LOCATIONS.map((l) => <Link key={l.slug} href={`/locations/${l.slug}`} className="min-h-12 inline-flex items-center rounded-[10px] bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] px-5 font-semibold text-ink hover:bg-navy hover:text-white">{l.name}</Link>)}
         </div>
       </section>
       <ReportCta />
       <nav className="mx-auto max-w-6xl px-4 py-6 flex gap-2 overflow-x-auto md:flex-wrap md:justify-center" aria-label="Services">
         {PILLS.map((p, i) => (
-          <Link key={p.label} href={p.href} className={`shrink-0 min-h-12 inline-flex items-center rounded-full px-5 font-semibold text-sm lowercase bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] text-ink hover:bg-navy hover:text-white focus:bg-navy focus:text-white ${i === 0 ? '!bg-navy !text-white' : ''}`}>{p.label}</Link>
+          <Link key={p.label} href={p.href} className={`shrink-0 min-h-12 inline-flex items-center rounded-[10px] px-5 font-semibold text-sm lowercase bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] text-ink hover:bg-navy hover:text-white focus:bg-navy focus:text-white ${i === 0 ? '!bg-navy !text-white' : ''}`}>{p.label}</Link>
         ))}
       </nav>
       <Faq />

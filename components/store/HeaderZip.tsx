@@ -17,7 +17,7 @@ export default function HeaderZip({ stacked = false, onDone }: { stacked?: boole
         className={stacked ? 'field' : 'field !w-28 !min-h-12 hidden lg:block'}
         onChange={(e) => { const z = e.target.value.replace(/\D/g, ''); setZip(z); if (z.length === 5) window.dispatchEvent(new CustomEvent(ZIP_EVENT, { detail: z })); }}
       />
-      <button className={stacked ? 'btn btn-cta' : 'btn btn-cta hidden md:inline-flex'}>{STORE.cta}</button>
+      <button className={stacked ? 'btn btn-cta' : 'btn btn-sm btn-cta hidden md:inline-flex'}>{STORE.cta}</button>
     </form>
   );
 }
