@@ -12,6 +12,7 @@ import { LOCATIONS } from '@/lib/locations';
 import { PILLS, SERVICES } from '@/lib/services';
 import type { Metadata } from 'next';
 import ProductCards from '@/components/store/ProductCards';
+import PlatformBanner from '@/components/store/PlatformBanner';
 import { TIERS, formatUSD } from '@/lib/pricing';
 import { STORE } from '@/lib/store';
 import Link from 'next/link';
@@ -34,6 +35,7 @@ export default function Home() {
   return (
     <main>
       <HeroSection />
+      <PlatformBanner />
       <section id="pricing" className="bg-ice scroll-mt-24"><div className="mx-auto max-w-6xl px-4 py-14 md:py-16"><h2 className="text-center">Pick your system. See your price.</h2><p className="text-center mt-2 mb-10">Installed by a licensed local plumber. {STORE.refund} <a href="/pricing" className="underline font-semibold text-ink">What&apos;s included</a></p><ProductCards /></div></section>
       <BenefitsScroll />
       <ProblemBlocks />

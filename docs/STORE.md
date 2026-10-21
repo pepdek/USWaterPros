@@ -23,4 +23,5 @@ When Stripe confirms payment the lead becomes: paid = true, quote and final amou
 - The ZIP list for Pierce County (`lib/serviceArea.ts`).
 - What is outside the fixed price (`app/pricing/page.tsx`).
 - Whether Essential and Iron-Free are also "tax included" (assumed same as Complete).
+- Platform banner under the hero (`lib/store.ts`): "background-checked local plumbers across 50 states" and "Water Treatment Systems Inc" are owner-supplied and need backing (how plumbers are background-checked, and who the legal entity is). The Terms and Privacy pages still say "US Water Pros" only.
 - Prices of Essential and Iron-Free live only in `lib/pricing.ts`. Unit costs and margins are deliberately not in the repo.

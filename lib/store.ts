@@ -13,5 +13,7 @@ export const STORE = {
   // Owner-supplied company facts (install time and start year).
   installHours: '4',
   since: '2009',
+  // Owner-supplied platform line. VERIFY: substantiation for "background-checked" and "50 states", and that Water Treatment Systems Inc is the legal entity.
+  platform: 'Water Treatment Systems Inc',
   annualFilters: `${formatUSD(ANNUAL_FILTERS.low)}–${ANNUAL_FILTERS.high}`,
 };
