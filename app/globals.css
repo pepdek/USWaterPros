@@ -80,3 +80,9 @@ input, select { font-size: 16px; min-height: 48px; }
 @keyframes wiz-in { from { transform: translateY(8px); } to { transform: none; } } /* movement only, so content is never invisible if animations are throttled */
 .wiz-in { animation: wiz-in .28s ease-out both; }
 @media (prefers-reduced-motion: reduce) { .wiz-in { animation: none; } }
+/* Roomy screens get the chat trail and the "ask anything" bar; short or narrow ones drop them so every step fits without scrolling. */
+.wiz-compose { display: none; }
+.wiz-textlink { display: inline-flex; }
+@media (min-width: 640px) and (min-height: 841px) { .wiz-compose { display: flex; } .wiz-textlink { display: none; } }
+@media (max-height: 840px) { .wiz-trail { display: none; } }
+@media (max-height: 700px) { .wiz-short-hide { display: none; } }

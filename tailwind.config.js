@@ -12,7 +12,7 @@ module.exports = {
         blue: c('blue'), cta: c('cta'), navy: c('navy'), aqua: c('teal'), teal: c('teal'), cyan: c('cyan'), ice: c('ice'), ink: c('ink'), coral: c('err'),
         ripple: '#ffffff',
       },
-      fontFamily: { serif: ['var(--font-serif)', 'Georgia', 'serif'], sans: ['var(--font-sans)', 'system-ui', 'sans-serif'] },
+      fontFamily: { serif: ['var(--font-serif)', 'Georgia', 'serif'], sans: ['var(--font-sans)', 'system-ui', 'sans-serif'], mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'] },
     },
   },
 };

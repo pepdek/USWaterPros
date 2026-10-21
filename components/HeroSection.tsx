@@ -9,9 +9,9 @@ export default function HeroSection() {
     <section data-track-source="hero" className="bg-surge">
       <div id="quote" className="scroll-mt-24 mx-auto max-w-6xl px-4 py-12 md:py-20 grid gap-8 md:gap-12 md:grid-cols-2 md:items-center">
         <div>
-          <p className="!text-white font-semibold text-sm">Pierce County, WA · Whole-home water filtration</p>
+          <p className="inline-block rounded-md bg-white/15 px-3 py-1.5 font-mono text-[12px] font-medium uppercase tracking-[.14em] !text-white !p-0 !px-3 !py-1.5">Pierce County, WA · Whole-home water filtration</p>
           <HeroHeadline />
-          <p className="!text-white mt-4 md:text-lg">Whole-house water filtration with the price up front. Enter your ZIP, see the systems that fit your water, and book your install online. Handled by licensed local plumbers.</p>
+          <p className="!text-white mt-5 md:text-lg font-light">Whole-house water filtration with the price up front. Enter your ZIP, see the systems that fit your water, and book your install online. Handled by licensed local plumbers.</p>
           <div className="mt-6"><InstantPriceBox heading="Get your instant price" /></div>
           <StatStrip />
         </div>

@@ -36,7 +36,14 @@ export default function Home() {
     <main>
       <HeroSection />
       <PlatformBanner />
-      <section id="pricing" className="bg-ice scroll-mt-24"><div className="mx-auto max-w-6xl px-4 py-14 md:py-16"><h2 className="text-center">Pick your system. See your price.</h2><p className="text-center mt-2 mb-10">Installed by a licensed local plumber. {STORE.refund} <a href="/pricing" className="underline font-semibold text-ink">What&apos;s included</a></p><ProductCards /></div></section>
+      <section id="pricing" className="bg-[#fafbfa] scroll-mt-24">
+        <div className="mx-auto max-w-6xl px-4 py-16 md:py-20">
+          <p className="inline-block rounded-md bg-black/[.05] px-3 py-1.5 font-mono text-[12px] font-medium uppercase tracking-[.14em] text-[#3f4a4f]">Pick your system</p>
+          <h2 className="mt-4 max-w-2xl">Three systems. One installed price each.</h2>
+          <p className="mt-3 mb-10 max-w-2xl font-light text-[#3f4a4f]">Installed by a licensed local plumber. {STORE.refund} <Link href="/pricing" className="underline font-medium text-ink">See what&apos;s included</Link></p>
+          <ProductCards variant="teaser" />
+        </div>
+      </section>
       <BenefitsScroll />
       <ProblemBlocks />
       <div className="bg-ice py-16 md:py-20"><section id="services" className="mx-auto max-w-6xl px-4 scroll-mt-24"><h2 className="text-center">Our Solution</h2><p className="text-center mt-2">We created US Water Pros.</p><div className="mt-8 grid gap-8 md:gap-10 md:grid-cols-3">
