@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import WizardButton from '@/components/store/WizardButton';
+import HeaderZip from '@/components/store/HeaderZip';
 import Link from 'next/link';
 import Icon from './Icon';
 import { PHONE, PHONE_HREF } from '@/lib/constants';
@@ -55,19 +55,20 @@ export default function Header() {
       <div className={`mx-auto max-w-6xl px-4 flex items-center justify-between gap-3 transition-all ${scrolled ? 'h-14' : 'h-16'}`}>
         <Link href="/" className="font-serif text-lg md:text-2xl font-bold text-ink flex items-center gap-1 md:gap-1.5 shrink-0"><span className="text-blue"><Icon name="drop" size={18} /></span>US Water <span className="text-blue">Pros</span></Link>
 
-        <nav aria-label="Main" className={`${scrolled ? 'hidden' : 'hidden md:flex'} items-center gap-8 md:gap-10 text-sm`}>
+        <nav aria-label="Main" className={`${scrolled ? 'hidden' : 'hidden md:flex'} items-center gap-6 text-sm`}>
           <Dropdown label="Services" links={SERVICE_LINKS} />
           <Dropdown label="Service Areas" links={AREA_LINKS} />
+          <Link href="/pricing" className="min-h-12 inline-flex items-center font-semibold text-ink hover:text-aqua">Pricing</Link>
           <Link href="/#process" className="min-h-12 inline-flex items-center font-semibold text-ink hover:text-aqua">Process</Link>
           <Link href="/tools" className="min-h-12 inline-flex items-center font-semibold text-ink hover:text-aqua">Tools</Link>
         </nav>
 
         <div className="flex items-center gap-2">
-          <a href={PHONE_HREF} aria-label={`Call ${PHONE}`} className="btn btn-secondary !px-0 w-12 sm:!px-6 sm:w-auto">
-            <svg className="sm:hidden" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z" /></svg>
-            <span className="hidden sm:inline">{PHONE}</span>
+          <a href={PHONE_HREF} aria-label={`Call ${PHONE}`} className="btn btn-secondary !px-0 w-12 2xl:!px-6 2xl:w-auto">
+            <svg className="2xl:hidden" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z" /></svg>
+            <span className="hidden 2xl:inline">{PHONE}</span>
           </a>
-          <WizardButton className="btn btn-cta hidden md:inline-flex">Get Instant Price</WizardButton>
+          <HeaderZip />
           <button type="button" aria-label="Open menu" aria-expanded={menu} onClick={() => setMenu(true)}
             className={`${scrolled ? 'inline-flex' : 'md:hidden inline-flex'} min-h-12 min-w-12 items-center justify-center text-ink`}>
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
@@ -86,16 +87,17 @@ export default function Header() {
             </button>
           </div>
           <div className="mx-auto max-w-6xl px-4 pb-10 flex flex-col gap-8 md:gap-10">
+            <HeaderZip stacked onDone={close} />
             {([['Services', SERVICE_LINKS], ['Service Areas', AREA_LINKS]] as [string, string[][]][]).map(([h, links]) => (
               <div key={h}>
                 <p className="text-xl font-bold text-ink">{h}</p>
                 {links.map(([t, href]) => <Link key={href} href={href} onClick={close} className="block min-h-12 py-3 text-ink hover:text-aqua">{t}</Link>)}
               </div>
             ))}
+            <Link href="/pricing" onClick={close} className="text-xl font-bold text-ink min-h-12">Pricing</Link>
             <Link href="/#process" onClick={close} className="text-xl font-bold text-ink min-h-12">Process</Link>
             <Link href="/tools" onClick={close} className="text-xl font-bold text-ink min-h-12">Tools</Link>
             <a href={PHONE_HREF} className="btn btn-secondary">{PHONE}</a>
-            <WizardButton className="btn btn-cta" onClick={close}>Get Instant Price</WizardButton>
           </div>
         </div>
       )}
