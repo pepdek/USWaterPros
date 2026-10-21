@@ -95,7 +95,7 @@ export default function ToolsPage() {
 
       <section className="mx-auto max-w-6xl px-4 py-16 md:py-20 grid gap-10 md:gap-14 md:grid-cols-2 md:items-start">
         <div>
-          <h2>Schedule Your Free Consultation</h2>
+          <h2>Get your instant price</h2>
           <p>Whatever the tools showed you, the next step is a short, free call with a licensed technician. We’ll look at your water, answer your questions and give you a fixed price.</p>
         </div>
         <div id="quote" className="scroll-mt-24"><LeadForm service="whole-home-water-filtration" /></div>

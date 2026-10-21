@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import WizardButton from '@/components/store/WizardButton';
 import type { Metadata } from 'next';
 import Breadcrumb from '@/components/Breadcrumb';
 import LeadForm from '@/components/LeadForm';
@@ -94,7 +95,7 @@ export default function LocationPage({ params }: Props) {
               <div key={c} id={id(c)} className="card p-8 md:p-10 scroll-mt-20">
                 <h3 className="text-xl">{CITIES.some((x) => x.name === c) ? <a href={`/services/whole-home-water-filtration-${id(c)}`} className="underline">{c}, {l.state}</a> : <>{c}, {l.state}</>}</h3>
                 <p className="mt-2">{note}</p>
-                <a href="#quote" className="font-semibold text-ink underline min-h-12 inline-flex items-center">Get a free quote in {c} →</a>
+                <WizardButton className="font-semibold text-ink underline min-h-12 inline-flex items-center">Get an instant price in {c} →</WizardButton>
               </div>
             ))}
           </div>

@@ -257,7 +257,7 @@ export const PILLS = [
 export const UAQ_SHARED: [string, string][] = [
   ['Why should I trust a local operator over a national brand?', 'National brands sell volume and rotate technicians. We have been here since 2009, and our reputation in Pierce, Kitsap and Thurston Counties depends on how your water turns out, not on a quarterly earnings call.'],
   ['Will you try to upsell me into a system I don’t need?', 'We test first and recommend only what your water needs. A customer we served well who refers a neighbor is worth far more to us than one we oversold. The whole-home system is a fixed price, so there is no quote game to play.'],
-  ['What if I’m skeptical that I need water treatment at all?', 'Good. You should be. Schedule a consultation and we will look at your water. If the results show it is fine, we will tell you it is fine. Not every home needs treatment, and if yours does, you will see why in the data and the decision is yours.'],
+  ['What if I’m skeptical that I need water treatment at all?', 'Good. You should be. Text us and we will look at your water. If the results show it is fine, we will tell you it is fine. Not every home needs treatment, and if yours does, you will see why in the data and the decision is yours.'],
 ];
 
 export const MAINTENANCE: [string, string][] = [

@@ -25,6 +25,28 @@ export const PRICING = {
   headline: 'Whole-home system from $2,999 installed, tax included.',
 } as const;
 
+// The three systems sold online. Complete is the flagship price above; Essential and Iron-Free sit either side of it.
+// Costs and margins never live in this repo.
+export type TierId = 'essential' | 'complete' | 'iron-free';
+export const TIERS: { id: TierId; name: string; subhead: string; price: number; icon: string; popular?: boolean; bullets: string[]; fit: string }[] = [
+  {
+    id: 'essential', name: 'Essential', subhead: 'Clean taste from every single tap', price: 2799, icon: 'drop',
+    bullets: ['Whole-home carbon filtration', 'Reverse osmosis drinking-water faucet', 'Installed by a licensed local plumber', '1-year warranty'],
+    fit: 'Soft-water city homes that mainly want taste and chlorine gone.',
+  },
+  {
+    id: 'complete', name: 'Complete', subhead: 'The right fit for most homes', price: PRICING.flagship.displayPrice, icon: 'shield', popular: true,
+    bullets: ['Water softener plus whole-home carbon', 'Reverse osmosis drinking-water faucet', 'Installed by a licensed local plumber', '1-year warranty'],
+    fit: 'The default for most homes.',
+  },
+  {
+    id: 'iron-free', name: 'Iron-Free', subhead: 'Complete, plus iron and stain removal', price: 3799, icon: 'layers',
+    bullets: ['Everything in Complete', 'Iron and manganese filter', 'Installed by a licensed local plumber', '1-year warranty'],
+    fit: 'Orange or brown staining and a metallic taste.',
+  },
+];
+export const tierById = (id: string) => TIERS.find((t) => t.id === id);
+
 export const formatUSD = (n: number): string => '$' + Math.round(n).toLocaleString('en-US');
 
 // Market context used in the flagship comparison table (typical local ranges, not our prices).

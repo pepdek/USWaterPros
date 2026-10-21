@@ -20,7 +20,7 @@ export function generateMetadata({ params }: Props): Metadata {
   const c = find(params.city);
   if (!c) return {};
   const title = `Whole-Home Water Filtration Services in ${c.name}, WA`;
-  const description = `Professional water filtration installation in ${c.name}, WA. Licensed technicians, same-day quotes. Get your free water quality report today.`;
+  const description = `Professional water filtration installation in ${c.name}, WA. Licensed local plumbers, instant online price. Get your free water quality report today.`;
   return { title, description, alternates: { canonical: path(c.slug) }, openGraph: { title, description } };
 }
 

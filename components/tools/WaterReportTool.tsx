@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import WizardButton from '@/components/store/WizardButton';
 import Link from 'next/link';
 import Icon from '@/components/Icon';
 import { trackEvent } from '@/lib/analytics/track';
@@ -55,7 +56,7 @@ export default function WaterReportTool() {
             <>
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4" data-track-source="tool_report_header">
                 <div><p className="text-sm font-semibold !p-0 text-navy">Report card · {shown}</p><h3>{profile.area}</h3><p>{profile.supply}</p></div>
-                <a href="#quote" className="btn btn-cta shrink-0 !whitespace-normal !h-auto py-3 text-center">Schedule Your Free Consultation</a>
+                <WizardButton className="btn btn-cta shrink-0 !whitespace-normal !h-auto py-3 text-center">Get Instant Price</WizardButton>
               </div>
               <ul className="flex flex-col divide-y divide-teal/20">
                 {profile.rows.map((r) => (
@@ -98,7 +99,7 @@ export default function WaterReportTool() {
           )}
           <div className="rounded-3xl bg-navy text-white p-6 sm:p-8 flex flex-col gap-3" data-track-source="tool_report_result">
             <p className="!p-0 font-semibold text-white">Your family’s health starts with clean water. Let’s test yours.</p>
-            <a href="#quote" className="btn btn-cta self-start !whitespace-normal !h-auto py-3 text-center">Schedule Your Free Consultation</a>
+            <WizardButton className="btn btn-cta self-start !whitespace-normal !h-auto py-3 text-center">Get Instant Price</WizardButton>
             <p className="!p-0 text-sm text-white/90">Call or text us directly. We’re local. <a className="underline font-semibold" href={PHONE_HREF}>{PHONE}</a> · <a className="underline font-semibold" href={SMS_HREF}>Text us</a></p>
             <Link href="/services/whole-home-water-filtration" className="text-sm text-cyan underline font-semibold">See our flagship filtration plans: from {flagshipPrice} {TAX_NOTE} →</Link>
           </div>

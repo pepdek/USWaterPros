@@ -40,6 +40,7 @@ export default function Privacy() {
       <p>We share information only with service providers that help us run the business, under their own terms and only as needed:</p>
       <ul>
         <li>Hosting and database providers (Netlify and Supabase) that store the site and the information you submit</li>
+        <li>Stripe, which processes card payments for orders. Stripe receives your payment details directly; we do not store card numbers</li>
         <li>Google (Tag Manager and Analytics) for site analytics</li>
         <li>Technicians or partners who perform your service, only what they need to contact you and do the work</li>
       </ul>

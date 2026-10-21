@@ -1,5 +1,6 @@
 'use client';
 import { useMemo, useRef, useState } from 'react';
+import WizardButton from '@/components/store/WizardButton';
 import Icon from '@/components/Icon';
 import { getAttribution, trackEvent } from '@/lib/analytics/track';
 import { DIAG_QUESTIONS, diagnose } from '@/lib/costModel';
@@ -83,7 +84,7 @@ export default function SavingsDiagnostic() {
           )}
 
           <div className="rounded-3xl bg-navy text-white p-6 sm:p-8 flex flex-col gap-3" data-track-source="tool_diagnostic_result">
-            <a href="#quote" className="btn btn-cta self-start !whitespace-normal !h-auto py-3 text-center">Schedule a Call to Discuss Your Savings Potential</a>
+            <WizardButton className="btn btn-cta self-start !whitespace-normal !h-auto py-3 text-center">Get Instant Price</WizardButton>
             <p className="!p-0 text-sm text-white/90">Or text us directly with questions. We respond same day. <a className="underline font-semibold" href={SMS_HREF}>Text us</a></p>
           </div>
         </div>

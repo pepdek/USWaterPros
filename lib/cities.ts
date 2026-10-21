@@ -60,7 +60,7 @@ export const CITIES: City[] = [
     paras: [
       'Bremerton has a lot of older housing, and older plumbing can mean sediment, staining and metallic taste. Homes on city water often just want the chlorine taste gone.',
       'Homes outside the city system rely on private wells, where Kitsap Public Health District recommends testing for bacteria yearly and nitrate every three years.',
-      'We proudly serve Bremerton’s Navy and military community. Schedule a free consultation and we will review your water and your options.',
+      'We proudly serve Bremerton’s Navy and military community. Text us and we will review your water and your options.',
     ],
     removes: ['Chlorine taste and odor', 'Sediment and rust', 'Iron and manganese staining'],
     neighborhoods: ['Manette', 'West Bremerton', 'East Bremerton', 'Charleston', 'Navy Yard City'],
@@ -102,7 +102,7 @@ export const CITIES: City[] = [
     paras: [
       'The City of Olympia’s main source is the McAllister Wellfield, supplemented by additional wells, so your water is groundwater. It is treated, disinfected and tested, and the city publishes an annual water quality report.',
       'The Washington Department of Health notes this groundwater has a naturally low pH, which the city treats to protect pipes from corrosion. Older homes with older plumbing are still worth testing for lead and copper, and disinfectant taste is the most common complaint.',
-      'We start with a free consultation and a water test where needed, then recommend only what your water needs: carbon filtration for taste and odor, reverse osmosis for drinking water, or a whole-home system.',
+      'We start with a water test where needed, then recommend only what your water needs: carbon filtration for taste and odor, reverse osmosis for drinking water, or a whole-home system.',
     ],
     removes: ['Chlorine taste and odor', 'Sediment and rust particles', 'Many chemicals that carbon filtration captures'],
     neighborhoods: ['Downtown Olympia', 'West Olympia', 'Eastside', 'Capitol Neighborhood', 'Southeast Olympia'],
@@ -123,7 +123,7 @@ export const CITIES: City[] = [
     paras: [
       'The City of Lacey reports that all of its drinking water comes from groundwater wells drawing on three aquifers, protected by a wellhead protection program the city has run since 1995.',
       'The city’s reports show its water meeting state and federal standards. What most people still notice is disinfectant taste and smell, and, depending on the neighborhood and plumbing, minerals that spot fixtures and glassware.',
-      'Homes outside city service rely on private wells, where the owner is responsible for testing. Schedule a free consultation and we will review your water and your options.',
+      'Homes outside city service rely on private wells, where the owner is responsible for testing. Text us and we will review your water and your options.',
     ],
     removes: ['Chlorine taste and odor', 'Sediment', 'Many chemicals that carbon filtration captures'],
     neighborhoods: ['Hawks Prairie', 'Woodland District', 'Meadows', 'Downtown Lacey'],
@@ -144,7 +144,7 @@ export const CITIES: City[] = [
     paras: [
       'Much of Lakewood is served by the Lakewood Water District, which draws on groundwater wells. Your exact provider depends on your address, and a few areas are served by other systems or private wells.',
       'Groundwater in the South Sound can carry minerals such as iron and manganese, and disinfectant is what most people taste on public systems. Many Lakewood homes were built decades ago, and plumbing from before 1986 may include lead solder or fixtures.',
-      'We start with a free consultation and a water test where needed, then recommend only what your water needs: carbon filtration for taste and odor, reverse osmosis for drinking water, or a whole-home system.',
+      'We start with a water test where needed, then recommend only what your water needs: carbon filtration for taste and odor, reverse osmosis for drinking water, or a whole-home system.',
     ],
     removes: ['Chlorine taste and odor', 'Sediment and rust particles', 'Iron and manganese staining'],
     neighborhoods: ['Tillicum', 'Lakeview', 'Oakbrook', 'Steilacoom Boulevard', 'Lake City'],
@@ -186,7 +186,7 @@ export const CITIES: City[] = [
     paras: [
       'The City of Bonney Lake reports that its water comes from groundwater: Victor Falls and Grainger Springs plus wells at Tacoma Point and Ball Park. The city also has an agreement to receive additional water from Tacoma Public Utilities if needed.',
       'City water is treated and tested, and the city publishes an annual water quality report. Disinfectant taste and smell are what most people notice, and minerals can show up as spotting on fixtures and glassware.',
-      'Some homes around the plateau rely on private wells, where the owner is responsible for testing. Schedule a free consultation and we will review your water and your options.',
+      'Some homes around the plateau rely on private wells, where the owner is responsible for testing. Text us and we will review your water and your options.',
     ],
     removes: ['Chlorine taste and odor', 'Sediment', 'Iron and manganese staining on wells'],
     neighborhoods: ['Lake Tapps', 'Allisson Springs', 'Sky Island', 'Fennel Creek'],
@@ -207,7 +207,7 @@ export const CITIES: City[] = [
     paras: [
       'The City of Gig Harbor says all of its water comes from underground aquifers, pumped from a series of wells. The city reports that its water meets state and federal standards, and it tests its wells on a regular schedule.',
       'The city also notes that iron and manganese are found at various levels in most water sources and can cause discolored water, fixture staining and sometimes taste problems. It flushes its water mains twice a year to reduce manganese, rust and sediment.',
-      'Many peninsula homes outside city service rely on private wells, where the owner is responsible for testing. We start with a free consultation and a water test, then recommend only what your water needs.',
+      'Many peninsula homes outside city service rely on private wells, where the owner is responsible for testing. We start with a water test, then recommend only what your water needs.',
     ],
     removes: ['Iron and manganese staining', 'Sediment and rust particles', 'Chlorine taste and odor on city water'],
     neighborhoods: ['Downtown Waterfront', 'Harbor Hill', 'Rosedale', 'Artondale', 'Wollochet'],

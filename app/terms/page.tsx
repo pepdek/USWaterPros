@@ -24,6 +24,15 @@ export default function Terms() {
         <li>Prices shown on the site are starting points. A written quote after a consultation and any needed testing is the price we will honor.</li>
       </ul>
 
+      <h2>Orders and payment</h2>
+      <ul>
+        <li>When you order a system on the site, you pay the full price up front by card. Payments are processed by Stripe. We never see or store your card number.</li>
+        <li>Every order is 100% refundable.</li>
+        <li>Prices are installed prices and include tax. If your home needs something different, such as long pipe runs, a crawlspace, or buried lines, we tell you before you commit.</li>
+        <li>We confirm your install time by text. A licensed local plumber performs the installation.</li>
+      </ul>
+      {/* VERIFY: exact refund terms (window, how refunds are issued, anything excluded) for the Terms page */}
+
       <h2>Services and agreements</h2>
       <p>Installation and service work is covered by a separate written quote or agreement, including its warranty terms. If anything on this site conflicts with that agreement, the agreement controls.</p>
 

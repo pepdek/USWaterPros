@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import WizardButton from '@/components/store/WizardButton';
 import Icon from '@/components/Icon';
 import Sources from '@/components/Sources';
 import { PHONE, PHONE_HREF } from '@/lib/constants';
@@ -21,7 +22,7 @@ export function ServiceHero({ s }: { s: Service }) {
           <Breadcrumb items={[{ label: 'Services', href: '/#services' }, { label: s.name }]} />
           <h1 className="!text-white">{s.h1}</h1>
           <p className="mt-4 text-white font-semibold">{s.sub}</p>
-          <a href="#quote" className="btn btn-cta mt-6 w-full md:w-auto">Schedule Consultation</a>
+          <WizardButton className="btn btn-cta mt-6 w-full md:w-auto">Get Instant Price</WizardButton>
           <p className="mt-3 text-sm text-white font-semibold">No credit card | Licensed technician | 15 minutes | Fixed price quote</p>
         </div>
         <div className="relative rounded-3xl bg-white/80 backdrop-blur-xl h-56 md:h-auto md:aspect-[4/3]">
@@ -126,7 +127,7 @@ const FLAGSHIP_HREF = '/services/whole-home-water-filtration';
 const Pill = ({ href, children }: { href: string; children: React.ReactNode }) => <Link href={href} className="btn btn-cta mt-4">{children}</Link>;
 
 export function PricingTimeline({ s }: { s: Service }) {
-  const days = [['Day 1', 'Free 15-minute consultation and fixed-price quote'], ['Day 2–3', 'Schedule your installation'], ['Install day', 'About 4 hours with a licensed technician'], ['Day after', 'System testing completed'], ['Ongoing', `Annual filter replacements, about ${formatUSD(ANNUAL_FILTERS.low)}–${ANNUAL_FILTERS.high} a year`]];
+  const days = [['Step 1', 'Get your instant price online'], ['Step 2', 'Pick your install day and pay securely'], ['Install day', 'About 4 hours with a licensed technician'], ['Day after', 'System testing completed'], ['Ongoing', `Annual filter replacements, about ${formatUSD(ANNUAL_FILTERS.low)}–${ANNUAL_FILTERS.high} a year`]];
   const wellSteps = [['Step 1', 'Choose a basic test or the full panel'], ['Step 2', 'We collect the sample and send it to the lab'], ['Step 3', 'We explain your results in plain English'], ['Step 4', 'We recommend a system, and your test fee is credited if you purchase']];
   const addon = s.addon ? PRICING.addons[s.addon] : null;
   return (
@@ -139,7 +140,7 @@ export function PricingTimeline({ s }: { s: Service }) {
             <p className="text-4xl font-bold text-ink">{flagshipPrice} <span className="text-base font-normal">{TAX_NOTE}</span></p>
             <p className="font-semibold text-ink">What’s included</p>
             <ul className="flex flex-col gap-1">{PRICING.flagship.includes.map((i) => <Check key={i}>{i}</Check>)}<Check>Testing after installation</Check><Check>1-year warranty</Check></ul>
-            <p className="mt-2 text-sm">Add reverse osmosis drinking water for {formatUSD(PRICING.addons.ro.displayPrice)} or carbon filtration for {formatUSD(PRICING.addons.carbon.displayPrice)}, installed on the same visit.</p>
+            <p className="mt-2 text-sm">This is our Complete system. <Link href="/pricing" className="underline font-semibold text-ink">See all three systems and prices</Link>.</p>
           </div>
         )}
         {addon && (
@@ -239,10 +240,10 @@ export function CTASection() {
       <div className="mx-auto max-w-3xl px-4">
         <h2 className="!text-white">Ready to Improve Your Water?</h2>
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
-          <a href="#quote" className="btn btn-cta">Schedule Consultation</a>
+          <WizardButton className="btn btn-cta">Get Instant Price</WizardButton>
           <a href={PHONE_HREF} className="btn btn-secondary">{PHONE}</a>
         </div>
-        <p className="mt-4 text-sm text-ink font-semibold">✓ Free consultation | ✓ Licensed technicians | ✓ Fixed price quote | ✓ No obligation</p>
+        <p className="mt-4 text-sm text-ink font-semibold">✓ Instant price | ✓ Licensed local plumbers | ✓ Pay up front | ✓ 100% refundable</p>
       </div>
     </section>
   );

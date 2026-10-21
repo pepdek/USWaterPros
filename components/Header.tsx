@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import WizardButton from '@/components/store/WizardButton';
 import Link from 'next/link';
 import Icon from './Icon';
 import { PHONE, PHONE_HREF } from '@/lib/constants';
@@ -66,7 +67,7 @@ export default function Header() {
             <svg className="sm:hidden" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z" /></svg>
             <span className="hidden sm:inline">{PHONE}</span>
           </a>
-          <a href="#quote" className="btn btn-cta hidden md:inline-flex">Schedule Consultation</a>
+          <WizardButton className="btn btn-cta hidden md:inline-flex">Get Instant Price</WizardButton>
           <button type="button" aria-label="Open menu" aria-expanded={menu} onClick={() => setMenu(true)}
             className={`${scrolled ? 'inline-flex' : 'md:hidden inline-flex'} min-h-12 min-w-12 items-center justify-center text-ink`}>
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
@@ -94,7 +95,7 @@ export default function Header() {
             <Link href="/#process" onClick={close} className="text-xl font-bold text-ink min-h-12">Process</Link>
             <Link href="/tools" onClick={close} className="text-xl font-bold text-ink min-h-12">Tools</Link>
             <a href={PHONE_HREF} className="btn btn-secondary">{PHONE}</a>
-            <a href="#quote" onClick={close} className="btn btn-cta">Schedule Consultation</a>
+            <WizardButton className="btn btn-cta" onClick={close}>Get Instant Price</WizardButton>
           </div>
         </div>
       )}

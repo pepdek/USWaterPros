@@ -11,6 +11,9 @@ import Faq from '@/components/Faq';
 import { LOCATIONS } from '@/lib/locations';
 import { PILLS, SERVICES } from '@/lib/services';
 import type { Metadata } from 'next';
+import ProductCards from '@/components/store/ProductCards';
+import { TIERS, formatUSD } from '@/lib/pricing';
+import { STORE } from '@/lib/store';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -20,12 +23,18 @@ const STEPS = [
   ['Professional Installation', 'Once you choose the right solution, we install your system with care, test performance, and make sure you understand how everything works.'],
 ];
 
-export const metadata: Metadata = { alternates: { canonical: '/' } };
+const flagship = TIERS.find((t) => t.popular)!;
+export const metadata: Metadata = {
+  title: `Whole-Home Water System, ${formatUSD(flagship.price)} Installed | US Water Pros`,
+  description: `Get your instant price for a whole-home water system installed by a licensed local plumber. Three systems, ${STORE.from} to ${STORE.to}, tax included. Pierce County, WA.`,
+  alternates: { canonical: '/' },
+};
 
 export default function Home() {
   return (
     <main>
       <HeroSection />
+      <section id="pricing" className="bg-ice scroll-mt-24"><div className="mx-auto max-w-6xl px-4 py-14 md:py-16"><h2 className="text-center">Pick your system. See your price.</h2><p className="text-center mt-2 mb-10">Installed by a licensed local plumber. {STORE.refund} <a href="/pricing" className="underline font-semibold text-ink">What&apos;s included</a></p><ProductCards /></div></section>
       <BenefitsScroll />
       <ProblemBlocks />
       <div className="bg-ice py-16 md:py-20"><section id="services" className="mx-auto max-w-6xl px-4 scroll-mt-24"><h2 className="text-center">Our Solution</h2><p className="text-center mt-2">We created US Water Pros.</p><div className="mt-8 grid gap-8 md:gap-10 md:grid-cols-3">

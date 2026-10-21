@@ -44,7 +44,7 @@ const QUESTIONS: Partial<Record<Screen, Q>> = {
     ['Immediate', 'I solve it if it’s important', '⚡'], ['Shop Around', 'I compare options first', '🔍'], ['Finance', 'I like to spread payments', '💳'],
   ] },
   q7: { key: 'timeline', title: 'When do you want this installed?', options: [['ASAP', '1-2 weeks', '⏰'], ['Soon', '2-4 weeks', '📅'], ['Considering', 'Researching', '🔎'], ['Future', 'Later this year', '🗓️']] },
-  q8: { key: 'communicationPreference', title: 'How should we reach you for your consultation?', options: [['Text/SMS', undefined, '📱'], ['Call', undefined, '☎️']] },
+  q8: { key: 'communicationPreference', title: 'How should we reach you?', options: [['Text/SMS', undefined, '📱'], ['Call', undefined, '☎️']] },
 };
 const INTERSTITIAL: Partial<Record<Screen, [icon: string, title: string, body: string]>> = {
   i1: ['📍', 'Here’s why we ask', 'Water is different from neighborhood to neighborhood. Knowing where you live helps us recommend what actually fits your water.'],
@@ -295,7 +295,7 @@ export default function QuizFlow() {
           {status === 'error' && <p className="text-coral font-semibold text-sm">Something went wrong. Please try again or call us.</p>}
           <div className="flex gap-3">
             <button type="button" className={btnBack} onClick={() => go(-1)}>Previous</button>
-            <button className={btnCta} disabled={status === 'loading'}>{status === 'loading' ? 'Sending…' : 'Schedule My Consultation'}</button>
+            <button className={btnCta} disabled={status === 'loading'}>{status === 'loading' ? 'Sending…' : 'Get My Price'}</button>
           </div>
           <p className="text-xs text-center">Free, no obligation. 🔒 Your information is private.</p>
         </form>
@@ -305,7 +305,7 @@ export default function QuizFlow() {
         <div className="card p-8 md:p-10 text-center flex flex-col gap-3 !transform-none">
           <div className="mx-auto w-14 h-14 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center text-3xl">✓</div>
           <h2>You’re all set, {contact.name.split(' ')[0]}!</h2>
-          <p>We’ll {r.communicationPreference === 'Call' ? 'call' : 'text'} you within 1 hour during business hours to schedule your free consultation.</p>
+          <p>We’ll {r.communicationPreference === 'Call' ? 'call' : 'text'} you soon with your price and your install options.</p>
         </div>
       )}
     </div>

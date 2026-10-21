@@ -1,7 +1,7 @@
 import { SERVICES } from '@/lib/services';
 import { CITIES } from '@/lib/cities';
 import { LOCATIONS } from '@/lib/locations';
-import { PRICING, formatUSD } from '@/lib/pricing';
+import { TIERS, formatUSD } from '@/lib/pricing';
 import { PHONE } from '@/lib/constants';
 
 const BASE = 'https://uswaterpros.com';
@@ -10,9 +10,9 @@ const BASE = 'https://uswaterpros.com';
 export function GET() {
   const body = `# US Water Pros
 
-> Local water filtration and treatment company serving Pierce, Kitsap and Thurston Counties, WA (Tacoma, Puyallup, Bremerton, Port Orchard, Olympia, Lacey, Gig Harbor and nearby). In business since 2009. Licensed technicians. Phone or text: ${PHONE}.
+> Local whole-home water filtration company. Installs in Pierce County, WA (Tacoma, Puyallup, Gig Harbor and nearby); other areas join a waitlist. Phone or text: ${PHONE}.
 
-${PRICING.headline} Includes ${PRICING.flagship.includes.join(', ').toLowerCase()}. Reverse osmosis drinking water add-on ${formatUSD(PRICING.addons.ro.displayPrice)}, carbon filtration add-on ${formatUSD(PRICING.addons.carbon.displayPrice)}. Well water tests ${formatUSD(PRICING.wellTest.basic.displayPrice)} (basic) and ${formatUSD(PRICING.wellTest.full.displayPrice)} (full panel), credited toward an install. A free consultation comes first.
+${TIERS.map((x) => `${x.name} ${formatUSD(x.price)}`).join(', ')}, installed and tax included. Pay up front, 100% refundable. Get an instant price at ${BASE}/pricing. A licensed local plumber installs it. Pierce County, WA.
 
 ## Services
 ${SERVICES.map((s) => `- [${s.name}](${BASE}/services/${s.slug}): ${s.summary}`).join('\n')}
@@ -22,6 +22,7 @@ ${LOCATIONS.map((l) => `- [${l.name}](${BASE}/locations/${l.slug}): ${l.blurb}`)
 ${CITIES.map((c) => `- [${c.name}, WA](${BASE}/services/whole-home-water-filtration-${c.slug}): ${c.headline}`).join('\n')}
 
 ## Tools and policies
+- [Pricing](${BASE}/pricing)
 - [Water tools: ZIP water report, cost calculator, savings check](${BASE}/tools)
 - [Find your system quiz](${BASE}/quiz)
 - [Privacy](${BASE}/privacy)
