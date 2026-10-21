@@ -10,5 +10,8 @@ export const STORE = {
   refundTerms: '',
   from: formatUSD(Math.min(...TIERS.map((t) => t.price))),
   to: formatUSD(Math.max(...TIERS.map((t) => t.price))),
+  // Owner-supplied company facts (install time and start year).
+  installHours: '4',
+  since: '2009',
   annualFilters: `${formatUSD(ANNUAL_FILTERS.low)}–${ANNUAL_FILTERS.high}`,
 };

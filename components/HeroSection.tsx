@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import InstantPriceBox from './store/InstantPriceBox';
 import HeroHeadline from './HeroHeadline';
+import StatStrip from './store/StatStrip';
 
 // Headline and ZIP box on the left, a real finished install on the right (below the box on phones).
 export default function HeroSection() {
@@ -12,6 +13,7 @@ export default function HeroSection() {
           <HeroHeadline />
           <p className="!text-white mt-4 md:text-lg">Whole-house water filtration with the price up front. Enter your ZIP, see the systems that fit your water, and book your install online. Handled by licensed local plumbers.</p>
           <div className="mt-6"><InstantPriceBox heading="Get your instant price" /></div>
+          <StatStrip />
         </div>
         <div className="relative aspect-[4/5] md:aspect-[3/4] max-h-[620px] w-full rounded-2xl overflow-hidden shadow-xl">
           <Image src="/images/installs/softener-carbon-garage.jpg" alt="A finished whole-home water system: black filter tank with digital control head and a brine tank, installed in a garage" fill priority sizes="(min-width: 768px) 45vw, 92vw" className="object-cover" />
