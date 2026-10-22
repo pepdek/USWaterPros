@@ -11,10 +11,10 @@ const ICONS: Record<string, React.ReactNode> = {
 };
 
 // Same four ideas as the reference, rewritten to what we can stand behind.
-// VERIFY: "background-checked" (how and by whom), and that installs can be booked as soon as 3 days out in every area.
+// VERIFY: "background-checked" (how and by whom), and that installs can be booked as soon as 6 days out in every area.
 const BENEFITS: [keyof typeof ICONS, string, string][] = [
   ['tag', 'Instant online pricing', 'What you see online is the price you pay. No in-person estimates. If your home needs something different, we tell you before you commit.'],
-  ['calendar', 'Easy online scheduling', 'Pick your install day online. A licensed local plumber installs it in about 4 hours, and our goal is clean water within 24 hours of your purchase.'],
+  ['calendar', 'Easy online scheduling', 'Pick your install day online. A licensed local plumber installs it in about 4 hours, on the day you pick.'],
   ['pros', 'Licensed, background-checked pros', 'Every install is done by a licensed local plumber from our vetted list.'],
   ['refund', '100% refundable checkout', `Pay up front with confidence. Every order is ${STORE.refund.toLowerCase()} Checkout is secured by Stripe.`],
 ];

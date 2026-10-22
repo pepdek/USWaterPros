@@ -122,7 +122,7 @@ export default function Wizard() {
       return setStep('schedule');
     }
     if (step === 'schedule') {
-      if (!validOrder({ tier, date, window: win, address })) return setErr('Pick a day at least 3 days out (not Sunday) and enter your full street address.');
+      if (!validOrder({ tier, date, window: win, address })) return setErr('Pick a day at least 6 days out (not Sunday) and enter your full street address.');
       setBusy(true);
       const r = await post('/api/order', { leadId, tier, date, window: win, address, zip, name, phone, email });
       setBusy(false);

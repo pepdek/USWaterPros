@@ -31,16 +31,17 @@ describe('service area (Pierce County only)', () => {
 describe('order validation', () => {
   const now = new Date('2026-10-20T10:00:00');
   const day = (n: number) => { const d = new Date(now); d.setDate(d.getDate() + n); return isoDay(d); };
-  const ok = { tier: 'complete', date: day(5), window: 'Morning', address: '123 Main St, Tacoma 98402' } as const;
+  const ok = { tier: 'complete', date: day(7), window: 'Morning', address: '123 Main St, Tacoma 98402' } as const;
   it('accepts a good order', () => expect(validOrder({ ...ok, date: '2026-10-26' }, now)).toBe(true)); // a Monday, 6 days out
   it('rejects too soon, too far, Sundays, bad tier, short address', () => {
     expect(validOrder({ ...ok, date: day(1) }, now)).toBe(false);
+    expect(validOrder({ ...ok, date: day(5) }, now)).toBe(false); // earlier than 6 days out
     expect(validOrder({ ...ok, date: day(90) }, now)).toBe(false);
     expect(validOrder({ ...ok, date: '2026-10-25' }, now)).toBe(false); // Sunday
     expect(validOrder({ ...ok, tier: 'gold' as never, date: '2026-10-26' }, now)).toBe(false);
     expect(validOrder({ ...ok, address: '12', date: '2026-10-26' }, now)).toBe(false);
   });
-  it('bookable range is 3 to 60 days out', () => { const r = bookableRange(now); expect(isoDay(r.min)).toBe('2026-10-23'); expect(isoDay(r.max)).toBe('2026-12-19'); });
+  it('bookable range is 6 to 60 days out', () => { const r = bookableRange(now); expect(isoDay(r.min)).toBe('2026-10-26'); expect(isoDay(r.max)).toBe('2026-12-19'); });
 });
 
 describe('stripe webhook signature', () => {

@@ -1,15 +1,16 @@
 import { TIERS, type TierId } from './pricing';
 
 // Install-time windows offered in the wizard. We confirm the exact time by text.
+export const MIN_DAYS_OUT = 6;
 export const WINDOWS = ['Morning', 'Afternoon', 'Anytime'] as const;
 export type Window = (typeof WINDOWS)[number];
 
 export type OrderInput = { tier: TierId; date: string; window: Window; address: string };
 
-// Earliest bookable day: 3 days out (skips Sundays). Latest: 60 days out.
+// Earliest bookable day: 6 days out (skips Sundays), so customers can pick a weekend or plan around work. Latest: 60 days out.
 export function bookableRange(from = new Date()) {
   const d = new Date(from); d.setHours(0, 0, 0, 0);
-  const min = new Date(d); min.setDate(min.getDate() + 3);
+  const min = new Date(d); min.setDate(min.getDate() + MIN_DAYS_OUT);
   const max = new Date(d); max.setDate(max.getDate() + 60);
   return { min, max };
 }
