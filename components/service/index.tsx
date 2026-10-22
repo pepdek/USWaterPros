@@ -23,7 +23,7 @@ export function ServiceHero({ s }: { s: Service }) {
           <h1 className="!text-white">{s.h1}</h1>
           <p className="mt-4 text-white font-semibold">{s.sub}</p>
           <WizardButton className="btn btn-cta mt-6 w-full md:w-auto">Get Instant Price</WizardButton>
-          <p className="mt-3 text-sm text-white font-semibold">No credit card | Licensed technician | 15 minutes | Fixed price quote</p>
+          <p className="mt-3 text-sm text-white font-semibold">No credit card | Licensed local plumber | 15 minutes | Fixed price quote</p>
         </div>
         <div className="relative rounded-3xl bg-white/80 backdrop-blur-xl h-56 md:h-auto md:aspect-[4/3]">
           <Image src={s.image} alt={s.imageAlt} fill priority sizes="(min-width: 768px) 40vw, 90vw" className="object-contain p-4" />
@@ -69,7 +69,7 @@ export function ContaminationChart({ s }: { s: Service }) {
           </li>
         ))}
       </ul>
-      <p className="mt-3 text-xs">Results depend on your water. We confirm during your consultation.</p>
+      <p className="mt-3 text-xs">Results depend on your water. We tell you what to expect before you pay.</p>
     </section>
   );
 }
@@ -127,7 +127,7 @@ const FLAGSHIP_HREF = '/services/whole-home-water-filtration';
 const Pill = ({ href, children }: { href: string; children: React.ReactNode }) => <Link href={href} className="btn btn-cta mt-4">{children}</Link>;
 
 export function PricingTimeline({ s }: { s: Service }) {
-  const days = [['Step 1', 'Get your instant price online'], ['Step 2', 'Pick your install day and pay securely'], ['Install day', 'About 4 hours with a licensed technician'], ['Day after', 'System testing completed'], ['Ongoing', `Annual filter replacements, about ${formatUSD(ANNUAL_FILTERS.low)}–${ANNUAL_FILTERS.high} a year`]];
+  const days = [['Step 1', 'Get your instant price online'], ['Step 2', 'Pick your install day and pay securely'], ['Install day', 'About 4 hours with a licensed local plumber'], ['Day after', 'System testing completed'], ['Ongoing', `Annual filter replacements, about ${formatUSD(ANNUAL_FILTERS.low)}–${ANNUAL_FILTERS.high} a year`]];
   const wellSteps = [['Step 1', 'Choose a basic test or the full panel'], ['Step 2', 'We collect the sample and send it to the lab'], ['Step 3', 'We explain your results in plain English'], ['Step 4', 'We recommend a system, and your test fee is credited if you purchase']];
   const addon = s.addon ? PRICING.addons[s.addon] : null;
   return (
@@ -154,7 +154,7 @@ export function PricingTimeline({ s }: { s: Service }) {
         {(s.kind === 'component' || s.kind === 'city') && (
           <div className="card p-8 md:p-10 !transform-none">
             <p className="text-xl font-bold text-ink">Installed as part of our whole-home system</p>
-            <p>{s.kind === 'city' ? <>This service is installed with the {PRICING.flagship.label}. We confirm exactly what your home needs at your free consultation.</> : <>Water softening is always included in our {formatUSD(PRICING.flagship.displayPrice)} whole-home system. Here’s why: softening works best with filtration. Hard water minerals vary around Pierce, Kitsap and Thurston Counties, and groundwater is more likely to be hard than surface-sourced supplies. Our whole-home approach treats hardness at the source while filtering the sediment and chlorine that can add to scale and wear.</>}</p>
+            <p>{s.kind === 'city' ? <>This service is installed with the {PRICING.flagship.label}. We tell you before you commit if your home needs something different.</> : <>Water softening is always included in our {formatUSD(PRICING.flagship.displayPrice)} whole-home system. Here’s why: softening works best with filtration. Hard water minerals vary around Pierce, Kitsap and Thurston Counties, and groundwater is more likely to be hard than surface-sourced supplies. Our whole-home approach treats hardness at the source while filtering the sediment and chlorine that can add to scale and wear.</>}</p>
             <Pill href={FLAGSHIP_HREF}>See the whole-home system</Pill>
           </div>
         )}
@@ -178,7 +178,7 @@ export function PricingTimeline({ s }: { s: Service }) {
 export function ComparisonTable({ s }: { s: Service }) {
   const rows = [
     ['Upfront cost', `${flagshipPrice} ${TAX_NOTE}`, formatRange(MARKET.premium.low, MARKET.premium.high), formatUSD(MARKET.budget.price)],
-    ['Installation', 'Licensed technician, about 4 hours', 'Sales rep plus install crew', 'DIY or discount installer'],
+    ['Installation', 'Licensed local plumber, about 4 hours', 'Sales rep plus install crew', 'DIY or discount installer'],
     ['Support', 'Included', 'Fee-based', 'Little or none'],
     ['Warranty', '1 year', 'Limited', '6 months'],
     ['Typical lifespan', '8–10 years', '10+ years', '2–3 years'],

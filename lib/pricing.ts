@@ -36,7 +36,7 @@ export const TIERS: { id: TierId; name: string; subhead: string; price: number; 
   },
   {
     id: 'complete', name: 'Complete', subhead: 'The right fit for most homes', price: PRICING.flagship.displayPrice, icon: 'shield', popular: true,
-    bullets: ['All of Essential’s benefits', 'Less scale on fixtures, glass', 'Fewer water spots on dishes', 'Helps protect your water heater'],
+    bullets: ['All of Essential’s benefits', 'Softener included in the price', 'Ready if your water is hard', 'One system for every tap'],
     fit: 'The default for most homes.',
   },
   {

@@ -1,9 +1,8 @@
 import Icon from './Icon';
 
 const BENEFITS: [string, string][] = [
-  ['drop', 'No chlorine taste or smell'], ['shield', 'Protects pipes & appliances'], ['layers', 'Filters sediment & rust'],
-  ['house', 'Clean water at every tap'], ['badge', 'Softer skin & hair'], ['check', 'Less spotting & buildup'],
-  ['clock', 'Install in about a day'], ['flask', 'Peace of mind for your family'],
+  ['drop', 'Less chlorine taste & smell'], ['badge', 'One fixed, installed price'], ['shield', 'Licensed local plumbers'],
+  ['clock', 'Installed in about 4 hours'], ['check', '100% refundable'], ['layers', 'Filters sediment & rust'],
 ];
 
 // Two copies + translateX(-50%) = seamless loop.

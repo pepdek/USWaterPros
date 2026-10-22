@@ -86,7 +86,7 @@ export default function Pricing() {
             <li>Enter your ZIP and pick a system.</li>
             <li>Choose your install day.</li>
             <li>Pay the full price by card on a secure Stripe page. We never see your card number.</li>
-            <li>We text you to confirm the time. A licensed local plumber installs it.</li>
+            <li>{STORE.confirm} A licensed local plumber installs it.</li>
           </ol>
           <h3 className="mt-8 text-xl">Our refund promise</h3>
           <p className="mt-2">Every order is {STORE.refund.toLowerCase()} {STORE.refundTerms}</p>

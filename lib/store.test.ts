@@ -31,16 +31,17 @@ describe('service area (Pierce County only)', () => {
 describe('order validation', () => {
   const now = new Date('2026-10-20T10:00:00');
   const day = (n: number) => { const d = new Date(now); d.setDate(d.getDate() + n); return isoDay(d); };
-  const ok = { tier: 'complete', date: day(5), window: 'Morning', address: '123 Main St, Tacoma 98402' } as const;
+  const ok = { tier: 'complete', date: day(7), window: 'Morning', address: '123 Main St, Tacoma 98402' } as const;
   it('accepts a good order', () => expect(validOrder({ ...ok, date: '2026-10-26' }, now)).toBe(true)); // a Monday, 6 days out
   it('rejects too soon, too far, Sundays, bad tier, short address', () => {
     expect(validOrder({ ...ok, date: day(1) }, now)).toBe(false);
+    expect(validOrder({ ...ok, date: day(5) }, now)).toBe(false); // earlier than 6 days out
     expect(validOrder({ ...ok, date: day(90) }, now)).toBe(false);
     expect(validOrder({ ...ok, date: '2026-10-25' }, now)).toBe(false); // Sunday
     expect(validOrder({ ...ok, tier: 'gold' as never, date: '2026-10-26' }, now)).toBe(false);
     expect(validOrder({ ...ok, address: '12', date: '2026-10-26' }, now)).toBe(false);
   });
-  it('bookable range is 3 to 60 days out', () => { const r = bookableRange(now); expect(isoDay(r.min)).toBe('2026-10-23'); expect(isoDay(r.max)).toBe('2026-12-19'); });
+  it('bookable range is 6 to 60 days out', () => { const r = bookableRange(now); expect(isoDay(r.min)).toBe('2026-10-26'); expect(isoDay(r.max)).toBe('2026-12-19'); });
 });
 
 describe('stripe webhook signature', () => {
@@ -63,4 +64,27 @@ describe('average total price line on /pricing', () => {
     expect(avgTotal('complete')).toBe(3036);    // 2,999 x 1.0125 = 3,036.49
     expect(avgTotal('iron-free')).toBe(3875);   // 3,799 x 1.02   = 3,874.98
   });
+});
+
+import { confirmDeadline } from './confirmBy';
+import { alertFor } from './unconfirmed';
+describe('confirmation promise: end of the next business day, Pacific', () => {
+  const at = (s: string) => confirmDeadline(new Date(s)).toISOString();
+  it('Monday payment is due Tuesday 23:59 Pacific', () => expect(at('2026-10-26T17:00:00Z')).toBe('2026-10-28T06:59:59.000Z')); // Mon 10am PDT -> Tue 11:59pm PDT
+  it('Friday, Saturday and Sunday payments are due Monday', () => {
+    expect(at('2026-10-30T20:00:00Z')).toBe('2026-11-03T07:59:59.000Z'); // Fri -> Mon Nov 2 11:59pm PST (after DST ends Nov 1)
+    expect(at('2026-10-31T20:00:00Z')).toBe('2026-11-03T07:59:59.000Z');
+    expect(at('2026-11-01T20:00:00Z')).toBe('2026-11-03T07:59:59.000Z');
+  });
+});
+describe('unconfirmed paid order alerts', () => {
+  const base = { id: 'x', name: 'A', phone: '1', order_details: { confirm_by: '2026-10-28T06:59:59.000Z' } as Record<string, unknown> };
+  it('is quiet early, warns 6h before the deadline, then flags overdue once', () => {
+    expect(alertFor(base, new Date('2026-10-27T20:00:00Z'))).toBeNull();
+    expect(alertFor(base, new Date('2026-10-28T02:00:00Z'))).toBe('warn');
+    expect(alertFor({ ...base, order_details: { ...base.order_details, warned_at: 't' } }, new Date('2026-10-28T02:00:00Z'))).toBeNull();
+    expect(alertFor(base, new Date('2026-10-28T08:00:00Z'))).toBe('overdue');
+    expect(alertFor({ ...base, order_details: { ...base.order_details, overdue_alerted_at: 't' } }, new Date('2026-10-28T08:00:00Z'))).toBeNull();
+  });
+  it('never alerts once confirmed', () => expect(alertFor({ ...base, order_details: { ...base.order_details, confirmed_at: 't' } }, new Date('2026-10-28T08:00:00Z'))).toBeNull());
 });

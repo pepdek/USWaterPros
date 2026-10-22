@@ -26,7 +26,7 @@ export const CITIES: City[] = [
     faqs: [
       ['What is the water quality like in Tacoma?', 'Tacoma Water treats and tests its supply and publishes annual reports. The most common complaints are chlorine taste and smell, and older plumbing in pre-1986 homes.'],
       ['How much does whole-home filtration cost in Tacoma?', costAnswer()],
-      ['How long does installation take?', 'Usually about a day. We confirm after a quick look at your plumbing.'],
+      ['How long does installation take?', 'About 4 hours on site. We tell you before you commit if your home needs something different.'],
       ['Do you serve my Tacoma neighborhood?', 'Yes. We serve all of Tacoma, including Proctor, the North End, Hilltop, the Stadium District, Old Town and South Tacoma.'],
       ['Can you fix the chlorine taste in my water?', 'Yes. Carbon filtration removes most chlorine taste and odor, for the whole house or at a single tap.'],
       ['Should I worry about lead in an older Tacoma home?', 'Homes built before 1986 may have lead solder or fixtures. A water test shows whether lead is present, and a certified filter or reverse osmosis can reduce it at the tap.'],
@@ -47,7 +47,7 @@ export const CITIES: City[] = [
     faqs: [
       ['What is the water quality like in Puyallup?', 'It depends on your source. City-served homes and private wells differ, and groundwater here commonly carries iron and manganese. A test tells you for sure.'],
       ['How much does whole-home filtration cost in Puyallup?', costAnswer()],
-      ['How long does installation take?', 'Usually about a day.'],
+      ['How long does installation take?', 'About 4 hours on site.'],
       ['Do you serve South Hill and the Puyallup Valley?', 'Yes. We serve all of Puyallup and the surrounding area.'],
       ['My well water stains everything orange. Can you fix it?', 'Usually, yes. Iron and manganese respond to the right filter. We test first so the system matches your water.'],
       ['Should I test my well for nitrate?', 'The Tacoma-Pierce County Health Department recommends testing individual wells for bacteria yearly and nitrate every three years.'],
@@ -68,7 +68,7 @@ export const CITIES: City[] = [
     faqs: [
       ['What is the water quality like in Bremerton?', 'City water is treated and tested, and wells vary. Common issues are chlorine taste, older plumbing and, on wells, iron and manganese.'],
       ['How much does whole-home filtration cost in Bremerton?', costAnswer()],
-      ['How long does installation take?', 'Usually about a day.'],
+      ['How long does installation take?', 'About 4 hours on site.'],
       ['Do you serve Manette and Navy Yard City?', 'Yes. We serve all of Bremerton and nearby communities.'],
       ['Do you offer service for military families?', 'We serve Bremerton’s Navy and military community. Ask about scheduling around your needs.'],
       ['Can you fix rusty or stained water?', 'Usually, yes. A test shows whether it is iron, manganese or old pipes, and we match the fix to the cause.'],
@@ -89,7 +89,7 @@ export const CITIES: City[] = [
     faqs: [
       ['What is the water quality like in Port Orchard?', 'It depends on your source. City and well water differ, and staining minerals are a common issue. A test tells you what is in yours.'],
       ['How much does whole-home filtration cost in Port Orchard?', costAnswer()],
-      ['How long does installation take?', 'Usually about a day.'],
+      ['How long does installation take?', 'About 4 hours on site.'],
       ['Do you serve Horseshoe Lake, Burley and Olalla?', 'Yes. We serve Port Orchard and the surrounding South Kitsap area.'],
       ['Will filtration protect my appliances?', 'It can help. Reducing sediment and minerals is easier on fixtures, water heaters and dishwashers.'],
       ['How often should I test my well?', 'Kitsap Public Health District recommends bacteria yearly and nitrate every three years.'],
@@ -110,7 +110,7 @@ export const CITIES: City[] = [
     faqs: [
       ['Where does Olympia’s water come from?', 'The city’s primary source is the McAllister Wellfield, supplemented seasonally by additional wells. All of it is groundwater.'],
       ['How much does whole-home filtration cost in Olympia?', costAnswer()],
-      ['How long does installation take?', 'Usually about a day. We confirm after a quick look at your plumbing.'],
+      ['How long does installation take?', 'About 4 hours on site. We tell you before you commit if your home needs something different.'],
       ['Do you serve my Olympia neighborhood?', 'Yes. We serve Olympia, including downtown, the Westside, the Eastside and surrounding areas.'],
       ['Can you fix the chlorine taste in my water?', 'Yes. Carbon filtration removes most chlorine taste and odor, for the whole house or at a single tap.'],
       ['Should I worry about lead in an older Olympia home?', 'Homes with older plumbing may have lead solder or fixtures. A water test shows whether lead is present, and a certified filter or reverse osmosis can reduce it at the tap.'],
@@ -131,7 +131,7 @@ export const CITIES: City[] = [
     faqs: [
       ['Where does Lacey’s water come from?', 'The City of Lacey says all of its drinking water comes from groundwater wells that draw on three aquifers.'],
       ['How much does whole-home filtration cost in Lacey?', costAnswer()],
-      ['How long does installation take?', 'Usually about a day.'],
+      ['How long does installation take?', 'About 4 hours on site.'],
       ['Do you serve Hawks Prairie and the Woodland District?', 'Yes. We serve all of Lacey and the surrounding area.'],
       ['Can you fix the chlorine taste in my water?', 'Yes. Carbon filtration removes most chlorine taste and odor, for the whole house or at a single tap.'],
       ['Do I need a softener in Lacey?', 'It depends on your water. We test first, and only recommend a softener if hardness is actually causing scale or spotting.'],
@@ -152,7 +152,7 @@ export const CITIES: City[] = [
     faqs: [
       ['What is the water quality like in Lakewood?', 'Public systems treat and test their water and publish annual reports. Common concerns are disinfectant taste, minerals in groundwater and older plumbing. A test tells you what is in yours.'],
       ['How much does whole-home filtration cost in Lakewood?', costAnswer()],
-      ['How long does installation take?', 'Usually about a day. We confirm after a quick look at your plumbing.'],
+      ['How long does installation take?', 'About 4 hours on site. We tell you before you commit if your home needs something different.'],
       ['Do you serve Tillicum, Oakbrook and Lake City?', 'Yes. We serve all of Lakewood and the surrounding area.'],
       ['Can you fix rusty or stained water?', 'Usually, yes. A test shows whether it is iron, manganese or old pipes, and we match the fix to the cause.'],
       ['Should I worry about lead in an older home?', 'Homes built before 1986 may have lead solder or fixtures. A water test shows whether lead is present, and a certified filter or reverse osmosis can reduce it at the tap.'],
@@ -173,7 +173,7 @@ export const CITIES: City[] = [
     faqs: [
       ['What is the water quality like in University Place?', 'Public systems treat and test their water and publish annual reports. The most common complaints are chlorine taste and smell, and older plumbing in pre-1986 homes.'],
       ['How much does whole-home filtration cost in University Place?', costAnswer()],
-      ['How long does installation take?', 'Usually about a day. We confirm after a quick look at your plumbing.'],
+      ['How long does installation take?', 'About 4 hours on site. We tell you before you commit if your home needs something different.'],
       ['Do you serve Chambers Creek and the Narrows?', 'Yes. We serve all of University Place and the surrounding area.'],
       ['Can you fix the chlorine taste in my water?', 'Yes. Carbon filtration removes most chlorine taste and odor, for the whole house or at a single tap.'],
       ['Should I worry about lead in an older home?', 'Homes built before 1986 may have lead solder or fixtures. A water test shows whether lead is present, and a certified filter or reverse osmosis can reduce it at the tap.'],
@@ -194,7 +194,7 @@ export const CITIES: City[] = [
     faqs: [
       ['Where does Bonney Lake’s water come from?', 'The city draws on Victor Falls and Grainger Springs and on wells at Tacoma Point and Ball Park, with an agreement to receive additional water from Tacoma Public Utilities if needed.'],
       ['How much does whole-home filtration cost in Bonney Lake?', costAnswer()],
-      ['How long does installation take?', 'Usually about a day. We confirm after a quick look at your plumbing.'],
+      ['How long does installation take?', 'About 4 hours on site. We tell you before you commit if your home needs something different.'],
       ['Do you serve Lake Tapps and the plateau?', 'Yes. We serve all of Bonney Lake and the surrounding area.'],
       ['Can you fix the chlorine taste in my water?', 'Yes. Carbon filtration removes most chlorine taste and odor, for the whole house or at a single tap.'],
       ['How often should I test a private well?', 'The Tacoma-Pierce County Health Department recommends testing for bacteria once a year and nitrate every three years.'],
@@ -215,7 +215,7 @@ export const CITIES: City[] = [
     faqs: [
       ['Where does Gig Harbor’s water come from?', 'The city says all of its water comes from underground aquifers, pumped from a series of wells.'],
       ['How much does whole-home filtration cost in Gig Harbor?', costAnswer()],
-      ['How long does installation take?', 'Usually about a day. We confirm after a quick look at your plumbing.'],
+      ['How long does installation take?', 'About 4 hours on site. We tell you before you commit if your home needs something different.'],
       ['Do you serve Rosedale, Artondale and Wollochet?', 'Yes. We serve all of Gig Harbor and the surrounding area.'],
       ['Why is my water discolored or leaving brown stains?', 'Iron and manganese are the usual cause in local groundwater. A test confirms the levels, and the right filter can stop the staining.'],
       ['How often should I test a private well?', 'The Tacoma-Pierce County Health Department recommends testing for bacteria once a year and nitrate every three years.'],

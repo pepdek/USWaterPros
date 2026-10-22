@@ -11,10 +11,10 @@ const ICONS: Record<string, React.ReactNode> = {
 };
 
 // Same four ideas as the reference, rewritten to what we can stand behind.
-// VERIFY: "background-checked" (how and by whom), and that installs can be booked as soon as 3 days out in every area.
+// VERIFY: "background-checked" (how and by whom), and that installs can be booked as soon as 6 days out in every area.
 const BENEFITS: [keyof typeof ICONS, string, string][] = [
   ['tag', 'Instant online pricing', 'What you see online is the price you pay. No in-person estimates. If your home needs something different, we tell you before you commit.'],
-  ['calendar', 'Easy online scheduling', 'Pick your install day online, as soon as three days out. A licensed local plumber installs it in about 4 hours.'],
+  ['calendar', 'Easy online scheduling', 'Pick your install day online. A licensed local plumber installs it in about 4 hours, on the day you pick.'],
   ['pros', 'Licensed, background-checked pros', 'Every install is done by a licensed local plumber from our vetted list.'],
   ['refund', '100% refundable checkout', `Pay up front with confidence. Every order is ${STORE.refund.toLowerCase()} Checkout is secured by Stripe.`],
 ];
@@ -52,7 +52,7 @@ export default function WhyUs() {
         <div>
           <p className="inline-block rounded-md bg-[#e6f6f9] px-3 py-1.5 font-mono text-[12px] font-medium uppercase tracking-[.14em]" style={{ color: TEAL_ON_WHITE }}>Why US Water Pros</p>
           <h2 id="why-h" className="mt-5 !font-sans !font-bold !tracking-[-0.045em] !text-ink !leading-[1.06] !text-[clamp(2.2rem,1.3rem+3.2vw,3.6rem)] [text-wrap:balance]">
-            The <span style={{ color: TEAL_ON_WHITE }}>smarter way</span> to uncontaminated water
+            The <span style={{ color: TEAL_ON_WHITE }}>smarter way</span> to cleaner water
           </h2>
           <div className="mt-12 hidden md:block"><Phone /></div>
         </div>

@@ -122,7 +122,7 @@ export default function Wizard() {
       return setStep('schedule');
     }
     if (step === 'schedule') {
-      if (!validOrder({ tier, date, window: win, address })) return setErr('Pick a day at least 3 days out (not Sunday) and enter your full street address.');
+      if (!validOrder({ tier, date, window: win, address })) return setErr('Pick a day at least 6 days out (not Sunday) and enter your full street address.');
       setBusy(true);
       const r = await post('/api/order', { leadId, tier, date, window: win, address, zip, name, phone, email });
       setBusy(false);
@@ -239,7 +239,7 @@ export default function Wizard() {
           </>)}
 
           {step === 'schedule' && (<>
-            <Bot>Locked in at {formatUSD(t.price)}. When should the plumber come? It takes about 4 hours, and we text you to confirm the time.</Bot>
+            <Bot>Locked in at {formatUSD(t.price)}. When should the plumber come? It takes about 4 hours. {STORE.confirm}</Bot>
             <Card>
               <div className="flex flex-col gap-3">
                 <div className="grid grid-cols-2 gap-3">

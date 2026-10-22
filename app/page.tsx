@@ -2,9 +2,6 @@ import HeroSection from '@/components/HeroSection';
 import ServiceCard from '@/components/ServiceCard';
 import StickyBottomCTA from '@/components/StickyBottomCTA';
 import BenefitsScroll from '@/components/BenefitsScroll';
-import ProblemBlocks from '@/components/ProblemBlocks';
-import Risks from '@/components/Risks';
-import ReportCta from '@/components/ReportCta';
 import QuizCta from '@/components/QuizCta';
 import FilterFinder from '@/components/FilterFinder';
 import Faq from '@/components/Faq';
@@ -14,17 +11,20 @@ import type { Metadata } from 'next';
 import ProductCards from '@/components/store/ProductCards';
 import PlatformBanner from '@/components/store/PlatformBanner';
 import WhyUs from '@/components/store/WhyUs';
+import CalmProblem from '@/components/store/CalmProblem';
 import { TIERS, formatUSD } from '@/lib/pricing';
 import { STORE } from '@/lib/store';
 import Link from 'next/link';
 import Image from 'next/image';
 
 const STEPS = [
-  ['Water Quality Review', 'We discuss your home’s water source, concerns, and goals to better understand what type of filtration or treatment solution may be right for you.'],
-  ['Clear Recommendations', 'Our team explains your options clearly, answers your questions, and recommends a system based on your water needs, home setup, and budget.'],
-  ['Professional Installation', 'Once you choose the right solution, we install your system with care, test performance, and make sure you understand how everything works.'],
+  ['Pick your system', 'Enter your ZIP, see the exact price for your home, and choose the system that fits your water.'],
+  ['Choose your day and pay', `Pick an install day and pay up front by card. Every order is ${STORE.refund.toLowerCase()} ${STORE.confirm}`],
+  ['A licensed local plumber installs it', 'About 4 hours on site. The plumber tests it before they leave and walks you through how it works.'],
 ];
 
+const MAIN = ['whole-home-water-filtration', 'reverse-osmosis-systems', 'carbon-filtration', 'city-water-treatment'];
+const OTHER: [string, string][] = [['well-water-treatment', 'Private well? It starts with a water test.'], ['water-softening-systems', 'For homes where the water is hard.']];
 const flagship = TIERS.find((t) => t.popular)!;
 export const metadata: Metadata = {
   title: `Whole-Home Water System, ${formatUSD(flagship.price)} Installed | US Water Pros`,
@@ -47,16 +47,23 @@ export default function Home() {
       </section>
       <WhyUs />
       <BenefitsScroll />
-      <ProblemBlocks />
-      <div className="bg-ice py-16 md:py-20"><section id="services" className="mx-auto max-w-6xl px-4 scroll-mt-24"><h2 className="text-center">Our Solution</h2><p className="text-center mt-2">We created US Water Pros.</p><div className="mt-8 grid gap-8 md:gap-10 md:grid-cols-3">
-        {SERVICES.map((s) => <ServiceCard key={s.slug} s={s} />)}
+      <CalmProblem />
+      <div className="bg-ice py-16 md:py-20"><section id="services" className="mx-auto max-w-6xl px-4 scroll-mt-24"><h2 className="text-center">Our Solution</h2><p className="text-center mt-2">We created US Water Pros.</p><div className="mt-8 grid gap-8 md:gap-10 md:grid-cols-2 xl:grid-cols-4">
+        {MAIN.map((slug) => SERVICES.find((s) => s.slug === slug)!).map((s) => <ServiceCard key={s.slug} s={s} />)}
+      </div>
+      <div className="mt-12">
+        <p className="font-mono text-[12px] font-medium uppercase tracking-[.14em] text-[#3f4a4f] !py-0">Other situations</p>
+        <ul className="mt-4 grid gap-4 md:grid-cols-2">
+          {OTHER.map(([slug, blurb]) => { const s = SERVICES.find((x) => x.slug === slug)!; return (
+            <li key={slug}><Link href={`/services/${slug}`} className="flex items-center justify-between gap-4 rounded-2xl border border-black/[.08] bg-white p-5 hover:border-teal"><span><b className="text-ink">{s.name}</b><span className="block font-light text-[#3f4a4f] text-[15px]">{blurb}</span></span><span aria-hidden>→</span></Link></li>
+          ); })}
+        </ul>
       </div></section></div>
-      <Risks />
       <QuizCta />
       <section id="process" className="mx-auto max-w-6xl px-4 py-10 grid gap-10 md:grid-cols-2 md:items-center">
         <div>
-          <h2>A Simple, No-Pressure Water Treatment Experience</h2>
-          <p className="mt-3">We make the process easy from start to finish. First, we review your water concerns, then recommend the right solution, and finally install your system with care so you can enjoy better water with confidence.</p>
+          <h2>How it works</h2>
+          <p className="mt-3">Three steps. You see the price before anyone comes to your door.</p>
           <ol className="mt-8 flex flex-col gap-8 md:gap-10">
             {STEPS.map(([t, d], i) => (
               <li key={t} className="flex gap-4">
@@ -76,13 +83,14 @@ export default function Home() {
           {LOCATIONS.map((l) => <Link key={l.slug} href={`/locations/${l.slug}`} className="min-h-12 inline-flex items-center rounded-[10px] bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] px-5 font-semibold text-ink hover:bg-navy hover:text-white">{l.name}</Link>)}
         </div>
       </section>
-      <ReportCta />
       <nav className="mx-auto max-w-6xl px-4 py-6 flex gap-2 overflow-x-auto md:flex-wrap md:justify-center" aria-label="Services">
         {PILLS.map((p, i) => (
           <Link key={p.label} href={p.href} className={`shrink-0 min-h-12 inline-flex items-center rounded-[10px] px-5 font-semibold text-sm lowercase bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] text-ink hover:bg-navy hover:text-white focus:bg-navy focus:text-white ${i === 0 ? '!bg-navy !text-white' : ''}`}>{p.label}</Link>
         ))}
       </nav>
       <Faq />
+      <p className="mx-auto max-w-3xl px-4 pt-6 text-center font-sans text-[clamp(1.5rem,1rem+1.6vw,2.2rem)] font-bold tracking-[-0.03em] text-ink !py-0">Turn on the tap and stop thinking about it.</p>
+      <p className="text-center text-[14px] font-light text-[#4b5a60] !pt-2">Or keep guessing and buying jugs.</p>
       <StickyBottomCTA />
     </main>
   );

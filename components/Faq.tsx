@@ -1,16 +1,16 @@
 import { costAnswer } from '@/lib/pricing';
+import { STORE } from '@/lib/store';
 
 const COMMON: [string, string][] = [
   ['How much does whole-home filtration cost?', costAnswer()],
-  ['How long does installation take?', 'Typically about a day. Our team will confirm after a quick look at your plumbing.'],
-  ['How often do filters need changing?', 'It depends on the system and your water. Many cartridges last several months to a few years, and our team will set a schedule.'],
-  ['Will it lower my water pressure?', 'A properly sized system should not noticeably reduce pressure. Our team sizes it to your home.'],
+  ['How long does installation take?', 'About 4 hours on site. We tell you before you commit if your home needs something different.'],
+  ['How often do filters need changing?', `Annual filter replacement, about ${STORE.annualFilters} a year.`],
+  ['Will it lower my water pressure?', 'It depends on your home’s plumbing and the size of the system. We confirm the sizing for your home before you commit.'],
 ];
 const UNCOMMON: [string, string][] = [
-  ['Does it remove fluoride?', 'Standard carbon and sediment filters generally do not. Reverse osmosis at the kitchen tap is the usual add-on for that.'],
+  ['Does it remove fluoride?', 'Standard carbon and sediment filters generally do not. Reverse osmosis at the kitchen tap is the right tool for that, and every system we install includes one.'],
   ['Can I install one if I rent?', 'You will need your landlord’s okay since it connects to the main line. Point-of-use options like reverse osmosis are easier for renters.'],
   ['Does it work with well water?', 'Yes, but well water usually needs testing first so the system targets what is actually in it.'],
-  ['Will it help my home’s resale value?', 'Buyers like clean water and protected appliances. A documented, professionally installed system is a plus on a listing.'],
 ];
 
 function Col({ title, items }: { title: string; items: [string, string][] }) {

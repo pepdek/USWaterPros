@@ -18,6 +18,7 @@ describe('traffic classification', () => {
     expect(classifyTouch('https://uswaterpros.com/', 'https://gemini.google.com/').traffic_source).toBe('ai');
     expect(classifyTouch('https://uswaterpros.com/', 'https://www.google.com/').traffic_source).toBe('organic');
     expect(classifyTouch('https://uswaterpros.com/?gclid=abc', 'https://chatgpt.com/').traffic_source).toBe('paid');
+    expect(classifyTouch('https://uswaterpros.com/?utm_source=google&utm_medium=cpc&utm_campaign=c&utm_content=ad-a', '').content).toBe('ad-a');
     expect(classifyTouch('https://uswaterpros.com/?utm_source=news&utm_medium=email', '').traffic_source).toBe('email');
     expect(classifyTouch('https://uswaterpros.com/', 'https://someblog.com/post').traffic_source).toBe('referral');
     expect(classifyTouch('https://uswaterpros.com/', '').traffic_source).toBe('direct');
