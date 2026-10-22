@@ -52,7 +52,7 @@ export default function WhyUs() {
         <div>
           <p className="inline-block rounded-md bg-[#e6f6f9] px-3 py-1.5 font-mono text-[12px] font-medium uppercase tracking-[.14em]" style={{ color: TEAL_ON_WHITE }}>Why US Water Pros</p>
           <h2 id="why-h" className="mt-5 !font-sans !font-bold !tracking-[-0.045em] !text-ink !leading-[1.06] !text-[clamp(2.2rem,1.3rem+3.2vw,3.6rem)] [text-wrap:balance]">
-            The <span style={{ color: TEAL_ON_WHITE }}>smarter way</span> to uncontaminated water
+            The <span style={{ color: TEAL_ON_WHITE }}>smarter way</span> to cleaner water
           </h2>
           <div className="mt-12 hidden md:block"><Phone /></div>
         </div>
