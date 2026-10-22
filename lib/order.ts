@@ -13,7 +13,7 @@ export function bookableRange(from = new Date()) {
   const max = new Date(d); max.setDate(max.getDate() + 60);
   return { min, max };
 }
-export const isoDay = (d: Date) => d.toISOString().slice(0, 10);
+export const isoDay = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; // local calendar day, not UTC
 
 export function validOrder(o: Partial<OrderInput>, now = new Date()): o is OrderInput {
   if (!TIERS.some((t) => t.id === o.tier)) return false;

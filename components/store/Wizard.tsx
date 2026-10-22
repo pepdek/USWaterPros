@@ -239,7 +239,7 @@ export default function Wizard() {
           </>)}
 
           {step === 'schedule' && (<>
-            <Bot>Locked in at {formatUSD(t.price)}. When should the plumber come? It takes about 4 hours, and we text you to confirm the time.</Bot>
+            <Bot>Locked in at {formatUSD(t.price)}. When should the plumber come? It takes about 4 hours. {STORE.confirm}</Bot>
             <Card>
               <div className="flex flex-col gap-3">
                 <div className="grid grid-cols-2 gap-3">

@@ -2,7 +2,7 @@
 // Never pass names, emails, phone numbers or ZIP codes here: only anonymous answers and categories.
 import { STORED_EVENTS, type EventName, type EventParameter } from './config';
 
-export type Touch = { source: string; medium: string; campaign: string; traffic_source: string; landing_page: string; referrer: string; gclid?: string; ts: string };
+export type Touch = { source: string; medium: string; campaign: string; content: string; traffic_source: string; landing_page: string; referrer: string; gclid?: string; ts: string };
 export type Attribution = { first: Touch; last: Touch; lead_source: string };
 
 const SEARCH = /(^|\.)(google|bing|yahoo|duckduckgo|ecosia|brave)\./i;
@@ -19,7 +19,7 @@ export function classifyTouch(url: string, referrer: string, ownHost = 'uswaterp
   let refHost = '';
   try { refHost = referrer ? new URL(referrer).hostname : ''; } catch { /* bad referrer */ }
   if (refHost.endsWith(ownHost)) refHost = '';
-  const utmSource = q.get('utm_source') || '', utmMedium = (q.get('utm_medium') || '').toLowerCase(), campaign = q.get('utm_campaign') || '';
+  const utmSource = q.get('utm_source') || '', utmMedium = (q.get('utm_medium') || '').toLowerCase(), campaign = q.get('utm_campaign') || '', content = q.get('utm_content') || '';
   const gclid = q.get('gclid') || q.get('gbraid') || q.get('wbraid') || q.get('fbclid') || undefined;
   let traffic_source = 'direct', source = utmSource || refHost || 'direct', medium = utmMedium || (refHost ? 'referral' : 'none');
   if (gclid || /^(cpc|ppc|paid|paidsearch|paid_social|display)/.test(utmMedium)) { traffic_source = 'paid'; if (!utmMedium) medium = 'cpc'; if (!utmSource && refHost) source = refHost.replace(/^www\./, ''); }
@@ -30,7 +30,7 @@ export function classifyTouch(url: string, referrer: string, ownHost = 'uswaterp
   else if (refHost && SEARCH.test(refHost)) { traffic_source = 'organic'; medium = 'organic'; }
   else if (refHost) traffic_source = 'referral';
   source = source.replace(/^www\./, '');
-  return { source, medium, campaign, traffic_source, landing_page: u.pathname, referrer: refHost, gclid };
+  return { source, medium, campaign, content, traffic_source, landing_page: u.pathname, referrer: refHost, gclid };
 }
 
 export const leadSourceLabel = (t: Pick<Touch, 'source' | 'medium' | 'campaign'>) =>

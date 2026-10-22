@@ -39,7 +39,7 @@ export const metadata: Metadata = {
  *  Source of every click is tagged with data-track-source, so GA4 and the CRM "Site activity" tab show which tool produced it.
  */
 
-const TRUST = ['Licensed technicians', 'Better Business Bureau', 'Certified Contractors', 'Serving Washington since 2009', '100% satisfaction guarantee'];
+const TRUST = ['Licensed local plumbers', 'Locally owned in Tacoma', '100% refundable'];
 
 export default function ToolsPage() {
   return (
@@ -83,7 +83,7 @@ export default function ToolsPage() {
           {[
             ['shield', 'We know Tacoma water.', 'We’ve tested it. We’ve filtered it. Tacoma, Puyallup, Bremerton, Port Orchard, Olympia, Lacey and Gig Harbor each have their own supply, their own pipes and their own problems.'],
             ['drop', 'Go further than the legal minimum.', 'Your utility’s job is to meet legal limits. Ours is to protect your family’s health at the tap, with a system built for your exact water.'],
-            ['badge', 'Stop overpaying for generic solutions.', 'One fixed price, installed by licensed technicians, tax included. No countdown timers, no hidden fees.'],
+            ['badge', 'Stop overpaying for generic solutions.', 'One fixed price, installed by licensed local plumbers, tax included. No countdown timers, no hidden fees.'],
           ].map(([icon, h, t]) => (
             <div key={h} className="flex flex-col gap-3">
               <span className="w-12 h-12 rounded-2xl bg-white text-navy flex items-center justify-center shadow-sm"><Icon name={icon} size={26} /></span>
@@ -96,7 +96,7 @@ export default function ToolsPage() {
       <section className="mx-auto max-w-6xl px-4 py-16 md:py-20 grid gap-10 md:gap-14 md:grid-cols-2 md:items-start">
         <div>
           <h2>Get your instant price</h2>
-          <p>Whatever the tools showed you, the next step is a short, free call with a licensed technician. We’ll look at your water, answer your questions and give you a fixed price.</p>
+          <p>Whatever the tools showed you, the next step is a short, free call with a licensed local plumber. We’ll look at your water, answer your questions and give you a fixed price.</p>
         </div>
         <div id="quote" className="scroll-mt-24"><LeadForm service="whole-home-water-filtration" /></div>
       </section>

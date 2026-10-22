@@ -20,16 +20,16 @@ export type Service = {
   stat: string; cite: SourceId[];
 };
 
-// Company facts supplied by the owner: ~4h install, 1-year warranty, since 2009. Prices live in lib/pricing.ts.
+// Company facts supplied by the owner: ~4h install, 1-year warranty. Prices live in lib/pricing.ts.
 
 export const SERVICES: Service[] = [
   {
     kind: 'flagship',
     slug: 'whole-home-water-filtration', image: '/images/services/whole-home-water-filtration.webp', imageAlt: 'Whole-home water filtration system with carbon filter tank and brine tank', name: 'Whole-Home Water Filtration', icon: 'house',
-    blurb: 'Clean, great-tasting water from every tap. Protect your pipes and appliances.',
+    blurb: 'Clean-tasting water from every tap, with the price up front.',
     h1: 'Whole-Home Water Filtration to Remove Chlorine, Sediment & Odors',
-    sub: `${PRICING.headline} Licensed technicians, about 4 hours.`,
-    summary: `${PRICING.headline} Softening, carbon filtration and a reverse osmosis drinking faucet. Licensed technicians in Washington.`,
+    sub: `${PRICING.headline} Licensed local plumbers, about 4 hours.`,
+    summary: `${PRICING.headline} Softening, carbon filtration and a reverse osmosis drinking faucet. Licensed local plumbers in Washington.`,
     problems: [
       { icon: 'drop', problem: 'Chlorine taste and smell in your tap water', solution: 'Carbon filtration media reduces chlorine taste and odor', outcome: 'Fresh, clean water from every tap' },
       { icon: 'layers', problem: 'Sediment and particles clouding your water', solution: 'A 5-micron pre-filter catches particles before they enter your home', outcome: 'Clearer water and longer appliance life' },
@@ -65,14 +65,14 @@ export const SERVICES: Service[] = [
   {
     kind: 'component',
     slug: 'water-softening-systems', image: '/images/services/water-softening-systems.webp', imageAlt: 'Water softener system with brine tank and reverse osmosis drinking water faucet', name: 'Water Softening Systems', icon: 'drop',
-    blurb: 'Say goodbye to limescale, spotty dishes and dry skin. Softer water, lower bills.',
+    blurb: 'Less scale on fixtures and glass, and fewer water spots, for homes where the water is hard.',
     h1: 'Why Your Whole-Home System Includes Water Softening',
     sub: 'Softening is always included in our whole-home system. Here is why.',
-    summary: 'Water softening for scale, spotty dishes and dry skin, installed as part of our whole-home water system. Licensed technicians in Washington.',
+    summary: 'Water softening for scale and water spots, installed as part of our whole-home water system. Licensed local plumbers in Washington.',
     problems: [
       { icon: 'building', problem: 'White scale on faucets, showerheads and glass', solution: 'Ion exchange resin removes the calcium and magnesium that cause scale', outcome: 'Fixtures stay clean and cleaning gets easier' },
       { icon: 'glass', problem: 'Spotty dishes and cloudy glassware', solution: 'Softened water rinses clean without mineral spots', outcome: 'Dishes and glass come out clear' },
-      { icon: 'house', problem: 'Dry skin and hair, and scale inside appliances', solution: 'Softer water lathers better and stops scale from building up inside heaters', outcome: 'Softer feeling skin and longer appliance life' },
+      { icon: 'house', problem: 'Scale building up inside appliances', solution: 'Softened water stops scale from building up inside heaters and appliances', outcome: 'Less scale where you can’t see it' },
     ],
     treats: [
       { icon: 'drop', item: 'Hard water minerals (calcium, magnesium)', how: 'Ion exchange resin' },
@@ -98,15 +98,15 @@ export const SERVICES: Service[] = [
     lean: true,
     uaq: ['Isn’t softened water bad for you?', 'Not for most people. Softened water does not taste salty, and the system is sized so it does not. Softening adds a small amount of sodium, so if you are on a strict low-sodium diet, ask your doctor. Our whole-home system also includes a reverse osmosis faucet for drinking water.'],
     related: ['whole-home-water-filtration', 'well-water-treatment', 'carbon-filtration'],
-    stat: 'An estimated 85% of US homes have hard water.', cite: ['usgs', 'wqa'],
+    stat: 'Hardness varies by water system and by well. Your utility’s annual report is the best place to check it.', cite: ['usgs'],
   },
   {
     kind: 'well',
     slug: 'well-water-treatment', image: '/images/services/well-water-treatment.webp', imageAlt: 'Well water treatment system with softener tank, carbon tank and chemical feed', name: 'Well Water Treatment', icon: 'flask',
-    blurb: 'Fix iron staining, sulfur smell and sediment. Safe, clean well water without boiling.',
+    blurb: 'Iron staining, sulfur smell and sediment. It starts with a water test.',
     h1: 'Well Water Treatment to Fix Iron Staining, Sulfur Smell & Sediment',
     sub: `Start with a ${formatUSD(PRICING.wellTest.basic.displayPrice)} water test, credited toward your install.`,
-    summary: `Well water testing from ${formatUSD(PRICING.wellTest.basic.displayPrice)}, credited toward your install if you purchase. Fixes iron staining, sulfur smell and sediment. Licensed technicians in Washington.`,
+    summary: `Well water testing from ${formatUSD(PRICING.wellTest.basic.displayPrice)}, credited toward your install if you purchase. Fixes iron staining, sulfur smell and sediment. Licensed local plumbers in Washington.`,
     problems: [
       { icon: 'building', problem: 'Orange or brown iron staining on fixtures and laundry', solution: 'An iron filter removes iron and manganese before it reaches your plumbing', outcome: 'Fixtures and laundry stop staining' },
       { icon: 'flask', problem: 'A rotten-egg sulfur smell', solution: 'Oxidizing filter media treats the hydrogen sulfide that causes it', outcome: 'No more smell from taps and showers' },
@@ -143,7 +143,7 @@ export const SERVICES: Service[] = [
   {
     kind: 'addon', addon: 'ro',
     slug: 'reverse-osmosis-systems', image: '/images/services/reverse-osmosis-systems.webp', imageAlt: 'Five-stage reverse osmosis drinking water system with storage tank', name: 'Reverse Osmosis Systems', icon: 'glass',
-    blurb: 'Bottled-water quality from your kitchen faucet. Stop buying jugs.',
+    blurb: 'Better-tasting drinking water from your kitchen faucet. Less bottled water to buy.',
     h1: 'Reverse Osmosis Drinking Water Systems for Clean, Great-Tasting Water',
     sub: `Premium drinking water on tap. Add-on: ${roPrice} ${TAX_NOTE}.`,
     summary: `Reverse osmosis drinking water add-on for ${roPrice}, ${TAX_NOTE}, on the same visit as your whole-home system. Reduces lead, PFAS and chlorine taste.`,
@@ -213,10 +213,10 @@ export const SERVICES: Service[] = [
   {
     kind: 'city',
     slug: 'city-water-treatment', image: '/images/services/city-water-treatment.webp', imageAlt: 'City water treatment system with softener tank, carbon tank and brine tank', name: 'City Water Treatment', icon: 'building',
-    blurb: 'Municipal water is safe to drink, not always good to drink. Upgrade it at home.',
+    blurb: 'City water is treated and tested. Make it taste better at home.',
     h1: 'City Water Treatment to Reduce Chlorine & Improve Taste',
     sub: 'Better tasting city water. Installed as part of our whole-home water system.',
-    summary: 'City water treatment for chlorine taste and older plumbing, installed as part of our whole-home water system. Licensed technicians in Washington.',
+    summary: 'City water treatment for chlorine taste and older plumbing, installed as part of our whole-home water system. Licensed local plumbers in Washington.',
     problems: [
       { icon: 'drop', problem: 'Chlorine taste and smell from municipal water', solution: 'Catalytic carbon reduces chlorine and chloramine taste and odor', outcome: 'Water that tastes like water' },
       { icon: 'shield', problem: 'Older pipes, and lead in older homes', solution: 'A point-of-use reverse osmosis tap reduces lead at the kitchen sink', outcome: 'Safer drinking and cooking water' },
@@ -247,15 +247,11 @@ export const SERVICES: Service[] = [
   },
 ];
 
-export const PILLS = [
-  { label: 'Top Rated Services', href: '#services' },
-  ...SERVICES.map((s) => ({ label: s.name, href: `/services/${s.slug}` })),
-  { label: 'Emergency Repair', href: PHONE_HREF },
-];
+export const PILLS = SERVICES.map((s) => ({ label: s.name, href: `/services/${s.slug}` }));
 
 // "Questions people rarely ask but should": three shared entries plus one per service (service.uaq).
 export const UAQ_SHARED: [string, string][] = [
-  ['Why should I trust a local operator over a national brand?', 'National brands sell volume and rotate technicians. We have been here since 2009, and our reputation in Pierce, Kitsap and Thurston Counties depends on how your water turns out, not on a quarterly earnings call.'],
+  ['Why should I trust a local operator over a national brand?', 'National brands sell volume and rotate technicians. We are locally owned in Tacoma, and our reputation in Pierce, Kitsap and Thurston Counties depends on how your water turns out, not on a quarterly earnings call.'],
   ['Will you try to upsell me into a system I don’t need?', 'We test first and recommend only what your water needs. A customer we served well who refers a neighbor is worth far more to us than one we oversold. The whole-home system is a fixed price, so there is no quote game to play.'],
   ['What if I’m skeptical that I need water treatment at all?', 'Good. You should be. Text us and we will look at your water. If the results show it is fine, we will tell you it is fine. Not every home needs treatment, and if yours does, you will see why in the data and the decision is yours.'],
 ];
@@ -265,5 +261,5 @@ export const MAINTENANCE: [string, string][] = [
   ['What’s the annual maintenance cost?', `About ${formatUSD(ANNUAL_FILTERS.low)}–${ANNUAL_FILTERS.high} a year for filter cartridges. No technician visits are needed for routine maintenance.`],
   ['How long does the system last?', 'Typically 8–10 years for whole-home systems. Some components, like resin, regenerate. Others are replaced.'],
   ['What if something breaks?', 'Your warranty covers manufacturing defects. We repair or replace at no cost within the first year.'],
-  ['Can I service it myself?', 'Filter changes are simple, and we give you guidance. Major repairs are done by a licensed technician.'],
+  ['Can I service it myself?', 'Filter changes are simple, and we give you guidance. Major repairs are done by a licensed local plumber.'],
 ];

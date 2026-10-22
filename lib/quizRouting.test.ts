@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { PRICING } from './pricing';
 import { addonsTotal, hasWell, quoteTotal, routeQuiz, type QuizAnswers } from './quizRouting';
 
-const CONCERNS = ['Hard water spots', 'Chlorine taste', 'Dry skin', 'Scale buildup', 'Private well water', 'Multiple problems'];
+const CONCERNS = ['Hard water spots', 'Chlorine taste', 'Scale buildup', 'Private well water', 'Multiple problems'];
 const SOURCES = [undefined, 'municipal', 'private_well'] as const;
 const PATHS = [undefined, 'Softness', 'Purity', 'Both'];
 
@@ -14,7 +14,7 @@ for (let mask = 1; mask < 1 << CONCERNS.length; mask++) {
 }
 
 describe('routeQuiz', () => {
-  it('covers every answer combination', () => { expect(combos.length).toBe(63 * 3 * 4); });
+  it('covers every answer combination', () => { expect(combos.length).toBe((2 ** CONCERNS.length - 1) * 3 * 4); });
 
   it('routes every combination to the flagship or the well-test path, nothing else', () => {
     for (const a of combos) expect(['whole-home', 'well-test']).toContain(routeQuiz(a).path);
@@ -50,7 +50,7 @@ describe('routeQuiz', () => {
   });
 
   it('add-on totals come from PRICING', () => {
-    const r = routeQuiz({ waterConcerns: ['Dry skin'], servicePathA: 'Softness' });
+    const r = routeQuiz({ waterConcerns: ['Scale buildup'], servicePathA: 'Softness' });
     expect(addonsTotal(['ro', 'carbon'])).toBe(699 + 949);
     expect(quoteTotal(r, [])).toBe(2999);
     expect(quoteTotal(r, ['ro'])).toBe(2999 + 699);

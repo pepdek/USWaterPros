@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
   } : null;
   const quizService = quiz?.wellTest || /well/i.test(rec) ? 'well-water-treatment' : 'whole-home-water-filtration';
   // Lead source: whitelist the attribution object so only campaign/referrer fields are stored.
-  const touch = (t: unknown) => { const o = (t ?? {}) as Record<string, unknown>; const g = (k: string) => (typeof o[k] === 'string' ? (o[k] as string).slice(0, 120) : ''); return { source: g('source'), medium: g('medium'), campaign: g('campaign'), traffic_source: g('traffic_source'), landing_page: g('landing_page'), referrer: g('referrer'), gclid: g('gclid') ? 'yes' : '' }; };
+  const touch = (t: unknown) => { const o = (t ?? {}) as Record<string, unknown>; const g = (k: string) => (typeof o[k] === 'string' ? (o[k] as string).slice(0, 120) : ''); return { source: g('source'), medium: g('medium'), campaign: g('campaign'), content: g('content'), traffic_source: g('traffic_source'), landing_page: g('landing_page'), referrer: g('referrer'), gclid: g('gclid') ? 'yes' : '' }; };
   const at = (b.attribution ?? {}) as Record<string, unknown>;
   const attribution = b.attribution ? { first: touch(at.first), last: touch(at.last), lead_source: typeof at.lead_source === 'string' ? at.lead_source.slice(0, 120) : '' } : null;
   const lead = {

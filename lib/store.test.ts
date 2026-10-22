@@ -64,3 +64,26 @@ describe('average total price line on /pricing', () => {
     expect(avgTotal('iron-free')).toBe(3875);   // 3,799 x 1.02   = 3,874.98
   });
 });
+
+import { confirmDeadline } from './confirmBy';
+import { alertFor } from './unconfirmed';
+describe('confirmation promise: end of the next business day, Pacific', () => {
+  const at = (s: string) => confirmDeadline(new Date(s)).toISOString();
+  it('Monday payment is due Tuesday 23:59 Pacific', () => expect(at('2026-10-26T17:00:00Z')).toBe('2026-10-28T06:59:59.000Z')); // Mon 10am PDT -> Tue 11:59pm PDT
+  it('Friday, Saturday and Sunday payments are due Monday', () => {
+    expect(at('2026-10-30T20:00:00Z')).toBe('2026-11-03T07:59:59.000Z'); // Fri -> Mon Nov 2 11:59pm PST (after DST ends Nov 1)
+    expect(at('2026-10-31T20:00:00Z')).toBe('2026-11-03T07:59:59.000Z');
+    expect(at('2026-11-01T20:00:00Z')).toBe('2026-11-03T07:59:59.000Z');
+  });
+});
+describe('unconfirmed paid order alerts', () => {
+  const base = { id: 'x', name: 'A', phone: '1', order_details: { confirm_by: '2026-10-28T06:59:59.000Z' } as Record<string, unknown> };
+  it('is quiet early, warns 6h before the deadline, then flags overdue once', () => {
+    expect(alertFor(base, new Date('2026-10-27T20:00:00Z'))).toBeNull();
+    expect(alertFor(base, new Date('2026-10-28T02:00:00Z'))).toBe('warn');
+    expect(alertFor({ ...base, order_details: { ...base.order_details, warned_at: 't' } }, new Date('2026-10-28T02:00:00Z'))).toBeNull();
+    expect(alertFor(base, new Date('2026-10-28T08:00:00Z'))).toBe('overdue');
+    expect(alertFor({ ...base, order_details: { ...base.order_details, overdue_alerted_at: 't' } }, new Date('2026-10-28T08:00:00Z'))).toBeNull();
+  });
+  it('never alerts once confirmed', () => expect(alertFor({ ...base, order_details: { ...base.order_details, confirmed_at: 't' } }, new Date('2026-10-28T08:00:00Z'))).toBeNull());
+});

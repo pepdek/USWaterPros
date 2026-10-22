@@ -123,3 +123,19 @@ describe('diagnose', () => {
     expect(diagnose(['scale', 'taste', 'old', 'repair']).tier).toBe('wasting');
   });
 });
+
+describe('Fife and Tacoma data rules', () => {
+  it('Fife ZIP uses the Fife report, with its own numbers and source and year', () => {
+    const p = profileForZip('98424')!;
+    expect(p.id).toBe('fife');
+    expect(p.measured!.source).toContain('2025');
+    expect(p.measured!.rows.find((r) => r.name.startsWith('Total trihalomethanes'))!.result).toContain('18.74 ppb');
+    expect(p.measured!.rows.find((r) => r.name.startsWith('Haloacetic'))!.result).toContain('9.77 ppb');
+  });
+  it('never states a Tacoma hardness number', () => {
+    const tacoma = profileForZip('98402')!;
+    const text = JSON.stringify([tacoma.rows, tacoma.supply, tacoma.measured]);
+    expect(text).not.toMatch(/hardness[^"]{0,80}\d+\s*(ppm|mg\/l|grains)/i);
+    expect(tacoma.measured!.rows.some((r) => /hardness/i.test(r.name))).toBe(false);
+  });
+});

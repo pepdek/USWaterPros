@@ -29,7 +29,7 @@ export default function Terms() {
         <li>When you order a system on the site, you pay the full price up front by card. Payments are processed by Stripe. We never see or store your card number.</li>
         <li>Every order is 100% refundable.</li>
         <li>Prices are installed prices and include tax. If your home needs something different, such as long pipe runs, a crawlspace, or buried lines, we tell you before you commit.</li>
-        <li>We confirm your install time by text. A licensed local plumber performs the installation.</li>
+        <li>We text you to confirm your install time by the end of the next business day. A licensed local plumber performs the installation.</li>
       </ul>
       {/* VERIFY: exact refund terms (window, how refunds are issued, anything excluded) for the Terms page */}
 

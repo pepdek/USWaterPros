@@ -6,7 +6,7 @@ export default function StatStrip() {
     [`${STORE.from}+`, 'Starting price'],
     [`${STORE.installHours} hrs`, 'Install time'],
     ['100%', 'Refundable'],
-    [<><span aria-hidden>★ </span>{STORE.since}</>, 'Local since'],
+    ['Tacoma', 'Locally owned'],
   ];
   return (
     <dl className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-6 border-t border-white/25 pt-7">

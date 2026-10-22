@@ -46,7 +46,7 @@ export default function CityPage({ params }: Props) {
             <Breadcrumb items={[{ label: 'Service Areas', href: '/#areas' }, { label: c.name }]} />
             <h1 className="!text-white">{h1}</h1>
             <p className="mt-4 text-white md:text-lg">{c.headline}</p>
-            <p className="mt-4 text-white text-sm font-semibold">✓ Licensed technicians | ✓ Same-day quotes | ✓ Local since 2009</p>
+            <p className="mt-4 text-white text-sm font-semibold">✓ Licensed local plumbers | ✓ Instant online price | ✓ Locally owned in Tacoma</p>
           </div>
           <div id="quote-form"><LeadForm service="whole-home-water-filtration" /></div>
         </div>
@@ -88,8 +88,8 @@ export default function CityPage({ params }: Props) {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-10 grid gap-8 md:gap-10 md:grid-cols-3 text-center">
-        <div className="card p-8 md:p-10"><h3 className="text-xl">Local since 2009</h3><p className="mt-1">Fixed, upfront pricing.</p></div>
-        <div className="card p-8 md:p-10"><h3 className="text-xl">Licensed technicians</h3><p className="mt-1">Installed with care and tested.</p></div>
+        <div className="card p-8 md:p-10"><h3 className="text-xl">Locally owned in Tacoma</h3><p className="mt-1">Fixed, upfront pricing.</p></div>
+        <div className="card p-8 md:p-10"><h3 className="text-xl">Licensed local plumbers</h3><p className="mt-1">Installed with care and tested.</p></div>
         <div className="card p-8 md:p-10"><h3 className="text-xl">Free consultation</h3><p className="mt-1">No obligation, no pressure.</p></div>
       </section>
 
@@ -115,7 +115,7 @@ export default function CityPage({ params }: Props) {
             <a href="#report" className="btn btn-cta">Get Free Water Report</a>
             <a href={PHONE_HREF} className="btn btn-secondary">Call {PHONE}</a>
           </div>
-          <p className="mt-4 text-sm text-white/80">Licensed technicians · Same-day quotes</p>
+          <p className="mt-4 text-sm text-white/80">Licensed local plumbers · Instant online price</p>
         </div>
       </section>
       <StickyBottomCTA />

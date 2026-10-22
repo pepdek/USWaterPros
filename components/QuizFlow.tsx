@@ -17,13 +17,12 @@ type Q = { key: keyof Responses; title: string; options: Opt[]; cards?: boolean 
 
 // ---- Content -----------------------------------------------------------------------------
 const CONCERNS: Opt[] = [
-  ['Hard water spots', undefined, '💧'], ['Chlorine taste', undefined, '👃'], ['Dry skin', undefined, '🧴'],
+  ['Hard water spots', undefined, '💧'], ['Chlorine taste', undefined, '👃'],
   ['Scale buildup', undefined, '⚙️'], ['Private well water', undefined, '🌊'], ['Multiple problems', undefined, '🔧'],
 ];
 const BENEFIT: Record<string, string> = {
   'Hard water spots': 'No more hard water spots',
   'Chlorine taste': 'Clean, filtered water from every tap',
-  'Dry skin': 'Softer water for skin and hair',
   'Scale buildup': 'Protects appliances from scale buildup',
   'Private well water': 'Professional testing and custom filtration',
 };
@@ -37,7 +36,7 @@ const QUESTIONS: Partial<Record<Screen, Q>> = {
     ['Private well', 'We’ll build a custom approach', '🏞️'], ['Municipal', 'City or utility water', '🏙️'],
   ] },
   q4a: { key: 'servicePathA', title: 'If you could fix ONE thing about your whole-home water, what matters most?', options: [
-    ['Softness', 'Scale, spots and dry skin', '🧴'], ['Purity', 'Taste and drinking water', '💎'], ['Both', 'Softer and cleaner', '⚡'],
+    ['Softness', 'Scale and water spots', '🧴'], ['Purity', 'Taste and drinking water', '💎'], ['Both', 'Softer and cleaner', '⚡'],
   ] },
   q5: { key: 'householdSize', title: 'How many people live in your home?', options: [['1-2', undefined, '👫'], ['3-4', undefined, '👨‍👩‍👧'], ['5-6', undefined, '👨‍👩‍👧‍👦'], ['7+', undefined, '🏡']] },
   q6: { key: 'budgetComfort', title: 'When it comes to home improvements like water systems, how do you usually decide?', cards: true, options: [
@@ -49,7 +48,7 @@ const QUESTIONS: Partial<Record<Screen, Q>> = {
 const INTERSTITIAL: Partial<Record<Screen, [icon: string, title: string, body: string]>> = {
   i1: ['📍', 'Here’s why we ask', 'Water is different from neighborhood to neighborhood. Knowing where you live helps us recommend what actually fits your water.'],
   i2: ['🤝', 'You’re not alone', 'These are common concerns, and they’re fixable. A few more questions and we’ll point you to the right system.'],
-  i3: ['✅', 'Why people choose us', 'Licensed technicians. Installation in about 4 hours. A 1-year warranty. Serving Washington homeowners since 2009.'],
+  i3: ['✅', 'Why people choose us', 'Licensed local plumbers. Installation in about 4 hours. A 1-year warranty. Locally owned in Tacoma.'],
 };
 
 // ---- Logic -------------------------------------------------------------------------------

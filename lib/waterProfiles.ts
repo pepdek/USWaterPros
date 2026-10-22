@@ -17,7 +17,7 @@ const LEAD: ProfileRow = { label: 'Older plumbing (lead)', level: 'Possible', no
 const tacoma: Profile = {
   id: 'tacoma', area: 'Tacoma', supply: 'Most of Tacoma is served by Tacoma Water. The Green River provides most of the water, and Tacoma Water’s 24 groundwater wells supply about 4 to 11 percent of demand in a typical year.',
   rows: [
-    { label: 'Hardness', level: 'Less likely', note: 'Surface-sourced water is generally soft. Your utility’s report has the exact figure.' },
+    { label: 'Hardness', level: 'Check yours', note: 'Tacoma Water’s annual report does not list a hardness figure. A quick home test shows yours.' },
     { label: 'Chlorine and disinfectant', level: 'Common', note: 'City water is disinfected. Chlorine taste and smell are the most common complaints.' },
     { label: 'Iron and manganese', level: 'Less likely', note: 'Not typical on the city supply. More likely on private wells.' },
     LEAD,
@@ -151,6 +151,26 @@ const gigHarbor: Profile = {
     ],
   },
 };
+const fife: Profile = {
+  id: 'fife', area: 'Fife', supply: 'The City of Fife buys its water from Tacoma Water and delivers it through its own pipes.',
+  rows: [
+    { label: 'Hardness', level: 'Check yours', note: 'Tacoma Water’s annual report does not list a hardness figure. A quick home test shows yours.' },
+    { label: 'Chlorine and disinfectant', level: 'Common', note: 'City water is disinfected. Chlorine taste and smell are the most common complaints.' },
+    { label: 'Iron and manganese', level: 'Less likely', note: 'Not typical on the Tacoma Water supply. More likely on private wells.' },
+    LEAD,
+    { label: 'Private wells', level: 'Check yours', note: 'The Tacoma-Pierce County Health Department advises testing for bacteria yearly and nitrate every three years.' },
+  ],
+  links: [['Tacoma Public Utilities water quality', 'https://www.mytpu.org/about-tpu/services/water/water-quality/'], EPA_CCR],
+  // Source: City of Fife 2025 Water Quality Report (figures supplied by the owner). VERIFY: direct link to the PDF.
+  measured: {
+    utility: 'City of Fife', source: 'City of Fife 2025 Water Quality Report', year: 2025, url: 'https://www.cityoffife.org/',
+    note: 'Fife buys its water from Tacoma Water. These are the results from Fife’s own distribution system.',
+    rows: [
+      { name: 'Total trihalomethanes (disinfection byproducts)', pct: 23, result: '18.74 ppb average', limit: '80 ppb', note: 'Formed when chlorine meets organic matter in water.' },
+      { name: 'Haloacetic acids (disinfection byproducts)', pct: 16, result: '9.77 ppb average', limit: '60 ppb' },
+    ],
+  },
+};
 const olympia: Profile = {
   id: 'olympia', area: 'Olympia', supply: 'The City of Olympia’s water is all groundwater. In 2025 the McAllister Wellfield supplied 75% and two Allison Springs wells supplied 25%. Some addresses are on other water systems or private wells.',
   rows: [
@@ -225,15 +245,16 @@ const thurston: Profile = { ...COUNTY, links: [['Thurston County drinking water 
 const kitsap: Profile = { ...COUNTY, links: [['Kitsap Public Health District: private wells', 'https://www.kitsappublichealth.org/dwos/privatewells'], EPA_CCR], id: 'kitsap', area: 'Kitsap County', supply: 'Kitsap County relies heavily on groundwater, through water districts, city systems and thousands of private wells.' };
 const pierce: Profile = { ...COUNTY, links: [['Tacoma-Pierce County Health Department: individual wells', 'https://tpchd.org/homes/drinking-water/individual-wells/'], EPA_CCR], id: 'pierce', area: 'Pierce County', supply: 'Pierce County water comes from surface sources, groundwater and private wells. Tacoma Water draws mainly on the Green River; many other systems use groundwater or springs.' };
 
-export const PROFILES = { tacoma, puyallup, bremerton, portOrchard, olympia, lacey, gigHarbor, kitsap, pierce, thurston };
+export const PROFILES = { tacoma, puyallup, bremerton, portOrchard, olympia, lacey, gigHarbor, fife, kitsap, pierce, thurston };
 // One ZIP to try for each area we serve (fills the field when a visitor taps the area).
-export const AREA_SHORTCUTS: [string, string][] = [['Tacoma', '98402'], ['Puyallup', '98371'], ['Bremerton', '98310'], ['Port Orchard', '98366'], ['Olympia', '98501'], ['Lacey', '98503'], ['Gig Harbor', '98335']];
+export const AREA_SHORTCUTS: [string, string][] = [['Tacoma', '98402'], ['Fife', '98424'], ['Puyallup', '98371'], ['Bremerton', '98310'], ['Port Orchard', '98366'], ['Olympia', '98501'], ['Lacey', '98503'], ['Gig Harbor', '98335']];
 
 const inList = (zip: string, list: string[]) => list.includes(zip);
 
 // Map a ZIP to its area profile. Unknown ZIPs return null (the caller shows a general next step).
 export function profileForZip(zip: string): Profile | null {
   if (!/^\d{5}$/.test(zip)) return null;
+  if (zip === '98424') return fife; // Fife buys from Tacoma Water; its own report applies
   if (/^984\d\d$/.test(zip)) return tacoma;
   if (inList(zip, ['98371', '98372', '98373', '98374', '98375', '98390', '98391'])) return puyallup;
   if (inList(zip, ['98310', '98311', '98312', '98337'])) return bremerton;
