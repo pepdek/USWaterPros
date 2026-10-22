@@ -13,6 +13,7 @@ import { PILLS, SERVICES } from '@/lib/services';
 import type { Metadata } from 'next';
 import ProductCards from '@/components/store/ProductCards';
 import PlatformBanner from '@/components/store/PlatformBanner';
+import WhyUs from '@/components/store/WhyUs';
 import { TIERS, formatUSD } from '@/lib/pricing';
 import { STORE } from '@/lib/store';
 import Link from 'next/link';
@@ -44,6 +45,7 @@ export default function Home() {
           <ProductCards variant="teaser" />
         </div>
       </section>
+      <WhyUs />
       <BenefitsScroll />
       <ProblemBlocks />
       <div className="bg-ice py-16 md:py-20"><section id="services" className="mx-auto max-w-6xl px-4 scroll-mt-24"><h2 className="text-center">Our Solution</h2><p className="text-center mt-2">We created US Water Pros.</p><div className="mt-8 grid gap-8 md:gap-10 md:grid-cols-3">
