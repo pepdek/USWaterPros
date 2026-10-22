@@ -57,7 +57,7 @@ export default function Pricing() {
         </div>
       </section>
 
-      <Band><ProductCards id="cards" caption="Starting price · install + tax included" showAvg /></Band>
+      <Band><ProductCards id="cards" caption="All-in starting price" showAvg /></Band>
 
       <Band tone="ice">
         <div className="grid gap-6 md:gap-8 md:grid-cols-2 md:items-stretch">
