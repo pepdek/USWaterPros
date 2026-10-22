@@ -48,3 +48,13 @@ describe('stripe webhook signature', () => {
     expect(verifyStripeSignature(body, '', secret, t * 1000)).toBe(false);
   });
 });
+
+import { AVG_UPLIFT, avgTotal } from './pricing';
+describe('average total price line on /pricing', () => {
+  it('adds 1%, 1.25% and 2% to the starting price, rounded to the dollar', () => {
+    expect(AVG_UPLIFT).toEqual({ essential: 0.01, complete: 0.0125, 'iron-free': 0.02 });
+    expect(avgTotal('essential')).toBe(2827);   // 2,799 x 1.01   = 2,826.99
+    expect(avgTotal('complete')).toBe(3036);    // 2,999 x 1.0125 = 3,036.49
+    expect(avgTotal('iron-free')).toBe(3875);   // 3,799 x 1.02   = 3,874.98
+  });
+});

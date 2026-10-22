@@ -5,6 +5,7 @@ import WizardButton from '@/components/store/WizardButton';
 import { Band, FaqGroup } from '@/components/service';
 import { PRICING, TIERS, TAX_NOTE, formatUSD } from '@/lib/pricing';
 import { STORE } from '@/lib/store';
+import { TEAL_ON_WHITE } from '@/lib/contrast';
 import { SERVED_AREA } from '@/lib/serviceArea';
 import { breadcrumbsLd } from '@/lib/ld';
 
@@ -23,6 +24,27 @@ const FAQ: [string, string][] = [
   ['Do you serve my area?', `We install in ${SERVED_AREA} for now. Enter your ZIP and we tell you right away. If we're not there yet, you join the waitlist.`],
 ];
 
+const INCLUDED = [
+  'Installation by a licensed local plumber',
+  'About 4 hours on site',
+  'The system you choose, installed and ready to use',
+  'Whole-home carbon filtration',
+  'A reverse osmosis drinking-water faucet at your kitchen sink',
+  'Testing before the plumber leaves',
+  'A walkthrough of how everything works',
+  "A 1-year warranty, and tax is already in the price",
+];
+
+const EXCLUDED = [
+  'Homes that need something different, such as long pipe runs, a crawlspace, or buried lines. We tell you before you commit.',
+  `Yearly filter changes, about ${STORE.annualFilters} a year`,
+  'A water softener, if you choose Essential (it comes with Complete and Iron-Free)',
+  'The iron and manganese filter, unless you choose Iron-Free',
+  `Private wells. We start those with a water test, from ${formatUSD(PRICING.wellTest.basic.displayPrice)}, credited toward an install`,
+  'Service after the 1-year warranty ends',
+  'Repairs to your existing plumbing, fixtures or appliances',
+];
+
 export default function Pricing() {
   const ld = breadcrumbsLd([['Home', 'https://uswaterpros.com/'], ['Pricing', 'https://uswaterpros.com/pricing']]);
   const offers = { '@context': 'https://schema.org', '@type': 'ItemList', itemListElement: TIERS.map((t, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Product', name: `${t.name} whole-home water system`, offers: { '@type': 'Offer', price: t.price, priceCurrency: 'USD' } } })) };
@@ -35,27 +57,25 @@ export default function Pricing() {
         </div>
       </section>
 
-      <Band><ProductCards id="cards" /></Band>
+      <Band><ProductCards id="cards" caption="Starting price · install + tax included" showAvg /></Band>
 
       <Band tone="ice">
-        <div className="max-w-3xl">
-          <h2>What&apos;s included in every system</h2>
-          <ul className="mt-6 flex flex-col gap-3">
-            {['Installation by a licensed local plumber', 'About 4 hours on site', 'Testing before the plumber leaves', 'A walkthrough of how everything works', '1-year warranty'].map((i) => <li key={i} className="flex gap-3"><span className="text-aqua" aria-hidden>✓</span><span>{i}</span></li>)}
-          </ul>
-          <p className="mt-6">{formatUSD(PRICING.flagship.displayPrice)} Complete is the one most homes choose.</p>
-        </div>
-      </Band>
-
-      <Band>
-        <div className="max-w-3xl">
-          <h2>What&apos;s not in the quote</h2>
-          <ul className="mt-6 flex flex-col gap-3">
-            <li className="flex gap-3"><span className="text-aqua" aria-hidden>•</span><span>Homes that need something different, such as long pipe runs, a crawlspace, or buried lines. We tell you before you commit.</span></li>
-            <li className="flex gap-3"><span className="text-aqua" aria-hidden>•</span><span>Yearly filter changes, about {STORE.annualFilters} a year.</span></li>
-            <li className="flex gap-3"><span className="text-aqua" aria-hidden>•</span><span>Private wells. We start those with a water test, from {formatUSD(PRICING.wellTest.basic.displayPrice)}, credited toward an install.</span></li>
-          </ul>
-          {/* VERIFY: complete list of what is outside the fixed price (permits, drain or electrical work, extra plumbing) */}
+        <div className="grid gap-6 md:gap-8 md:grid-cols-2 md:items-stretch">
+          <section aria-labelledby="inc-h" className="rounded-3xl bg-white border border-black/[.08] p-7 md:p-9">
+            <h2 id="inc-h" className="!font-sans !font-bold !tracking-[-0.03em] !text-[28px]">What&apos;s included</h2>
+            <p className="!py-0 mt-1 font-light text-[#3f4a4f]">In every system, at the price you see.</p>
+            <ul className="mt-6 flex flex-col gap-3.5">
+              {INCLUDED.map((i) => <li key={i} className="flex gap-3"><span className="mt-0.5 shrink-0 font-bold" style={{ color: TEAL_ON_WHITE }} aria-hidden>✓</span><span className="font-light"><span className="sr-only">Included: </span>{i}</span></li>)}
+            </ul>
+          </section>
+          <section aria-labelledby="exc-h" className="rounded-3xl bg-white border border-black/[.08] p-7 md:p-9">
+            <h2 id="exc-h" className="!font-sans !font-bold !tracking-[-0.03em] !text-[28px]">What&apos;s not included</h2>
+            <p className="!py-0 mt-1 font-light text-[#3f4a4f]">So there are no surprises after you pay.</p>
+            <ul className="mt-6 flex flex-col gap-3.5">
+              {EXCLUDED.map((i) => <li key={i} className="flex gap-3"><span className="mt-0.5 shrink-0 font-bold text-[#8a3b12]" aria-hidden>–</span><span className="font-light"><span className="sr-only">Not included: </span>{i}</span></li>)}
+            </ul>
+            {/* VERIFY: the last "not included" item (repairs to existing plumbing, fixtures or appliances) and the full list of what is outside the fixed price (permits, drain or electrical work, extra plumbing). */}
+          </section>
         </div>
       </Band>
 

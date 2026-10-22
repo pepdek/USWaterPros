@@ -45,6 +45,10 @@ export const TIERS: { id: TierId; name: string; subhead: string; price: number; 
     fit: 'Orange or brown staining and a metallic taste.',
   },
 ];
+// "Avg total price" shown on /pricing: the starting price plus a small allowance (1%, 1.25%, 2%) for the extras some homes need.
+// This is a formula, not an average of real orders. VERIFY and replace with real averages once there are completed installs.
+export const AVG_UPLIFT: Record<TierId, number> = { essential: 0.01, complete: 0.0125, 'iron-free': 0.02 };
+export const avgTotal = (id: TierId): number => { const t = TIERS.find((x) => x.id === id)!; return Math.round(t.price * (1 + AVG_UPLIFT[id])); };
 export const tierById = (id: string) => TIERS.find((t) => t.id === id);
 
 export const formatUSD = (n: number): string => '$' + Math.round(n).toLocaleString('en-US');
