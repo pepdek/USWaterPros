@@ -3,14 +3,14 @@ import LegalPage from '@/components/LegalPage';
 import { PHONE, PHONE_HREF } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'Terms of Use | US Water Pros',
-  description: 'Terms for using uswaterpros.com, our free tools and our text messaging program.',
+  title: 'Terms of Service | US Water Pros',
+  description: 'Terms for using uswaterpros.com, ordering a system, our free tools and our text messaging program.',
   alternates: { canonical: '/terms' },
 };
 
 export default function Terms() {
   return (
-    <LegalPage title="Terms of Use" updated="October 9, 2026">
+    <LegalPage title="Terms of Service" updated="October 22, 2026">
       <p>These terms apply to your use of uswaterpros.com (the “site”), operated by US Water Pros (“we,” “us”). By using the site you agree to them. If you do not agree, please do not use the site. Our <a href="/privacy" className="underline">Privacy Policy</a> explains how we handle your information.</p>
 
       <h2>What the site is</h2>
@@ -31,7 +31,7 @@ export default function Terms() {
         <li>Prices are installed prices and include tax. If your home needs something different, such as long pipe runs, a crawlspace, or buried lines, we tell you before you commit.</li>
         <li>We text you to confirm your install time by the end of the next business day. A licensed local plumber performs the installation.</li>
       </ul>
-      {/* VERIFY: exact refund terms (window, how refunds are issued, anything excluded) for the Terms page */}
+      {/* VERIFY: the legal entity that sells and installs (US Water Pros vs Water Treatment Systems Inc), and exact refund terms (window, how refunds are issued, anything excluded) for the Terms page */}
 
       <h2>Services and agreements</h2>
       <p>Installation and service work is covered by a separate written quote or agreement, including its warranty terms. If anything on this site conflicts with that agreement, the agreement controls.</p>
@@ -68,7 +68,7 @@ export default function Terms() {
       <p>We may update these terms. The date at the top shows the latest version. Continued use of the site after a change means you accept it.</p>
 
       <h2>Contact</h2>
-      <p>US Water Pros, serving Pierce, Kitsap and Thurston Counties, WA. Call or text <a href={PHONE_HREF} className="underline">{PHONE}</a>.</p>
+      <p>Questions about an order or these terms? Visit our <a href="/support" className="underline">support page</a>, or call or text <a href={PHONE_HREF} className="underline">{PHONE}</a>.</p>
     </LegalPage>
   );
 }

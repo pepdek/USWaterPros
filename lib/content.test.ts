@@ -21,7 +21,6 @@ const BANNED: [RegExp, string][] = [
   [/better business bureau|certified contractors/i, 'undocumented credential'],
   [/emergency repair/i, 'unconfirmed service'],
   [/dry skin|softer skin|skin and hair/i, 'skin / hair claim'],
-  [/done in a day|installed in about a day|install in about a day/i, 'install time is about 4 hours'],
   [/aggregateRating|ratingValue/i, 'rating schema'],
 ];
 

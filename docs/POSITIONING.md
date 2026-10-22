@@ -2,7 +2,7 @@
 
 Owner decisions applied:
 1. Old direct-response branch dropped. Recoverable from the tag `archive/cro-pass-oct-2026`.
-2. "Done in a day" is now "Installed in about 4 hours".
+2. REVERSED on Oct 22: the headline is "{pain} gone. Done in a day." Target: clean water within 24 hours of purchase; the install itself is typically 3.5-4 hours. Note the wizard still books installs at least 3 days out (lib/order.ts) until you decide otherwise.
 3. After payment: text confirmation by the end of the next business day (Pacific, Mon-Fri, holidays not modelled). An email/text alert goes to the owner when an order is paid, again 6 hours before the deadline if still unconfirmed, and once more when overdue. Hourly job: `netlify/functions/unconfirmed-orders.mts`. In the CRM, "Mark confirmed" on the lead stops the alerts.
 4. Softener stays in the includes list; no hard-water benefit copy in cards, the hero or Tacoma pages. A soft-water package comes later.
 5. City data kept with source and year; Fife added (98424); Tacoma never gets a hardness number (its report does not list one).

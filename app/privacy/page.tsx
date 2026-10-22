@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Privacy() {
   return (
-    <LegalPage title="Privacy Policy" updated="October 9, 2026">
+    <LegalPage title="Privacy Policy" updated="October 22, 2026">
       <p>US Water Pros (“we,” “us”) provides water filtration and treatment services in Washington State. This policy explains what we collect on uswaterpros.com, how we use it, and the choices you have. We do not sell your personal information.</p>
 
       <h2>What we collect</h2>
@@ -26,6 +26,8 @@ export default function Privacy() {
         <li>Pages viewed, buttons clicked, quiz and tool progress, and device, browser and approximate location data</li>
         <li>How you reached us: the referring site and campaign details such as UTM parameters or ad click identifiers</li>
         <li>Cookies and similar browser storage (see below)</li>
+        <li>When you submit a form or place an order, your IP address and browser type, which we keep to prevent spam and fraud</li>
+        <li>Your approximate city, worked out from your IP address as the page loads, so we can show a headline that fits your area. We do not store it</li>
       </ul>
 
       <h2>How we use it</h2>
@@ -68,6 +70,7 @@ export default function Privacy() {
       <p>We may update this policy. The date at the top shows the latest version, and material changes will be posted on this page.</p>
 
       <h2>Contact</h2>
+      <p>For help with an order, see our <a href="/support" className="underline">support page</a>.</p>
       <p>US Water Pros, serving Pierce, Kitsap and Thurston Counties, WA. Call or text <a href={PHONE_HREF} className="underline">{PHONE}</a>.</p>
     </LegalPage>
   );
