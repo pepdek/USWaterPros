@@ -25,3 +25,10 @@ When Stripe confirms payment the lead becomes: paid = true, quote and final amou
 - Whether Essential and Iron-Free are also "tax included" (assumed same as Complete).
 - Platform banner under the hero (`lib/store.ts`): "background-checked local plumbers across 50 states" and "Water Treatment Systems Inc" are owner-supplied and need backing (how plumbers are background-checked, and who the legal entity is). The Terms and Privacy pages still say "US Water Pros" only.
 - Prices of Essential and Iron-Free live only in `lib/pricing.ts`. Unit costs and margins are deliberately not in the repo.
+
+## Card benefit bullets: where they come from
+Mechanism-level facts only. No percentages, because the numbers I found came from sellers, not independent sources.
+- Carbon: reduces chlorine taste and smell (adsorption). Seller and manufacturer pages agree; no independent test data found. VERIFY the exact media and its NSF/ANSI 42 listing.
+- Softener: less scale on fixtures and glass, fewer spots, and scale slows water heaters and shortens their life. Mechanism is consistent across plumbing and softener sources; the savings and lifespan percentages are unverified seller claims, so they are not used.
+- Iron and manganese: reddish-brown stains on sinks, fixtures and laundry, and a bitter, metallic taste. Sources: NDSU Extension (wq1030), Virginia Tech Extension (442-656), UGA Extension (C858). The EPA limits (0.3 and 0.05 mg/L) are aesthetic, not health. Treatment depends on the form of the metal, so a water test comes first.
+- RO faucet: reduces many dissolved contaminants; better-tasting drinking water. Lead and PFAS reduction claims need the NSF/ANSI 58 certificate (see REVIEW items), so they are not on the cards.

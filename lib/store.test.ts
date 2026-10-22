@@ -15,6 +15,12 @@ describe('tiers', () => {
   it('every card has four bullets and no cost or margin text', () => {
     for (const t of TIERS) { expect(t.bullets).toHaveLength(4); expect(JSON.stringify(t)).not.toMatch(/cost|margin|1,490|1,670|2,380/i); }
   });
+  it('bullets are benefits: 3 to 6 words each, and no bullet repeats across the three systems', () => {
+    const all = TIERS.flatMap((t) => t.bullets);
+    for (const b of all) { const n = b.trim().split(/\s+/).length; expect(n, b).toBeGreaterThanOrEqual(3); expect(n, b).toBeLessThanOrEqual(6); }
+    expect(new Set(all).size).toBe(all.length);
+    expect(all.join(' ')).not.toMatch(/licensed|warranty|plumber/i);
+  });
 });
 
 describe('service area (Pierce County only)', () => {

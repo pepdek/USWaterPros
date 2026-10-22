@@ -53,11 +53,11 @@ export default function Pricing() {
       <section className="bg-surge">
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
           <h1 className="!text-white">Pricing</h1>
-          <p className="!text-white mt-4 md:text-lg max-w-2xl">Three systems. One installed price for each, {TAX_NOTE}. Pick one, choose your install day, and pay up front. {STORE.refund}</p>
+          <p className="!text-white mt-4 md:text-lg max-w-2xl">Three systems. One price for each, {TAX_NOTE}. Pick one, choose your install day, and pay up front. {STORE.refund}</p>
         </div>
       </section>
 
-      <Band><ProductCards id="cards" caption="All-in starting price" showAvg /></Band>
+      <Band><ProductCards id="cards" caption="All-in starting price" showAvg /><p className="!py-0 -mt-10 text-center text-[14px] font-light text-[#3f4a4f]">Benefits depend on your home&apos;s water. We tell you what to expect before you pay.</p></Band>
 
       <Band tone="ice">
         <div className="grid gap-6 md:gap-8 md:grid-cols-2 md:items-stretch">

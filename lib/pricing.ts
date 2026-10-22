@@ -31,17 +31,17 @@ export type TierId = 'essential' | 'complete' | 'iron-free';
 export const TIERS: { id: TierId; name: string; subhead: string; price: number; icon: string; popular?: boolean; bullets: string[]; fit: string }[] = [
   {
     id: 'essential', name: 'Essential', subhead: 'Clean taste from every single tap', price: 2799, icon: 'drop',
-    bullets: ['Whole-home carbon filtration', 'Reverse osmosis drinking-water faucet', 'Installed by a licensed local plumber', '1-year warranty'],
+    bullets: ['Less chlorine taste and smell', 'Fresher water from every tap', 'Cleaner-tasting drinking water', 'Less bottled water to buy'],
     fit: 'Soft-water city homes that mainly want taste and chlorine gone.',
   },
   {
     id: 'complete', name: 'Complete', subhead: 'The right fit for most homes', price: PRICING.flagship.displayPrice, icon: 'shield', popular: true,
-    bullets: ['Water softener plus whole-home carbon', 'Reverse osmosis drinking-water faucet', 'Installed by a licensed local plumber', '1-year warranty'],
+    bullets: ['All of Essential’s benefits', 'Less scale on fixtures, glass', 'Fewer water spots on dishes', 'Helps protect your water heater'],
     fit: 'The default for most homes.',
   },
   {
     id: 'iron-free', name: 'Iron-Free', subhead: 'Complete, plus iron and stain removal', price: 3799, icon: 'layers',
-    bullets: ['Everything in Complete', 'Iron and manganese filter', 'Installed by a licensed local plumber', '1-year warranty'],
+    bullets: ['All of Complete’s benefits', 'Fewer orange-brown stains', 'Less bitter metallic taste', 'Brighter laundry, cleaner sinks'],
     fit: 'Orange or brown staining and a metallic taste.',
   },
 ];
