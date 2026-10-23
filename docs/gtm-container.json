@@ -551,7 +551,7 @@
               {
                 "type": "TEMPLATE",
                 "key": "arg1",
-                "value": "^(tool_start|tool_result|quiz_start|quiz_question_answered|quiz_completed|quiz_abandoned|recommendation_viewed|quiz_addon_toggled|quiz_cta_click|lead_form_submission|water_report_submit|form_start|form_abandon|phone_click|sms_click|schedule_cta_click|service_page_viewed|city_page_viewed|location_page_viewed|scroll_depth|faq_open|outbound_click|exit_intent_shown)$"
+                "value": "^(tool_start|tool_result|quiz_start|quiz_question_answered|quiz_completed|quiz_abandoned|recommendation_viewed|quiz_addon_toggled|quiz_cta_click|lead_form_submission|water_report_submit|form_start|form_abandon|phone_click|sms_click|schedule_cta_click|service_page_viewed|city_page_viewed|location_page_viewed|scroll_depth|faq_open|outbound_click|exit_intent_shown|page_404)$"
               }
             ]
           }

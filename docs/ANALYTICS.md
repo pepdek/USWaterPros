@@ -56,7 +56,7 @@ On the first page view the site records first-touch (kept 90 days) and last-touc
 
 ## GTM container (already published)
 
-Imported from `docs/gtm-container.json`. Version 2 "Analytics v1" added the tags; Version 3 "Analytics v2: tool events" (current, 2026-10-09) added tool_start and tool_result:
+Imported from `docs/gtm-container.json`. Version 2 "Analytics v1" added the tags; Version 3 "Analytics v2: tool events" (2026-10-09) added tool_start and tool_result. Version 4 "Analytics v3: page_404 event" (current, 2026-10-23) added `page_404` (the custom 404 page) to the trigger regex:
 
 - Tag **GA4 - Google tag (G-FN39ESKXNW)**, fires on All Pages (sends page views, including single-page navigation).
 - Tag **GA4 - Event - all US Water Pros events**, fires on trigger **CE - US Water Pros events** (a custom-event regex of the names above) and forwards the event name and 27 data layer parameters.
