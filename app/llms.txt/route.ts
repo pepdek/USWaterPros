@@ -7,6 +7,7 @@ import { PHONE } from '@/lib/constants';
 const BASE = 'https://uswaterpros.com';
 
 // llms.txt: a plain-text map of the site for AI assistants. Built from the same data as the pages, so prices never drift.
+export const dynamic = 'force-static'; // Next 15+ no longer caches GET handlers by default
 export function GET() {
   const body = `# US Water Pros
 

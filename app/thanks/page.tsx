@@ -3,8 +3,8 @@ import { PHONE, PHONE_HREF, SMS_HREF } from '@/lib/constants';
 
 export const metadata: Metadata = { title: 'Thanks | US Water Pros', robots: { index: false, follow: false } };
 
-export default function Thanks({ searchParams }: { searchParams: { paid?: string } }) {
-  const paid = searchParams.paid === '1';
+export default async function Thanks({ searchParams }: { searchParams: Promise<{ paid?: string }> }) {
+  const paid = (await searchParams).paid === '1';
   return (
     <main className="mx-auto max-w-3xl px-4 py-16 md:py-24">
       <h1>{paid ? 'Payment received. Thank you.' : 'Thank you.'}</h1>

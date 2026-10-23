@@ -10,22 +10,22 @@ import { CITIES, EWG_URL, UPDATED } from '@/lib/cities';
 import { PHONE, PHONE_HREF } from '@/lib/constants';
 import { LOCATIONS } from '@/lib/locations';
 
-type Props = { params: { city: string } };
+type Props = { params: Promise<{ city: string }> };
 const find = (c: string) => CITIES.find((x) => x.slug === c);
 const path = (slug: string) => `/services/whole-home-water-filtration-${slug}`;
 
 export const generateStaticParams = () => CITIES.map((c) => ({ city: c.slug }));
 
-export function generateMetadata({ params }: Props): Metadata {
-  const c = find(params.city);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const c = find((await params).city);
   if (!c) return {};
   const title = `Whole-Home Water Filtration Services in ${c.name}, WA`;
   const description = `Professional water filtration installation in ${c.name}, WA. Licensed local plumbers, instant online price. Get your free water quality report today.`;
   return { title, description, alternates: { canonical: path(c.slug) }, openGraph: { title, description } };
 }
 
-export default function CityPage({ params }: Props) {
-  const c = find(params.city);
+export default async function CityPage({ params }: Props) {
+  const c = find((await params).city);
   if (!c) notFound();
   const county = LOCATIONS.find((l) => l.slug === c.county)!;
   const h1 = `Whole-Home Water Filtration Services in ${c.name}, WA`;

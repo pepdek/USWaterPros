@@ -11,22 +11,22 @@ import { CITIES } from '@/lib/cities';
 import { LOCATIONS } from '@/lib/locations';
 import { SERVICES } from '@/lib/services';
 
-type Props = { params: { slug: string } };
+type Props = { params: Promise<{ slug: string }> };
 const find = (slug: string) => LOCATIONS.find((l) => l.slug === slug);
 const id = (s: string) => s.toLowerCase().replace(/\s+/g, '-');
 const CORE = ['whole-home-water-filtration', 'water-softening-systems', 'well-water-treatment', 'reverse-osmosis-systems'];
 
 export const generateStaticParams = () => LOCATIONS.map((l) => ({ slug: l.slug }));
 
-export function generateMetadata({ params }: Props): Metadata {
-  const l = find(params.slug);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const l = find((await params).slug);
   if (!l) return {};
   const title = `Water Treatment in ${l.name}, ${l.state} | US Water Pros`;
   return { title, description: l.blurb, alternates: { canonical: `/locations/${l.slug}` }, openGraph: { title, description: l.blurb } };
 }
 
-export default function LocationPage({ params }: Props) {
-  const l = find(params.slug);
+export default async function LocationPage({ params }: Props) {
+  const l = find((await params).slug);
   if (!l) notFound();
   const schema = {
     '@context': 'https://schema.org', '@type': 'FAQPage',
