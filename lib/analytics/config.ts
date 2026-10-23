@@ -13,7 +13,7 @@ export const EVENTS = [
   // Calls, texts and CTAs
   'phone_click', 'sms_click', 'schedule_cta_click',
   // Engagement
-  'service_page_viewed', 'city_page_viewed', 'location_page_viewed', 'scroll_depth', 'faq_open', 'outbound_click', 'exit_intent_shown',
+  'service_page_viewed', 'city_page_viewed', 'location_page_viewed', 'scroll_depth', 'faq_open', 'outbound_click', 'exit_intent_shown', 'page_404',
 ] as const;
 export type EventName = (typeof EVENTS)[number];
 
@@ -23,7 +23,7 @@ export const CONVERSION_EVENTS: EventName[] = ['quiz_completed', 'lead_form_subm
 // Also copied to Supabase (site_events) so the CRM dashboard can report them next to GA4.
 export const STORED_EVENTS: EventName[] = [
   'tool_result', 'quiz_cta_click', 'water_report_submit', 'form_start', 'form_abandon', 'phone_click', 'sms_click', 'schedule_cta_click',
-  'exit_intent_shown', 'faq_open', 'outbound_click',
+  'exit_intent_shown', 'faq_open', 'outbound_click', 'page_404',
 ];
 
 export type EventParameter = {
