@@ -1,3 +1,5 @@
+const { loadRows, toNextRedirects } = require('./lib/redirectMap');
+
 // Baseline security headers. No Content-Security-Policy yet: Google Tag Manager needs one written and tested in report-only mode first.
 const securityHeaders = [
   { key: 'X-Content-Type-Options', value: 'nosniff' },
@@ -10,12 +12,9 @@ const securityHeaders = [
 module.exports = {
   reactStrictMode: true,
   async headers() { return [{ source: '/:path*', headers: securityHeaders }]; },
-  async redirects() {
-    return [
-      ['whole-home-filtration', 'whole-home-water-filtration'], ['water-softening', 'water-softening-systems'],
-      ['well-water-testing', 'well-water-treatment'], ['reverse-osmosis', 'reverse-osmosis-systems'],
-    ].map(([a, b]) => ({ source: `/services/${a}`, destination: `/services/${b}`, permanent: true }));
-  },
+  // Redirects come from docs/redirect-inventory.csv (add a row, no code change). Next forwards the query string, so utm parameters survive.
+  // Trailing slashes are handled once by Next (308 to the slashless URL); www and http are handled once by Netlify.
+  async redirects() { return toNextRedirects(loadRows()); },
   // pretty city URLs -> /cities/[city]
   async rewrites() {
     return { beforeFiles: [
