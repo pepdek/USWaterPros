@@ -1,5 +1,6 @@
 'use client';
 import { useMemo, useRef, useState } from 'react';
+import Honeypot, { hp } from '@/components/Honeypot';
 import WizardButton from '@/components/store/WizardButton';
 import Icon from '@/components/Icon';
 import { getAttribution, trackEvent } from '@/lib/analytics/track';
@@ -28,7 +29,7 @@ export default function SavingsDiagnostic() {
     setStatus('sending');
     const res = await fetch('/api/leads', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: c.name, email: c.email, phone: c.phone, service_type: 'water-diagnostic', page_source: '/tools', attribution: getAttribution(),
+      body: JSON.stringify({ ...hp(), name: c.name, email: c.email, phone: c.phone, service_type: 'water-diagnostic', page_source: '/tools', attribution: getAttribution(),
         tool: { name: 'diagnostic', score: d.score, waste: d.waste, tier: d.tier, answers: yes, sms_opt_in: c.sms } }),
     }).then((x) => x.json() as Promise<{ success: boolean }>).catch(() => null);
     if (!res?.success) return setStatus('error');
@@ -72,6 +73,7 @@ export default function SavingsDiagnostic() {
             <p className="rounded-3xl bg-ice border border-cyan p-6 !p-6 font-semibold text-navy">Thanks, {c.name.split(' ')[0]}. We saved your result, and a specialist will follow up with your savings breakdown.</p>
           ) : (
             <form onSubmit={save} noValidate className="grid gap-4 sm:grid-cols-2">
+<Honeypot />
               <p className="sm:col-span-2 font-semibold !p-0">Get your savings breakdown by email or text</p>
               <label className="flex flex-col gap-1"><span className="text-sm font-semibold">First name</span><input className="field" autoComplete="given-name" value={c.name} onChange={(e) => setC({ ...c, name: e.target.value })} />{touched && errs.name && <span className="text-coral text-xs">Enter your name</span>}</label>
               <label className="flex flex-col gap-1"><span className="text-sm font-semibold">Email</span><input className="field" type="email" autoComplete="email" value={c.email} onChange={(e) => setC({ ...c, email: e.target.value })} />{touched && errs.email && <span className="text-coral text-xs">Enter a valid email</span>}</label>

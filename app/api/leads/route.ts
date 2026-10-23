@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { badOrigin, rateLimited } from '@/lib/guard';
 import { supabase } from '@/lib/supabase';
 import { SERVICES } from '@/lib/services';
 import { formatUSD, tierById } from '@/lib/pricing';
 import { isServedZip } from '@/lib/serviceArea';
 
 export async function POST(req: NextRequest) {
+  if (badOrigin(req)) return NextResponse.json({ success: false }, { status: 403 });
+  if (rateLimited(req, 'leads', 8)) return NextResponse.json({ success: false, error: 'slow_down' }, { status: 429 });
   const b = await req.json().catch(() => ({}));
+  if (b.website) return NextResponse.json({ ok: true, success: true, leadId: crypto.randomUUID() }); // honeypot: pretend it worked
   const s = (k: string, n: number) => String(b[k] ?? '').trim().slice(0, n);
   // Quiz submissions (from /quiz) carry a recommendation; they have no ZIP and store the full answers.
   const isQuiz = typeof b.recommendedSystem === 'string';

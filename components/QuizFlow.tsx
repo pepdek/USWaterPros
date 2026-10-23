@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import Honeypot, { hp } from '@/components/Honeypot';
 import { citySlug, getAttribution, trackEvent } from '@/lib/analytics/track';
 import { PRICING, TAX_NOTE, formatUSD, wellCredit } from '@/lib/pricing';
 import { addonsTotal, hasWell, isWellProspect, quoteTotal, routeQuiz, type AddonId, type WellTestId } from '@/lib/quizRouting';
@@ -171,7 +172,7 @@ export default function QuizFlow() {
     const res = await fetch('/api/leads', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        ...r, waterSourceType: hasWell(r as Responses) ? r.waterSourceType ?? null : null, showedWellWaterBranch: hasWell(r as Responses),
+        ...hp(), ...r, waterSourceType: hasWell(r as Responses) ? r.waterSourceType ?? null : null, showedWellWaterBranch: hasWell(r as Responses),
         tags: rec.path === 'well-test' ? [rec.tag] : [],
         recommendedSystem: systemName, recommendedPrice: systemPrice, urgencyPriority: urgency(r.timeline),
         addons: rec.path === 'whole-home' ? selected : [], wellTest: rec.path === 'well-test' ? PRICING.wellTest[wellTest].id : null,
@@ -246,6 +247,7 @@ export default function QuizFlow() {
 
       {screen === 'result' && (
         <form onSubmit={submit} noValidate className="flex flex-col gap-4">
+<Honeypot />
           <h2>{headline(r.currentSituation)}</h2>
           <div className="card p-8 md:p-10 !transform-none border-t-4 border-[var(--color-primary)]">
             {rec.path === 'whole-home' ? (

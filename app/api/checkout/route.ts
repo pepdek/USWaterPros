@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { badOrigin, rateLimited } from '@/lib/guard';
 import { tierById } from '@/lib/pricing';
 
 // Starts a Stripe Checkout payment for one tier. The price comes from lib/pricing.ts, never from the browser.
 // Without STRIPE_SECRET_KEY it answers { payment: 'pending' } and the wizard says we will text a secure payment link.
 export async function POST(req: NextRequest) {
+  if (badOrigin(req)) return NextResponse.json({ ok: false }, { status: 403 });
+  if (rateLimited(req, 'checkout', 20)) return NextResponse.json({ ok: false }, { status: 429 });
   const b = await req.json().catch(() => ({}));
   const tier = tierById(String(b.tier ?? ''));
   const leadId = String(b.leadId ?? '').slice(0, 40);
@@ -11,7 +14,7 @@ export async function POST(req: NextRequest) {
   const key = process.env.STRIPE_SECRET_KEY;
   if (!key) return NextResponse.json({ ok: true, payment: 'pending' });
 
-  const origin = process.env.NEXT_PUBLIC_SITE_URL || req.nextUrl.origin;
+  const origin = process.env.NEXT_PUBLIC_SITE_URL || 'https://uswaterpros.com'; // never trust the Host header for where Stripe sends the customer back
   const f = new URLSearchParams({
     mode: 'payment',
     'line_items[0][quantity]': '1',

@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import Honeypot, { hp } from '@/components/Honeypot';
 import Icon from '@/components/Icon';
 import { WIZARD_EVENT, type WizardDetail } from './openWizard';
 import { SERVED_AREA, isServedZip } from '@/lib/serviceArea';
@@ -16,7 +17,7 @@ const STEP_NO: Record<Step, number> = { zip: 1, waitlist: 1, 'waitlist-done': 1,
 const FORM = 'wiz-form';
 
 const post = (url: string, body: unknown) =>
-  fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }).then(async (r) => ({ ok: r.ok, json: await r.json().catch(() => ({})) })).catch(() => ({ ok: false, json: {} as Record<string, unknown> }));
+  fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...hp(), ...(body as object) }) }).then(async (r) => ({ ok: r.ok, json: await r.json().catch(() => ({})) })).catch(() => ({ ok: false, json: {} as Record<string, unknown> }));
 
 const Bot = ({ children }: { children: React.ReactNode }) => (
   <div className="wiz-in flex items-start gap-3">
@@ -180,6 +181,7 @@ export default function Wizard() {
 
         {/* Designed to fit without scrolling. The scroll below only ever appears on very small screens, large text sizes or zoom. */}
         <form id={FORM} onSubmit={onSubmit} noValidate className="flex-1 min-h-0 overflow-y-auto overscroll-contain px-5 pt-2 pb-4 flex flex-col gap-3">
+<Honeypot />
           {said.map((s) => <Me key={s}>{s}</Me>)}
 
           {step === 'zip' && (<>

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { badOrigin, rateLimited } from '@/lib/guard';
 import { supabase } from '@/lib/supabase';
 
 const SCREENS = new Set(['q1', 'q2', 'i1', 'q3', 'i2', 'qwell', 'q4a', 'q5', 'q6', 'i3', 'q7', 'q8', 'result', 'submitted']);
@@ -6,6 +7,8 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 // Saves the quiz answers so far, one row per step. Anonymous: no name, email or phone is ever accepted here.
 export async function POST(req: NextRequest) {
+  if (badOrigin(req)) return NextResponse.json({ ok: false }, { status: 403 });
+  if (rateLimited(req, 'quiz-event', 200)) return NextResponse.json({ ok: false }, { status: 429 });
   const b = await req.json().catch(() => ({}));
   if (!UUID.test(String(b.sessionId)) || !SCREENS.has(b.screen)) return NextResponse.json({ ok: false }, { status: 400 });
   const a = (b.answers ?? {}) as Record<string, unknown>;

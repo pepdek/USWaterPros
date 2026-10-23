@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { badOrigin, rateLimited } from '@/lib/guard';
 import { supabase } from '@/lib/supabase';
 import { STORED_EVENTS } from '@/lib/analytics/config';
 
@@ -6,6 +7,8 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 // Stores key site interactions (calls, texts, CTA clicks...) for the CRM dashboard. Anonymous: no contact details accepted.
 export async function POST(req: NextRequest) {
+  if (badOrigin(req)) return NextResponse.json({ ok: false }, { status: 403 });
+  if (rateLimited(req, 'site-event', 300)) return NextResponse.json({ ok: false }, { status: 429 });
   const b = await req.json().catch(() => ({}));
   if (!(STORED_EVENTS as string[]).includes(b.event)) return NextResponse.json({ ok: false }, { status: 400 });
   const t = (v: unknown, n: number) => (typeof v === 'string' && v ? v.slice(0, n) : null);

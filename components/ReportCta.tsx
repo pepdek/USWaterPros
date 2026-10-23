@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Honeypot, { hp } from '@/components/Honeypot';
 import { getAttribution, trackEvent } from '@/lib/analytics/track';
 import WaterReport from './WaterReport';
 
@@ -18,7 +19,7 @@ export default function ReportCta() {
     setErr('');
     const res = await fetch('/api/leads', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, zip_code: zip, service_type: 'water-report', page_source: location.pathname, attribution: getAttribution() }),
+      body: JSON.stringify({ ...hp(), email, zip_code: zip, service_type: 'water-report', page_source: location.pathname, attribution: getAttribution() }),
     }).catch(() => null);
     if (!res?.ok) return setErr('Something went wrong. Please try again.');
     trackEvent('water_report_submit', { form_type: 'water_report_block' });
@@ -33,6 +34,7 @@ export default function ReportCta() {
           <div className="mt-6 text-left"><WaterReport zip={done} /></div>
         ) : (
           <form onSubmit={go} noValidate className="mt-6 flex flex-col sm:flex-row gap-3">
+<Honeypot />
             <input className="field flex-1" type="email" placeholder="Email" aria-label="Email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
             <input className="field sm:w-36" inputMode="numeric" maxLength={5} placeholder="ZIP code" aria-label="ZIP code" autoComplete="postal-code" value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, ''))} />
             <button className="btn btn-cta">Go</button>
