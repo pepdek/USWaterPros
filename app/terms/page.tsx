@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import LegalPage from '@/components/LegalPage';
-import { PHONE, PHONE_HREF } from '@/lib/constants';
+import { PHONE, PHONE_HREF, SUPPORT_EMAIL } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: 'Terms of Service | US Water Pros',
@@ -68,7 +68,7 @@ export default function Terms() {
       <p>We may update these terms. The date at the top shows the latest version. Continued use of the site after a change means you accept it.</p>
 
       <h2>Contact</h2>
-      <p>Questions about an order or these terms? Visit our <a href="/support" className="underline">support page</a>, or call or text <a href={PHONE_HREF} className="underline">{PHONE}</a>.</p>
+      <p>Questions about an order or these terms? Visit our <a href="/support" className="underline">support page</a>, or call or text <a href={PHONE_HREF} className="underline">{PHONE}</a>, or email <a href={`mailto:${SUPPORT_EMAIL}`} className="underline">{SUPPORT_EMAIL}</a>.</p>
     </LegalPage>
   );
 }

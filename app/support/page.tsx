@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import SupportCards, { type SupportCard } from '@/components/support/SupportCards';
-import { PHONE, PHONE_HREF, SMS_HREF } from '@/lib/constants';
+import { PHONE, PHONE_HREF, SMS_HREF, SUPPORT_EMAIL } from '@/lib/constants';
 import { STORE } from '@/lib/store';
 
 export const metadata: Metadata = {
@@ -40,6 +40,7 @@ export default function Support() {
           <h1 className="!font-sans !font-bold !tracking-[-0.045em] !text-white mt-4 !leading-[1.05] !text-[clamp(2.3rem,1.3rem+3.4vw,3.7rem)] [text-wrap:balance]">How can we help?</h1>
           <p className="!text-white mt-4 md:text-lg font-light max-w-2xl">Search the topics below, or text us. Texting is fastest.</p>
           <div className="mt-7 flex flex-wrap gap-3"><a href={SMS_HREF} className="btn btn-cta">Text us</a><a href={PHONE_HREF} className="btn btn-secondary">Call {PHONE}</a></div>
+          <p className="!text-white/85 mt-4 !py-0 font-light">Prefer email? <a href={`mailto:${SUPPORT_EMAIL}`} className="!text-white underline font-medium">{SUPPORT_EMAIL}</a></p>
         </div>
       </section>
 
