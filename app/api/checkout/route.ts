@@ -25,6 +25,7 @@ export async function POST(req: NextRequest) {
     'payment_intent_data[metadata][lead_id]': leadId,
     success_url: `${origin}/thanks?paid=1`, cancel_url: `${origin}/pricing`,
   });
+  if (process.env.STRIPE_ALLOW_PROMO === '1') f.set('allow_promotion_codes', 'true'); // off unless set; used for the free live test order
   const email = String(b.email ?? '').trim();
   if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) f.set('customer_email', email);
   const res = await fetch('https://api.stripe.com/v1/checkout/sessions', { method: 'POST', headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/x-www-form-urlencoded' }, body: f });

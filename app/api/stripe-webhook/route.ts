@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
   const s = ev.data.object;
   const leadId = s.metadata?.lead_id, tier = tierById(s.metadata?.tier ?? '');
   const admin = supabaseAdmin();
-  if (!admin || !leadId || !tier || s.payment_status !== 'paid') { console.error('stripe webhook: cannot record', { leadId, hasAdmin: !!admin }); return NextResponse.json({ ok: true }); }
+  if (!admin || !leadId || !tier || !['paid', 'no_payment_required'].includes(s.payment_status)) { console.error('stripe webhook: cannot record', { leadId, hasAdmin: !!admin }); return NextResponse.json({ ok: true }); }
   const { data } = await admin.from('leads').select('order_details,notes').eq('id', leadId).single();
   const now = new Date().toISOString();
   const { error } = await admin.from('leads').update({
