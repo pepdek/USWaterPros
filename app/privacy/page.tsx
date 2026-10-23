@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import LegalPage from '@/components/LegalPage';
-import { PHONE, PHONE_HREF } from '@/lib/constants';
+import { PHONE, PHONE_HREF, PRIVACY_EMAIL, SUPPORT_EMAIL } from '@/lib/constants';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy | US Water Pros',
@@ -72,6 +72,7 @@ export default function Privacy() {
       <h2>Contact</h2>
       <p>For help with an order, see our <a href="/support" className="underline">support page</a>.</p>
       <p>US Water Pros, serving Pierce, Kitsap and Thurston Counties, WA. Call or text <a href={PHONE_HREF} className="underline">{PHONE}</a>.</p>
+      <p>Privacy questions or requests to see, correct or delete your information: <a href={`mailto:${PRIVACY_EMAIL}`} className="underline">{PRIVACY_EMAIL}</a>. For anything else: <a href={`mailto:${SUPPORT_EMAIL}`} className="underline">{SUPPORT_EMAIL}</a>.</p>
     </LegalPage>
   );
 }
