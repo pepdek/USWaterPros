@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { badOrigin, rateLimited } from '@/lib/guard';
+import { sendMail } from '@/lib/mail';
 import { supabase } from '@/lib/supabase';
 import { SERVICES } from '@/lib/services';
 import { formatUSD, tierById } from '@/lib/pricing';
@@ -64,17 +65,7 @@ export async function POST(req: NextRequest) {
   const { error } = await supabase().from('leads').insert(lead);
   if (error) { console.error(error); return NextResponse.json({ success: false, error: 'db' }, { status: 500 }); }
 
-  // ponytail: SendGrid via fetch, skipped silently if unconfigured. Failure never blocks the lead.
-  const { SENDGRID_API_KEY: key, ADMIN_NOTIFY_EMAIL: to } = process.env;
-  if (key && to) {
-    await fetch('https://api.sendgrid.com/v3/mail/send', {
-      method: 'POST', headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        personalizations: [{ to: [{ email: to }] }], from: { email: to },
-        subject: `New lead: ${lead.service_type} (${lead.zip_code})`,
-        content: [{ type: 'text/plain', value: `${lead.name}\n${lead.email}\n${lead.phone ?? ''}\n${lead.zip_code}` }],
-      }),
-    }).catch(console.error);
-  }
+  // Owner email (Resend or SendGrid, see lib/mail.ts). Failure never blocks the lead.
+  await sendMail(`New lead: ${lead.service_type} (${lead.zip_code})`, `${lead.name}\n${lead.email}\n${lead.phone ?? ''}\n${lead.zip_code}`);
   return NextResponse.json({ ok: true, success: true, leadId: lead.id });
 }
