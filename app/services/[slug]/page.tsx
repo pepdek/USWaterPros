@@ -12,20 +12,20 @@ import {
 import { MAINTENANCE, SERVICES, UAQ_SHARED } from '@/lib/services';
 import { PRICING, TAX_NOTE, flagshipPrice } from '@/lib/pricing';
 
-type Props = { params: { slug: string } };
+type Props = { params: Promise<{ slug: string }> };
 const find = (slug: string) => SERVICES.find((s) => s.slug === slug);
 
 export const generateStaticParams = () => SERVICES.map((s) => ({ slug: s.slug }));
 
-export function generateMetadata({ params }: Props): Metadata {
-  const s = find(params.slug);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const s = find((await params).slug);
   if (!s) return {};
   const title = s.kind === 'flagship' ? `${s.name} from ${flagshipPrice} installed | US Water Pros` : `${s.name} | US Water Pros`;
   return { title, description: s.summary, alternates: { canonical: `/services/${s.slug}` }, openGraph: { title, description: s.summary } };
 }
 
-export default function ServicePage({ params }: Props) {
-  const s = find(params.slug);
+export default async function ServicePage({ params }: Props) {
+  const s = find((await params).slug);
   if (!s) notFound();
   const faqs: [string, string][] = s.lean ? [...s.faqs, ...(s.uaq ? [s.uaq, ...UAQ_SHARED] : [])] : [
     ...s.faqs,

@@ -35,6 +35,16 @@ describe.skipIf(!built)('404 page over HTTP', () => {
   it('is not in the sitemap', async () => { expect(await (await get('/sitemap.xml')).text()).not.toMatch(/404|not-found/); });
 });
 
+describe.skipIf(!built)('security headers', () => {
+  it('sends the baseline headers and a report-only CSP, and the report endpoint answers 204', async () => {
+    const h = (await get('/')).headers;
+    expect(h.get('x-content-type-options')).toBe('nosniff'); expect(h.get('x-frame-options')).toBe('SAMEORIGIN');
+    expect(h.get('content-security-policy-report-only')).toContain("default-src 'self'"); expect(h.get('content-security-policy')).toBeNull();
+    const r = await fetch(BASE + '/api/csp-report', { method: 'POST', headers: { 'content-type': 'application/csp-report' }, body: JSON.stringify({ 'csp-report': { 'blocked-uri': 'https://x.test', 'effective-directive': 'script-src' } }) });
+    expect(r.status).toBe(204);
+  });
+});
+
 describe.skipIf(!built)('every redirect row', () => {
   const rows = redirectRows(loadRows());
   it('is one 301 hop to the destination, and the destination is 200', async () => {
