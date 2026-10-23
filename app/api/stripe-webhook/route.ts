@@ -26,6 +26,7 @@ export async function POST(req: NextRequest) {
     notes: `PAID ${tier.name} via Stripe. ${data?.notes ?? ''}`.slice(0, 1000),
   }).eq('id', leadId);
   if (error) { console.error(error); return NextResponse.json({ ok: false }, { status: 500 }); }
-  await sendAlert(`PAID: ${tier.name} ${formatUSD(tier.price)}`, `Install ${data?.order_details?.date ?? '?'}. Text the customer to confirm the time by ${confirmDeadline(new Date(now)).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })} Pacific, then mark it confirmed in the CRM.`).catch(console.error);
+  const charged = s.amount_total != null ? s.amount_total / 100 : tier.price; // what Stripe actually collected (a discount code can make it less than the list price)
+  await sendAlert(`PAID: ${tier.name} ${formatUSD(charged)}${charged !== tier.price ? ` (list ${formatUSD(tier.price)})` : ''}`, `Install ${data?.order_details?.date ?? '?'}. Text the customer to confirm the time by ${confirmDeadline(new Date(now)).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })} Pacific, then mark it confirmed in the CRM.`).catch(console.error);
   return NextResponse.json({ ok: true });
 }
