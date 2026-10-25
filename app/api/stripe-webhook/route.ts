@@ -3,6 +3,9 @@ import { supabaseAdmin } from '@/lib/supabaseAdmin';
 import { tierById, formatUSD } from '@/lib/pricing';
 import { confirmDeadline } from '@/lib/confirmBy';
 import { sendAlert } from '@/lib/alerts';
+import { sendCustomerMail } from '@/lib/mail';
+import { orderConfirmed, orderRef } from '@/lib/emails/orderConfirmed';
+import { SUPPORT_EMAIL } from '@/lib/constants';
 import { verifyStripeSignature } from '@/lib/stripeSig';
 
 // Stripe tells us a payment finished. We verify the signature, then mark the lead paid and the job scheduled in the CRM.
@@ -18,7 +21,8 @@ export async function POST(req: NextRequest) {
   const leadId = s.metadata?.lead_id, tier = tierById(s.metadata?.tier ?? '');
   const admin = supabaseAdmin();
   if (!admin || !leadId || !tier || !['paid', 'no_payment_required'].includes(s.payment_status)) { console.error('stripe webhook: cannot record', { leadId, hasAdmin: !!admin }); return NextResponse.json({ ok: true }); }
-  const { data } = await admin.from('leads').select('order_details,notes').eq('id', leadId).single();
+  const { data } = await admin.from('leads').select('order_details,notes,name,email').eq('id', leadId).single();
+  const alreadyPaid = data?.order_details?.status === 'paid'; // Stripe retries webhooks: do not email twice
   const now = new Date().toISOString();
   const { error } = await admin.from('leads').update({
     paid: true, quote_amount: tier.price, final_amount: s.amount_total != null ? s.amount_total / 100 : tier.price, stage: 'job_scheduled', stage_changed_at: now,
@@ -27,6 +31,11 @@ export async function POST(req: NextRequest) {
   }).eq('id', leadId);
   if (error) { console.error(error); return NextResponse.json({ ok: false }, { status: 500 }); }
   const charged = s.amount_total != null ? s.amount_total / 100 : tier.price; // what Stripe actually collected (a discount code can make it less than the list price)
+  const od = data?.order_details ?? {};
+  const to = String(s.customer_details?.email || data?.email || '');
+  if (!alreadyPaid && to && od.date) {
+    await sendCustomerMail(to, orderConfirmed({ name: String(data?.name ?? ''), orderRef: orderRef(String(leadId)), systemName: tier.name, installDate: String(od.date), window: String(od.window ?? ''), address: String(od.address ?? ''), chargedCents: s.amount_total ?? tier.price * 100, confirmBy: confirmDeadline(new Date(now)), supportEmail: SUPPORT_EMAIL })).catch(console.error);
+  }
   await sendAlert(`PAID: ${tier.name} ${formatUSD(charged)}${charged !== tier.price ? ` (list ${formatUSD(tier.price)})` : ''}`, `Install ${data?.order_details?.date ?? '?'}. Text the customer to confirm the time by ${confirmDeadline(new Date(now)).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })} Pacific, then mark it confirmed in the CRM.`).catch(console.error);
   return NextResponse.json({ ok: true });
 }
