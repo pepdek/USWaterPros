@@ -15,7 +15,7 @@ export default function CalmProblem() {
         </h2>
         <ul className="mt-10 grid gap-5 md:grid-cols-3">
           {CARDS.map(([t, b]) => (
-            <li key={t} className="rounded-[28px] bg-white p-8 shadow-[0_1px_0_#fff_inset,0_24px_50px_-32px_rgba(14,33,43,.35)]">
+            <li key={t} data-rv className="rounded-[28px] bg-white p-8 shadow-[0_1px_0_#fff_inset,0_24px_50px_-32px_rgba(14,33,43,.35)]">
               <h3 className="font-sans text-[22px] font-semibold tracking-[-0.025em] leading-tight">{t}</h3>
               <p className="!py-0 mt-3 text-[#5b6472] text-[17px] leading-relaxed">{b}</p>
             </li>

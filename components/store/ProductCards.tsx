@@ -11,7 +11,7 @@ export default function ProductCards({ id, variant = 'full', caption, showAvg = 
   return (
     <ul id={id} className="grid gap-5 md:gap-6 md:grid-cols-3 items-stretch">
       {TIERS.map((t) => (
-        <li key={t.id} className={`relative flex flex-col gap-5 rounded-[32px] bg-white p-7 md:p-8 shadow-[0_1px_0_#fff_inset,0_36px_70px_-40px_rgba(14,33,43,.4)] ${t.popular ? 'ring-2 ring-navy' : 'ring-1 ring-black/[.08]'}`}>
+        <li key={t.id} data-rv className={`relative flex flex-col gap-5 rounded-[32px] bg-white p-7 md:p-8 shadow-[0_1px_0_#fff_inset,0_36px_70px_-40px_rgba(14,33,43,.4)] ${t.popular ? 'ring-2 ring-navy' : 'ring-1 ring-black/[.08]'}`}>
           {t.popular && <span className="absolute -top-3.5 left-7 rounded-full bg-navy px-3.5 py-1 font-mono text-[13px] font-bold uppercase tracking-[.16em] text-white"><span aria-hidden className="mr-1.5 text-[#ff8a96]">★</span>Most homes</span>}
           <span className="text-ink"><TierIcon id={t.id} /></span>
           <div>

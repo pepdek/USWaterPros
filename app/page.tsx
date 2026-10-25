@@ -66,7 +66,7 @@ export default function Home() {
           <p className="mt-3">Three steps. You see the price before anyone comes to your door.</p>
           <ol className="mt-8 flex flex-col gap-8 md:gap-10">
             {STEPS.map(([t, d], i) => (
-              <li key={t} className="flex gap-4">
+              <li key={t} data-rv className="flex gap-4">
                 <span className="shrink-0 w-10 h-10 rounded-full bg-ink text-white font-semibold flex items-center justify-center shadow-[0_10px_20px_-10px_rgba(0,0,0,.6)]">{i + 1}</span>
                 <div><h3 className="text-[21px] font-semibold tracking-[-0.025em]">{t}</h3><p className="mt-1 !text-[17px] text-[#5b6472]">{d}</p></div>
               </li>

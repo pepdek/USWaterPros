@@ -1,20 +1,13 @@
 import { TIERS, formatUSD } from '@/lib/pricing';
 import { STORE } from '@/lib/store';
-
-const ICON = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' } as const;
-const ICONS: Record<string, React.ReactNode> = {
-  tag: <svg width="30" height="30" viewBox="0 0 24 24" {...ICON} aria-hidden><path d="M3 12V4a1 1 0 011-1h8l9 9-9 9-9-9z" /><circle cx="8" cy="8" r="1.4" /></svg>,
-  calendar: <svg width="30" height="30" viewBox="0 0 24 24" {...ICON} aria-hidden><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M3 10h18M8 3v4M16 3v4M9 15l2 2 4-4" /></svg>,
-  pros: <svg width="30" height="30" viewBox="0 0 24 24" {...ICON} aria-hidden><circle cx="9" cy="8" r="3.5" /><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5M16 11l2 2 4-4" /></svg>,
-  refund: <svg width="30" height="30" viewBox="0 0 24 24" {...ICON} aria-hidden><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z" /><path d="M9 12l2 2 4-4" /></svg>,
-};
+import Icon from '@/components/Icon';
 
 // Same four ideas as the reference, rewritten to what we can stand behind.
 // VERIFY: "background-checked" (how and by whom), and that installs can be booked as soon as 6 days out in every area.
-const BENEFITS: [keyof typeof ICONS, string, string][] = [
+const BENEFITS: [string, string, string][] = [
   ['tag', 'Instant online pricing', 'What you see online is the price you pay. No in-person estimates. If your home needs something different, we tell you before you commit.'],
   ['calendar', 'Easy online scheduling', 'Pick your install day online. A licensed local plumber installs it in about 4 hours, on the day you pick.'],
-  ['pros', 'Licensed, background-checked pros', 'Every install is done by a licensed local plumber from our vetted list.'],
+  ['wrench', 'Licensed, background-checked pros', 'Every install is done by a licensed local plumber from our vetted list.'],
   ['refund', '100% refundable checkout', `Pay up front with confidence. Every order is ${STORE.refund.toLowerCase()} Checkout is secured by Stripe.`],
 ];
 
@@ -59,8 +52,8 @@ export default function WhyUs() {
         </div>
         <ul className="flex flex-col gap-5">
           {BENEFITS.map(([icon, title, body]) => (
-            <li key={title} className="flex gap-5 rounded-[28px] bg-white p-6 md:p-7 shadow-[0_1px_0_#fff_inset,0_24px_50px_-32px_rgba(14,33,43,.4)] ring-1 ring-black/[.05]">
-              <span className="shrink-0 w-14 h-14 rounded-2xl bg-ink text-white flex items-center justify-center shadow-[0_10px_20px_-10px_rgba(0,0,0,.6)]">{ICONS[icon]}</span>
+            <li key={title} data-rv className="flex gap-5 rounded-[28px] bg-white p-6 md:p-7 shadow-[0_1px_0_#fff_inset,0_24px_50px_-32px_rgba(14,33,43,.4)] ring-1 ring-black/[.05]">
+              <span className="shrink-0 w-14 h-14 rounded-2xl ico-dark bg-navy text-white flex items-center justify-center shadow-[0_10px_20px_-10px_rgba(0,0,0,.6)]"><Icon name={icon} size={30} /></span>
               <div>
                 <h3 className="font-sans text-[22px] font-semibold tracking-[-0.025em] leading-tight">{title}</h3>
                 <p className="!py-0 mt-2 text-[#5b6472] text-[17px] leading-relaxed">{body}</p>

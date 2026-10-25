@@ -32,7 +32,7 @@
 main > :first-child { margin-top: calc(var(--hdr) * -1); }
 main > :first-child::before { content: ''; display: block; height: var(--hdr); grid-column: 1 / -1; flex: 0 0 100%; }
 
-body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: var(--fs-body); line-height: 1.6; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+body { background: var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .06 0 0 0 0 .11 0 0 0 0 .18 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E"); color: var(--ink); font-family: var(--sans); font-size: var(--fs-body); line-height: 1.6; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 ::selection { background: rgb(var(--cyan-rgb) / .6); }
 
 p, li { font-family: var(--sans); line-height: 1.6; }
@@ -75,6 +75,10 @@ input, select { font-size: 16px; min-height: 48px; }
   .field:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px rgb(var(--teal-rgb) / .25); }
 }
 
+/* Icon color spot: sky blue on light surfaces, flag red on dark ones. */
+.ico { --spot: #bcd9ef; overflow: visible; }
+.bg-surge .ico, .bg-navy .ico, .ico-dark .ico, .ico-dark.ico { --spot: rgb(var(--cta-rgb) / .9); }
+
 /* Highway-sign eyebrow: condensed caps, tracked, a red star in front. */
 .eyebrow { display:inline-flex; align-items:center; gap:8px; font-family: var(--sign); font-size:15px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color: var(--blue); }
 .eyebrow::before { content:'★'; font-size:11px; letter-spacing:0; color: var(--cta); }
@@ -85,7 +89,8 @@ input, select { font-size: 16px; min-height: 48px; }
 .bg-surge { background: radial-gradient(800px 520px at 88% -6%, rgb(var(--teal-rgb) / .38), transparent 62%), radial-gradient(640px 420px at 0% 108%, rgb(var(--cta-rgb) / .22), transparent 60%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cpath fill='white' fill-opacity='.05' d='M20 12l2.1 4.3 4.7.7-3.4 3.3.8 4.7-4.2-2.2-4.2 2.2.8-4.7-3.4-3.3 4.7-.7zM82 72l2.1 4.3 4.7.7-3.4 3.3.8 4.7-4.2-2.2-4.2 2.2.8-4.7-3.4-3.3 4.7-.7z'/%3E%3C/svg%3E"), var(--navy); }
 .bg-wash { background: linear-gradient(180deg, var(--paper) 0%, var(--ice) 100%); }
 /* Red, white and blue stripe band: a thin edge for the footer and the trust banner. */
-.stripes { height: 6px; background: repeating-linear-gradient(90deg, var(--cta) 0 48px, #fff 48px 96px, var(--navy) 96px 144px); }
+.stripes { height: 6px; background: linear-gradient(90deg, var(--cta) 0 33.333%, #fff 33.333% 66.666%, var(--navy) 66.666% 100%) 0 0 / 144px 100%; animation: drift 48s linear infinite; }
+@keyframes drift { to { background-position-x: 144px; } }
 
 /* Dark-hero pages: the floating header turns to dark frosted glass with light text. */
 body:has(main > .bg-surge:first-child) header > .glass { background: rgb(255 255 255 / .09); border-color: rgb(255 255 255 / .16); box-shadow: 0 1px 0 rgb(255 255 255 / .12) inset, 0 24px 50px -24px rgb(0 0 0 / .7); }
@@ -96,6 +101,30 @@ body:has(main > .bg-surge:first-child) header > .glass > a { border-color: rgb(2
 .bg-surge .card { background: rgb(255 255 255 / .09); border-color: rgb(255 255 255 / .16); box-shadow: 0 1px 0 rgb(255 255 255 / .12) inset, 0 40px 80px -40px rgb(0 0 0 / .7); }
 .bg-surge .card :is(h2, h3, p, label, label > span) { color: #fff; }
 .bg-surge .card .field { background: #fff; color: var(--ink); }
+
+/* ---- Small motion. All of it is off for people who prefer reduced motion (see the block at the end). ---- */
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise .85s var(--ease) both; animation-delay: var(--d, 0s); }
+/* The seal lands like a rubber stamp. */
+@keyframes stamp { 0% { opacity: 0; transform: scale(1.6) rotate(-24deg); } 55% { opacity: 1; transform: scale(.93) rotate(4deg); } 100% { opacity: 1; transform: none; } }
+.stamp { animation: stamp .7s .65s cubic-bezier(.3, 1.4, .5, 1) both; }
+/* Cards and steps rise as they scroll into view. Nothing is hidden until ScrollFx adds html.rv-on. */
+[data-rv]:nth-child(2) { --i: 1; } [data-rv]:nth-child(3) { --i: 2; } [data-rv]:nth-child(4) { --i: 3; }
+.rv-on [data-rv]:not(.in) { opacity: 0; transform: translateY(22px); }
+.rv-on [data-rv].in { animation: rise .85s var(--ease) backwards; animation-delay: calc(var(--i, 0) * 90ms); }
+/* The red button catches the light on hover. */
+.btn-cta { position: relative; overflow: hidden; }
+.btn-cta::after { content: ''; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 38%, rgb(255 255 255 / .3) 50%, transparent 62%); transform: translateX(-130%); transition: transform .8s var(--ease); pointer-events: none; }
+.btn-cta:hover::after { transform: translateX(130%); }
+/* FAQ answers ease open. */
+details[open] > :not(summary) { animation: rise .35s var(--ease) both; }
+details > summary { list-style: none; } details > summary::-webkit-details-marker { display: none; }
+/* Edges of the moving ribbon fade out. */
+.marquee-mask { -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+@media (prefers-reduced-motion: reduce) {
+  .rise, .stamp, .stripes, .btn-cta::after, details[open] > :not(summary), .rv-on [data-rv].in { animation: none !important; }
+  .rv-on [data-rv]:not(.in) { opacity: 1; transform: none; }
+}
 
 @keyframes marquee { to { transform: translateX(-50%); } }
 .marquee { display:flex; width:max-content; animation: marquee 35s linear infinite; }

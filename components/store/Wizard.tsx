@@ -21,7 +21,7 @@ const post = (url: string, body: unknown) =>
 
 const Bot = ({ children }: { children: React.ReactNode }) => (
   <div className="wiz-in flex items-start gap-3">
-    <span aria-hidden className="shrink-0 w-9 h-9 rounded-full bg-ink text-white flex items-center justify-center"><Icon name="drop" size={18} /></span>
+    <span aria-hidden className="shrink-0 w-9 h-9 rounded-full ico-dark bg-navy text-white flex items-center justify-center"><Icon name="drop" size={20} /></span>
     <div className="rounded-2xl rounded-tl-md bg-white border border-black/[.07] px-4 py-3 text-[16px] leading-snug">{children}</div>
   </div>
 );
@@ -32,7 +32,7 @@ const Card = ({ children }: { children: React.ReactNode }) => (
   <div className="wiz-in rounded-2xl bg-white border border-black/[.06] shadow-[0_1px_0_#fff_inset,0_24px_50px_-34px_rgba(14,33,43,.4)] p-5">{children}</div>
 );
 const Chip = ({ icon, children }: { icon: string; children: React.ReactNode }) => (
-  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#f4f8f6] border border-black/[.07] px-3 py-1.5 text-[13px] font-medium"><span className="text-[#007c94]"><Icon name={icon} size={14} /></span>{children}</span>
+  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#f4f8f6] border border-black/[.07] px-3 py-1.5 text-[13px] font-medium"><span className="text-navy"><Icon name={icon} size={16} /></span>{children}</span>
 );
 const Label = ({ children }: { children: React.ReactNode }) => <span className="block mb-1.5 text-[13px] font-medium text-[#3f4a4f]">{children}</span>;
 

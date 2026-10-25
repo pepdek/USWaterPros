@@ -35,3 +35,13 @@ Floating frosted bar. The first block inside `<main>` slides up under it (`--hdr
 
 ## Email
 `lib/emails/orderConfirmed.ts` follows the same look with email-safe stand-in fonts (serif date, condensed caps where installed).
+
+## Icons (`components/Icon.tsx`, `TierIcon.tsx`)
+Our own set, drawn like a screen print: a 2px navy line drawing plus a flat color "spot" printed a hair off-register behind it. The spot is sky blue on light surfaces and flag red on dark ones (`.ico` in `globals.css`; put `ico-dark` on a dark wrapper). 32 x 32 grid. To add an icon, add a `[line, spot]` path pair to `ICONS`. No stock icon libraries.
+
+## Motion (all off under `prefers-reduced-motion`)
+- Hero: copy, buttons, stats and the price tag rise in on load (`.rise`, staggered by `--d`); the seal lands like a rubber stamp (`.stamp`). The H1 is not animated, to keep it the first thing painted.
+- Cards and steps marked `data-rv` rise as they scroll into view (`ScrollFx`). Nothing is hidden until JavaScript adds `html.rv-on`, so no-JS and reduced-motion users see everything.
+- The red-white-navy stripe band drifts slowly. The red button catches the light on hover. FAQ answers ease open. Service-card photos zoom a touch on hover. The benefits ribbon fades at its edges.
+- Page texture: a faint paper grain on the cream background.
+- Favicon: `app/icon.svg` (navy disc, red star).

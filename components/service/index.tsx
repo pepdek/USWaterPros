@@ -12,7 +12,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Breadcrumb from '@/components/Breadcrumb';
 
-const Check = ({ children }: { children: React.ReactNode }) => <li className="flex gap-2"><span className="text-aqua font-bold">✓</span>{children}</li>;
+const Check = ({ children }: { children: React.ReactNode }) => <li className="flex gap-2"><span className="text-cta text-[13px] leading-[1.9]" aria-hidden>★</span>{children}</li>;
 
 export function ServiceHero({ s }: { s: Service }) {
   return (
@@ -40,11 +40,11 @@ export function BuyerDecisionTree({ s }: { s: Service }) {
       <div className="mt-6 flex flex-col gap-4">
         {s.problems.map((p) => (
           <div key={p.problem} className="card p-6 md:p-8 flex gap-5">
-            <span className="text-aqua shrink-0"><Icon name={p.icon} size={36} /></span>
+            <span className="text-navy shrink-0"><Icon name={p.icon} size={40} /></span>
             <dl className="grid gap-3 max-w-[65ch]">
-              <div><dt className="text-sm font-semibold uppercase tracking-wide text-teal">You have</dt><dd className="font-semibold text-ink">{p.problem}</dd></div>
-              <div><dt className="text-sm font-semibold uppercase tracking-wide text-teal">What we do</dt><dd>{p.solution}.</dd></div>
-              <div><dt className="text-sm font-semibold uppercase tracking-wide text-teal">Result</dt><dd className="font-semibold text-ink">{p.outcome}</dd></div>
+              <div><dt className="font-mono text-[15px] font-bold uppercase tracking-[.16em] text-blue">You have</dt><dd className="font-semibold text-ink">{p.problem}</dd></div>
+              <div><dt className="font-mono text-[15px] font-bold uppercase tracking-[.16em] text-blue">What we do</dt><dd>{p.solution}.</dd></div>
+              <div><dt className="font-mono text-[15px] font-bold uppercase tracking-[.16em] text-blue">Result</dt><dd className="font-semibold text-ink">{p.outcome}</dd></div>
             </dl>
           </div>
         ))}
@@ -64,7 +64,7 @@ export function ContaminationChart({ s }: { s: Service }) {
       <ul className="mt-6 grid gap-3 sm:grid-cols-2">
         {s.treats.map((t) => (
           <li key={t.item} className="flex items-center gap-3 bg-white rounded-lg p-3 shadow-[0_2px_10px_rgba(0,0,0,.05)]">
-            <span className="text-aqua shrink-0"><Icon name={t.icon} size={32} /></span>
+            <span className="text-navy shrink-0"><Icon name={t.icon} size={36} /></span>
             <span><span className="font-semibold text-ink block">{t.item}</span><span className="text-sm">{t.how}</span></span>
           </li>
         ))}
@@ -208,7 +208,7 @@ export function FaqGroup({ title, items, id }: { title: string; items: [string, 
           <details key={q} className="group rounded-xl bg-white shadow-[0_2px_10px_rgba(0,0,0,.06)]">
             <summary className="cursor-pointer list-none min-h-14 px-6 py-4 flex items-center justify-between gap-4">
               <h3 className="text-lg !font-sans !tracking-normal">{q}</h3>
-              <span aria-hidden className="shrink-0 text-aqua text-2xl leading-none transition-transform group-open:rotate-45">+</span>
+              <span aria-hidden className="shrink-0 text-cta text-2xl leading-none transition-transform duration-300 group-open:rotate-45">+</span>
             </summary>
             <p className="px-6 pt-0 pb-5">{a}</p>
           </details>

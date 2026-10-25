@@ -42,7 +42,7 @@ export default function Footer() {
       </div>
       <div className="border-t border-black/[.08]">
         <div className="mx-auto max-w-6xl px-4 py-5 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between text-[#86868b]">
-          <p className="!py-0 !text-[13px]">© {new Date().getFullYear()} US Water Pros · USWaterPros.com</p>
+          <p className="!py-0 !text-[13px]">© {new Date().getFullYear()} US Water Pros · USWaterPros.com <span className="mx-1.5 text-cta" aria-hidden>★</span> Proudly serving Western Washington</p>
           <ul className="flex gap-5">{LEGAL.map(([t, href]) => <li key={t}><Link href={href} className="min-h-11 inline-flex items-center hover:text-ink transition-colors">{t}</Link></li>)}</ul>
         </div>
       </div>

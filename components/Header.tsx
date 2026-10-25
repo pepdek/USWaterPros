@@ -86,7 +86,7 @@ export default function Header() {
             {([['Services', SERVICE_LINKS], ['Service Areas', AREA_LINKS]] as [string, string[][]][]).map(([h, links]) => (
               <div key={h}>
                 <p className="text-xl font-bold text-ink">{h}</p>
-                {links.map(([t, href]) => <Link key={href} href={href} onClick={close} className="block min-h-12 py-3 text-ink hover:text-aqua">{t}</Link>)}
+                {links.map(([t, href]) => <Link key={href} href={href} onClick={close} className="block min-h-12 py-3 text-ink hover:text-blue">{t}</Link>)}
               </div>
             ))}
             <Link href="/pricing" onClick={close} className="text-xl font-bold text-ink min-h-12">Pricing</Link>
