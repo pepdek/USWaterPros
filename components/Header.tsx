@@ -24,10 +24,10 @@ function Dropdown({ label, links }: { label: string; links: string[][] }) {
   return (
     <div ref={ref} className="relative" onBlur={(e) => { if (!ref.current?.contains(e.relatedTarget as Node)) setOpen(false); }}>
       <button type="button" aria-expanded={open} aria-haspopup="true" onClick={() => setOpen(!open)}
-        className="min-h-12 inline-flex items-center gap-1 font-semibold text-ink hover:text-aqua">{label} <span aria-hidden className="text-xs">▼</span></button>
+        className="min-h-11 inline-flex items-center gap-1 text-[14px] font-medium text-ink/75 hover:text-ink hdr-t transition-colors">{label} <svg aria-hidden width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform ${open ? 'rotate-180' : ''}`}><path d="M2.5 4.5L6 8l3.5-3.5" /></svg></button>
       {open && (
-        <div className="absolute left-0 top-full mt-1 min-w-[200px] w-max bg-white rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.1)] p-2 z-50">
-          {links.map(([t, href]) => <Link key={href} href={href} onClick={() => setOpen(false)} className="block rounded-lg px-3 py-3 text-sm text-ink hover:bg-cyan">{t}</Link>)}
+        <div className="glass !rounded-2xl absolute left-0 top-full mt-3 min-w-[220px] w-max p-2 z-50">
+          {links.map(([t, href]) => <Link key={href} href={href} onClick={() => setOpen(false)} className="block rounded-xl px-3 py-2.5 text-[14px] text-ink hover:bg-black/[.05] transition-colors">{t}</Link>)}
         </div>
       )}
     </div>
@@ -35,13 +35,7 @@ function Dropdown({ label, links }: { label: string; links: string[][] }) {
 }
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const [menu, setMenu] = useState(false);
-  useEffect(() => {
-    const on = () => setScrolled(window.scrollY > 80);
-    on(); window.addEventListener('scroll', on, { passive: true });
-    return () => window.removeEventListener('scroll', on);
-  }, []);
   useEffect(() => {
     document.body.style.overflow = menu ? 'hidden' : '';
     const esc = (e: KeyboardEvent) => { if (e.key === 'Escape') setMenu(false); };
@@ -51,35 +45,36 @@ export default function Header() {
   const close = () => setMenu(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-ripple border-b border-black/5">
-      <div className={`mx-auto max-w-6xl px-4 flex items-center justify-between gap-3 transition-all ${scrolled ? 'h-14' : 'h-16'}`}>
-        <Link href="/" className="font-serif text-lg md:text-2xl font-bold text-ink flex items-center gap-1 md:gap-1.5 shrink-0 min-h-11"><span className="text-blue"><Icon name="drop" size={18} /></span>US Water <span className="text-blue">Pros</span></Link>
+    <header className="sticky top-0 z-50 px-3 pt-3">
+      <div className="glass !rounded-[22px] mx-auto max-w-6xl">
+      <div className={`px-4 md:px-5 flex items-center justify-between gap-3 transition-all duration-300 h-16`}>
+        <Link href="/" className="text-[19px] font-bold tracking-[-0.035em] text-ink hdr-t shrink-0 min-h-11 inline-flex items-center">US Water Pros<span className="text-cta">.</span></Link>
 
-        <nav aria-label="Main" className={`${scrolled ? 'hidden' : 'hidden md:flex'} items-center gap-6 text-sm`}>
+        <nav aria-label="Main" className="hidden md:flex items-center gap-7 text-sm">
           <Dropdown label="Services" links={SERVICE_LINKS} />
           <Dropdown label="Service Areas" links={AREA_LINKS} />
-          <Link href="/pricing" className="min-h-12 inline-flex items-center font-semibold text-ink hover:text-aqua">Pricing</Link>
-          <Link href="/#process" className="min-h-12 inline-flex items-center font-semibold text-ink hover:text-aqua">Process</Link>
-          <Link href="/tools" className="min-h-12 inline-flex items-center font-semibold text-ink hover:text-aqua">Tools</Link>
+          <Link href="/pricing" className="min-h-11 inline-flex items-center text-[14px] font-medium text-ink/75 hover:text-ink hdr-t transition-colors">Pricing</Link>
+          <Link href="/#process" className="min-h-11 inline-flex items-center text-[14px] font-medium text-ink/75 hover:text-ink hdr-t transition-colors">Process</Link>
+          <Link href="/tools" className="min-h-11 inline-flex items-center text-[14px] font-medium text-ink/75 hover:text-ink hdr-t transition-colors">Tools</Link>
         </nav>
 
         <div className="flex items-center gap-2">
-          <a href={PHONE_HREF} aria-label={`Call ${PHONE}`} className="btn btn-sm btn-secondary !px-0 w-12 2xl:!px-5 2xl:w-auto">
+          <a href={PHONE_HREF} aria-label={`Call ${PHONE}`} className="btn btn-sm btn-secondary !px-0 w-11 2xl:!px-5 2xl:w-auto">
             <svg className="2xl:hidden" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z" /></svg>
             <span className="hidden 2xl:inline">{PHONE}</span>
           </a>
           <WizardButton className="btn btn-sm btn-cta hidden md:inline-flex">Get Instant Price</WizardButton>
           <button type="button" aria-label="Open menu" aria-expanded={menu} onClick={() => setMenu(true)}
-            className={`${scrolled ? 'inline-flex' : 'md:hidden inline-flex'} min-h-12 min-w-12 items-center justify-center text-ink`}>
+            className="md:hidden inline-flex min-h-12 min-w-12 items-center justify-center text-ink hdr-t">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
           </button>
         </div>
       </div>
-
-      <Link href="/quiz" className="md:hidden flex items-center justify-center min-h-11 text-xs font-semibold text-ink bg-ice underline">Not sure which system?</Link>
+      <Link href="/quiz" className="md:hidden flex items-center justify-center min-h-10 border-t border-black/[.06] text-[13px] font-medium text-ink/70 hdr-t">Not sure which system? <span aria-hidden className="ml-1">→</span></Link>
+      </div>
 
       {menu && (
-        <div role="dialog" aria-modal="true" aria-label="Menu" className="fixed inset-0 z-[60] bg-white overflow-y-auto">
+        <div role="dialog" aria-modal="true" aria-label="Menu" className="fixed inset-0 z-[60] bg-white/90 backdrop-blur-2xl overflow-y-auto">
           <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
             <span className="text-2xl font-bold text-ink">Menu</span>
             <button type="button" aria-label="Close menu" onClick={close} className="min-h-12 min-w-12 inline-flex items-center justify-center text-ink">

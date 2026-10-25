@@ -14,7 +14,7 @@ export default function SupportCards({ cards }: { cards: SupportCard[] }) {
   return (
     <div>
       <label className="block max-w-xl">
-        <span className="block mb-2 font-mono text-[12px] font-medium uppercase tracking-[.14em] text-[#3f4a4f]">Search help</span>
+        <span className="eyebrow mb-2">Search help</span>
         <input type="search" className="field !min-h-[56px] !text-[17px]" placeholder="Try: refund, reschedule, cloudy water, filter" value={q} onChange={(e) => setQ(e.target.value)} aria-describedby="support-count" />
       </label>
       <p id="support-count" role="status" className="!py-0 mt-3 text-[14px] text-[#4b5a60]">{shown.length === cards.length ? `${cards.length} topics` : `${shown.length} of ${cards.length} topics`}</p>

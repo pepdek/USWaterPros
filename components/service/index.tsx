@@ -25,7 +25,7 @@ export function ServiceHero({ s }: { s: Service }) {
           <WizardButton className="btn btn-cta mt-6 w-full md:w-auto">Get Instant Price</WizardButton>
           <p className="mt-3 text-sm text-white font-semibold">No credit card | Licensed local plumber | 15 minutes | Fixed price quote</p>
         </div>
-        <div className="relative rounded-3xl bg-white/80 backdrop-blur-xl h-56 md:h-auto md:aspect-[4/3]">
+        <div className="relative rounded-[32px] bg-white/90 backdrop-blur-xl h-56 md:h-auto md:aspect-[4/3] shadow-[0_50px_90px_-40px_rgba(0,0,0,.7)]">
           <Image src={s.image} alt={s.imageAlt} fill priority sizes="(min-width: 768px) 40vw, 90vw" className="object-contain p-4" />
         </div>
       </div>

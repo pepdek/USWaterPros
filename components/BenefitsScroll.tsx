@@ -8,11 +8,11 @@ const BENEFITS: [string, string][] = [
 // Two copies + translateX(-50%) = seamless loop.
 export default function BenefitsScroll() {
   return (
-    <section className="bg-navy text-white py-5 overflow-hidden" aria-label="Whole-home filtration benefits">
+    <section className="bg-white border-y border-black/[.06] text-ink py-5 overflow-hidden" aria-label="Whole-home filtration benefits">
       <div className="marquee gap-4">
         {[...BENEFITS, ...BENEFITS].map(([icon, t], i) => (
-          <span key={i} aria-hidden={i >= BENEFITS.length} className="flex items-center gap-2 mr-10 whitespace-nowrap font-semibold">
-            <span className="text-cyan"><Icon name={icon} size={24} /></span>{t}
+          <span key={i} aria-hidden={i >= BENEFITS.length} className="flex items-center gap-2 mr-10 whitespace-nowrap font-medium text-[16px] tracking-[-0.01em]">
+            <span className="text-blue"><Icon name={icon} size={22} /></span>{t}
           </span>
         ))}
       </div>

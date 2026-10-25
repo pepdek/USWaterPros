@@ -23,23 +23,25 @@ const BENEFITS: [keyof typeof ICONS, string, string][] = [
 function Phone() {
   const price = formatUSD(TIERS.find((t) => t.popular)!.price);
   return (
-    <div aria-hidden className="relative mx-auto w-[300px] md:w-[340px] select-none [transform:perspective(1200px)_rotateY(14deg)_rotateX(4deg)_rotateZ(-6deg)]">
-      <div className="rounded-[44px] border-[3px] border-ink bg-white p-4 shadow-[14px_18px_0_rgba(26,26,26,.9)]">
-        <div className="mx-auto mb-3 h-1.5 w-20 rounded-full bg-ink/80" />
-        <p className="!py-0 text-center font-mono text-[11px] font-medium uppercase tracking-[.14em] text-ink/70">Date &amp; time</p>
-        <p className="!py-1 text-center font-sans text-[22px] font-bold tracking-[-0.03em] text-ink">Select install day</p>
-        <div className="mt-2 rounded-2xl border-2 border-ink bg-[#f6faf8] p-3">
-          <div className="grid grid-cols-4 gap-2">
-            {Array.from({ length: 12 }, (_, i) => (
-              <span key={i} className={`h-9 rounded-lg border-2 border-ink ${i === 6 ? 'bg-ink' : 'bg-white'}`} />
-            ))}
+    <div aria-hidden className="relative mx-auto w-[290px] md:w-[320px] select-none [transform:perspective(1400px)_rotateY(-10deg)_rotateX(3deg)_rotateZ(2deg)]">
+      <div className="rounded-[46px] bg-[#1d1d1f] p-[10px] shadow-[0_60px_90px_-40px_rgba(14,33,43,.7),0_0_0_1px_rgba(255,255,255,.12)_inset]">
+        <div className="rounded-[37px] bg-[#f5f7f8] p-5 pb-6">
+          <div className="mx-auto mb-5 h-[22px] w-24 rounded-full bg-[#1d1d1f]" />
+          <p className="!py-0 text-center text-[12px] font-medium text-[#6e6e73]">Step 2 of 4</p>
+          <p className="!py-1 text-center font-sans text-[22px] font-semibold tracking-[-0.035em] text-ink">Pick your install day</p>
+          <div className="mt-3 rounded-[22px] bg-white p-3 shadow-[0_1px_0_#fff_inset,0_14px_30px_-20px_rgba(14,33,43,.4)]">
+            <div className="grid grid-cols-4 gap-2">
+              {Array.from({ length: 12 }, (_, i) => (
+                <span key={i} className={`h-9 rounded-xl ${i === 6 ? 'bg-ink shadow-[0_8px_16px_-8px_rgba(0,0,0,.6)]' : 'bg-[#f2f2f4]'}`} />
+              ))}
+            </div>
           </div>
+          <div className="mt-3 rounded-[22px] bg-white px-4 py-4 text-center shadow-[0_1px_0_#fff_inset,0_14px_30px_-20px_rgba(14,33,43,.4)]">
+            <p className="!py-0 text-[12px] font-medium text-[#6e6e73]">Your price, installed</p>
+            <p className="!py-0 font-mono text-[38px] font-semibold tracking-[-0.045em] leading-tight text-ink">{price}</p>
+          </div>
+          <div className="mt-4 rounded-full bg-ink py-3.5 text-center font-sans text-[16px] font-semibold text-white shadow-[0_12px_24px_-12px_rgba(0,0,0,.7)]">Checkout</div>
         </div>
-        <div className="mt-4 rounded-2xl border-2 border-ink bg-white px-4 py-3 text-center">
-          <p className="!py-0 font-mono text-[11px] font-medium uppercase tracking-[.12em] text-ink/70">The price you see</p>
-          <p className="!py-0 font-mono text-[34px] font-semibold tracking-tight leading-tight"><span className="text-ink">$</span><span style={{ color: TEAL_ON_WHITE }}>{price.slice(1)}</span></p>
-        </div>
-        <div className="mt-3 rounded-full border-2 border-ink bg-[#ff6b35] py-3 text-center font-sans text-[16px] font-bold text-ink shadow-[3px_4px_0_#1a1a1a]">Checkout</div>
       </div>
     </div>
   );
@@ -47,10 +49,10 @@ function Phone() {
 
 export default function WhyUs() {
   return (
-    <section id="why" aria-labelledby="why-h" className="bg-white scroll-mt-24 overflow-hidden">
+    <section id="why" aria-labelledby="why-h" className="bg-[#f5f5f7] scroll-mt-24 overflow-hidden">
       <div className="mx-auto max-w-6xl px-4 py-16 md:py-24 grid gap-12 md:gap-16 md:grid-cols-[1fr_1.05fr] md:items-start">
         <div>
-          <p className="inline-block rounded-md bg-[#e6f6f9] px-3 py-1.5 font-mono text-[12px] font-medium uppercase tracking-[.14em]" style={{ color: TEAL_ON_WHITE }}>Why US Water Pros</p>
+          <p className="eyebrow !py-0">Why US Water Pros</p>
           <h2 id="why-h" className="mt-5 !font-sans !font-bold !tracking-[-0.045em] !text-ink !leading-[1.06] !text-[clamp(2.2rem,1.3rem+3.2vw,3.6rem)] [text-wrap:balance]">
             The <span style={{ color: TEAL_ON_WHITE }}>smarter way</span> to cleaner water
           </h2>
@@ -58,11 +60,11 @@ export default function WhyUs() {
         </div>
         <ul className="flex flex-col gap-5">
           {BENEFITS.map(([icon, title, body]) => (
-            <li key={title} className="flex gap-5 rounded-2xl border border-black/[.08] bg-white p-6 md:p-7 shadow-[0_2px_14px_rgba(0,0,0,.05)]">
-              <span className="shrink-0 w-16 h-16 rounded-xl bg-ink text-[#a8e9ef] flex items-center justify-center">{ICONS[icon]}</span>
+            <li key={title} className="flex gap-5 rounded-[28px] bg-white p-6 md:p-7 shadow-[0_1px_0_#fff_inset,0_24px_50px_-32px_rgba(14,33,43,.4)] ring-1 ring-black/[.05]">
+              <span className="shrink-0 w-14 h-14 rounded-2xl bg-ink text-white flex items-center justify-center shadow-[0_10px_20px_-10px_rgba(0,0,0,.6)]">{ICONS[icon]}</span>
               <div>
-                <h3 className="font-sans text-[22px] font-bold tracking-[-0.02em] leading-tight">{title}</h3>
-                <p className="!py-0 mt-2 font-light text-[#3f4a4f] text-[17px] leading-relaxed">{body}</p>
+                <h3 className="font-sans text-[22px] font-semibold tracking-[-0.025em] leading-tight">{title}</h3>
+                <p className="!py-0 mt-2 text-[#6e6e73] text-[17px] leading-relaxed">{body}</p>
               </div>
             </li>
           ))}

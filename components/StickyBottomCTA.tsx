@@ -14,8 +14,8 @@ export default function StickyBottomCTA() {
   }, []);
   if (done) return null;
   return (
-    <div data-track-source="cta_block" className="max-w-6xl mx-4 md:mx-auto my-8 md:my-12 bg-navy text-white p-6 md:p-8 rounded-xl text-center md:flex md:items-center md:justify-between md:gap-8 md:gap-10">
-      <p className="text-lg font-semibold mb-4 md:mb-0">See your price in under a minute</p>
+    <div data-track-source="cta_block" className="max-w-6xl mx-4 md:mx-auto my-8 md:my-12 bg-navy text-white p-7 md:p-9 rounded-[32px] text-center shadow-[0_40px_80px_-40px_rgba(14,33,43,.7)] md:flex md:items-center md:justify-between md:gap-8 md:gap-10">
+      <p className="text-[22px] font-semibold tracking-[-0.025em] mb-4 md:mb-0">See your price in under a minute</p>
       <div className="flex flex-col items-center gap-2 md:items-end">
         <div className="flex gap-2 w-full md:hidden">
           <WizardButton className="btn btn-cta flex-1">Get Instant Price</WizardButton>

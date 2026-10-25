@@ -36,7 +36,7 @@ export default function Support() {
     <main>
       <section className="bg-surge">
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
-          <p className="inline-block rounded-md bg-white/15 px-3 py-1.5 font-mono text-[12px] font-medium uppercase tracking-[.14em] !text-white !py-1.5">Support</p>
+          <p className="eyebrow !py-0 !text-white/85">Support</p>
           <h1 className="!font-sans !font-bold !tracking-[-0.045em] !text-white mt-4 !leading-[1.05] !text-[clamp(2.3rem,1.3rem+3.4vw,3.7rem)] [text-wrap:balance]">How can we help?</h1>
           <p className="!text-white mt-4 md:text-lg font-light max-w-2xl">Search the topics below, or text us. Texting is fastest.</p>
           <div className="mt-7 flex flex-wrap gap-3"><a href={SMS_HREF} className="btn btn-cta">Text us</a><a href={PHONE_HREF} className="btn btn-secondary">Call {PHONE}</a></div>

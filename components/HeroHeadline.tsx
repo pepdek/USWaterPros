@@ -15,8 +15,8 @@ export default function HeroHeadline() {
     return () => window.removeEventListener(ZIP_EVENT, onZip);
   }, []);
   return (
-    <h1 className="!font-sans !font-bold !tracking-[-0.045em] !text-white mt-4 !leading-[1.04] !text-[clamp(2.3rem,1.3rem+3.4vw,3.7rem)] [text-wrap:balance]">
-      {headline(pain)}<br /><span className="!font-mono !font-medium !tracking-[-0.02em] text-[#a8e9ef] text-[.8em]">Done in a day.</span>
+    <h1 className="!font-bold !tracking-[-0.055em] !text-ink mt-6 !leading-[.98] !text-[clamp(2.5rem,1.1rem+5.2vw,4.25rem)] [text-wrap:balance]">
+      {headline(pain)}<br /><span className="!font-bold !text-[#86868b]">Done in a day.</span>
     </h1>
   );
 }
