@@ -78,13 +78,14 @@ export default function Wizard() {
     const key = (e: KeyboardEvent) => {
       if (e.key === 'Escape') close();
       if (e.key !== 'Tab' || !dialog.current) return;
-      const f = Array.from(dialog.current.querySelectorAll<HTMLElement>('button, a[href], input, select, textarea')).filter((x) => !x.hasAttribute('disabled'));
+      const f = Array.from(dialog.current.querySelectorAll<HTMLElement>('button, a[href], input, select, textarea')).filter((x) => !x.hasAttribute('disabled') && !x.hasAttribute('data-hp') && x.tabIndex >= 0 && x.getClientRects().length > 0); // skip anything hidden at this screen size
       if (!f.length) return;
       const first = f[0], last = f[f.length - 1];
+      if (!dialog.current.contains(document.activeElement)) { e.preventDefault(); first.focus(); return; } // focus somehow outside: pull it back in
       if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); } else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     };
     document.addEventListener('keydown', key);
-    const t = setTimeout(() => dialog.current?.querySelector<HTMLElement>(`#${FORM} input:not([type=radio]), #${FORM} [aria-checked=true], [data-autofocus]`)?.focus(), 60);
+    const t = setTimeout(() => dialog.current?.querySelector<HTMLElement>(`#${FORM} input:not([type=radio]):not([data-hp]), #${FORM} input[type=radio]:checked, [data-autofocus]`)?.focus(), 60);
     return () => { document.body.style.overflow = ''; document.removeEventListener('keydown', key); clearTimeout(t); };
   }, [open, step, close]);
 
@@ -167,17 +168,17 @@ export default function Wizard() {
           {[1, 2, 3, 4, 5].map((n) => <span key={n} className={`h-1 flex-1 rounded-full ${n <= STEP_NO[step] ? 'bg-ink' : 'bg-black/[.08]'}`} />)}
         </div>
 
-        <header className="flex items-center justify-between gap-3 px-5 py-3">
+        <div className="flex items-center justify-between gap-3 px-5 py-3">
           <span className="font-mono text-[22px] font-extrabold uppercase tracking-[.03em] text-ink whitespace-nowrap"><span aria-hidden className="text-cta text-[15px] mr-1 align-[1px]">★</span>US Water Pros</span>
           <span className="flex items-center gap-2">
-            <button type="button" onClick={reset} className="inline-flex items-center gap-1.5 rounded-full bg-white border border-black/[.08] px-3 sm:px-4 min-h-11 text-[14px] font-medium whitespace-nowrap">
+            <button type="button" onClick={reset} className="tap inline-flex items-center gap-1.5 rounded-full bg-white border border-black/[.08] px-3 sm:px-4 min-h-11 text-[14px] font-medium whitespace-nowrap">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M21 12a9 9 0 11-3-6.7L21 8" /><path d="M21 3v5h-5" /></svg>Start over
             </button>
-            <button type="button" onClick={close} aria-label="Close" className="min-h-11 min-w-11 rounded-full bg-white border border-black/[.08] inline-flex items-center justify-center">
+            <button type="button" onClick={close} aria-label="Close" className="tap min-h-11 min-w-11 rounded-full bg-white border border-black/[.08] inline-flex items-center justify-center">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden><path d="M6 6l12 12M18 6L6 18" /></svg>
             </button>
           </span>
-        </header>
+        </div>
 
         {/* Designed to fit without scrolling. The scroll below only ever appears on very small screens, large text sizes or zoom. */}
         <form id={FORM} onSubmit={onSubmit} noValidate className="flex-1 min-h-0 overflow-y-auto overscroll-contain px-5 pt-2 pb-4 flex flex-col gap-3">
@@ -217,7 +218,7 @@ export default function Wizard() {
               <fieldset className="flex flex-col gap-2">
                 <legend className="sr-only">Choose a system</legend>
                 {TIERS.map((x) => (
-                  <label key={x.id} className={`flex items-center gap-3 rounded-xl border p-3.5 cursor-pointer min-h-14 ${tier === x.id ? 'border-ink bg-white ring-1 ring-ink' : 'border-black/[.12] bg-white'}`}>
+                  <label key={x.id} className={`tile flex items-center gap-3 !rounded-2xl p-3.5 cursor-pointer min-h-14 ${tier === x.id ? 'tile-on' : ''}`}>
                     <input type="radio" name="tier" className="w-[18px] h-[18px] accent-[#1d1d1f]" checked={tier === x.id} onChange={() => setTier(x.id)} />
                     <span className="flex-1"><span className="font-medium">{x.name}</span>{x.popular && <span className="ml-2 text-[11px] font-semibold rounded-full bg-ink text-white px-2 py-0.5">Most homes</span>}<span className="wiz-short-hide block text-[14px] font-light text-[#4b5a60]">{x.subhead}</span></span>
                     <span className="font-mono font-semibold">{formatUSD(x.price)}</span>
@@ -271,7 +272,7 @@ export default function Wizard() {
         </form>
 
         {/* Pinned: the main action is always visible, so nobody has to scroll to find it. */}
-        <footer className="border-t border-black/[.06] bg-white/80 px-5 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] flex flex-col gap-2.5">
+        <div className="border-t border-black/[.06] bg-white/80 px-5 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] flex flex-col gap-2.5">
           <button type={action.submit ? 'submit' : 'button'} form={action.submit ? FORM : undefined} onClick={action.onClick} disabled={busy} aria-disabled={action.dim || undefined} className={`btn btn-cta w-full ${action.dim ? 'opacity-45' : ''}`} data-autofocus={step === 'waitlist-done' || step === 'pending' ? true : undefined}>{action.label}</button>
           <a href={SMS_HREF} className="wiz-compose items-center gap-3 rounded-full bg-white border border-black/[.1] pl-4 pr-1.5 min-h-[48px] text-[#3f4a4f]">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z" /></svg>
@@ -282,7 +283,7 @@ export default function Wizard() {
             <span className="inline-flex items-center gap-1.5 whitespace-nowrap"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V7a4 4 0 118 0v4" /></svg>Checkout secured by <b className="font-semibold text-[#635bff]">Stripe</b></span>
             <a href={SMS_HREF} className="wiz-textlink underline font-medium min-h-11 items-center whitespace-nowrap">Questions? Text us</a>
           </p>
-        </footer>
+        </div>
       </div>
     </div>
   );

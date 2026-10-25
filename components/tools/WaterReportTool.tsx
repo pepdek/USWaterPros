@@ -9,7 +9,7 @@ import { TAX_NOTE, flagshipPrice } from '@/lib/pricing';
 import { AREA_SHORTCUTS, ewgZipUrl, profileForZip, type Likelihood } from '@/lib/waterProfiles';
 
 const PILL: Record<Likelihood, string> = {
-  Common: 'bg-blue text-white', Possible: 'bg-cyan text-ink', 'Less likely': 'bg-ice text-ink border border-teal/40', 'Check yours': 'bg-white text-navy border border-teal',
+  Common: 'bg-navy text-white', Possible: 'bg-[#dbe9f6] text-navy', 'Less likely': 'bg-ice text-ink border border-black/15', 'Check yours': 'bg-white text-navy border-2 border-navy',
 };
 
 export default function WaterReportTool() {
@@ -32,10 +32,10 @@ export default function WaterReportTool() {
   }, []);
 
   return (
-    <div id="report" data-track-source="tool_report" className="scroll-mt-24 rounded-[28px] bg-ice border border-cyan p-5 sm:p-8 md:p-10 flex flex-col gap-6">
+    <div id="report" data-track-source="tool_report" className="scroll-mt-24 tool-shell p-5 sm:p-8 md:p-10 flex flex-col gap-6">
       <div className="flex items-center gap-4">
-        <span className="shrink-0 w-14 h-14 rounded-2xl bg-white text-blue flex items-center justify-center shadow-sm"><Icon name="document" size={30} /></span>
-        <div><p className="text-sm font-semibold !p-0 text-navy">Tool 1 · Water Quality Report Locator</p><h2>Your water quality isn’t generic. Neither is our solution.</h2></div>
+        <span className="shrink-0 w-14 h-14 rounded-2xl bg-ice text-navy flex items-center justify-center ring-1 ring-black/[.06]"><Icon name="document" size={30} /></span>
+        <div><p className="eyebrow !py-0">Tool 1 · Water Quality Report Locator</p><h2>Your water quality isn’t generic. Neither is our solution.</h2></div>
       </div>
       <p>Enter your ZIP code to see what homeowners in your area should check, from hardness to chlorine to older plumbing. <b>Understand what you’re exposing your family to.</b></p>
 
@@ -43,11 +43,11 @@ export default function WaterReportTool() {
         <input className="field flex-1" inputMode="numeric" maxLength={5} placeholder="Your ZIP code" aria-label="ZIP code" list="area-zips" value={zip}
           onFocus={start} onChange={(e) => setZip(e.target.value.replace(/\D/g, ''))} />
         <datalist id="area-zips">{AREA_SHORTCUTS.map(([a, z]) => <option key={z} value={z}>{a}</option>)}</datalist>
-        <button className="btn btn-blue" disabled={zip.length !== 5}>Check my area</button>
+        <button className="btn btn-cta" disabled={zip.length !== 5}>Check my area</button>
       </form>
       <div className="flex flex-wrap gap-2 items-center text-sm">
         <span>We serve:</span>
-        {AREA_SHORTCUTS.map(([a, z]) => <button key={z} type="button" onClick={() => { setZip(z); run(z); }} className="min-h-12 px-4 rounded-[10px] bg-white border border-teal/40 text-navy font-semibold hover:bg-cyan transition-colors">{a}</button>)}
+        {AREA_SHORTCUTS.map(([a, z]) => <button key={z} type="button" onClick={() => { setZip(z); run(z); }} className="chip hover:!bg-navy hover:!text-white">{a}</button>)}
       </div>
 
       {shown && (
@@ -58,22 +58,22 @@ export default function WaterReportTool() {
                 <div><p className="text-sm font-semibold !p-0 text-navy">Report card · {shown}</p><h3>{profile.area}</h3><p>{profile.supply}</p></div>
                 <WizardButton className="btn btn-cta shrink-0 !whitespace-normal !h-auto py-3 text-center">Get Instant Price</WizardButton>
               </div>
-              <ul className="flex flex-col divide-y divide-teal/20">
+              <ul className="flex flex-col divide-y divide-black/10">
                 {profile.rows.map((r) => (
                   <li key={r.label} className="py-4 grid gap-2 sm:grid-cols-[200px_1fr] sm:gap-6">
-                    <div className="flex items-center gap-3"><span className={`text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap ${PILL[r.level]}`}>{r.level}</span></div>
+                    <div className="flex items-center gap-3"><span className={`font-mono text-[14px] font-bold uppercase tracking-[.12em] px-3 py-1 rounded-full whitespace-nowrap ${PILL[r.level]}`}>{r.level}</span></div>
                     <div><p className="font-semibold !p-0">{r.label}</p><p className="!pt-1 !pb-0 text-sm">{r.note}</p></div>
                   </li>
                 ))}
               </ul>
               {profile.measured && (
-                <div className="rounded-3xl bg-ice border border-cyan p-5 sm:p-8 flex flex-col gap-3">
+                <div className="rounded-[28px] bg-ice border border-black/10 p-5 sm:p-8 flex flex-col gap-3">
                   <p className="font-semibold !p-0 text-navy">What {profile.measured.utility} measured ({profile.measured.year})</p>
                   {profile.measured.note && <p className="text-sm !p-0">{profile.measured.note}</p>}
                   <p className="text-sm font-semibold !p-0 mt-2">Closest to the legal limit</p>
                   <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                     {[...profile.measured.rows].filter((m) => m.pct !== undefined).sort((a, b) => (b.pct ?? 0) - (a.pct ?? 0)).slice(0, 4).map((m) => (
-                      <div key={m.name} className="rounded-2xl bg-white border border-cyan p-4 flex flex-col gap-2">
+                      <div key={m.name} className="rounded-[22px] bg-white ring-1 ring-black/[.07] p-4 flex flex-col gap-2">
                         <p className="font-semibold !p-0 text-sm">{m.name}</p>
                         <p className="!p-0 text-sm">{m.result}</p>
                         <div className="h-2 rounded-full bg-ice" aria-hidden><div className="h-2 rounded-full bg-blue" style={{ width: `${Math.min(100, Math.max(m.pct ?? 0, 2))}%` }} /></div>
@@ -82,9 +82,9 @@ export default function WaterReportTool() {
                   </div>
                   <p className="text-xs !p-0">Every result is within the legal limit. Legal limits are the floor, not a health guarantee, and some limits are being lowered. The full table follows.</p>
                   <p className="text-sm !p-0">Real results from the utility’s own annual report, next to the legal limit. Meeting the legal limit is the minimum. Many families still choose to filter chlorine, disinfection byproducts and PFAS at home.</p>
-                  <div className="overflow-x-auto"><table className="w-full text-left text-sm min-w-[520px]"><thead><tr className="text-navy"><th className="py-2 pr-4">Substance</th><th className="py-2 pr-4">Result</th><th className="py-2">Legal limit</th></tr></thead>
+                  <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Full results table, scrolls sideways on small screens"><table className="w-full text-left text-sm min-w-[520px]"><thead><tr className="text-navy"><th className="py-2 pr-4">Substance</th><th className="py-2 pr-4">Result</th><th className="py-2">Legal limit</th></tr></thead>
                     <tbody>{profile.measured.rows.map((m) => (
-                      <tr key={m.name} className="border-t border-teal/20 align-top"><td className="py-3 pr-4 font-semibold">{m.name}{m.note && <span className="block font-normal text-xs">{m.note}</span>}</td><td className="py-3 pr-4">{m.result}</td><td className="py-3">{m.limit}</td></tr>))}</tbody></table></div>
+                      <tr key={m.name} className="border-t border-black/10 align-top"><td className="py-3 pr-4 font-semibold">{m.name}{m.note && <span className="block font-normal text-xs">{m.note}</span>}</td><td className="py-3 pr-4">{m.result}</td><td className="py-3">{m.limit}</td></tr>))}</tbody></table></div>
                   <p className="text-xs !p-0">Source: <a className="underline" href={profile.measured.url} target="_blank" rel="noopener noreferrer">{profile.measured.source}</a>. Applies to {profile.measured.utility} customers. Check your own bill to confirm your utility.</p>
                 </div>
               )}
@@ -101,7 +101,7 @@ export default function WaterReportTool() {
             <p className="!p-0 font-semibold text-white">Your family’s health starts with clean water. Let’s test yours.</p>
             <WizardButton className="btn btn-cta self-start !whitespace-normal !h-auto py-3 text-center">Get Instant Price</WizardButton>
             <p className="!p-0 text-sm text-white/90">Call or text us directly. We’re local. <a className="underline font-semibold" href={PHONE_HREF}>{PHONE}</a> · <a className="underline font-semibold" href={SMS_HREF}>Text us</a></p>
-            <Link href="/services/whole-home-water-filtration" className="text-sm text-cyan underline font-semibold">See our flagship filtration plans: from {flagshipPrice} {TAX_NOTE} →</Link>
+            <Link href="/services/whole-home-water-filtration" className="text-sm text-white underline font-semibold">See our flagship filtration plans: from {flagshipPrice} {TAX_NOTE} →</Link>
           </div>
         </div>
       )}

@@ -26,10 +26,10 @@ export default function CostCalculator() {
   const saves = res.savingsPerYear > 0;
 
   return (
-    <div id="calculator" data-track-source="tool_cost" className="scroll-mt-24 rounded-[28px] bg-ice border border-cyan p-5 sm:p-8 md:p-10 flex flex-col gap-6">
+    <div id="calculator" data-track-source="tool_cost" className="scroll-mt-24 tool-shell p-5 sm:p-8 md:p-10 flex flex-col gap-6">
       <div className="flex items-center gap-4">
-        <span className="shrink-0 w-14 h-14 rounded-2xl bg-white text-blue flex items-center justify-center shadow-sm"><Icon name="calculator" size={30} /></span>
-        <div><p className="text-sm font-semibold !p-0 text-navy">Tool 2 · True Cost Calculator</p><h2>You think you’re saving money. Check the real number.</h2></div>
+        <span className="shrink-0 w-14 h-14 rounded-2xl bg-ice text-navy flex items-center justify-center ring-1 ring-black/[.06]"><Icon name="calculator" size={30} /></span>
+        <div><p className="eyebrow !py-0">Tool 2 · True Cost Calculator</p><h2>You think you’re saving money. Check the real number.</h2></div>
       </div>
       <p>See what your current water setup costs you every year, in salt, wasted water, filters and bottled water. <b>A real number, from your own usage.</b></p>
 
@@ -43,7 +43,7 @@ export default function CostCalculator() {
         <label className="flex flex-col gap-2"><span className="font-semibold text-sm">How do you handle drinking water now?</span>
           <select className="field" value={drinking} onChange={(e) => { start(); setDrinking(e.target.value as Drinking); }}>{DRINKING.map(([v, l]) => <option key={v} value={v}>{l}</option>)}</select></label>
         <div className="sm:col-span-2 flex flex-col sm:flex-row gap-3 sm:items-center">
-          <button className="btn btn-blue">Calculate my real cost</button>
+          <button className="btn btn-cta">Calculate my real cost</button>
           <details className="text-sm"><summary className="cursor-pointer font-semibold text-navy min-h-12 flex items-center">Adjust the assumptions</summary>
             <div className="grid gap-3 sm:grid-cols-2 mt-3">{LABELS.map(([k, l, step]) => (
               <label key={k} className="flex flex-col gap-1"><span>{l}</span><input className="field" type="number" min={0} step={step} value={a[k]} onChange={(e) => setA({ ...a, [k]: Number(e.target.value) || 0 })} /></label>))}</div>
@@ -62,7 +62,7 @@ export default function CostCalculator() {
           <div className="grid gap-8 md:grid-cols-2">
             {[['What you pay now', res.current, res.currentTotal], ['What our system costs to run', res.ours, res.oursTotal]].map(([title, lines, total]) => (
               <div key={title as string}><p className="font-semibold !p-0">{title as string}</p>
-                <ul className="mt-2 divide-y divide-teal/20">{(lines as typeof res.current).map((l) => <li key={l.key} className="py-3 flex justify-between gap-4"><span>{l.label}<span className="block text-xs">{l.note}</span></span><b>{formatUSD(l.amount)}</b></li>)}
+                <ul className="mt-2 divide-y divide-black/10">{(lines as typeof res.current).map((l) => <li key={l.key} className="py-3 flex justify-between gap-4"><span>{l.label}<span className="block text-xs">{l.note}</span></span><b>{formatUSD(l.amount)}</b></li>)}
                   {!(lines as typeof res.current).length && <li className="py-3">Nothing on your list.</li>}</ul>
                 <p className="flex justify-between font-bold !pb-0"><span>Per year</span><span>{formatUSD(total as number)}</span></p></div>))}
           </div>

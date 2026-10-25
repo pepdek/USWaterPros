@@ -53,10 +53,7 @@ input, select { font-size: 16px; min-height: 48px; }
 @layer components {
   /* Buttons are pills. Primary is flag red; secondary is frosted glass with a navy edge. */
   .btn { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; min-height:50px; min-width:48px; padding:0 28px; border:1px solid transparent; border-radius:980px; font-family:var(--sans); font-size:17px; line-height:1.2; font-weight:700; letter-spacing:-0.005em; white-space:nowrap; transition: transform .35s var(--ease), box-shadow .35s var(--ease), background .25s, color .25s, border-color .25s; }
-  .btn:hover { transform: translateY(-1px) scale(1.015); }
-  .btn:active { transform: scale(.985); transition-duration: .1s; }
-  .btn:focus-visible { outline: 3px solid rgb(var(--teal-rgb) / .6); outline-offset: 3px; }
-  .btn-sm { min-height:40px; padding:0 18px; font-size:14px; }
+  .btn-sm { min-height:44px; padding:0 18px; font-size:14px; }
   .btn-cta { background: linear-gradient(180deg, #c92b3b 0%, #a31d2a 100%); color: #fff; box-shadow: 0 1px 0 rgb(255 255 255 / .22) inset, 0 12px 26px -10px rgb(163 29 42 / .7); }
   .btn-cta:hover { box-shadow: 0 1px 0 rgb(255 255 255 / .28) inset, 0 18px 34px -12px rgb(163 29 42 / .8); }
   .btn-blue { background: var(--blue); color: #fff; box-shadow: 0 10px 24px -12px rgb(var(--blue-rgb) / .7); }
@@ -75,6 +72,14 @@ input, select { font-size: 16px; min-height: 48px; }
   .field:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px rgb(var(--teal-rgb) / .25); }
 }
 
+/* A tool on the Tools page: a clean paper card with a soft edge. */
+.tool-shell { background: #fff; border: 1px solid rgb(var(--ink-rgb) / .08); border-radius: 32px; box-shadow: 0 1px 0 #fff inset, 0 40px 70px -48px rgb(var(--navy-rgb) / .45); }
+
+/* Skip link: first thing a keyboard user tabs to. */
+.skip-link { position: fixed; left: 12px; top: -80px; z-index: 200; background: #fff; color: var(--ink); font-weight: 700; padding: 12px 20px; border-radius: 14px; box-shadow: 0 10px 30px rgb(0 0 0 / .3); transition: top .2s var(--ease); }
+.skip-link:focus { top: 12px; }
+@media (forced-colors: active) { .btn, .chip, .tile, .tool-shell, .card, .glass { border: 1px solid CanvasText; } .btn-cta, .btn-blue { forced-color-adjust: none; background: ButtonFace; color: ButtonText; } .ico path { forced-color-adjust: auto; } }
+
 /* Icon color spot: sky blue on light surfaces, flag red on dark ones. */
 .ico { --spot: #bcd9ef; overflow: visible; }
 .bg-surge .ico, .bg-navy .ico, .ico-dark .ico, .ico-dark.ico { --spot: rgb(var(--cta-rgb) / .9); }
@@ -89,7 +94,7 @@ input, select { font-size: 16px; min-height: 48px; }
 .bg-surge { background: radial-gradient(800px 520px at 88% -6%, rgb(var(--teal-rgb) / .38), transparent 62%), radial-gradient(640px 420px at 0% 108%, rgb(var(--cta-rgb) / .22), transparent 60%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cpath fill='white' fill-opacity='.05' d='M20 12l2.1 4.3 4.7.7-3.4 3.3.8 4.7-4.2-2.2-4.2 2.2.8-4.7-3.4-3.3 4.7-.7zM82 72l2.1 4.3 4.7.7-3.4 3.3.8 4.7-4.2-2.2-4.2 2.2.8-4.7-3.4-3.3 4.7-.7z'/%3E%3C/svg%3E"), var(--navy); }
 .bg-wash { background: linear-gradient(180deg, var(--paper) 0%, var(--ice) 100%); }
 /* Red, white and blue stripe band: a thin edge for the footer and the trust banner. */
-.stripes { height: 6px; background: linear-gradient(90deg, var(--cta) 0 33.333%, #fff 33.333% 66.666%, var(--navy) 66.666% 100%) 0 0 / 144px 100%; animation: drift 48s linear infinite; }
+.stripes { height: 6px; background: linear-gradient(90deg, var(--cta) 0 33.333%, #fff 33.333% 66.666%, var(--navy) 66.666% 100%) 0 0 / 144px 100%; animation: drift 4.5s var(--ease) 1 both; } /* moves once on load, then rests: nothing decorative keeps moving past 5 seconds */
 @keyframes drift { to { background-position-x: 144px; } }
 
 /* Dark-hero pages: the floating header turns to dark frosted glass with light text. */
@@ -112,17 +117,40 @@ body:has(main > .bg-surge:first-child) header > .glass > a { border-color: rgb(2
 [data-rv]:nth-child(2) { --i: 1; } [data-rv]:nth-child(3) { --i: 2; } [data-rv]:nth-child(4) { --i: 3; }
 .rv-on [data-rv]:not(.in) { opacity: 0; transform: translateY(22px); }
 .rv-on [data-rv].in { animation: rise .85s var(--ease) backwards; animation-delay: calc(var(--i, 0) * 90ms); }
-/* The red button catches the light on hover. */
-.btn-cta { position: relative; overflow: hidden; }
-.btn-cta::after { content: ''; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 38%, rgb(255 255 255 / .3) 50%, transparent 62%); transform: translateX(-130%); transition: transform .8s var(--ease); pointer-events: none; }
-.btn-cta:hover::after { transform: translateX(130%); }
+/* ---- One interaction language for everything you can press: buttons (.btn), option tiles (.tile), chips (.chip), plain .tap.
+   Hover = a hair of lift and scale. Press = a small squash. Filled buttons also catch the light. Same timing and curve everywhere. ---- */
+.btn, .tile, .chip, .tap { transition: transform .35s var(--ease), box-shadow .35s var(--ease), background-color .25s, border-color .25s, color .25s; }
+.btn:hover, .tile:hover, .chip:hover, .tap:hover { transform: translateY(-1px) scale(1.015); }
+.btn:active, .tile:active, .chip:active, .tap:active { transform: scale(.985); transition-duration: .1s; }
+.btn:disabled, .btn[aria-disabled="true"] { transform: none; }
+.btn { position: relative; overflow: hidden; --shine: rgb(255 255 255 / .3); }
+.btn-secondary { --shine: rgb(11 37 69 / .08); }
+.btn::after { content: ''; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 38%, var(--shine) 50%, transparent 62%); transform: translateX(-130%); transition: transform .8s var(--ease); pointer-events: none; }
+.btn:hover::after { transform: translateX(130%); }
+.btn:disabled::after { display: none; }
+.tile { background: #fff; border: 2px solid rgb(var(--ink-rgb) / .12); border-radius: 22px; color: var(--ink); box-shadow: 0 1px 0 #fff inset, 0 12px 28px -22px rgb(var(--navy-rgb) / .4); }
+.tile:hover { border-color: rgb(var(--navy-rgb) / .45); box-shadow: 0 1px 0 #fff inset, 0 18px 34px -22px rgb(var(--navy-rgb) / .5); }
+.tile-on, .tile:has(input:checked) { border-color: var(--navy); background: #fffdf7; box-shadow: 0 0 0 1px var(--navy), 0 18px 34px -22px rgb(var(--navy-rgb) / .55); }
+.chip { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 980px; border: 1px solid rgb(var(--navy-rgb) / .22); background: rgb(255 255 255 / .8); color: var(--navy); font-weight: 600; }
+.chip:hover { background: #fff; border-color: rgb(var(--navy-rgb) / .45); }
+.arrow-link span { display: inline-block; transition: transform .35s var(--ease); } .arrow-link:hover span { transform: translateX(4px); }
+/* One focus ring, visible on every surface (3:1 or better). */
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
+.bg-surge :focus-visible, .bg-navy :focus-visible, body:has(main > .bg-surge:first-child) header :focus-visible, .wiz :focus-visible { outline-color: #fff; }
+.wiz :focus-visible { outline-color: var(--blue); }
+.btn:focus-visible { border-radius: 980px; }
+.field:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.bg-surge .btn:focus-visible, .bg-surge .field:focus-visible, .bg-navy .btn:focus-visible, body:has(main > .bg-surge:first-child) header .btn:focus-visible { outline-color: #fff; }
+.wiz .btn:focus-visible, .wiz .field:focus-visible { outline-color: var(--blue); }
 /* FAQ answers ease open. */
 details[open] > :not(summary) { animation: rise .35s var(--ease) both; }
 details > summary { list-style: none; } details > summary::-webkit-details-marker { display: none; }
 /* Edges of the moving ribbon fade out. */
 .marquee-mask { -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
 @media (prefers-reduced-motion: reduce) {
-  .rise, .stamp, .stripes, .btn-cta::after, details[open] > :not(summary), .rv-on [data-rv].in { animation: none !important; }
+  .rise, .stamp, .stripes, details[open] > :not(summary), .rv-on [data-rv].in { animation: none !important; }
+  .btn::after { display: none; }
+  .btn:hover, .tile:hover, .chip:hover, .tap:hover, .btn:active, .tile:active, .chip:active, .tap:active { transform: none; }
   .rv-on [data-rv]:not(.in) { opacity: 1; transform: none; }
 }
 

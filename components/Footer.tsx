@@ -12,7 +12,7 @@ const LEGAL = [['Terms', '/terms'], ['Privacy', '/privacy']];
 function Col({ title, links }: { title: string; links: string[][] }) {
   return (
     <div>
-      <h3 className="!font-mono !text-ink !text-[15px] !font-bold uppercase tracking-[.16em] mb-3">{title}</h3>
+      <h2 className="!font-mono !text-ink !text-[15px] !font-bold !leading-snug !tracking-[.16em] uppercase mb-3">{title}</h2>
       <ul className="flex flex-col">
         {links.map(([t, href]) => <li key={t}><Link href={href} className="min-h-11 inline-flex items-center text-[14px] hover:text-ink transition-colors">{t}</Link></li>)}
       </ul>
@@ -29,7 +29,7 @@ export default function Footer() {
           <p className="!py-0 font-mono text-[26px] font-extrabold uppercase tracking-[.03em] text-ink"><span aria-hidden className="text-cta text-[18px] mr-1.5 align-[2px]">★</span>US Water Pros</p>
           <p className="!py-0 mt-1 font-mono text-[12px] font-semibold uppercase tracking-[.24em] !text-[#5b6472]">America's Water Professionals</p>
           <p className="mt-3 !text-[15px] leading-relaxed">Whole-home water systems, priced up front and installed by licensed local plumbers.</p>
-          <div className="mt-4 border-t border-black/[.08] pt-3 text-[#86868b]"><p className="!py-0 !text-[13px]">{STORE.local}</p><p className="!py-0 !text-[13px]">Serving Pierce, Kitsap &amp; Thurston Counties, WA</p></div>
+          <div className="mt-4 border-t border-black/[.08] pt-3 text-[#5b6472]"><p className="!py-0 !text-[13px]">{STORE.local}</p><p className="!py-0 !text-[13px]">Serving Pierce, Kitsap &amp; Thurston Counties, WA</p></div>
           <a href={PHONE_HREF} className="mt-4 inline-flex min-h-12 items-center rounded-full border border-black/10 bg-white px-5 font-semibold text-ink shadow-sm hover:shadow-md transition-shadow">{PHONE}</a>
           <ul className="mt-2 flex flex-wrap gap-x-1">
             {SOCIAL.map(([n, u]) => <li key={n}><a href={u} target="_blank" rel="noopener noreferrer" aria-label={`US Water Pros on ${n} (opens in a new tab)`} className="min-h-11 inline-flex items-center pr-4 font-medium hover:text-ink transition-colors">{n}</a></li>)}
@@ -41,7 +41,7 @@ export default function Footer() {
         <Col title="Company" links={COMPANY} />
       </div>
       <div className="border-t border-black/[.08]">
-        <div className="mx-auto max-w-6xl px-4 py-5 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between text-[#86868b]">
+        <div className="mx-auto max-w-6xl px-4 py-5 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between text-[#5b6472]">
           <p className="!py-0 !text-[13px]">© {new Date().getFullYear()} US Water Pros · USWaterPros.com <span className="mx-1.5 text-cta" aria-hidden>★</span> Proudly serving Western Washington</p>
           <ul className="flex gap-5">{LEGAL.map(([t, href]) => <li key={t}><Link href={href} className="min-h-11 inline-flex items-center hover:text-ink transition-colors">{t}</Link></li>)}</ul>
         </div>

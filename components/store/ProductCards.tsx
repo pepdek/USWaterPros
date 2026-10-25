@@ -7,7 +7,7 @@ const price = (n: number) => (
 );
 
 // `teaser` (home): icon, name, one line, price, button. Everything else lives on /pricing (`full`, with the bullets).
-export default function ProductCards({ id, variant = 'full', caption, showAvg = false }: { id?: string; variant?: 'teaser' | 'full'; caption?: string; showAvg?: boolean }) {
+export default function ProductCards({ id, variant = 'full', caption, showAvg = false, headingAs: H = 'h3' }: { id?: string; variant?: 'teaser' | 'full'; caption?: string; showAvg?: boolean; headingAs?: 'h2' | 'h3' }) {
   return (
     <ul id={id} className="grid gap-5 md:gap-6 md:grid-cols-3 items-stretch">
       {TIERS.map((t) => (
@@ -15,7 +15,7 @@ export default function ProductCards({ id, variant = 'full', caption, showAvg = 
           {t.popular && <span className="absolute -top-3.5 left-7 rounded-full bg-navy px-3.5 py-1 font-mono text-[13px] font-bold uppercase tracking-[.16em] text-white"><span aria-hidden className="mr-1.5 text-[#ff8a96]">★</span>Most homes</span>}
           <span className="text-ink"><TierIcon id={t.id} /></span>
           <div>
-            <h3 className="font-serif text-[30px] font-bold tracking-[-0.02em] leading-tight">{t.name}</h3>
+            <H className="font-serif text-[30px] font-bold tracking-[-0.02em] leading-tight">{t.name}</H>
             <p className="!py-0 mt-1.5 text-[#5b6472] text-[16px] leading-snug">{variant === 'teaser' ? t.fit : t.subhead}</p>
           </div>
           <div>
@@ -28,7 +28,7 @@ export default function ProductCards({ id, variant = 'full', caption, showAvg = 
             </ul>
           )}
           <div className="mt-auto flex flex-col gap-3">
-            <WizardButton tier={t.id} className="btn btn-cta w-full !font-semibold">Get Instant Price →</WizardButton>
+            <WizardButton tier={t.id} className="btn btn-cta w-full !font-semibold">Get Instant Price →<span className="sr-only"> for {t.name}</span></WizardButton>
             {showAvg && <p className="!py-0 text-center text-[14px] italic text-[#3f4a4f]">Avg total price in 2026 is {formatUSD(avgTotal(t.id))}</p>}
           </div>
         </li>

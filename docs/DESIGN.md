@@ -45,3 +45,9 @@ Our own set, drawn like a screen print: a 2px navy line drawing plus a flat colo
 - The red-white-navy stripe band drifts slowly. The red button catches the light on hover. FAQ answers ease open. Service-card photos zoom a touch on hover. The benefits ribbon fades at its edges.
 - Page texture: a faint paper grain on the cream background.
 - Favicon: `app/icon.svg` (navy disc, red star).
+
+## One interaction language
+Everything you can press shares the same motion: `.btn` (all variants), `.tile` (quiz and wizard choices), `.chip` (link pills) and `.tap`. Hover = 1px lift and 1.5% scale; press = a small squash; 0.35s on the same spring curve. Filled and glass buttons also catch the light on hover. Arrow links (`.arrow-link`) nudge their arrow. One focus ring everywhere (3px blue, white on dark surfaces). All of it is off for `prefers-reduced-motion`. Use these classes for anything new rather than writing hover styles by hand.
+
+## Share image
+`app/opengraph-image.png` and `app/twitter-image.png` (1200 x 630, with alt text files). The source is `scripts/og/og.html`; re-render with `node scripts/og/render.mjs`, then copy `scripts/og/og.png` over both. Dollar amounts are left off on purpose so it never goes stale.

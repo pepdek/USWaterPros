@@ -56,7 +56,7 @@ export default async function ServicePage({ params }: Props) {
     ],
   };
   return (
-    <main>
+    <main id="main">
       <ServiceHero s={s} />
       <div className="mx-auto max-w-6xl px-4 py-16 md:py-20 grid gap-12 md:gap-16 md:grid-cols-[3fr_2fr]">
         <div className="flex flex-col gap-16 md:gap-20">
@@ -83,9 +83,9 @@ export default async function ServicePage({ params }: Props) {
       <section className="mx-auto max-w-6xl px-4 py-16">
         <h2 className="text-2xl">Also interested in</h2>
         <div className="mt-4 flex flex-wrap gap-2">
-          {s.related.map((r) => { const x = find(r)!; return <Link key={r} href={`/services/${r}`} className="lowercase min-h-12 inline-flex items-center rounded-[10px] bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] px-5 font-semibold text-ink hover:bg-navy hover:text-white">{x.name}</Link>; })}
-          <Link href="/locations/pierce-county" className="min-h-12 inline-flex items-center rounded-[10px] bg-ice px-5 font-semibold text-ink">Pierce County water guide</Link>
-          <Link href="/locations/kitsap-county" className="min-h-12 inline-flex items-center rounded-[10px] bg-ice px-5 font-semibold text-ink">Kitsap County water guide</Link>
+          {s.related.map((r) => { const x = find(r)!; return <Link key={r} href={`/services/${r}`} className="lowercase chip hover:!bg-navy hover:!text-white">{x.name}</Link>; })}
+          <Link href="/locations/pierce-county" className="chip hover:!bg-navy hover:!text-white">Pierce County water guide</Link>
+          <Link href="/locations/kitsap-county" className="chip hover:!bg-navy hover:!text-white">Kitsap County water guide</Link>
         </div>
       </section>
     </main>

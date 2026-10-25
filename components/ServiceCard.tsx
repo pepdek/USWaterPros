@@ -10,7 +10,7 @@ export default function ServiceCard({ s }: { s: Service }) {
       </div>
       <h3 className="text-[22px] font-semibold tracking-[-0.025em] leading-tight">{s.name}</h3>
       <p className="!text-[16px] text-[#5b6472]">{s.blurb}</p>
-      <Link href={`/services/${s.slug}`} className="font-medium text-blue hover:underline mt-auto min-h-12 inline-flex items-center">Explore service <span aria-hidden className="ml-1">›</span></Link>
+      <Link href={`/services/${s.slug}`} className="arrow-link font-medium text-blue hover:underline mt-auto min-h-12 inline-flex items-center">Explore service<span className="sr-only">: {s.name}</span> <span aria-hidden className="ml-1">›</span></Link>
     </div>
   );
 }

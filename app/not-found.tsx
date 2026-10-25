@@ -14,7 +14,7 @@ export default function NotFound() {
   const c = siteCopy.notFound;
   // Do not read headers() here: this boundary is part of every page, and that would make the whole site render per request.
   return (
-    <main className="nf">
+    <main id="main" className="nf">
       <div className="mx-auto max-w-2xl px-4 py-14 md:py-20 text-center">
         <SadDrop />
         <h1 className="mt-6 !text-[clamp(2rem,1.2rem+3.4vw,3.2rem)] [text-wrap:balance]" style={{ color: 'var(--nf-ink)' }}>{c.h1}</h1>

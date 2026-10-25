@@ -19,7 +19,8 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://uswaterpros.com'),
   title: 'US Water Pros | Water Filtration & Treatment Experts in Tacoma, WA',
   description: 'See your instant price for a whole-home water system installed by a licensed local plumber. Pierce County, WA.',
-  openGraph: { siteName: 'US Water Pros', type: 'website' },
+  openGraph: { siteName: 'US Water Pros', type: 'website', locale: 'en_US' },
+  twitter: { card: 'summary_large_image' },
 };
 
 const PH = process.env.NEXT_PUBLIC_POSTHOG_KEY;
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-sans">
         {GTM && <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM}`} height="0" width="0" style={{ display: 'none', visibility: 'hidden' }} /></noscript>}
         {GTM && <Script id="gtm" strategy="afterInteractive">{`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM}');`}</Script>}
+        <a href="#main" className="skip-link">Skip to main content</a>
         <AnalyticsEvents />
         <ScrollFx />
         <Header />

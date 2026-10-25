@@ -186,7 +186,7 @@ export function ComparisonTable({ s }: { s: Service }) {
   return (
     <div>
       <h2>How {s.name} Compares</h2>
-      <div className="mt-8 overflow-x-auto">
+      <div className="mt-8 overflow-x-auto" tabIndex={0} role="region" aria-label="Comparison table, scrolls sideways on small screens">
         <table className="w-full text-left text-sm min-w-[560px]">
           <thead><tr className="text-ink"><th className="p-3">Feature</th><th className="p-3 bg-aqua/20 rounded-t">US Water Pros</th><th className="p-3">Premium brand</th><th className="p-3">Budget option</th></tr></thead>
           <tbody>{rows.map(([f, a, b, c]) => <tr key={f} className="border-t border-black/10"><td className="p-3 font-semibold text-ink">{f}</td><td className="p-3 bg-aqua/20">{a}</td><td className="p-3">{b}</td><td className="p-3">{c}</td></tr>)}</tbody>
@@ -226,7 +226,7 @@ export function ServiceAreaCallout() {
       <div className="mx-auto max-w-6xl px-4 text-center">
         <h2 className="!text-white">Serving Pierce, Kitsap &amp; Thurston Counties</h2>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
-          {CITIES.map((c) => <Link key={c.slug} href={`/services/whole-home-water-filtration-${c.slug}`} className="min-h-12 inline-flex items-center rounded-[10px] bg-white text-ink px-5 font-semibold">{c.name}</Link>)}
+          {CITIES.map((c) => <Link key={c.slug} href={`/services/whole-home-water-filtration-${c.slug}`} className="chip hover:!bg-navy hover:!text-white">{c.name}</Link>)}
         </div>
         <p className="mt-4 text-sm text-white/80">{CITIES.flatMap((c) => c.neighborhoods.slice(0, 2)).join(' · ')} and surrounding areas</p>
       </div>
@@ -243,7 +243,7 @@ export function CTASection() {
           <WizardButton className="btn btn-cta">Get Instant Price</WizardButton>
           <a href={PHONE_HREF} className="btn btn-secondary">{PHONE}</a>
         </div>
-        <p className="mt-4 text-sm text-ink font-semibold">✓ Instant price | ✓ Licensed local plumbers | ✓ Pay up front | ✓ 100% refundable</p>
+        <p className="mt-4 text-sm text-white font-semibold">✓ Instant price | ✓ Licensed local plumbers | ✓ Pay up front | ✓ 100% refundable</p>
       </div>
     </section>
   );
@@ -270,8 +270,8 @@ export function UnfaqSection({ s }: { s: Service }) {
 export function LeanLinks() {
   return (
     <div className="flex flex-wrap gap-2">
-      <Link href="/services/whole-home-water-filtration#after-installation" className="min-h-12 inline-flex items-center rounded-[10px] bg-white px-5 font-semibold text-ink shadow-[0_2px_10px_rgba(0,0,0,.06)]">See maintenance &amp; warranty details in our full FAQ</Link>
-      <Link href="/#areas" className="min-h-12 inline-flex items-center rounded-[10px] bg-white px-5 font-semibold text-ink shadow-[0_2px_10px_rgba(0,0,0,.06)]">Service areas &amp; locations</Link>
+      <Link href="/services/whole-home-water-filtration#after-installation" className="chip hover:!bg-navy hover:!text-white">See maintenance &amp; warranty details in our full FAQ</Link>
+      <Link href="/#areas" className="chip hover:!bg-navy hover:!text-white">Service areas &amp; locations</Link>
     </div>
   );
 }

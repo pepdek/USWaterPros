@@ -17,7 +17,7 @@ export default function HeroSection() {
           <p className="rise mt-6 max-w-xl text-[19px] md:text-[21px] leading-[1.5] text-[#46505e]" style={{ ["--d" as string]: ".18s" }}>Whole-house water filtration with the price up front. Enter your ZIP, see the systems that fit your water, and book your install online. Handled by licensed local plumbers in Pierce County, WA.</p>
           <div className="rise mt-9 flex flex-wrap items-center gap-x-6 gap-y-3" style={{ ["--d" as string]: ".3s" }}>
             <WizardButton className="btn btn-cta !min-h-[58px] !px-9 !text-[19px]">Get Instant Price</WizardButton>
-            <a href="#process" className="inline-flex min-h-11 items-center gap-1.5 text-[17px] font-semibold text-blue hover:underline">See how it works <span aria-hidden>›</span></a>
+            <a href="#process" className="arrow-link inline-flex min-h-11 items-center gap-1.5 text-[17px] font-semibold text-blue hover:underline">See how it works <span aria-hidden>›</span></a>
           </div>
           <div className="rise" style={{ ["--d" as string]: ".42s" }}><StatStrip /></div>
         </div>
@@ -26,10 +26,10 @@ export default function HeroSection() {
             <Image src="/images/installs/softener-carbon-garage.jpg" alt="A finished whole-home water system: black filter tank with digital control head and a brine tank, installed in a garage" fill priority sizes="(min-width: 1024px) 44vw, 92vw" className="object-cover" />
           </div>
           <div className="absolute -top-8 -left-3 sm:-left-8 h-28 w-28 sm:h-32 sm:w-32 -rotate-[10deg] drop-shadow-[0_14px_20px_rgba(11,37,69,.35)]"><Seal className="stamp h-full w-full" /></div>
-          <div style={{ ["--d" as string]: ".55s" }} className="glass rise absolute -bottom-7 left-4 right-4 sm:left-auto sm:right-6 sm:w-[300px] !rounded-[24px] p-5">
+          <div style={{ ["--d" as string]: ".55s" }} className="glass rise !bg-[rgba(255,253,247,.94)] absolute -bottom-7 left-4 right-4 sm:left-auto sm:right-6 sm:w-[300px] !rounded-[24px] p-5">
             <p className="!p-0 font-mono text-[13px] font-semibold uppercase tracking-[.16em] text-[#5b6472]">Installed, tax included</p>
             <p className="!p-0 mt-1 font-mono text-[52px] font-bold leading-none text-ink">{STORE.from}<span className="font-sans text-[16px] font-medium tracking-normal text-[#5b6472]"> and up</span></p>
-            <p className="!p-0 mt-2 text-[13px] text-[#5b6472]">By a licensed local plumber. 100% refundable.</p>
+            <p className="!p-0 mt-2 text-[13px] text-[#46505e]">By a licensed local plumber. 100% refundable.</p>
           </div>
         </div>
       </div>

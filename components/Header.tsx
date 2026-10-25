@@ -43,12 +43,29 @@ export default function Header() {
     return () => { document.removeEventListener('keydown', esc); document.body.style.overflow = ''; };
   }, [menu]);
   const close = () => setMenu(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const menuBtn = useRef<HTMLButtonElement>(null);
+  // Mobile menu: focus moves in when it opens, Tab stays inside, and focus goes back to the button when it closes.
+  useEffect(() => {
+    if (!menu) return;
+    const prev = document.activeElement as HTMLElement | null;
+    const items = () => Array.from(menuRef.current?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ?? []).filter((x) => x.getClientRects().length > 0);
+    items()[0]?.focus();
+    const key = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+      const l = items(); if (!l.length) return;
+      if (e.shiftKey && document.activeElement === l[0]) { e.preventDefault(); l[l.length - 1].focus(); }
+      else if (!e.shiftKey && document.activeElement === l[l.length - 1]) { e.preventDefault(); l[0].focus(); }
+    };
+    document.addEventListener('keydown', key);
+    return () => { document.removeEventListener('keydown', key); (menuBtn.current ?? prev)?.focus?.(); };
+  }, [menu]);
 
   return (
     <header className="sticky top-0 z-50 px-3 pt-3">
       <div className="glass !rounded-[22px] mx-auto max-w-6xl">
       <div className={`px-4 md:px-5 flex items-center justify-between gap-3 transition-all duration-300 h-16`}>
-        <Link href="/" aria-label="US Water Pros, America's Water Professionals" className="hdr-t text-ink shrink-0 min-h-11 inline-flex flex-col justify-center leading-none"><span className="font-mono text-[26px] font-extrabold uppercase tracking-[.03em]"><span aria-hidden className="text-cta text-[18px] mr-1.5 align-[2px]">★</span>US Water Pros</span><span className="hdr-t hidden md:block font-mono text-[11px] font-semibold uppercase tracking-[.22em] text-ink/60 mt-1">America's Water Professionals</span></Link>
+        <Link href="/" className="hdr-t text-ink shrink-0 min-h-11 inline-flex flex-col justify-center leading-none"><span className="font-mono text-[26px] font-extrabold uppercase tracking-[.03em]"><span aria-hidden className="text-cta text-[18px] mr-1.5 align-[2px]">★</span>US Water Pros</span><span className="hdr-t hidden md:block font-mono text-[11px] font-semibold uppercase tracking-[.22em] text-ink/75 mt-1">America's Water Professionals</span></Link>
 
         <nav aria-label="Main" className="hidden md:flex items-center gap-7 text-sm">
           <Dropdown label="Services" links={SERVICE_LINKS} />
@@ -64,8 +81,8 @@ export default function Header() {
             <span className="hidden 2xl:inline">{PHONE}</span>
           </a>
           <WizardButton className="btn btn-sm btn-cta hidden md:inline-flex">Get Instant Price</WizardButton>
-          <button type="button" aria-label="Open menu" aria-expanded={menu} onClick={() => setMenu(true)}
-            className="md:hidden inline-flex min-h-12 min-w-12 items-center justify-center text-ink hdr-t">
+          <button ref={menuBtn} type="button" aria-label="Open menu" aria-expanded={menu} onClick={() => setMenu(true)}
+            className="tap md:hidden inline-flex min-h-12 min-w-12 items-center justify-center rounded-full text-ink hdr-t">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
           </button>
         </div>
@@ -74,10 +91,10 @@ export default function Header() {
       </div>
 
       {menu && (
-        <div role="dialog" aria-modal="true" aria-label="Menu" className="fixed inset-0 z-[60] bg-white/90 backdrop-blur-2xl overflow-y-auto">
+        <div ref={menuRef} role="dialog" aria-modal="true" aria-label="Menu" className="fixed inset-0 z-[60] bg-white/90 backdrop-blur-2xl overflow-y-auto">
           <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
             <span className="text-2xl font-bold text-ink">Menu</span>
-            <button type="button" aria-label="Close menu" onClick={close} className="min-h-12 min-w-12 inline-flex items-center justify-center text-ink">
+            <button type="button" aria-label="Close menu" onClick={close} className="tap min-h-12 min-w-12 rounded-full inline-flex items-center justify-center text-ink">
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M5 5l14 14M19 5L5 19" /></svg>
             </button>
           </div>

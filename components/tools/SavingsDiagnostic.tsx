@@ -38,10 +38,10 @@ export default function SavingsDiagnostic() {
   }
 
   return (
-    <div id="diagnostic" data-track-source="tool_diagnostic" className="scroll-mt-24 rounded-[28px] bg-ice border border-cyan p-5 sm:p-8 md:p-10 flex flex-col gap-6">
+    <div id="diagnostic" data-track-source="tool_diagnostic" className="scroll-mt-24 tool-shell p-5 sm:p-8 md:p-10 flex flex-col gap-6">
       <div className="flex items-center gap-4">
-        <span className="shrink-0 w-14 h-14 rounded-2xl bg-white text-blue flex items-center justify-center shadow-sm"><Icon name="chart" size={30} /></span>
-        <div><p className="text-sm font-semibold !p-0 text-navy">Tool 3 · Am I Wasting Money?</p><h2>Stop throwing money at a problem you don’t understand.</h2></div>
+        <span className="shrink-0 w-14 h-14 rounded-2xl bg-ice text-navy flex items-center justify-center ring-1 ring-black/[.06]"><Icon name="chart" size={30} /></span>
+        <div><p className="eyebrow !py-0">Tool 3 · Am I Wasting Money?</p><h2>Stop throwing money at a problem you don’t understand.</h2></div>
       </div>
       <p>Seven yes-or-no questions about your current setup. You get a score and a dollar estimate. <b>Reveal the hidden costs in what you have now.</b></p>
 
@@ -56,7 +56,7 @@ export default function SavingsDiagnostic() {
         ))}
       </ol>
       <div className="flex flex-wrap items-center gap-4">
-        <button className="btn btn-blue" disabled={answered < DIAG_QUESTIONS.length} onClick={() => { setScored(true); trackEvent('tool_result', { tool_name: 'savings_diagnostic', result_bucket: d.tier, result_value: d.waste }); }}>See my score</button>
+        <button className="btn btn-cta" disabled={answered < DIAG_QUESTIONS.length} onClick={() => { setScored(true); trackEvent('tool_result', { tool_name: 'savings_diagnostic', result_bucket: d.tier, result_value: d.waste }); }}>See my score</button>
         <span className="text-sm">{answered} of {DIAG_QUESTIONS.length} answered</span>
       </div>
 
@@ -70,18 +70,18 @@ export default function SavingsDiagnostic() {
           </div>
 
           {status === 'done' ? (
-            <p className="rounded-3xl bg-ice border border-cyan p-6 !p-6 font-semibold text-navy">Thanks, {c.name.split(' ')[0]}. We saved your result, and a specialist will follow up with your savings breakdown.</p>
+            <p className="rounded-[28px] bg-ice border border-black/10 p-6 !p-6 font-semibold text-navy">Thanks, {c.name.split(' ')[0]}. We saved your result, and a specialist will follow up with your savings breakdown.</p>
           ) : (
             <form onSubmit={save} noValidate className="grid gap-4 sm:grid-cols-2">
 <Honeypot />
               <p className="sm:col-span-2 font-semibold !p-0">Get your savings breakdown by email or text</p>
-              <label className="flex flex-col gap-1"><span className="text-sm font-semibold">First name</span><input className="field" autoComplete="given-name" value={c.name} onChange={(e) => setC({ ...c, name: e.target.value })} />{touched && errs.name && <span className="text-coral text-xs">Enter your name</span>}</label>
-              <label className="flex flex-col gap-1"><span className="text-sm font-semibold">Email</span><input className="field" type="email" autoComplete="email" value={c.email} onChange={(e) => setC({ ...c, email: e.target.value })} />{touched && errs.email && <span className="text-coral text-xs">Enter a valid email</span>}</label>
-              <label className="flex flex-col gap-1 sm:col-span-2"><span className="text-sm font-semibold">Mobile number <span className="font-normal">(optional)</span></span><input className="field" type="tel" autoComplete="tel" value={c.phone} onChange={(e) => setC({ ...c, phone: e.target.value })} />{touched && errs.phone && <span className="text-coral text-xs">Enter a 10-digit number to get texts</span>}</label>
+              <label className="flex flex-col gap-1"><span className="text-sm font-semibold">First name</span><input className="field" autoComplete="given-name" value={c.name} onChange={(e) => setC({ ...c, name: e.target.value })} />{touched && errs.name && <span role="alert" className="text-coral text-xs">Enter your name</span>}</label>
+              <label className="flex flex-col gap-1"><span className="text-sm font-semibold">Email</span><input className="field" type="email" autoComplete="email" value={c.email} onChange={(e) => setC({ ...c, email: e.target.value })} />{touched && errs.email && <span role="alert" className="text-coral text-xs">Enter a valid email</span>}</label>
+              <label className="flex flex-col gap-1 sm:col-span-2"><span className="text-sm font-semibold">Mobile number <span className="font-normal">(optional)</span></span><input className="field" type="tel" autoComplete="tel" value={c.phone} onChange={(e) => setC({ ...c, phone: e.target.value })} />{touched && errs.phone && <span role="alert" className="text-coral text-xs">Enter a 10-digit number to get texts</span>}</label>
               <label className="sm:col-span-2 flex items-start gap-3 text-sm min-h-12"><input type="checkbox" className="w-5 h-5 mt-1 accent-[var(--blue)] shrink-0" checked={c.sms} onChange={(e) => setC({ ...c, sms: e.target.checked })} />
                 <span>Yes, text me my result and follow-ups. By checking this box I agree to receive text messages from US Water Pros at the number above. Message and data rates may apply. Reply STOP to opt out. Consent is not a condition of any purchase. See our <a href="/terms#sms" className="underline" target="_blank" rel="noopener">SMS terms</a> and <a href="/privacy" className="underline" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
-              {status === 'error' && <p className="sm:col-span-2 text-coral font-semibold text-sm">Something went wrong. Please try again or text us.</p>}
-              <button className="btn btn-blue sm:col-span-2 self-start" disabled={status === 'sending'}>{status === 'sending' ? 'Saving…' : 'Send me my savings breakdown'}</button>
+              {status === 'error' && <p role="alert" className="sm:col-span-2 text-coral font-semibold text-sm">Something went wrong. Please try again or text us.</p>}
+              <button className="btn btn-cta sm:col-span-2 self-start" disabled={status === 'sending'}>{status === 'sending' ? 'Saving…' : 'Send me my savings breakdown'}</button>
             </form>
           )}
 

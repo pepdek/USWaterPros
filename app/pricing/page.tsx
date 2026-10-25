@@ -49,7 +49,7 @@ export default function Pricing() {
   const ld = breadcrumbsLd([['Home', 'https://uswaterpros.com/'], ['Pricing', 'https://uswaterpros.com/pricing']]);
   const offers = { '@context': 'https://schema.org', '@type': 'ItemList', itemListElement: TIERS.map((t, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Product', name: `${t.name} whole-home water system`, offers: { '@type': 'Offer', price: t.price, priceCurrency: 'USD' } } })) };
   return (
-    <main>
+    <main id="main">
       <section className="bg-surge">
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
           <h1 className="!text-white">Pricing</h1>
@@ -57,7 +57,7 @@ export default function Pricing() {
         </div>
       </section>
 
-      <Band><ProductCards id="cards" caption="All-in starting price" showAvg /><p className="!py-0 -mt-10 text-center text-[14px] font-light text-[#3f4a4f]">Benefits depend on your home&apos;s water. We tell you what to expect before you pay.</p></Band>
+      <Band><ProductCards headingAs="h2" id="cards" caption="All-in starting price" showAvg /><p className="!py-0 -mt-10 text-center text-[14px] font-light text-[#3f4a4f]">Benefits depend on your home&apos;s water. We tell you what to expect before you pay.</p></Band>
 
       <Band tone="ice">
         <div className="grid gap-6 md:gap-8 md:grid-cols-2 md:items-stretch">

@@ -33,7 +33,7 @@ const CARDS: SupportCard[] = [
 
 export default function Support() {
   return (
-    <main>
+    <main id="main">
       <section className="bg-surge">
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
           <p className="eyebrow !py-0 !text-white/85">Support</p>
