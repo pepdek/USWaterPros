@@ -4,7 +4,7 @@ import { tierById, formatUSD } from '@/lib/pricing';
 import { confirmDeadline } from '@/lib/confirmBy';
 import { sendAlert } from '@/lib/alerts';
 import { sendCustomerMail } from '@/lib/mail';
-import { orderConfirmed } from '@/lib/emails/orderConfirmed';
+import { orderConfirmed, orderRef } from '@/lib/emails/orderConfirmed';
 import { SUPPORT_EMAIL } from '@/lib/constants';
 import { verifyStripeSignature } from '@/lib/stripeSig';
 
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
   const od = data?.order_details ?? {};
   const to = String(s.customer_details?.email || data?.email || '');
   if (!alreadyPaid && to && od.date) {
-    await sendCustomerMail(to, orderConfirmed({ name: String(data?.name ?? ''), systemName: tier.name, installDate: String(od.date), window: String(od.window ?? ''), address: String(od.address ?? ''), chargedCents: s.amount_total ?? tier.price * 100, confirmBy: confirmDeadline(new Date(now)), supportEmail: SUPPORT_EMAIL })).catch(console.error);
+    await sendCustomerMail(to, orderConfirmed({ name: String(data?.name ?? ''), orderRef: orderRef(String(leadId)), systemName: tier.name, installDate: String(od.date), window: String(od.window ?? ''), address: String(od.address ?? ''), chargedCents: s.amount_total ?? tier.price * 100, confirmBy: confirmDeadline(new Date(now)), supportEmail: SUPPORT_EMAIL })).catch(console.error);
   }
   await sendAlert(`PAID: ${tier.name} ${formatUSD(charged)}${charged !== tier.price ? ` (list ${formatUSD(tier.price)})` : ''}`, `Install ${data?.order_details?.date ?? '?'}. Text the customer to confirm the time by ${confirmDeadline(new Date(now)).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })} Pacific, then mark it confirmed in the CRM.`).catch(console.error);
   return NextResponse.json({ ok: true });
