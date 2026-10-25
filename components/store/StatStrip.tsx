@@ -9,11 +9,11 @@ export default function StatStrip() {
     ['Tacoma', 'Locally owned'],
   ];
   return (
-    <dl className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-7 border-t border-black/10 pt-7">
+    <dl className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-x-8 gap-y-7 border-t-2 border-ink/80 pt-6">
       {stats.map(([n, l]) => (
         <div key={l} className="flex flex-col-reverse gap-1">
-          <dt className="text-[12px] font-medium tracking-[.02em] text-[#6e6e73] whitespace-nowrap">{l}</dt>
-          <dd className="text-[30px] font-semibold tracking-[-0.035em] whitespace-nowrap text-ink">{n}</dd>
+          <dt className="font-mono text-[13px] font-semibold uppercase tracking-[.16em] text-[#5b6472] whitespace-nowrap">{l}</dt>
+          <dd className="font-mono text-[40px] font-bold leading-none tracking-[.005em] whitespace-nowrap text-ink">{n}</dd>
         </div>
       ))}
     </dl>

@@ -37,7 +37,7 @@ export default function Home() {
     <main>
       <HeroSection />
       <PlatformBanner />
-      <section id="pricing" className="bg-[#fafbfa] scroll-mt-24">
+      <section id="pricing" className="bg-ice scroll-mt-24">
         <div className="mx-auto max-w-6xl px-4 py-16 md:py-20">
           <p className="eyebrow !py-0">Pick your system</p>
           <h2 className="mt-4 max-w-2xl">Three systems. One installed price each.</h2>
@@ -68,7 +68,7 @@ export default function Home() {
             {STEPS.map(([t, d], i) => (
               <li key={t} className="flex gap-4">
                 <span className="shrink-0 w-10 h-10 rounded-full bg-ink text-white font-semibold flex items-center justify-center shadow-[0_10px_20px_-10px_rgba(0,0,0,.6)]">{i + 1}</span>
-                <div><h3 className="text-[21px] font-semibold tracking-[-0.025em]">{t}</h3><p className="mt-1 !text-[17px] text-[#6e6e73]">{d}</p></div>
+                <div><h3 className="text-[21px] font-semibold tracking-[-0.025em]">{t}</h3><p className="mt-1 !text-[17px] text-[#5b6472]">{d}</p></div>
               </li>
             ))}
           </ol>

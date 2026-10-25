@@ -1,6 +1,5 @@
 import { TIERS, formatUSD } from '@/lib/pricing';
 import { STORE } from '@/lib/store';
-import { TEAL_ON_WHITE } from '@/lib/contrast';
 
 const ICON = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' } as const;
 const ICONS: Record<string, React.ReactNode> = {
@@ -27,7 +26,7 @@ function Phone() {
       <div className="rounded-[46px] bg-[#1d1d1f] p-[10px] shadow-[0_60px_90px_-40px_rgba(14,33,43,.7),0_0_0_1px_rgba(255,255,255,.12)_inset]">
         <div className="rounded-[37px] bg-[#f5f7f8] p-5 pb-6">
           <div className="mx-auto mb-5 h-[22px] w-24 rounded-full bg-[#1d1d1f]" />
-          <p className="!py-0 text-center text-[12px] font-medium text-[#6e6e73]">Step 2 of 4</p>
+          <p className="!py-0 text-center text-[12px] font-medium text-[#5b6472]">Step 2 of 4</p>
           <p className="!py-1 text-center font-sans text-[22px] font-semibold tracking-[-0.035em] text-ink">Pick your install day</p>
           <div className="mt-3 rounded-[22px] bg-white p-3 shadow-[0_1px_0_#fff_inset,0_14px_30px_-20px_rgba(14,33,43,.4)]">
             <div className="grid grid-cols-4 gap-2">
@@ -37,10 +36,10 @@ function Phone() {
             </div>
           </div>
           <div className="mt-3 rounded-[22px] bg-white px-4 py-4 text-center shadow-[0_1px_0_#fff_inset,0_14px_30px_-20px_rgba(14,33,43,.4)]">
-            <p className="!py-0 text-[12px] font-medium text-[#6e6e73]">Your price, installed</p>
-            <p className="!py-0 font-mono text-[38px] font-semibold tracking-[-0.045em] leading-tight text-ink">{price}</p>
+            <p className="!py-0 text-[12px] font-medium text-[#5b6472]">Your price, installed</p>
+            <p className="!py-0 font-mono text-[52px] font-bold leading-none text-ink">{price}</p>
           </div>
-          <div className="mt-4 rounded-full bg-ink py-3.5 text-center font-sans text-[16px] font-semibold text-white shadow-[0_12px_24px_-12px_rgba(0,0,0,.7)]">Checkout</div>
+          <div className="mt-4 rounded-full bg-cta py-3.5 text-center font-sans text-[16px] font-bold text-white shadow-[0_12px_24px_-12px_rgba(163,29,42,.8)]">Checkout</div>
         </div>
       </div>
     </div>
@@ -49,12 +48,12 @@ function Phone() {
 
 export default function WhyUs() {
   return (
-    <section id="why" aria-labelledby="why-h" className="bg-[#f5f5f7] scroll-mt-24 overflow-hidden">
+    <section id="why" aria-labelledby="why-h" className="bg-ice scroll-mt-24 overflow-hidden">
       <div className="mx-auto max-w-6xl px-4 py-16 md:py-24 grid gap-12 md:gap-16 md:grid-cols-[1fr_1.05fr] md:items-start">
         <div>
           <p className="eyebrow !py-0">Why US Water Pros</p>
-          <h2 id="why-h" className="mt-5 !font-sans !font-bold !tracking-[-0.045em] !text-ink !leading-[1.06] !text-[clamp(2.2rem,1.3rem+3.2vw,3.6rem)] [text-wrap:balance]">
-            The <span style={{ color: TEAL_ON_WHITE }}>smarter way</span> to cleaner water
+          <h2 id="why-h" className="mt-5 !text-ink !leading-[1.06] !text-[clamp(2.2rem,1.3rem+3.2vw,3.6rem)] [text-wrap:balance]">
+            The <span className="italic text-cta">smarter way</span> to cleaner water
           </h2>
           <div className="mt-12 hidden md:block"><Phone /></div>
         </div>
@@ -64,7 +63,7 @@ export default function WhyUs() {
               <span className="shrink-0 w-14 h-14 rounded-2xl bg-ink text-white flex items-center justify-center shadow-[0_10px_20px_-10px_rgba(0,0,0,.6)]">{ICONS[icon]}</span>
               <div>
                 <h3 className="font-sans text-[22px] font-semibold tracking-[-0.025em] leading-tight">{title}</h3>
-                <p className="!py-0 mt-2 text-[#6e6e73] text-[17px] leading-relaxed">{body}</p>
+                <p className="!py-0 mt-2 text-[#5b6472] text-[17px] leading-relaxed">{body}</p>
               </div>
             </li>
           ))}

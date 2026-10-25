@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
-import { Inter } from 'next/font/google';
+import { Barlow_Condensed, Fraunces, Libre_Franklin } from 'next/font/google';
 import './globals.css';
 import AnalyticsEvents from '@/components/AnalyticsEvents';
 import { GA4_CONFIG } from '@/lib/analytics/config';
@@ -8,7 +8,11 @@ import Wizard from '@/components/store/Wizard';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
-const sans = Inter({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700'], variable: '--font-sans' });
+// Americana pairing: a warm, slightly wonky serif for headlines, Franklin Gothic (the classic American text face) for everything you read,
+// and condensed highway-sign caps for labels, numbers and the wordmark.
+const display = Fraunces({ subsets: ['latin'], axes: ['SOFT', 'WONK', 'opsz'], style: ['normal', 'italic'], variable: '--font-display', display: 'swap' });
+const sans = Libre_Franklin({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-sans', display: 'swap' });
+const sign = Barlow_Condensed({ subsets: ['latin'], weight: ['500', '600', '700', '800'], variable: '--font-sign', display: 'swap' });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://uswaterpros.com'),
@@ -23,7 +27,7 @@ const GTM = process.env.NODE_ENV === 'production' || process.env.NEXT_PUBLIC_ENA
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={sans.variable}>
+    <html lang="en" className={`${display.variable} ${sans.variable} ${sign.variable}`}>
       <body className="font-sans">
         {GTM && <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM}`} height="0" width="0" style={{ display: 'none', visibility: 'hidden' }} /></noscript>}
         {GTM && <Script id="gtm" strategy="afterInteractive">{`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM}');`}</Script>}

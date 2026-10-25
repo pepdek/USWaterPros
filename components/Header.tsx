@@ -48,7 +48,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 px-3 pt-3">
       <div className="glass !rounded-[22px] mx-auto max-w-6xl">
       <div className={`px-4 md:px-5 flex items-center justify-between gap-3 transition-all duration-300 h-16`}>
-        <Link href="/" className="text-[19px] font-bold tracking-[-0.035em] text-ink hdr-t shrink-0 min-h-11 inline-flex items-center">US Water Pros<span className="text-cta">.</span></Link>
+        <Link href="/" aria-label="US Water Pros, America's Water Professionals" className="hdr-t text-ink shrink-0 min-h-11 inline-flex flex-col justify-center leading-none"><span className="font-mono text-[26px] font-extrabold uppercase tracking-[.03em]"><span aria-hidden className="text-cta text-[18px] mr-1.5 align-[2px]">★</span>US Water Pros</span><span className="hdr-t hidden md:block font-mono text-[11px] font-semibold uppercase tracking-[.22em] text-ink/60 mt-1">America's Water Professionals</span></Link>
 
         <nav aria-label="Main" className="hidden md:flex items-center gap-7 text-sm">
           <Dropdown label="Services" links={SERVICE_LINKS} />

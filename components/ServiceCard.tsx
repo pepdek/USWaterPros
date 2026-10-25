@@ -9,7 +9,7 @@ export default function ServiceCard({ s }: { s: Service }) {
         <Image src={s.image} alt={s.imageAlt} fill sizes="(min-width: 768px) 350px, 90vw" className="object-contain p-3" />
       </div>
       <h3 className="text-[22px] font-semibold tracking-[-0.025em] leading-tight">{s.name}</h3>
-      <p className="!text-[16px] text-[#6e6e73]">{s.blurb}</p>
+      <p className="!text-[16px] text-[#5b6472]">{s.blurb}</p>
       <Link href={`/services/${s.slug}`} className="font-medium text-blue hover:underline mt-auto min-h-12 inline-flex items-center">Explore service <span aria-hidden className="ml-1">›</span></Link>
     </div>
   );

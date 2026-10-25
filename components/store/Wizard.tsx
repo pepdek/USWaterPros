@@ -162,13 +162,13 @@ export default function Wizard() {
 
   return (
     <div className="fixed inset-0 z-[80] bg-[#0e212b]/45 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4" onClick={close}>
-      <div ref={dialog} role="dialog" aria-modal="true" aria-label="Get your instant price" className="wiz bg-[#f5f5f7]/95 backdrop-blur-2xl w-full sm:max-w-[600px] max-h-[100dvh] sm:max-h-[min(92dvh,760px)] rounded-t-[32px] sm:rounded-[32px] shadow-[0_60px_120px_-40px_rgba(0,0,0,.6)] ring-1 ring-white/60 flex flex-col overflow-hidden" onClick={(e) => e.stopPropagation()}>
+      <div ref={dialog} role="dialog" aria-modal="true" aria-label="Get your instant price" className="wiz bg-[#f7f2e6]/95 backdrop-blur-2xl w-full sm:max-w-[600px] max-h-[100dvh] sm:max-h-[min(92dvh,760px)] rounded-t-[32px] sm:rounded-[32px] shadow-[0_60px_120px_-40px_rgba(0,0,0,.6)] ring-1 ring-white/60 flex flex-col overflow-hidden" onClick={(e) => e.stopPropagation()}>
         <div className="flex gap-1 px-5 pt-3" role="progressbar" aria-valuemin={1} aria-valuemax={5} aria-valuenow={STEP_NO[step]} aria-label={`Step ${STEP_NO[step]} of 5`}>
           {[1, 2, 3, 4, 5].map((n) => <span key={n} className={`h-1 flex-1 rounded-full ${n <= STEP_NO[step] ? 'bg-ink' : 'bg-black/[.08]'}`} />)}
         </div>
 
         <header className="flex items-center justify-between gap-3 px-5 py-3">
-          <span className="text-[17px] font-bold tracking-[-0.035em] text-ink whitespace-nowrap">US Water Pros<span className="text-cta">.</span></span>
+          <span className="font-mono text-[22px] font-extrabold uppercase tracking-[.03em] text-ink whitespace-nowrap"><span aria-hidden className="text-cta text-[15px] mr-1 align-[1px]">★</span>US Water Pros</span>
           <span className="flex items-center gap-2">
             <button type="button" onClick={reset} className="inline-flex items-center gap-1.5 rounded-full bg-white border border-black/[.08] px-3 sm:px-4 min-h-11 text-[14px] font-medium whitespace-nowrap">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M21 12a9 9 0 11-3-6.7L21 8" /><path d="M21 3v5h-5" /></svg>Start over

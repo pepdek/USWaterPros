@@ -1,32 +1,37 @@
-# Design system: "Clear Glass"
+# Design system: "Old Glory, Clear Water"
 
-Quiet neutrals, one deep-lagoon accent, frosted surfaces, big tight type. Apple devices get real SF; everything else gets Inter (one family, no serif, no mono).
-All tokens live in `app/globals.css` (`:root`) and `tailwind.config.js`. Change them there and the whole site follows.
+America's Water Professionals. Americana craft with a premium finish: navy ink on warm paper, flag red for the one thing to click, water-light behind it, frosted glass on top.
+Tokens live in `app/globals.css` (`:root`) and `tailwind.config.js`. Change them there and the whole site follows.
+
+## Type (three voices, loaded in `app/layout.tsx`)
+| Voice | Font | Where |
+|---|---|---|
+| Display | Fraunces (soft, slightly wonky serif; italic for emphasis) | `h1`, `h2`, card titles. Tailwind `font-serif` |
+| Text | Libre Franklin (the classic American gothic) | body, UI, `h3`. Tailwind `font-sans` |
+| Sign | Barlow Condensed (highway-sign caps) | wordmark, eyebrows, prices, big numbers, footer headings. Tailwind `font-mono` (so every old `font-mono` label became sign type) |
 
 ## Color
 | Token | Value | Use |
 |---|---|---|
-| `--ink` | #1d1d1f | text, primary button |
-| `--gray` | #6e6e73 | secondary text (5.0:1 on white) |
-| `--blue` (lagoon) | #00758a | links, `.eyebrow` (5.4:1 white, 4.9:1 on the grey tint) |
-| `--navy` | #0e212b | dark surfaces (`.bg-surge`, `.bg-navy`) |
-| `--ice` | #f5f7f8 | section tint (`.bg-ice`) |
-| `--cta` | #ff6b35 | one warm spark: the dot after the wordmark and in `.eyebrow`. Never a button fill. |
+| `--ink` | #101c2e | text |
+| `--gray` | #5b6472 | secondary text |
+| `--navy` | #0b2545 | dark sections, badges |
+| `--blue` | #1b4f8f | links, eyebrows |
+| `--cta` | #b3202a flag red | primary button, stars, the italic "Done in a day." |
+| `--paper` / `--ice` | #fbf8f1 / #f4efe4 | page and section tint |
+| water | #00a0bf | focus rings and glow only |
 
-## Type
-SF/Inter, bold, tight tracking. `h1`/`h2` use `--fs-h1`/`--fs-h2`. The home hero sets its own larger size. Tailwind sizes: `text-xs/sm` = label, `base` = body, then `lg`..`3xl` step up, `4xl` = H2, `5xl` = H1. `font-serif` and `font-mono` map to the sans stack (mono keeps tabular numerals).
+## Motifs
+- ★ stars: before eyebrows, in the wordmark, as list bullets, a faint star field on dark sections (`.bg-surge`).
+- Stripe band `.stripes` (red, white, navy): footer top and the trust banner.
+- `components/Seal.tsx`: round "licensed local plumbers, Tacoma, Washington" seal on the home hero.
+- Tagline "America's Water Professionals": header (desktop), footer, hero eyebrow.
 
 ## Surfaces and buttons
-- `.glass`: frosted white (blur 24, saturate 1.8), hairline white border, soft deep shadow, 28px radius. Header, hero price tag, dropdowns.
-- `.card`: lighter frosted card with a soft shadow. On a dark hero (`.bg-surge`) it flips to dark glass automatically.
-- `.btn` is a pill. `.btn-cta` = ink gradient (white on dark surfaces). `.btn-secondary` = frosted glass. `.btn-blue` = lagoon. `.btn-sm` for tight spots.
-- `.orbs` = aqua + peach light behind the home hero. `.bg-surge` = deep-water mesh for dark heroes. `.eyebrow` = small lagoon lead-in label.
+`.glass` (frosted, warm), `.card`, `.btn` pills (`.btn-cta` red, `.btn-secondary` frosted with a navy edge, `.btn-blue`), `.eyebrow`, `.orbs` (sky blue + blush behind the hero), `.bg-surge` (navy + star field).
 
 ## Header
-Floating frosted bar. The first block inside `<main>` slides up underneath it (`main > :first-child`, see `--hdr` in the CSS), so the glass sits over that section's background. On pages whose first block is `.bg-surge` the bar turns dark glass automatically (`:has`). Do not give a page a first block with its own top margin.
-
-## Motion
-Springy ease (`--ease`), small lifts, everything off under `prefers-reduced-motion`.
+Floating frosted bar. The first block inside `<main>` slides up under it (`--hdr`), and on pages whose first block is `.bg-surge` the bar turns dark glass automatically (`:has`).
 
 ## Email
-Email 1 (`lib/emails/orderConfirmed.ts`) follows the same language: big date, frosted card, ink pill, dark mode.
+`lib/emails/orderConfirmed.ts` follows the same look with email-safe stand-in fonts (serif date, condensed caps where installed).

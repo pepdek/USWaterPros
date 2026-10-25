@@ -37,19 +37,19 @@ export default function Support() {
       <section className="bg-surge">
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
           <p className="eyebrow !py-0 !text-white/85">Support</p>
-          <h1 className="!font-sans !font-bold !tracking-[-0.045em] !text-white mt-4 !leading-[1.05] !text-[clamp(2.3rem,1.3rem+3.4vw,3.7rem)] [text-wrap:balance]">How can we help?</h1>
+          <h1 className="!text-white mt-4 !leading-[1.05] !text-[clamp(2.3rem,1.3rem+3.4vw,3.7rem)] [text-wrap:balance]">How can we help?</h1>
           <p className="!text-white mt-4 md:text-lg font-light max-w-2xl">Search the topics below, or text us. Texting is fastest.</p>
           <div className="mt-7 flex flex-wrap gap-3"><a href={SMS_HREF} className="btn btn-cta">Text us</a><a href={PHONE_HREF} className="btn btn-secondary">Call {PHONE}</a></div>
           <p className="!text-white/85 mt-4 !py-0 font-light">Prefer email? <a href={`mailto:${SUPPORT_EMAIL}`} className="!text-white underline font-medium">{SUPPORT_EMAIL}</a></p>
         </div>
       </section>
 
-      <section className="bg-[#fafbfa]">
+      <section className="bg-ice">
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
           <SupportCards cards={CARDS} />
 
           <div className="mt-14 rounded-3xl border border-black/[.08] bg-white p-7 md:p-9 max-w-3xl">
-            <h2 className="!font-sans !font-bold !tracking-[-0.03em] !text-ink !text-[24px]">Put this in your message and we can help faster</h2>
+            <h2 className="!text-ink !text-[26px]">Put this in your message and we can help faster</h2>
             <ul className="mt-4 grid gap-2.5 sm:grid-cols-2">
               {['Your name', 'Your address or ZIP', 'Your install day', 'A photo of the system or the problem', 'What you see or hear', 'When it started'].map((i) => <li key={i} className="flex gap-2.5 font-light"><span aria-hidden className="text-[#007c94] font-bold">✓</span><span>{i}</span></li>)}
             </ul>

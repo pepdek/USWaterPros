@@ -7,17 +7,17 @@ const CARDS: [string, string][] = [
 
 export default function CalmProblem() {
   return (
-    <section aria-labelledby="calm-h" className="bg-[#f5f5f7]">
+    <section aria-labelledby="calm-h" className="bg-ice">
       <div className="mx-auto max-w-6xl px-4 py-16 md:py-24">
         <p className="eyebrow !py-0">The usual way</p>
-        <h2 id="calm-h" className="mt-5 max-w-3xl !font-sans !font-bold !tracking-[-0.045em] !text-ink !leading-[1.08] !text-[clamp(2rem,1.2rem+2.8vw,3.2rem)] [text-wrap:balance]">
+        <h2 id="calm-h" className="mt-5 max-w-3xl !text-ink !leading-[1.08] !text-[clamp(2rem,1.2rem+2.8vw,3.2rem)]">
           You shouldn&apos;t need a salesperson to know what&apos;s in your water.
         </h2>
         <ul className="mt-10 grid gap-5 md:grid-cols-3">
           {CARDS.map(([t, b]) => (
             <li key={t} className="rounded-[28px] bg-white p-8 shadow-[0_1px_0_#fff_inset,0_24px_50px_-32px_rgba(14,33,43,.35)]">
               <h3 className="font-sans text-[22px] font-semibold tracking-[-0.025em] leading-tight">{t}</h3>
-              <p className="!py-0 mt-3 text-[#6e6e73] text-[17px] leading-relaxed">{b}</p>
+              <p className="!py-0 mt-3 text-[#5b6472] text-[17px] leading-relaxed">{b}</p>
             </li>
           ))}
         </ul>

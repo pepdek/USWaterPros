@@ -12,8 +12,8 @@ module.exports = {
         blue: c('blue'), cta: c('cta'), navy: c('navy'), aqua: c('teal'), teal: c('teal'), cyan: c('cyan'), ice: c('ice'), ink: c('ink'), coral: c('err'),
         ripple: '#ffffff',
       },
-      // One family everywhere: real SF on Apple devices, Inter elsewhere. serif and mono map to it so old class names keep working (mono = tabular numerals).
-      fontFamily: { serif: ['var(--sans)'], sans: ['var(--sans)'], mono: ['var(--sans)'] },
+      // Three voices: display (Fraunces) = serif, body (Franklin) = sans, sign (Barlow Condensed) = mono, so every existing font-mono label and price becomes highway-sign type.
+      fontFamily: { serif: ['var(--display)'], sans: ['var(--sans)'], mono: ['var(--sign)'] },
     },
   },
 };
