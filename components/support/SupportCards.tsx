@@ -14,7 +14,7 @@ export default function SupportCards({ cards }: { cards: SupportCard[] }) {
   return (
     <div>
       <label className="block max-w-xl">
-        <span className="block mb-2 font-mono text-[12px] font-medium uppercase tracking-[.14em] text-[#3f4a4f]">Search help</span>
+        <span className="eyebrow mb-2">Search help</span>
         <input type="search" className="field !min-h-[56px] !text-[17px]" placeholder="Try: refund, reschedule, cloudy water, filter" value={q} onChange={(e) => setQ(e.target.value)} aria-describedby="support-count" />
       </label>
       <p id="support-count" role="status" className="!py-0 mt-3 text-[14px] text-[#4b5a60]">{shown.length === cards.length ? `${cards.length} topics` : `${shown.length} of ${cards.length} topics`}</p>
@@ -29,7 +29,7 @@ export default function SupportCards({ cards }: { cards: SupportCard[] }) {
         <ul className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {shown.map((c) => (
             <li key={c.id} id={c.id} className="scroll-mt-24 flex flex-col rounded-3xl border border-black/[.08] bg-white p-7 shadow-[0_2px_14px_rgba(0,0,0,.05)]">
-              <h2 className="!font-sans !font-bold !tracking-[-0.03em] !text-ink !text-[24px] !leading-tight">{c.title}</h2>
+              <h2 className="!text-ink !text-[24px] !leading-tight">{c.title}</h2>
               <p className="!py-0 mt-2 font-light text-[#3f4a4f] text-[17px] leading-snug">{c.summary}</p>
               <ul className="mt-5 flex flex-col gap-2.5 border-t border-black/[.07] pt-5">
                 {c.steps.map((s) => <li key={s} className="flex gap-2.5 text-[16px] font-light"><span aria-hidden className="text-[#007c94] font-bold">→</span><span>{s}</span></li>)}

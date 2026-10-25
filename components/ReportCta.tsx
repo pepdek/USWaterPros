@@ -40,7 +40,7 @@ export default function ReportCta() {
             <button className="btn btn-cta">Go</button>
           </form>
         )}
-        {err && <p className="mt-2 text-white font-semibold text-sm">{err}</p>}
+        {err && <p role="alert" className="mt-2 text-white font-semibold text-sm">{err}</p>}
         <p className="mt-3 text-white/90 text-xs">🔒 Private. No spam, no obligation.</p>
       </div>
     </section>

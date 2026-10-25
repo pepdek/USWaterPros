@@ -43,7 +43,7 @@ const TRUST = ['Licensed local plumbers', 'Locally owned in Tacoma', '100% refun
 
 export default function ToolsPage() {
   return (
-    <main>
+    <main id="main">
       <section data-track-source="hero" className="bg-surge">
         <div className="mx-auto max-w-4xl px-4 py-16 md:py-24 text-center">
           <h1 className="!text-white">Know Your Water. Own Your Health.</h1>
@@ -59,7 +59,7 @@ export default function ToolsPage() {
       <section className="bg-navy text-white" data-track-source="trust_strip">
         <div className="mx-auto max-w-6xl px-4 py-10 flex flex-col gap-6 items-center text-center">
           <p className="!p-0 text-white font-semibold">Your family’s health starts with clean water.</p>
-          <ul className="flex flex-wrap justify-center gap-3">{TRUST.map((t) => <li key={t} className="flex items-center gap-2 rounded-full border border-cyan/50 px-5 py-2 text-sm"><span className="text-cyan"><Icon name="check" size={16} /></span>{t}</li>)}</ul>
+          <ul className="flex flex-wrap justify-center gap-3">{TRUST.map((t) => <li key={t} className="flex items-center gap-2 rounded-full border border-black/10/50 px-5 py-2 text-sm"><span className="text-white"><Icon name="check" size={16} /></span>{t}</li>)}</ul>
         </div>
       </section>
 
@@ -68,10 +68,10 @@ export default function ToolsPage() {
         <CostCalculator />
         <SavingsDiagnostic />
 
-        <div id="quiz-tool" data-track-source="tool_quiz" className="scroll-mt-24 rounded-[28px] bg-ice border border-cyan p-5 sm:p-8 md:p-10 flex flex-col gap-6">
+        <div id="quiz-tool" data-track-source="tool_quiz" className="scroll-mt-24 tool-shell p-5 sm:p-8 md:p-10 flex flex-col gap-6">
           <div className="flex items-center gap-4">
-            <span className="shrink-0 w-14 h-14 rounded-2xl bg-white text-blue flex items-center justify-center shadow-sm"><Icon name="flask" size={30} /></span>
-            <div><p className="text-sm font-semibold !p-0 text-navy">Tool 4 · Water Quality Quiz</p><h2>Find your ideal solution in 3 minutes.</h2></div>
+            <span className="shrink-0 w-14 h-14 rounded-2xl bg-ice text-navy flex items-center justify-center ring-1 ring-black/[.06]"><Icon name="flask" size={30} /></span>
+            <div><p className="eyebrow !py-0">Tool 4 · Water Quality Quiz</p><h2>Find your ideal solution in 3 minutes.</h2></div>
           </div>
           <p>Not sure where to start? This quiz finds your perfect fit. Eight quick questions about your home, your water and your timeline, then a recommendation with a fixed price and a free consultation.</p>
           <Link href="/quiz" className="btn btn-cta self-start">Take the Quiz</Link>
@@ -86,7 +86,7 @@ export default function ToolsPage() {
             ['badge', 'Stop overpaying for generic solutions.', 'One fixed price, installed by licensed local plumbers, tax included. No countdown timers, no hidden fees.'],
           ].map(([icon, h, t]) => (
             <div key={h} className="flex flex-col gap-3">
-              <span className="w-12 h-12 rounded-2xl bg-white text-navy flex items-center justify-center shadow-sm"><Icon name={icon} size={26} /></span>
+              <span className="w-12 h-12 rounded-2xl bg-white text-navy flex items-center justify-center ring-1 ring-black/[.06] shadow-[0_14px_30px_-20px_rgba(11,37,69,.5)]"><Icon name={icon} size={26} /></span>
               <h3>{h}</h3><p className="!pt-0">{t}</p>
             </div>
           ))}

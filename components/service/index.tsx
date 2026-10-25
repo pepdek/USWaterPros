@@ -12,7 +12,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Breadcrumb from '@/components/Breadcrumb';
 
-const Check = ({ children }: { children: React.ReactNode }) => <li className="flex gap-2"><span className="text-aqua font-bold">✓</span>{children}</li>;
+const Check = ({ children }: { children: React.ReactNode }) => <li className="flex gap-2"><span className="text-cta text-[13px] leading-[1.9]" aria-hidden>★</span>{children}</li>;
 
 export function ServiceHero({ s }: { s: Service }) {
   return (
@@ -25,7 +25,7 @@ export function ServiceHero({ s }: { s: Service }) {
           <WizardButton className="btn btn-cta mt-6 w-full md:w-auto">Get Instant Price</WizardButton>
           <p className="mt-3 text-sm text-white font-semibold">No credit card | Licensed local plumber | 15 minutes | Fixed price quote</p>
         </div>
-        <div className="relative rounded-3xl bg-white/80 backdrop-blur-xl h-56 md:h-auto md:aspect-[4/3]">
+        <div className="relative rounded-[32px] bg-white/90 backdrop-blur-xl h-56 md:h-auto md:aspect-[4/3] shadow-[0_50px_90px_-40px_rgba(0,0,0,.7)]">
           <Image src={s.image} alt={s.imageAlt} fill priority sizes="(min-width: 768px) 40vw, 90vw" className="object-contain p-4" />
         </div>
       </div>
@@ -40,11 +40,11 @@ export function BuyerDecisionTree({ s }: { s: Service }) {
       <div className="mt-6 flex flex-col gap-4">
         {s.problems.map((p) => (
           <div key={p.problem} className="card p-6 md:p-8 flex gap-5">
-            <span className="text-aqua shrink-0"><Icon name={p.icon} size={36} /></span>
+            <span className="text-navy shrink-0"><Icon name={p.icon} size={40} /></span>
             <dl className="grid gap-3 max-w-[65ch]">
-              <div><dt className="text-sm font-semibold uppercase tracking-wide text-teal">You have</dt><dd className="font-semibold text-ink">{p.problem}</dd></div>
-              <div><dt className="text-sm font-semibold uppercase tracking-wide text-teal">What we do</dt><dd>{p.solution}.</dd></div>
-              <div><dt className="text-sm font-semibold uppercase tracking-wide text-teal">Result</dt><dd className="font-semibold text-ink">{p.outcome}</dd></div>
+              <div><dt className="font-mono text-[15px] font-bold uppercase tracking-[.16em] text-blue">You have</dt><dd className="font-semibold text-ink">{p.problem}</dd></div>
+              <div><dt className="font-mono text-[15px] font-bold uppercase tracking-[.16em] text-blue">What we do</dt><dd>{p.solution}.</dd></div>
+              <div><dt className="font-mono text-[15px] font-bold uppercase tracking-[.16em] text-blue">Result</dt><dd className="font-semibold text-ink">{p.outcome}</dd></div>
             </dl>
           </div>
         ))}
@@ -64,7 +64,7 @@ export function ContaminationChart({ s }: { s: Service }) {
       <ul className="mt-6 grid gap-3 sm:grid-cols-2">
         {s.treats.map((t) => (
           <li key={t.item} className="flex items-center gap-3 bg-white rounded-lg p-3 shadow-[0_2px_10px_rgba(0,0,0,.05)]">
-            <span className="text-aqua shrink-0"><Icon name={t.icon} size={32} /></span>
+            <span className="text-navy shrink-0"><Icon name={t.icon} size={36} /></span>
             <span><span className="font-semibold text-ink block">{t.item}</span><span className="text-sm">{t.how}</span></span>
           </li>
         ))}
@@ -186,7 +186,7 @@ export function ComparisonTable({ s }: { s: Service }) {
   return (
     <div>
       <h2>How {s.name} Compares</h2>
-      <div className="mt-8 overflow-x-auto">
+      <div className="mt-8 overflow-x-auto" tabIndex={0} role="region" aria-label="Comparison table, scrolls sideways on small screens">
         <table className="w-full text-left text-sm min-w-[560px]">
           <thead><tr className="text-ink"><th className="p-3">Feature</th><th className="p-3 bg-aqua/20 rounded-t">US Water Pros</th><th className="p-3">Premium brand</th><th className="p-3">Budget option</th></tr></thead>
           <tbody>{rows.map(([f, a, b, c]) => <tr key={f} className="border-t border-black/10"><td className="p-3 font-semibold text-ink">{f}</td><td className="p-3 bg-aqua/20">{a}</td><td className="p-3">{b}</td><td className="p-3">{c}</td></tr>)}</tbody>
@@ -208,7 +208,7 @@ export function FaqGroup({ title, items, id }: { title: string; items: [string, 
           <details key={q} className="group rounded-xl bg-white shadow-[0_2px_10px_rgba(0,0,0,.06)]">
             <summary className="cursor-pointer list-none min-h-14 px-6 py-4 flex items-center justify-between gap-4">
               <h3 className="text-lg !font-sans !tracking-normal">{q}</h3>
-              <span aria-hidden className="shrink-0 text-aqua text-2xl leading-none transition-transform group-open:rotate-45">+</span>
+              <span aria-hidden className="shrink-0 text-cta text-2xl leading-none transition-transform duration-300 group-open:rotate-45">+</span>
             </summary>
             <p className="px-6 pt-0 pb-5">{a}</p>
           </details>
@@ -226,7 +226,7 @@ export function ServiceAreaCallout() {
       <div className="mx-auto max-w-6xl px-4 text-center">
         <h2 className="!text-white">Serving Pierce, Kitsap &amp; Thurston Counties</h2>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
-          {CITIES.map((c) => <Link key={c.slug} href={`/services/whole-home-water-filtration-${c.slug}`} className="min-h-12 inline-flex items-center rounded-[10px] bg-white text-ink px-5 font-semibold">{c.name}</Link>)}
+          {CITIES.map((c) => <Link key={c.slug} href={`/services/whole-home-water-filtration-${c.slug}`} className="chip hover:!bg-navy hover:!text-white">{c.name}</Link>)}
         </div>
         <p className="mt-4 text-sm text-white/80">{CITIES.flatMap((c) => c.neighborhoods.slice(0, 2)).join(' · ')} and surrounding areas</p>
       </div>
@@ -243,7 +243,7 @@ export function CTASection() {
           <WizardButton className="btn btn-cta">Get Instant Price</WizardButton>
           <a href={PHONE_HREF} className="btn btn-secondary">{PHONE}</a>
         </div>
-        <p className="mt-4 text-sm text-ink font-semibold">✓ Instant price | ✓ Licensed local plumbers | ✓ Pay up front | ✓ 100% refundable</p>
+        <p className="mt-4 text-sm text-white font-semibold">✓ Instant price | ✓ Licensed local plumbers | ✓ Pay up front | ✓ 100% refundable</p>
       </div>
     </section>
   );
@@ -270,8 +270,8 @@ export function UnfaqSection({ s }: { s: Service }) {
 export function LeanLinks() {
   return (
     <div className="flex flex-wrap gap-2">
-      <Link href="/services/whole-home-water-filtration#after-installation" className="min-h-12 inline-flex items-center rounded-[10px] bg-white px-5 font-semibold text-ink shadow-[0_2px_10px_rgba(0,0,0,.06)]">See maintenance &amp; warranty details in our full FAQ</Link>
-      <Link href="/#areas" className="min-h-12 inline-flex items-center rounded-[10px] bg-white px-5 font-semibold text-ink shadow-[0_2px_10px_rgba(0,0,0,.06)]">Service areas &amp; locations</Link>
+      <Link href="/services/whole-home-water-filtration#after-installation" className="chip hover:!bg-navy hover:!text-white">See maintenance &amp; warranty details in our full FAQ</Link>
+      <Link href="/#areas" className="chip hover:!bg-navy hover:!text-white">Service areas &amp; locations</Link>
     </div>
   );
 }

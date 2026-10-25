@@ -7,4 +7,4 @@ export const metadata: Metadata = {
   alternates: { canonical: '/quiz' },
 };
 
-export default function QuizPage() { return <main><QuizFlow /></main>; }
+export default function QuizPage() { return <main id="main"><QuizFlow /></main>; }

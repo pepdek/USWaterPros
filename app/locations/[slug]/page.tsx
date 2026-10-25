@@ -33,7 +33,7 @@ export default async function LocationPage({ params }: Props) {
     mainEntity: l.faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
   };
   return (
-    <main>
+    <main id="main">
       <section data-track-source="hero" className="bg-surge">
         <div id="quote" className="scroll-mt-24 mx-auto max-w-6xl px-4 py-16 md:py-24 grid gap-10 md:gap-14 md:grid-cols-2 md:items-center">
           <div>

@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: 'Thanks | US Water Pros', robots: { i
 export default async function Thanks({ searchParams }: { searchParams: Promise<{ paid?: string }> }) {
   const paid = (await searchParams).paid === '1';
   return (
-    <main className="mx-auto max-w-3xl px-4 py-16 md:py-24">
+    <main id="main" className="mx-auto max-w-3xl px-4 py-16 md:py-24">
       <h1>{paid ? 'Payment received. Thank you.' : 'Thank you.'}</h1>
       <p className="mt-4">{paid ? 'We’ll text you to confirm your install time by the end of the next business day. A licensed local plumber will install it, and it’s tested before they leave.' : 'We’ll be in touch by text.'}</p>
       <p className="mt-2">Questions? <a href={SMS_HREF} className="font-semibold text-ink underline">Text us</a> or <a href={PHONE_HREF} className="font-semibold text-ink underline">call {PHONE}</a>.</p>

@@ -1,87 +1,170 @@
 @tailwind base; @tailwind components; @tailwind utilities;
 
-/* Crystal Clear color system. 60% blue/white/neutral, 30% negative space, 10% orange + teal accents.
-   Orange is the spark: ONLY on action buttons and urgent moments. */
+/* "Old Glory, Clear Water": Americana craft with a premium finish.
+   Navy ink on cream paper, flag red for the one thing to click, water-aqua light. Fraunces headlines, Franklin Gothic text, highway-sign caps for labels and numbers. */
 :root {
-  --blue-rgb: 0 102 204;       /* #0066cc  Primary Blue: headers, hero, identity */
-  --cta-rgb: 255 107 53;       /* #ff6b35  Warm Orange: ALL CTAs, action moments only */
-  --navy-rgb: 27 73 101;       /* #1b4965  Deep Teal: certifications, credibility, results, dark surfaces */
-  --teal-rgb: 0 160 191;       /* #00a0bf  Secondary Teal: secondary buttons, borders, dividers */
-  --cyan-rgb: 168 233 239;     /* #a8e9ef  Light Cyan: hover states, micro-interactions */
-  --ice-rgb: 239 254 248;      /* #effef8  Background: cards, breathing room */
-  --ink-rgb: 26 26 26;         /* #1a1a1a  text on light */
-  --err-rgb: 180 35 24;        /* form errors only */
+  --blue-rgb: 27 79 143;       /* #1b4f8f old-glory blue: links, eyebrow accents (7:1 on cream) */
+  --cta-rgb: 179 32 42;        /* #b3202a flag red: the primary button and little stars */
+  --navy-rgb: 11 37 69;        /* #0b2545 navy: dark sections */
+  --teal-rgb: 0 160 191;       /* #00a0bf water: focus rings and glow */
+  --cyan-rgb: 168 233 239;     /* #a8e9ef */
+  --ice-rgb: 244 239 228;      /* #f4efe4 warm paper tint for sections */
+  --ink-rgb: 16 28 46;         /* #101c2e text */
+  --err-rgb: 180 35 24;
   --blue: rgb(var(--blue-rgb)); --cta: rgb(var(--cta-rgb)); --navy: rgb(var(--navy-rgb)); --teal: rgb(var(--teal-rgb));
-  --cyan: rgb(var(--cyan-rgb)); --ice: rgb(var(--ice-rgb)); --ink: rgb(var(--ink-rgb));
+  --cyan: rgb(var(--cyan-rgb)); --ice: rgb(var(--ice-rgb)); --ink: rgb(var(--ink-rgb)); --gray: #5b6472; --paper: #fbf8f1;
   --color-primary: var(--blue); --color-accent: var(--ink); --color-cta: var(--cta);
-  /* Three sizes: H1, H2, body. (Labels and microcopy share one small size.) */
-  --fs-h1: clamp(2rem, 1.2rem + 3vw, 3.25rem);
-  --fs-h2: clamp(1.625rem, 1.2rem + 1.4vw, 2.125rem);
+  --display: var(--font-display), 'Iowan Old Style', Georgia, serif;
+  --sans: var(--font-sans), 'Franklin Gothic Medium', 'Helvetica Neue', Arial, sans-serif;
+  --sign: var(--font-sign), 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: var(--display); --font-body: var(--sans); --font-mono: var(--sign);
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --fs-h1: clamp(2.5rem, 1.3rem + 3.6vw, 4rem);
+  --fs-h2: clamp(2rem, 1.4rem + 2.2vw, 3.1rem);
   --fs-body: 1.125rem;
   --fs-label: 0.875rem;
-  --space-section: clamp(2.5rem, 2rem + 2vw, 3.75rem);   /* 40-60px each side = 80-120px between plain sections */
+  --space-section: clamp(2.5rem, 2rem + 2vw, 3.75rem);
 }
 
-body { background: #fff; color: var(--ink); font-size: var(--fs-body); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+/* The header floats (frosted glass) over the first section of every page: that section slides up under it, and a spacer pushes its content back down. */
+:root { --hdr: 80px; }
+@media (max-width: 767px) { :root { --hdr: 120px; } }
+main > :first-child { margin-top: calc(var(--hdr) * -1); }
+main > :first-child::before { content: ''; display: block; height: var(--hdr); grid-column: 1 / -1; flex: 0 0 100%; }
 
-/* Body copy: 18px / 1.7, max 70 characters a line, room above and below. */
-p, li { font-family: var(--font-body), 'Lato', sans-serif; line-height: 1.7; }
+body { background: var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .06 0 0 0 0 .11 0 0 0 0 .18 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.06'/%3E%3C/svg%3E"); color: var(--ink); font-family: var(--sans); font-size: var(--fs-body); line-height: 1.6; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+::selection { background: rgb(var(--cyan-rgb) / .6); }
+
+p, li { font-family: var(--sans); line-height: 1.6; }
 p { font-size: var(--fs-body); max-width: 70ch; margin: 0; padding: 0.75rem 0; }
 .text-center > p, p.text-center { margin-left: auto; margin-right: auto; }
-/* Small text and labels: +0.5px tracking, tight padding. */
 p[class*="text-xs"], p[class*="text-sm"] { padding: 0.25rem 0; }
-.text-xs, .text-sm, label, summary { letter-spacing: 0.5px; }
-/* Long runs of text get a hairline between paragraphs so they never read as a wall. */
-.prose-breaks > p + p { border-top: 1px solid rgb(var(--teal-rgb) / 0.25); margin-top: 1.25rem; padding-top: 1.75rem; }
+.prose-breaks > p + p { border-top: 1px solid rgb(var(--ink-rgb) / .1); margin-top: 1.25rem; padding-top: 1.75rem; }
+/* font-mono is the sign face now: condensed, tabular, a hair of tracking. */
+.font-mono { font-variant-numeric: tabular-nums lining-nums; letter-spacing: .01em; }
 
-/* Serif is for H1 and H2 only. Everything else is Inter. */
-h1, h2 { font-family: var(--font-serif), Georgia, serif; letter-spacing: -0.02em; color: var(--blue); font-weight: 700; }
-h3 { font-family: var(--font-sans), system-ui, sans-serif; letter-spacing: normal; color: var(--ink); font-weight: 700; font-size: var(--fs-body); line-height: 1.5; }
-h1 { font-size: var(--fs-h1); line-height: 1.15; }
-h2 { font-size: var(--fs-h2); line-height: 1.25; }
+/* Headlines: Fraunces, soft and a little wonky, bold, tight. h3 and below are Franklin. */
+h1, h2 { font-family: var(--display); font-variation-settings: 'SOFT' 60, 'WONK' 1; letter-spacing: -0.025em; color: var(--ink); font-weight: 700; text-wrap: balance; }
+h3 { font-family: var(--sans); letter-spacing: -0.01em; color: var(--ink); font-weight: 700; font-size: var(--fs-body); line-height: 1.4; }
+h1 { font-size: var(--fs-h1); line-height: 1.04; }
+h2 { font-size: var(--fs-h2); line-height: 1.08; }
 input, select { font-size: 16px; min-height: 48px; }
 
 @layer components {
-  /* Buttons: 10px corners, 17px bold, hard ink shadow, lift on hover. .btn-sm = 14px, 8px corners, for compact spots (header, inline). */
-  .btn { display:inline-flex; align-items:center; justify-content:center; min-height:52px; min-width:48px; padding:0 26px; border:2px solid transparent; border-radius:10px; font-family:var(--font-sans), system-ui, sans-serif; font-size:17px; line-height:1.2; font-weight:700; letter-spacing:0; white-space:nowrap; transition:background .2s, box-shadow .15s ease, transform .15s ease, border-color .2s; }
-  .btn:hover { transform: translateY(-3px); }
-  .btn:active { transform: translate(2px, 3px); }
-  .btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
-  .btn-sm { min-height:44px; padding:0 18px; font-size:14px; border-radius:8px; }
-  /* One primary + one secondary per CTA group. Never three side by side. */
-  .btn-cta { background: var(--cta); color: var(--ink); border-color: var(--ink); box-shadow: 4px 5px 0 var(--ink); }
-  .btn-cta:hover { background: #ff7d4f; box-shadow: 4px 8px 0 var(--ink); }
-  .btn-cta:active { box-shadow: 2px 2px 0 var(--ink); }
-  .btn-cta.btn-sm { box-shadow: 3px 4px 0 var(--ink); }
-  .btn-cta.btn-sm:hover { box-shadow: 3px 6px 0 var(--ink); }
-  .btn-blue { background: var(--blue); color: #fff; }
-  .btn-blue:hover { background: #0a74dc; }
-  .btn-secondary { background: rgb(255 255 255 / .85); color: var(--navy); border-color: var(--teal); }
-  .btn-secondary:hover { background: var(--cyan); border-color: var(--teal); }
+  /* Buttons are pills. Primary is flag red; secondary is frosted glass with a navy edge. */
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; min-height:50px; min-width:48px; padding:0 28px; border:1px solid transparent; border-radius:980px; font-family:var(--sans); font-size:17px; line-height:1.2; font-weight:700; letter-spacing:-0.005em; white-space:nowrap; transition: transform .35s var(--ease), box-shadow .35s var(--ease), background .25s, color .25s, border-color .25s; }
+  .btn-sm { min-height:44px; padding:0 18px; font-size:14px; }
+  .btn-cta { background: linear-gradient(180deg, #c92b3b 0%, #a31d2a 100%); color: #fff; box-shadow: 0 1px 0 rgb(255 255 255 / .22) inset, 0 12px 26px -10px rgb(163 29 42 / .7); }
+  .btn-cta:hover { box-shadow: 0 1px 0 rgb(255 255 255 / .28) inset, 0 18px 34px -12px rgb(163 29 42 / .8); }
+  .btn-blue { background: var(--blue); color: #fff; box-shadow: 0 10px 24px -12px rgb(var(--blue-rgb) / .7); }
+  .btn-blue:hover { background: #2360ab; }
+  .btn-secondary { background: rgb(255 255 255 / .72); -webkit-backdrop-filter: blur(16px) saturate(1.6); backdrop-filter: blur(16px) saturate(1.6); color: var(--navy); border-color: rgb(var(--navy-rgb) / .22); box-shadow: 0 1px 0 rgb(255 255 255 / .8) inset; }
+  .btn-secondary:hover { background: #fff; border-color: rgb(var(--navy-rgb) / .4); }
+  .bg-surge .btn-secondary, .bg-navy .btn-secondary { background: rgb(255 255 255 / .1); color: #fff; border-color: rgb(255 255 255 / .35); box-shadow: none; }
+  .bg-surge .btn-secondary:hover, .bg-navy .btn-secondary:hover { background: rgb(255 255 255 / .2); }
 
-  /* Apple-style glass: translucent white, blur, hairline border, soft shadow. */
-  .card { background: rgb(255 255 255 / .84); -webkit-backdrop-filter: blur(20px) saturate(1.6); backdrop-filter: blur(20px) saturate(1.6); border: 1px solid rgb(255 255 255 / .8); outline: 1px solid rgb(var(--blue-rgb) / .07); outline-offset: -1px; border-radius: 24px; box-shadow: 0 12px 40px rgb(var(--navy-rgb) / .08); transition: transform .25s ease, box-shadow .25s ease, outline-color .25s ease; }
-  .card:hover { transform: translateY(-4px); box-shadow: 0 18px 50px rgb(var(--navy-rgb) / .12); outline-color: var(--cyan); }
-  .field { width:100%; border:1px solid rgb(var(--teal-rgb) / .35); border-radius:10px; padding:0 14px; background: rgb(255 255 255 / .9); color: var(--ink); transition: border-color .2s, box-shadow .2s; }
-  .field:hover { border-color: var(--teal); }
-  .field:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 4px rgb(var(--cyan-rgb) / .7); }
+  /* Frosted glass surface, warm-tinted. */
+  .glass { background: rgb(255 253 247 / .74); -webkit-backdrop-filter: blur(24px) saturate(1.8); backdrop-filter: blur(24px) saturate(1.8); border: 1px solid rgb(255 255 255 / .9); border-radius: 28px; box-shadow: 0 1px 0 rgb(255 255 255 / .9) inset, 0 30px 60px -30px rgb(var(--navy-rgb) / .38); }
+  .card { background: rgb(255 255 255 / .82); -webkit-backdrop-filter: blur(20px) saturate(1.6); backdrop-filter: blur(20px) saturate(1.6); border: 1px solid rgb(var(--ink-rgb) / .08); border-radius: 28px; box-shadow: 0 1px 0 rgb(255 255 255 / .9) inset, 0 20px 50px -28px rgb(var(--navy-rgb) / .32); transition: transform .4s var(--ease), box-shadow .4s var(--ease); }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 1px 0 rgb(255 255 255 / .9) inset, 0 30px 60px -28px rgb(var(--navy-rgb) / .4); }
+  .field { width:100%; border:1px solid rgb(var(--ink-rgb) / .2); border-radius:14px; padding:0 16px; background: #fff; color: var(--ink); transition: border-color .2s, box-shadow .2s; }
+  .field:hover { border-color: rgb(var(--ink-rgb) / .36); }
+  .field:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px rgb(var(--teal-rgb) / .25); }
 }
 
-/* Hero: Primary Blue with a soft glow so the glass form card has something to sit on. */
-.bg-surge { background: radial-gradient(900px 500px at 85% 10%, rgb(var(--cyan-rgb) / .35), transparent 60%), linear-gradient(135deg, #0066cc 0%, #0a74dc 55%, #0090c4 100%); }
-.bg-wash { background: linear-gradient(180deg, #fff 0%, var(--ice) 100%); }
+/* A tool on the Tools page: a clean paper card with a soft edge. */
+.tool-shell { background: #fff; border: 1px solid rgb(var(--ink-rgb) / .08); border-radius: 32px; box-shadow: 0 1px 0 #fff inset, 0 40px 70px -48px rgb(var(--navy-rgb) / .45); }
+
+/* Skip link: first thing a keyboard user tabs to. */
+.skip-link { position: fixed; left: 12px; top: -80px; z-index: 200; background: #fff; color: var(--ink); font-weight: 700; padding: 12px 20px; border-radius: 14px; box-shadow: 0 10px 30px rgb(0 0 0 / .3); transition: top .2s var(--ease); }
+.skip-link:focus { top: 12px; }
+@media (forced-colors: active) { .btn, .chip, .tile, .tool-shell, .card, .glass { border: 1px solid CanvasText; } .btn-cta, .btn-blue { forced-color-adjust: none; background: ButtonFace; color: ButtonText; } .ico path { forced-color-adjust: auto; } }
+
+/* Icon color spot: sky blue on light surfaces, flag red on dark ones. */
+.ico { --spot: #bcd9ef; overflow: visible; }
+.bg-surge .ico, .bg-navy .ico, .ico-dark .ico, .ico-dark.ico { --spot: rgb(var(--cta-rgb) / .9); }
+
+/* Highway-sign eyebrow: condensed caps, tracked, a red star in front. */
+.eyebrow { display:inline-flex; align-items:center; gap:8px; font-family: var(--sign); font-size:15px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color: var(--blue); }
+.eyebrow::before { content:'★'; font-size:11px; letter-spacing:0; color: var(--cta); }
+
+/* Paper with water-light: pale sky blue top-left, a blush of red top-right, cream below. */
+.orbs { background: radial-gradient(900px 540px at 6% -8%, #cfe4f4 0%, rgb(207 228 244 / 0) 65%), radial-gradient(720px 500px at 100% 6%, #f6d9d2 0%, rgb(246 217 210 / 0) 62%), linear-gradient(#f6f3ea, var(--paper) 78%); }
+/* Dark sections: deep navy with water-glow and a faint field of stars. */
+.bg-surge { background: radial-gradient(800px 520px at 88% -6%, rgb(var(--teal-rgb) / .38), transparent 62%), radial-gradient(640px 420px at 0% 108%, rgb(var(--cta-rgb) / .22), transparent 60%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cpath fill='white' fill-opacity='.05' d='M20 12l2.1 4.3 4.7.7-3.4 3.3.8 4.7-4.2-2.2-4.2 2.2.8-4.7-3.4-3.3 4.7-.7zM82 72l2.1 4.3 4.7.7-3.4 3.3.8 4.7-4.2-2.2-4.2 2.2.8-4.7-3.4-3.3 4.7-.7z'/%3E%3C/svg%3E"), var(--navy); }
+.bg-wash { background: linear-gradient(180deg, var(--paper) 0%, var(--ice) 100%); }
+/* Red, white and blue stripe band: a thin edge for the footer and the trust banner. */
+.stripes { height: 6px; background: linear-gradient(90deg, var(--cta) 0 33.333%, #fff 33.333% 66.666%, var(--navy) 66.666% 100%) 0 0 / 144px 100%; animation: drift 4.5s var(--ease) 1 both; } /* moves once on load, then rests: nothing decorative keeps moving past 5 seconds */
+@keyframes drift { to { background-position-x: 144px; } }
+
+/* Dark-hero pages: the floating header turns to dark frosted glass with light text. */
+body:has(main > .bg-surge:first-child) header > .glass { background: rgb(255 255 255 / .09); border-color: rgb(255 255 255 / .16); box-shadow: 0 1px 0 rgb(255 255 255 / .12) inset, 0 24px 50px -24px rgb(0 0 0 / .7); }
+body:has(main > .bg-surge:first-child) .hdr-t { color: rgb(255 255 255 / .92) !important; }
+body:has(main > .bg-surge:first-child) header > .glass .btn-secondary { background: rgb(255 255 255 / .12); color: #fff; border-color: rgb(255 255 255 / .28); box-shadow: none; }
+body:has(main > .bg-surge:first-child) header > .glass > a { border-color: rgb(255 255 255 / .12) !important; }
+/* Glass cards sitting on a dark hero go dark too. */
+.bg-surge .card { background: rgb(255 255 255 / .09); border-color: rgb(255 255 255 / .16); box-shadow: 0 1px 0 rgb(255 255 255 / .12) inset, 0 40px 80px -40px rgb(0 0 0 / .7); }
+.bg-surge .card :is(h2, h3, p, label, label > span) { color: #fff; }
+.bg-surge .card .field { background: #fff; color: var(--ink); }
+
+/* ---- Small motion. All of it is off for people who prefer reduced motion (see the block at the end). ---- */
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise .85s var(--ease) both; animation-delay: var(--d, 0s); }
+/* The seal lands like a rubber stamp. */
+@keyframes stamp { 0% { opacity: 0; transform: scale(1.6) rotate(-24deg); } 55% { opacity: 1; transform: scale(.93) rotate(4deg); } 100% { opacity: 1; transform: none; } }
+.stamp { animation: stamp .7s .65s cubic-bezier(.3, 1.4, .5, 1) both; }
+/* Cards and steps rise as they scroll into view. Nothing is hidden until ScrollFx adds html.rv-on. */
+[data-rv]:nth-child(2) { --i: 1; } [data-rv]:nth-child(3) { --i: 2; } [data-rv]:nth-child(4) { --i: 3; }
+.rv-on [data-rv]:not(.in) { opacity: 0; transform: translateY(22px); }
+.rv-on [data-rv].in { animation: rise .85s var(--ease) backwards; animation-delay: calc(var(--i, 0) * 90ms); }
+/* ---- One interaction language for everything you can press: buttons (.btn), option tiles (.tile), chips (.chip), plain .tap.
+   Hover = a hair of lift and scale. Press = a small squash. Filled buttons also catch the light. Same timing and curve everywhere. ---- */
+.btn, .tile, .chip, .tap { transition: transform .35s var(--ease), box-shadow .35s var(--ease), background-color .25s, border-color .25s, color .25s; }
+.btn:hover, .tile:hover, .chip:hover, .tap:hover { transform: translateY(-1px) scale(1.015); }
+.btn:active, .tile:active, .chip:active, .tap:active { transform: scale(.985); transition-duration: .1s; }
+.btn:disabled, .btn[aria-disabled="true"] { transform: none; }
+.btn { position: relative; overflow: hidden; --shine: rgb(255 255 255 / .3); }
+.btn-secondary { --shine: rgb(11 37 69 / .08); }
+.btn::after { content: ''; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 38%, var(--shine) 50%, transparent 62%); transform: translateX(-130%); transition: transform .8s var(--ease); pointer-events: none; }
+.btn:hover::after { transform: translateX(130%); }
+.btn:disabled::after { display: none; }
+.tile { background: #fff; border: 2px solid rgb(var(--ink-rgb) / .12); border-radius: 22px; color: var(--ink); box-shadow: 0 1px 0 #fff inset, 0 12px 28px -22px rgb(var(--navy-rgb) / .4); }
+.tile:hover { border-color: rgb(var(--navy-rgb) / .45); box-shadow: 0 1px 0 #fff inset, 0 18px 34px -22px rgb(var(--navy-rgb) / .5); }
+.tile-on, .tile:has(input:checked) { border-color: var(--navy); background: #fffdf7; box-shadow: 0 0 0 1px var(--navy), 0 18px 34px -22px rgb(var(--navy-rgb) / .55); }
+.chip { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 980px; border: 1px solid rgb(var(--navy-rgb) / .22); background: rgb(255 255 255 / .8); color: var(--navy); font-weight: 600; }
+.chip:hover { background: #fff; border-color: rgb(var(--navy-rgb) / .45); }
+.arrow-link span { display: inline-block; transition: transform .35s var(--ease); } .arrow-link:hover span { transform: translateX(4px); }
+/* One focus ring, visible on every surface (3:1 or better). */
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
+.bg-surge :focus-visible, .bg-navy :focus-visible, body:has(main > .bg-surge:first-child) header :focus-visible, .wiz :focus-visible { outline-color: #fff; }
+.wiz :focus-visible { outline-color: var(--blue); }
+.btn:focus-visible { border-radius: 980px; }
+.field:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+.bg-surge .btn:focus-visible, .bg-surge .field:focus-visible, .bg-navy .btn:focus-visible, body:has(main > .bg-surge:first-child) header .btn:focus-visible { outline-color: #fff; }
+.wiz .btn:focus-visible, .wiz .field:focus-visible { outline-color: var(--blue); }
+/* FAQ answers ease open. */
+details[open] > :not(summary) { animation: rise .35s var(--ease) both; }
+details > summary { list-style: none; } details > summary::-webkit-details-marker { display: none; }
+/* Edges of the moving ribbon fade out. */
+.marquee-mask { -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+@media (prefers-reduced-motion: reduce) {
+  .rise, .stamp, .stripes, details[open] > :not(summary), .rv-on [data-rv].in { animation: none !important; }
+  .btn::after { display: none; }
+  .btn:hover, .tile:hover, .chip:hover, .tap:hover, .btn:active, .tile:active, .chip:active, .tap:active { transform: none; }
+  .rv-on [data-rv]:not(.in) { opacity: 1; transform: none; }
+}
 
 @keyframes marquee { to { transform: translateX(-50%); } }
 .marquee { display:flex; width:max-content; animation: marquee 35s linear infinite; }
 .marquee:hover { animation-play-state: paused; }
-@media (prefers-reduced-motion: reduce) { .marquee { animation: none; } .card, .btn { transition: none; } .btn:hover, .btn:active { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .marquee { animation: none; } .card, .btn { transition: none; } .btn:hover, .btn:active, .card:hover { transform: none; } }
 
 /* Instant-price wizard: a quiet, conversational surface. Lighter and smaller type than the marketing pages; sans only. */
-.wiz { font-family: var(--font-sans), system-ui, sans-serif; color: var(--ink); font-size: 15px; line-height: 1.5; font-weight: 400; }
-.wiz p { font-family: var(--font-sans), system-ui, sans-serif; font-size: 15px; line-height: 1.5; padding: 0; max-width: none; }
-.wiz h2 { font-family: var(--font-sans), system-ui, sans-serif; font-size: 20px; line-height: 1.3; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); }
+.wiz { font-family: var(--sans); color: var(--ink); font-size: 15px; line-height: 1.5; font-weight: 400; }
+.wiz p { font-family: var(--sans); font-size: 15px; line-height: 1.5; padding: 0; max-width: none; }
+.wiz h2 { font-family: var(--sans); font-size: 20px; line-height: 1.3; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); }
 .wiz label, .wiz summary, .wiz .text-sm { letter-spacing: 0; }
-.wiz .field { border: 1px solid rgb(0 0 0 / .12); background: #fff; border-radius: 10px; font-weight: 400; }
+.wiz .field { border: 1px solid rgb(0 0 0 / .12); background: #fff; border-radius: 14px; font-weight: 400; }
 .wiz .field:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgb(var(--cyan-rgb) / .7); }
 .wiz .btn { font-weight: 600; }
 @keyframes wiz-in { from { transform: translateY(8px); } to { transform: none; } } /* movement only, so content is never invisible if animations are throttled */
@@ -95,7 +178,7 @@ input, select { font-size: 16px; min-height: 48px; }
 @media (max-height: 700px) { .wiz-short-hide { display: none; } }
 
 /* 404 page: light only, like the rest of the site. The drip plays once and is off when motion is reduced. */
-.nf { --nf-bg:#ffffff; --nf-ink:#0b2530; --nf-muted:#3f4a4f; --nf-link:#006a80; --nf-drop:#bfeaf2; --nf-shine:#ffffff; --nf-line:#0b2530; --nf-wrench:#ffb199; background: var(--nf-bg); }
+.nf { --nf-bg:var(--paper); --nf-ink:#101c2e; --nf-muted:#46505e; --nf-link:#1b4f8f; --nf-drop:#cfe4f4; --nf-shine:#ffffff; --nf-line:#0b2545; --nf-wrench:#e9877f; background: var(--nf-bg); }
 @keyframes nf-drip { 0% { transform: translateY(-14px) scale(.6); opacity: 0; } 25% { opacity: 1; } 100% { transform: translateY(26px) scale(1); opacity: 0; } }
 .nf-dripping { animation: nf-drip 1.1s ease-in 1 both; transform-box: fill-box; transform-origin: center; }
 @media (prefers-reduced-motion: reduce) { .nf-dripping { animation: none; opacity: 1 !important; } }

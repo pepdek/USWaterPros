@@ -49,7 +49,7 @@ export default function Pricing() {
   const ld = breadcrumbsLd([['Home', 'https://uswaterpros.com/'], ['Pricing', 'https://uswaterpros.com/pricing']]);
   const offers = { '@context': 'https://schema.org', '@type': 'ItemList', itemListElement: TIERS.map((t, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Product', name: `${t.name} whole-home water system`, offers: { '@type': 'Offer', price: t.price, priceCurrency: 'USD' } } })) };
   return (
-    <main>
+    <main id="main">
       <section className="bg-surge">
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
           <h1 className="!text-white">Pricing</h1>
@@ -57,19 +57,19 @@ export default function Pricing() {
         </div>
       </section>
 
-      <Band><ProductCards id="cards" caption="All-in starting price" showAvg /><p className="!py-0 -mt-10 text-center text-[14px] font-light text-[#3f4a4f]">Benefits depend on your home&apos;s water. We tell you what to expect before you pay.</p></Band>
+      <Band><ProductCards headingAs="h2" id="cards" caption="All-in starting price" showAvg /><p className="!py-0 -mt-10 text-center text-[14px] font-light text-[#3f4a4f]">Benefits depend on your home&apos;s water. We tell you what to expect before you pay.</p></Band>
 
       <Band tone="ice">
         <div className="grid gap-6 md:gap-8 md:grid-cols-2 md:items-stretch">
           <section aria-labelledby="inc-h" className="rounded-3xl bg-white border border-black/[.08] p-7 md:p-9">
-            <h2 id="inc-h" className="!font-sans !font-bold !tracking-[-0.03em] !text-[28px]">What&apos;s included</h2>
+            <h2 id="inc-h" className="!text-[30px]">What&apos;s included</h2>
             <p className="!py-0 mt-1 font-light text-[#3f4a4f]">In every system, at the price you see.</p>
             <ul className="mt-6 flex flex-col gap-3.5">
               {INCLUDED.map((i) => <li key={i} className="flex gap-3"><span className="mt-0.5 shrink-0 font-bold" style={{ color: TEAL_ON_WHITE }} aria-hidden>✓</span><span className="font-light"><span className="sr-only">Included: </span>{i}</span></li>)}
             </ul>
           </section>
           <section aria-labelledby="exc-h" className="rounded-3xl bg-white border border-black/[.08] p-7 md:p-9">
-            <h2 id="exc-h" className="!font-sans !font-bold !tracking-[-0.03em] !text-[28px]">What&apos;s not included</h2>
+            <h2 id="exc-h" className="!text-[30px]">What&apos;s not included</h2>
             <p className="!py-0 mt-1 font-light text-[#3f4a4f]">So there are no surprises after you pay.</p>
             <ul className="mt-6 flex flex-col gap-3.5">
               {EXCLUDED.map((i) => <li key={i} className="flex gap-3"><span className="mt-0.5 shrink-0 font-bold text-[#8a3b12]" aria-hidden>–</span><span className="font-light"><span className="sr-only">Not included: </span>{i}</span></li>)}

@@ -34,12 +34,12 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main>
+    <main id="main">
       <HeroSection />
       <PlatformBanner />
-      <section id="pricing" className="bg-[#fafbfa] scroll-mt-24">
+      <section id="pricing" className="bg-ice scroll-mt-24">
         <div className="mx-auto max-w-6xl px-4 py-16 md:py-20">
-          <p className="inline-block rounded-md bg-black/[.05] px-3 py-1.5 font-mono text-[12px] font-medium uppercase tracking-[.14em] text-[#3f4a4f]">Pick your system</p>
+          <p className="eyebrow !py-0">Pick your system</p>
           <h2 className="mt-4 max-w-2xl">Three systems. One installed price each.</h2>
           <p className="mt-3 mb-10 max-w-2xl font-light text-[#3f4a4f]">Installed by a licensed local plumber. {STORE.refund} <Link href="/pricing" className="underline font-medium text-ink">See what&apos;s included</Link></p>
           <ProductCards variant="teaser" />
@@ -52,7 +52,7 @@ export default function Home() {
         {MAIN.map((slug) => SERVICES.find((s) => s.slug === slug)!).map((s) => <ServiceCard key={s.slug} s={s} />)}
       </div>
       <div className="mt-12">
-        <p className="font-mono text-[12px] font-medium uppercase tracking-[.14em] text-[#3f4a4f] !py-0">Other situations</p>
+        <p className="eyebrow !py-0">Other situations</p>
         <ul className="mt-4 grid gap-4 md:grid-cols-2">
           {OTHER.map(([slug, blurb]) => { const s = SERVICES.find((x) => x.slug === slug)!; return (
             <li key={slug}><Link href={`/services/${slug}`} className="flex items-center justify-between gap-4 rounded-2xl border border-black/[.08] bg-white p-5 hover:border-teal"><span><b className="text-ink">{s.name}</b><span className="block font-light text-[#3f4a4f] text-[15px]">{blurb}</span></span><span aria-hidden>→</span></Link></li>
@@ -66,26 +66,26 @@ export default function Home() {
           <p className="mt-3">Three steps. You see the price before anyone comes to your door.</p>
           <ol className="mt-8 flex flex-col gap-8 md:gap-10">
             {STEPS.map(([t, d], i) => (
-              <li key={t} className="flex gap-4">
-                <span className="shrink-0 w-10 h-10 rounded-full bg-aqua text-ink font-bold flex items-center justify-center">{i + 1}</span>
-                <div><h3 className="text-xl">{t}</h3><p className="mt-1">{d}</p></div>
+              <li key={t} data-rv className="flex gap-4">
+                <span className="shrink-0 w-10 h-10 rounded-full bg-ink text-white font-semibold flex items-center justify-center shadow-[0_10px_20px_-10px_rgba(0,0,0,.6)]">{i + 1}</span>
+                <div><h3 className="text-[21px] font-semibold tracking-[-0.025em]">{t}</h3><p className="mt-1 !text-[17px] text-[#5b6472]">{d}</p></div>
               </li>
             ))}
           </ol>
         </div>
         {/* placeholder: swap for a real image */}
-        <div className="relative rounded-xl overflow-hidden aspect-[3/4] md:aspect-auto md:min-h-[480px] md:h-full"><Image src="/images/installs/softener-carbon-garage.jpg" alt="Black filter tank with digital control head and brine tank installed in a garage" fill sizes="(min-width: 768px) 45vw, 92vw" className="object-cover" /></div>
+        <div className="relative rounded-[32px] overflow-hidden aspect-[3/4] md:aspect-auto md:min-h-[480px] md:h-full shadow-[0_50px_90px_-50px_rgba(14,33,43,.55)]"><Image src="/images/installs/dual-tank-garage.jpg" alt="Two black filter tanks with a digital control head and a brine tank, installed side by side against a wall" fill sizes="(min-width: 768px) 45vw, 92vw" className="object-cover" /></div>
       </section>
       <FilterFinder />
       <section id="areas" className="mx-auto max-w-6xl px-4 py-10 text-center">
         <h2>Serving Western Washington</h2>
         <div className="mt-4 flex flex-wrap justify-center gap-2">
-          {LOCATIONS.map((l) => <Link key={l.slug} href={`/locations/${l.slug}`} className="min-h-12 inline-flex items-center rounded-[10px] bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] px-5 font-semibold text-ink hover:bg-navy hover:text-white">{l.name}</Link>)}
+          {LOCATIONS.map((l) => <Link key={l.slug} href={`/locations/${l.slug}`} className="chip hover:!bg-navy hover:!text-white">{l.name}</Link>)}
         </div>
       </section>
       <nav className="mx-auto max-w-6xl px-4 py-6 flex gap-2 overflow-x-auto md:flex-wrap md:justify-center" aria-label="Services">
         {PILLS.map((p, i) => (
-          <Link key={p.label} href={p.href} className={`shrink-0 min-h-12 inline-flex items-center rounded-[10px] px-5 font-semibold text-sm lowercase bg-white border border-black/10 shadow-[0_2px_6px_rgba(0,0,0,.08)] text-ink hover:bg-navy hover:text-white focus:bg-navy focus:text-white ${i === 0 ? '!bg-navy !text-white' : ''}`}>{p.label}</Link>
+          <Link key={p.label} href={p.href} className={`chip shrink-0 lowercase hover:!bg-navy hover:!text-white ${i === 0 ? '!bg-navy !text-white' : ''}`}>{p.label}</Link>
         ))}
       </nav>
       <Faq />
