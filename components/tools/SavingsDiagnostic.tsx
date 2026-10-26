@@ -41,7 +41,7 @@ export default function SavingsDiagnostic() {
     <div id="diagnostic" data-track-source="tool_diagnostic" className="scroll-mt-24 tool-shell p-5 sm:p-8 md:p-10 flex flex-col gap-6">
       <div className="flex items-center gap-4">
         <span className="shrink-0 w-14 h-14 rounded-2xl bg-ice text-navy flex items-center justify-center ring-1 ring-black/[.06]"><Icon name="chart" size={30} /></span>
-        <div><p className="eyebrow !py-0">Tool 3 · Am I Wasting Money?</p><h2>Stop throwing money at a problem you don’t understand.</h2></div>
+        <div><p className="eyebrow !py-0">Tool 3 · Am I Wasting Money?</p><h2>Find out where your water money goes.</h2></div>
       </div>
       <p>Seven yes-or-no questions about your current setup. You get a score and a dollar estimate. <b>Reveal the hidden costs in what you have now.</b></p>
 
@@ -63,7 +63,7 @@ export default function SavingsDiagnostic() {
       {scored && (
         <div className="card p-5 sm:p-8 md:p-10 flex flex-col gap-6" aria-live="polite">
           <div>
-            <p className="text-sm font-semibold !p-0 text-navy">Your score: {d.score} of {DIAG_QUESTIONS.length} warning signs</p>
+            <p className="text-sm font-semibold !p-0 text-navy">Your score: {d.score} of {DIAG_QUESTIONS.length}</p>
             <div className="h-3 rounded-full bg-ice mt-2" aria-hidden><div className="h-3 rounded-full bg-blue" style={{ width: `${(d.score / DIAG_QUESTIONS.length) * 100}%` }} /></div>
             <h3 className="mt-4">{d.headline}</h3><p>{d.detail}</p>
             <p className="text-xs !p-0">Estimates use typical costs for a household of three. See what you could save with a system built for your exact water quality.</p>

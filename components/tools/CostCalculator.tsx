@@ -66,7 +66,7 @@ export default function CostCalculator() {
                   {!(lines as typeof res.current).length && <li className="py-3">Nothing on your list.</li>}</ul>
                 <p className="flex justify-between font-bold !pb-0"><span>Per year</span><span>{formatUSD(total as number)}</span></p></div>))}
           </div>
-          <p className="text-xs !p-0">Not priced: health costs. We won’t put a made-up dollar figure on them. Estimates use typical costs and the assumptions above, and your bills will differ.</p>
+          <p className="text-xs !p-0">Not included: anything we can’t price honestly. Estimates use typical costs and the assumptions above, and your bills will differ.</p>
           <div className="rounded-3xl bg-navy text-white p-6 sm:p-8 flex flex-col gap-3" data-track-source="tool_cost_result">
             <p className="!p-0 text-white">Based on your usage, we recommend our flagship {PRICING.flagship.label}{drinking === 'bottled' || drinking === 'pitcher' ? ', with reverse osmosis if drinking water is your priority' : ''}. {PRICING.headline} No hidden fees.</p>
             <Link href="/services/whole-home-water-filtration#pricing" className="btn btn-cta self-start">See Your Custom Quote</Link>

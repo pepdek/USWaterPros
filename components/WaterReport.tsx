@@ -6,7 +6,7 @@ export default function WaterReport({ zip }: { zip: string }) {
   if (zip.length !== 5) return null;
   const p = profileForZip(zip);
   return (
-    <div className="bg-ice text-ink rounded-3xl p-8 md:p-10 border border-cyan">
+    <div className="tool-shell text-ink p-8 md:p-10">
       {p ? (
         <>
           <p className="font-semibold">{p.area}: what homeowners here should check</p>

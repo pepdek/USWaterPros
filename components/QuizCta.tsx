@@ -3,7 +3,7 @@ import Link from 'next/link';
 const HEADLINE = 'See what a system would look like in your home';
 
 // Quiz prompt for after a pain-point section. `compact` = card for use inside a column.
-// `service` (slug) = service-page variant: tailored headline + indigo block (deliberately off-palette so it doesn't blend with adjacent blue blocks).
+// `service` (slug) = service-page variant: the same headline on the brand navy (star-field) block.
 export default function QuizCta({ compact = false, service }: { compact?: boolean; service?: string }) {
   const dark = !!service;
   const body = (
@@ -13,7 +13,7 @@ export default function QuizCta({ compact = false, service }: { compact?: boolea
       <Link href="/quiz" className="btn btn-cta mt-6">Take the Quiz</Link>
     </>
   );
-  const bg = dark ? 'bg-[#2e2a5c] text-white' : 'bg-ice';
+  const bg = dark ? 'bg-surge text-white' : 'bg-ice';
   return compact
     ? <div data-track-source="inline_quiz_cta" className={`${bg} rounded-3xl p-8 md:p-10 text-center`}>{body}</div>
     : <section data-track-source="inline_quiz_cta" className={`${bg} py-16 md:py-20`}><div className="mx-auto max-w-3xl px-4 text-center">{body}</div></section>;

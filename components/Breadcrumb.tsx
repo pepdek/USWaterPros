@@ -17,7 +17,7 @@ export default function Breadcrumb({ items }: { items: Crumb[] }) {
           <li key={c.label} className="flex items-center gap-1.5">
             {i > 0 && <span aria-hidden>›</span>}
             {c.href && i < all.length - 1
-              ? <Link href={c.href} className="hover:text-cyan hover:underline">{c.label}</Link>
+              ? <Link href={c.href} className="hover:text-white hover:underline">{c.label}</Link>
               : <span aria-current={i === all.length - 1 ? 'page' : undefined} className="font-semibold">{c.label}</span>}
           </li>
         ))}

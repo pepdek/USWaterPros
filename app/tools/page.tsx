@@ -46,7 +46,7 @@ export default function ToolsPage() {
     <main id="main">
       <section data-track-source="hero" className="bg-surge">
         <div className="mx-auto max-w-4xl px-4 py-16 md:py-24 text-center">
-          <h1 className="!text-white">Know Your Water. Own Your Health.</h1>
+          <h1 className="!text-white">Know your water. Know your price.</h1>
           <p className="mt-4 text-white mx-auto">4 tools to reveal what’s actually in your tap and what you’re actually paying for it.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             {[['#report', 'Water report'], ['#calculator', 'Cost calculator'], ['#diagnostic', 'Savings check'], ['#quiz-tool', 'Find your system']].map(([h, l]) => (
@@ -58,8 +58,8 @@ export default function ToolsPage() {
 
       <section className="bg-navy text-white" data-track-source="trust_strip">
         <div className="mx-auto max-w-6xl px-4 py-10 flex flex-col gap-6 items-center text-center">
-          <p className="!p-0 text-white font-semibold">Your family’s health starts with clean water.</p>
-          <ul className="flex flex-wrap justify-center gap-3">{TRUST.map((t) => <li key={t} className="flex items-center gap-2 rounded-full border border-black/10/50 px-5 py-2 text-sm"><span className="text-white"><Icon name="check" size={16} /></span>{t}</li>)}</ul>
+          <p className="!p-0 text-white font-semibold">Clear answers about your water, before anyone comes to your door.</p>
+          <ul className="flex flex-wrap justify-center gap-3">{TRUST.map((t) => <li key={t} className="flex items-center gap-2 rounded-full border border-white/35 px-5 py-2 text-sm"><span className="text-white"><Icon name="check" size={16} /></span>{t}</li>)}</ul>
         </div>
       </section>
 
@@ -81,8 +81,8 @@ export default function ToolsPage() {
       <section className="bg-ice">
         <div className="mx-auto max-w-6xl px-4 py-16 md:py-20 grid gap-10 md:gap-14 md:grid-cols-3">
           {[
-            ['shield', 'We know Tacoma water.', 'We’ve tested it. We’ve filtered it. Tacoma, Puyallup, Bremerton, Port Orchard, Olympia, Lacey and Gig Harbor each have their own supply, their own pipes and their own problems.'],
-            ['drop', 'Go further than the legal minimum.', 'Your utility’s job is to meet legal limits. Ours is to protect your family’s health at the tap, with a system built for your exact water.'],
+            ['shield', 'We know Pierce County water.', 'Tacoma, Puyallup, Bremerton, Port Orchard, Olympia, Lacey and Gig Harbor each have their own supply and their own pipes. We start from your utility’s own annual report, so the starting point is your area, not a guess.'],
+            ['drop', 'Built around your water.', 'Your utility’s job is to meet the legal limits. Ours is to match a system to what you actually want to change at the tap, whether that is taste, chlorine or staining.'],
             ['badge', 'Stop overpaying for generic solutions.', 'One fixed price, installed by licensed local plumbers, tax included. No countdown timers, no hidden fees.'],
           ].map(([icon, h, t]) => (
             <div key={h} className="flex flex-col gap-3">
