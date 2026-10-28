@@ -36,6 +36,13 @@ function Dropdown({ label, links }: { label: string; links: string[][] }) {
 
 export default function Header() {
   const [menu, setMenu] = useState(false);
+  const [solid, setSolid] = useState(false);
+  // On dark-hero pages the header is light-on-dark only while the hero is under it.
+  useEffect(() => {
+    const f = () => { const h = document.querySelector('main > :first-child'); setSolid(!!h && h.getBoundingClientRect().bottom < 80); };
+    f(); window.addEventListener('scroll', f, { passive: true });
+    return () => window.removeEventListener('scroll', f);
+  }, []);
   useEffect(() => {
     document.body.style.overflow = menu ? 'hidden' : '';
     const esc = (e: KeyboardEvent) => { if (e.key === 'Escape') setMenu(false); };
@@ -62,7 +69,7 @@ export default function Header() {
   }, [menu]);
 
   return (
-    <header className="sticky top-0 z-50 px-3 pt-3">
+    <header data-solid={solid ? '' : undefined} className="sticky top-0 z-50 px-3 pt-3">
       <div className="glass !rounded-[22px] mx-auto max-w-6xl">
       <div className={`px-4 md:px-5 flex items-center justify-between gap-3 transition-all duration-300 h-16`}>
         <Link href="/" className="hdr-t text-ink shrink-0 min-h-11 inline-flex flex-col justify-center leading-none"><span className="font-mono text-[26px] font-extrabold uppercase tracking-[.03em]"><span aria-hidden className="text-cta text-[18px] mr-1.5 align-[2px]">★</span>US Water Pros</span><span className="hdr-t hidden md:block font-mono text-[11px] font-semibold uppercase tracking-[.22em] text-ink/75 mt-1">America's Water Professionals</span></Link>
