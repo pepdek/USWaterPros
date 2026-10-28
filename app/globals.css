@@ -97,11 +97,13 @@ input, select { font-size: 16px; min-height: 48px; }
 .stripes { height: 6px; background: linear-gradient(90deg, var(--cta) 0 33.333%, #fff 33.333% 66.666%, var(--navy) 66.666% 100%) 0 0 / 144px 100%; animation: drift 4.5s var(--ease) 1 both; } /* moves once on load, then rests: nothing decorative keeps moving past 5 seconds */
 @keyframes drift { to { background-position-x: 144px; } }
 
+/* Once the dark hero has scrolled away the header goes back to light, more opaque glass. */
+header[data-solid] > .glass { background: rgb(255 255 255 / .88); }
 /* Dark-hero pages: the floating header turns to dark frosted glass with light text. */
-body:has(main > .bg-surge:first-child) header > .glass { background: rgb(255 255 255 / .09); border-color: rgb(255 255 255 / .16); box-shadow: 0 1px 0 rgb(255 255 255 / .12) inset, 0 24px 50px -24px rgb(0 0 0 / .7); }
-body:has(main > .bg-surge:first-child) .hdr-t { color: rgb(255 255 255 / .92) !important; }
-body:has(main > .bg-surge:first-child) header > .glass .btn-secondary { background: rgb(255 255 255 / .12); color: #fff; border-color: rgb(255 255 255 / .28); box-shadow: none; }
-body:has(main > .bg-surge:first-child) header > .glass > a { border-color: rgb(255 255 255 / .12) !important; }
+body:has(main > .bg-surge:first-child) header:not([data-solid]) > .glass { background: rgb(255 255 255 / .09); border-color: rgb(255 255 255 / .16); box-shadow: 0 1px 0 rgb(255 255 255 / .12) inset, 0 24px 50px -24px rgb(0 0 0 / .7); }
+body:has(main > .bg-surge:first-child) header:not([data-solid]) .hdr-t { color: rgb(255 255 255 / .92) !important; }
+body:has(main > .bg-surge:first-child) header:not([data-solid]) > .glass .btn-secondary { background: rgb(255 255 255 / .12); color: #fff; border-color: rgb(255 255 255 / .28); box-shadow: none; }
+body:has(main > .bg-surge:first-child) header:not([data-solid]) > .glass > a { border-color: rgb(255 255 255 / .12) !important; }
 /* Glass cards sitting on a dark hero go dark too. */
 .bg-surge .card { background: rgb(255 255 255 / .09); border-color: rgb(255 255 255 / .16); box-shadow: 0 1px 0 rgb(255 255 255 / .12) inset, 0 40px 80px -40px rgb(0 0 0 / .7); }
 .bg-surge .card :is(h2, h3, p, label, label > span) { color: #fff; }
@@ -141,11 +143,11 @@ body:has(main > .bg-surge:first-child) header > .glass > a { border-color: rgb(2
 .arrow-link span { display: inline-block; transition: transform .35s var(--ease); } .arrow-link:hover span { transform: translateX(4px); }
 /* One focus ring, visible on every surface (3:1 or better). */
 :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
-.bg-surge :focus-visible, .bg-navy :focus-visible, body:has(main > .bg-surge:first-child) header :focus-visible, .wiz :focus-visible { outline-color: #fff; }
+.bg-surge :focus-visible, .bg-navy :focus-visible, body:has(main > .bg-surge:first-child) header:not([data-solid]) :focus-visible, .wiz :focus-visible { outline-color: #fff; }
 .wiz :focus-visible { outline-color: var(--blue); }
 .btn:focus-visible { border-radius: 980px; }
 .field:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
-.bg-surge .btn:focus-visible, .bg-surge .field:focus-visible, .bg-navy .btn:focus-visible, body:has(main > .bg-surge:first-child) header .btn:focus-visible { outline-color: #fff; }
+.bg-surge .btn:focus-visible, .bg-surge .field:focus-visible, .bg-navy .btn:focus-visible, body:has(main > .bg-surge:first-child) header:not([data-solid]) .btn:focus-visible { outline-color: #fff; }
 .wiz .btn:focus-visible, .wiz .field:focus-visible { outline-color: var(--blue); }
 /* FAQ answers ease open. */
 details[open] > :not(summary) { animation: rise .35s var(--ease) both; }
