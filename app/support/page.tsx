@@ -51,7 +51,7 @@ export default function Support() {
           <div className="mt-14 rounded-3xl border border-black/[.08] bg-white p-7 md:p-9 max-w-3xl">
             <h2 className="!text-ink !text-[26px]">Put this in your message and we can help faster</h2>
             <ul className="mt-4 grid gap-2.5 sm:grid-cols-2">
-              {['Your name', 'Your address or ZIP', 'Your install day', 'A photo of the system or the problem', 'What you see or hear', 'When it started'].map((i) => <li key={i} className="flex gap-2.5 font-light"><span aria-hidden className="text-[#007c94] font-bold">✓</span><span>{i}</span></li>)}
+              {['Your name', 'Your address or ZIP', 'Your install day', 'A photo of the system or the problem', 'What you see or hear', 'When it started'].map((i) => <li key={i} className="flex gap-2.5 font-light"><span aria-hidden className="text-cta text-[13px] leading-[1.9]">★</span><span>{i}</span></li>)}
             </ul>
           </div>
         </div>

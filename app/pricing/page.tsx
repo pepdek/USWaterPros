@@ -5,7 +5,6 @@ import WizardButton from '@/components/store/WizardButton';
 import { Band, FaqGroup } from '@/components/service';
 import { PRICING, TIERS, TAX_NOTE, formatUSD } from '@/lib/pricing';
 import { STORE } from '@/lib/store';
-import { TEAL_ON_WHITE } from '@/lib/contrast';
 import { SERVED_AREA } from '@/lib/serviceArea';
 import { breadcrumbsLd } from '@/lib/ld';
 
@@ -57,22 +56,22 @@ export default function Pricing() {
         </div>
       </section>
 
-      <Band><ProductCards headingAs="h2" id="cards" caption="All-in starting price" showAvg /><p className="!py-0 -mt-10 text-center text-[14px] font-light text-[#3f4a4f]">Benefits depend on your home&apos;s water. We tell you what to expect before you pay.</p></Band>
+      <Band><ProductCards headingAs="h2" id="cards" caption="All-in starting price" showAvg /><p className="!py-0 -mt-10 text-center text-[14px] font-light text-[#5b6472]">Benefits depend on your home&apos;s water. We tell you what to expect before you pay.</p></Band>
 
       <Band tone="ice">
         <div className="grid gap-6 md:gap-8 md:grid-cols-2 md:items-stretch">
-          <section aria-labelledby="inc-h" className="rounded-3xl bg-white border border-black/[.08] p-7 md:p-9">
+          <section aria-labelledby="inc-h" className="panel p-7 md:p-9">
             <h2 id="inc-h" className="!text-[30px]">What&apos;s included</h2>
-            <p className="!py-0 mt-1 font-light text-[#3f4a4f]">In every system, at the price you see.</p>
+            <p className="!py-0 mt-1 font-light text-[#5b6472]">In every system, at the price you see.</p>
             <ul className="mt-6 flex flex-col gap-3.5">
-              {INCLUDED.map((i) => <li key={i} className="flex gap-3"><span className="mt-0.5 shrink-0 font-bold" style={{ color: TEAL_ON_WHITE }} aria-hidden>✓</span><span className="font-light"><span className="sr-only">Included: </span>{i}</span></li>)}
+              {INCLUDED.map((i) => <li key={i} className="flex gap-3"><span className="mt-0.5 shrink-0 text-cta text-[13px] leading-[1.9]" aria-hidden>★</span><span className="font-light"><span className="sr-only">Included: </span>{i}</span></li>)}
             </ul>
           </section>
-          <section aria-labelledby="exc-h" className="rounded-3xl bg-white border border-black/[.08] p-7 md:p-9">
+          <section aria-labelledby="exc-h" className="panel p-7 md:p-9">
             <h2 id="exc-h" className="!text-[30px]">What&apos;s not included</h2>
-            <p className="!py-0 mt-1 font-light text-[#3f4a4f]">So there are no surprises after you pay.</p>
+            <p className="!py-0 mt-1 font-light text-[#5b6472]">So there are no surprises after you pay.</p>
             <ul className="mt-6 flex flex-col gap-3.5">
-              {EXCLUDED.map((i) => <li key={i} className="flex gap-3"><span className="mt-0.5 shrink-0 font-bold text-[#8a3b12]" aria-hidden>–</span><span className="font-light"><span className="sr-only">Not included: </span>{i}</span></li>)}
+              {EXCLUDED.map((i) => <li key={i} className="flex gap-3"><span className="mt-0.5 shrink-0 font-bold text-[#5b6472]" aria-hidden>–</span><span className="font-light"><span className="sr-only">Not included: </span>{i}</span></li>)}
             </ul>
             {/* VERIFY: the last "not included" item (repairs to existing plumbing, fixtures or appliances) and the full list of what is outside the fixed price (permits, drain or electrical work, extra plumbing). */}
           </section>

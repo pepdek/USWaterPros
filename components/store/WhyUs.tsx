@@ -16,15 +16,15 @@ function Phone() {
   const price = formatUSD(TIERS.find((t) => t.popular)!.price);
   return (
     <div aria-hidden className="relative mx-auto w-[290px] md:w-[320px] select-none [transform:perspective(1400px)_rotateY(-10deg)_rotateX(3deg)_rotateZ(2deg)]">
-      <div className="rounded-[46px] bg-[#1d1d1f] p-[10px] shadow-[0_60px_90px_-40px_rgba(14,33,43,.7),0_0_0_1px_rgba(255,255,255,.12)_inset]">
-        <div className="rounded-[37px] bg-[#f5f7f8] p-5 pb-6">
-          <div className="mx-auto mb-5 h-[22px] w-24 rounded-full bg-[#1d1d1f]" />
+      <div className="rounded-[46px] bg-ink p-[10px] shadow-[0_60px_90px_-40px_rgba(14,33,43,.7),0_0_0_1px_rgba(255,255,255,.12)_inset]">
+        <div className="rounded-[37px] bg-ice p-5 pb-6">
+          <div className="mx-auto mb-5 h-[22px] w-24 rounded-full bg-ink" />
           <p className="!py-0 text-center text-[12px] font-medium text-[#5b6472]">Step 2 of 4</p>
           <p className="!py-1 text-center font-sans text-[22px] font-semibold tracking-[-0.035em] text-ink">Pick your install day</p>
           <div className="mt-3 rounded-[22px] bg-white p-3 shadow-[0_1px_0_#fff_inset,0_14px_30px_-20px_rgba(14,33,43,.4)]">
             <div className="grid grid-cols-4 gap-2">
               {Array.from({ length: 12 }, (_, i) => (
-                <span key={i} className={`h-9 rounded-xl ${i === 6 ? 'bg-ink shadow-[0_8px_16px_-8px_rgba(0,0,0,.6)]' : 'bg-[#f2f2f4]'}`} />
+                <span key={i} className={`h-9 rounded-xl ${i === 6 ? 'bg-ink shadow-[0_8px_16px_-8px_rgba(0,0,0,.6)]' : 'bg-[#ece6d8]'}`} />
               ))}
             </div>
           </div>

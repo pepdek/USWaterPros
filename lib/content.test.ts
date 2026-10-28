@@ -22,6 +22,7 @@ const BANNED: [RegExp, string][] = [
   [/emergency repair/i, 'unconfirmed service'],
   [/dry skin|softer skin|skin and hair/i, 'skin / hair claim'],
   [/aggregateRating|ratingValue/i, 'rating schema'],
+  [/own your health|family.s health|exposing your family|protect your family|health guarantee|health costs/i, 'health / fear wording'],
 ];
 
 describe('positioning guard rails', () => {

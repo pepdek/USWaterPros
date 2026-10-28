@@ -29,7 +29,7 @@ export default function ProductCards({ id, variant = 'full', caption, showAvg = 
           )}
           <div className="mt-auto flex flex-col gap-3">
             <WizardButton tier={t.id} className="btn btn-cta w-full !font-semibold">Get Instant Price →<span className="sr-only"> for {t.name}</span></WizardButton>
-            {showAvg && <p className="!py-0 text-center text-[14px] italic text-[#3f4a4f]">Avg total price in 2026 is {formatUSD(avgTotal(t.id))}</p>}
+            {showAvg && <p className="!py-0 text-center text-[14px] italic text-[#5b6472]">Avg total price in 2026 is {formatUSD(avgTotal(t.id))}</p>}
           </div>
         </li>
       ))}

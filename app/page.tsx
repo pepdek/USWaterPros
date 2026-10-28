@@ -41,7 +41,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-4 py-16 md:py-20">
           <p className="eyebrow !py-0">Pick your system</p>
           <h2 className="mt-4 max-w-2xl">Three systems. One installed price each.</h2>
-          <p className="mt-3 mb-10 max-w-2xl font-light text-[#3f4a4f]">Installed by a licensed local plumber. {STORE.refund} <Link href="/pricing" className="underline font-medium text-ink">See what&apos;s included</Link></p>
+          <p className="mt-3 mb-10 max-w-2xl font-light text-[#5b6472]">Installed by a licensed local plumber. {STORE.refund} <Link href="/pricing" className="underline font-medium text-ink">See what&apos;s included</Link></p>
           <ProductCards variant="teaser" />
         </div>
       </section>
@@ -55,7 +55,7 @@ export default function Home() {
         <p className="eyebrow !py-0">Other situations</p>
         <ul className="mt-4 grid gap-4 md:grid-cols-2">
           {OTHER.map(([slug, blurb]) => { const s = SERVICES.find((x) => x.slug === slug)!; return (
-            <li key={slug}><Link href={`/services/${slug}`} className="flex items-center justify-between gap-4 rounded-2xl border border-black/[.08] bg-white p-5 hover:border-teal"><span><b className="text-ink">{s.name}</b><span className="block font-light text-[#3f4a4f] text-[15px]">{blurb}</span></span><span aria-hidden>→</span></Link></li>
+            <li key={slug}><Link href={`/services/${slug}`} className="tile flex items-center justify-between gap-4 p-5"><span><b className="text-ink">{s.name}</b><span className="block font-light text-[#5b6472] text-[15px]">{blurb}</span></span><span aria-hidden>→</span></Link></li>
           ); })}
         </ul>
       </div></section></div>
@@ -90,7 +90,7 @@ export default function Home() {
       </nav>
       <Faq />
       <p className="mx-auto max-w-3xl px-4 pt-6 text-center font-sans text-[clamp(1.5rem,1rem+1.6vw,2.2rem)] font-bold tracking-[-0.03em] text-ink !py-0">Turn on the tap and stop thinking about it.</p>
-      <p className="text-center text-[14px] font-light text-[#4b5a60] !pt-2">Or keep guessing and buying jugs.</p>
+      <p className="text-center text-[14px] font-light text-[#5b6472] !pt-2">Or keep guessing and buying jugs.</p>
       <StickyBottomCTA />
     </main>
   );

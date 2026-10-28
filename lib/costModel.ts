@@ -1,5 +1,5 @@
 // True cost model for the calculator and the savings diagnostic. Every number is a typical-cost ASSUMPTION the visitor can change.
-// Health costs are deliberately not priced: nobody can honestly put a dollar figure on them.
+// Only costs we can honestly estimate are priced.
 import { ANNUAL_FILTERS, PRICING } from './pricing';
 
 export type Assumptions = {
@@ -83,10 +83,10 @@ export function diagnose(yes: string[], a: Assumptions = DEFAULTS): Diagnosis {
   const score = hit.length;
   const waste = r(hit.reduce((s, q) => s + q.cost(a), 0));
   const tier = waste >= 300 || score >= 4 ? 'wasting' : score >= 2 || waste >= 100 ? 'borderline' : 'efficient';
-  const headline = tier === 'wasting' ? `You’re likely wasting about $${waste.toLocaleString('en-US')} a year.`
-    : tier === 'borderline' ? 'Your setup is borderline. It needs monitoring.' : 'Your setup looks efficient.';
+  const headline = tier === 'wasting' ? `Your water setup may cost you about $${waste.toLocaleString('en-US')} a year.`
+    : tier === 'borderline' ? 'Your setup is in the middle. Worth a second look.' : 'Your setup looks efficient.';
   const detail = tier === 'wasting' ? 'That adds up from the items you checked, using typical costs for a household of three. A system built for your exact water can replace most of them.'
-    : tier === 'borderline' ? 'A few signs point to extra cost or a water issue. A short call tells you whether it is worth changing anything.'
-    : 'Few warning signs. If you still have questions about what is in your water, a free consultation is the next step.';
+    : tier === 'borderline' ? 'A few answers point to extra cost. A short call tells you whether it is worth changing anything.'
+    : 'Few extra costs showing up. If you still have questions about what is in your water, a free consultation is the next step.';
   return { score, waste, tier, headline, detail };
 }

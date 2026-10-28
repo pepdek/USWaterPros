@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
     ...(isWait && { notes: `WAITLIST: ZIP ${s('zip_code', 10)} is outside the service area.` }),
     ip_address: req.headers.get('x-forwarded-for')?.split(',')[0].trim() || null,
     user_agent: req.headers.get('user-agent'),
-    ...(tool && { quiz: tool, notes: `TOOL diagnostic: ${tool.score}/7 warning signs | est. waste ${formatUSD(tool.waste)}/yr | ${tool.tier} | SMS opt-in: ${tool.sms_opt_in ? 'YES' : 'no'} | yes: ${tool.answers.join(', ')}` }),
+    ...(tool && { quiz: tool, notes: `TOOL diagnostic: ${tool.score}/7 checked | est. waste ${formatUSD(tool.waste)}/yr | ${tool.tier} | SMS opt-in: ${tool.sms_opt_in ? 'YES' : 'no'} | yes: ${tool.answers.join(', ')}` }),
     ...(quiz && {
       quiz,
       notes: `QUIZ${quiz.tags.length ? ' [' + quiz.tags.join(',') + ']' : ''}: ${rec} (${formatUSD(quiz.recommendedPrice)}${quiz.addons.length ? ' incl. add-ons: ' + quiz.addons.join(', ') : ''}) | urgency ${quiz.urgencyPriority} | prefers ${quiz.communicationPreference} | timeline ${quiz.timeline} | household ${quiz.householdSize} | ${quiz.currentSituation} | budget: ${quiz.budgetComfort} | concerns: ${quiz.waterConcerns.join(', ')} | ${quiz.location}`,

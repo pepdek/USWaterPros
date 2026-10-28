@@ -26,15 +26,15 @@ const Bot = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 const Me = ({ children }: { children: React.ReactNode }) => (
-  <div className="wiz-in wiz-trail flex justify-end"><div className="rounded-2xl rounded-tr-md bg-[#e1f4f7] px-4 py-2.5">{children}</div></div>
+  <div className="wiz-in wiz-trail flex justify-end"><div className="rounded-2xl rounded-tr-md bg-ice px-4 py-2.5">{children}</div></div>
 );
 const Card = ({ children }: { children: React.ReactNode }) => (
   <div className="wiz-in rounded-2xl bg-white border border-black/[.06] shadow-[0_1px_0_#fff_inset,0_24px_50px_-34px_rgba(14,33,43,.4)] p-5">{children}</div>
 );
 const Chip = ({ icon, children }: { icon: string; children: React.ReactNode }) => (
-  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#f4f8f6] border border-black/[.07] px-3 py-1.5 text-[13px] font-medium"><span className="text-navy"><Icon name={icon} size={16} /></span>{children}</span>
+  <span className="inline-flex items-center gap-1.5 rounded-full bg-ice border border-black/[.07] px-3 py-1.5 text-[13px] font-medium"><span className="text-navy"><Icon name={icon} size={16} /></span>{children}</span>
 );
-const Label = ({ children }: { children: React.ReactNode }) => <span className="block mb-1.5 text-[13px] font-medium text-[#3f4a4f]">{children}</span>;
+const Label = ({ children }: { children: React.ReactNode }) => <span className="block mb-1.5 text-[13px] font-medium text-[#5b6472]">{children}</span>;
 
 export default function Wizard() {
   const [open, setOpen] = useState(false);
@@ -193,7 +193,7 @@ export default function Wizard() {
                 <input className={`${input} text-center !text-[22px] font-mono tracking-[.2em]`} inputMode="numeric" maxLength={5} autoComplete="postal-code" placeholder="ZIP code" value={zip} onChange={(e) => setZip(e.target.value.replace(/\D/g, ''))} />
               </label>
               <Err />
-              <p className="mt-3 text-center text-[13px] text-[#4b5a60]"><b className="font-semibold text-ink">Free to look.</b> No card, no charge until you confirm a booking.</p>
+              <p className="mt-3 text-center text-[13px] text-[#5b6472]"><b className="font-semibold text-ink">Free to look.</b> No card, no charge until you confirm a booking.</p>
             </Card>
           </>)}
 
@@ -220,12 +220,12 @@ export default function Wizard() {
                 {TIERS.map((x) => (
                   <label key={x.id} className={`tile flex items-center gap-3 !rounded-2xl p-3.5 cursor-pointer min-h-14 ${tier === x.id ? 'tile-on' : ''}`}>
                     <input type="radio" name="tier" className="w-[18px] h-[18px] accent-[#1d1d1f]" checked={tier === x.id} onChange={() => setTier(x.id)} />
-                    <span className="flex-1"><span className="font-medium">{x.name}</span>{x.popular && <span className="ml-2 text-[11px] font-semibold rounded-full bg-ink text-white px-2 py-0.5">Most homes</span>}<span className="wiz-short-hide block text-[14px] font-light text-[#4b5a60]">{x.subhead}</span></span>
+                    <span className="flex-1"><span className="font-medium">{x.name}</span>{x.popular && <span className="ml-2 text-[11px] font-semibold rounded-full bg-ink text-white px-2 py-0.5">Most homes</span>}<span className="wiz-short-hide block text-[14px] font-light text-[#5b6472]">{x.subhead}</span></span>
                     <span className="font-mono font-semibold">{formatUSD(x.price)}</span>
                   </label>
                 ))}
               </fieldset>
-              <p className="wiz-short-hide mt-3 text-[13px] text-[#4b5a60]">{formatUSD(t.price)} {TAX_NOTE}. {STORE.refund}</p>
+              <p className="wiz-short-hide mt-3 text-[13px] text-[#5b6472]">{formatUSD(t.price)} {TAX_NOTE}. {STORE.refund}</p>
             </Card>
           </>)}
 
@@ -259,11 +259,11 @@ export default function Wizard() {
             <Bot>Here&apos;s your order. Check it over, then pay to lock in your day.</Bot>
             <Card>
               <dl className="flex flex-col gap-2.5">
-                <div className="flex justify-between gap-4"><dt className="text-[#4b5a60]">System</dt><dd className="font-medium">{t.name}</dd></div>
-                <div className="flex justify-between gap-4"><dt className="text-[#4b5a60]">Install</dt><dd className="font-medium">{date} · {win}</dd></div>
-                <div className="flex justify-between gap-4 border-t border-black/[.08] pt-2.5"><dt className="text-[#4b5a60]">Total</dt><dd className="font-mono font-semibold">{formatUSD(t.price)} <span className="font-sans font-normal text-[13px]">{TAX_NOTE}</span></dd></div>
+                <div className="flex justify-between gap-4"><dt className="text-[#5b6472]">System</dt><dd className="font-medium">{t.name}</dd></div>
+                <div className="flex justify-between gap-4"><dt className="text-[#5b6472]">Install</dt><dd className="font-medium">{date} · {win}</dd></div>
+                <div className="flex justify-between gap-4 border-t border-black/[.08] pt-2.5"><dt className="text-[#5b6472]">Total</dt><dd className="font-mono font-semibold">{formatUSD(t.price)} <span className="font-sans font-normal text-[13px]">{TAX_NOTE}</span></dd></div>
               </dl>
-              <p className="mt-3 text-[13px] text-[#4b5a60]">{STORE.payment} {STORE.refund}{STORE.refundTerms ? ` ${STORE.refundTerms}` : ''}</p>
+              <p className="mt-3 text-[13px] text-[#5b6472]">{STORE.payment} {STORE.refund}{STORE.refundTerms ? ` ${STORE.refundTerms}` : ''}</p>
               <Err />
             </Card>
           </>)}
@@ -274,13 +274,13 @@ export default function Wizard() {
         {/* Pinned: the main action is always visible, so nobody has to scroll to find it. */}
         <div className="border-t border-black/[.06] bg-white/80 px-5 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] flex flex-col gap-2.5">
           <button type={action.submit ? 'submit' : 'button'} form={action.submit ? FORM : undefined} onClick={action.onClick} disabled={busy} aria-disabled={action.dim || undefined} className={`btn btn-cta w-full ${action.dim ? 'opacity-45' : ''}`} data-autofocus={step === 'waitlist-done' || step === 'pending' ? true : undefined}>{action.label}</button>
-          <a href={SMS_HREF} className="wiz-compose items-center gap-3 rounded-full bg-white border border-black/[.1] pl-4 pr-1.5 min-h-[48px] text-[#3f4a4f]">
+          <a href={SMS_HREF} className="wiz-compose items-center gap-3 rounded-full bg-white border border-black/[.1] pl-4 pr-1.5 min-h-[48px] text-[#5b6472]">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z" /></svg>
             <span className="flex-1 text-[15px]">Questions? Text us. We reply fast.</span>
-            <span aria-hidden className="w-9 h-9 rounded-full bg-[#00a0bf]/15 text-[#007c94] inline-flex items-center justify-center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5M5 12l7-7 7 7" /></svg></span>
+            <span aria-hidden className="w-9 h-9 rounded-full bg-navy/10 text-navy inline-flex items-center justify-center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5M5 12l7-7 7 7" /></svg></span>
           </a>
-          <p className="flex flex-wrap items-center justify-center gap-x-4 text-[12px] text-[#4b5a60]">
-            <span className="inline-flex items-center gap-1.5 whitespace-nowrap"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V7a4 4 0 118 0v4" /></svg>Checkout secured by <b className="font-semibold text-[#635bff]">Stripe</b></span>
+          <p className="flex flex-wrap items-center justify-center gap-x-4 text-[12px] text-[#5b6472]">
+            <span className="inline-flex items-center gap-1.5 whitespace-nowrap"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><rect x="4" y="11" width="16" height="10" rx="2" /><path d="M8 11V7a4 4 0 118 0v4" /></svg>Checkout secured by <b className="font-semibold text-navy">Stripe</b></span>
             <a href={SMS_HREF} className="wiz-textlink underline font-medium min-h-11 items-center whitespace-nowrap">Questions? Text us</a>
           </p>
         </div>

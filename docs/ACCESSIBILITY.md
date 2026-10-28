@@ -33,4 +33,4 @@ It also reports pages with more or fewer than one `h1` and any horizontal overfl
 
 ## Known limits
 - Automated tools find roughly a third of accessibility problems. A manual pass with VoiceOver (macOS and iOS) and TalkBack before a big launch is still worth doing.
-- Copy on `/tools` ("Own Your Health", "what you're exposing your family to") is fear/health wording that conflicts with the content rules in `docs/POSITIONING.md`. It is an editorial issue, not a code one.
+- `/tools` copy is calm and non-clinical; `lib/content.test.ts` bans fear/health wording.

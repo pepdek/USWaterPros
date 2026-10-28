@@ -49,7 +49,7 @@ export function BuyerDecisionTree({ s }: { s: Service }) {
           </div>
         ))}
       </div>
-      <div className="mt-4 bg-ice rounded-2xl p-6 md:p-8 border-l-4 border-teal text-ink">
+      <div className="callout mt-4 p-6 md:p-8 text-ink">
         <p className="font-semibold">{s.stat}</p>
         <Sources ids={s.cite as SourceId[]} className="mt-1" />
       </div>
@@ -63,7 +63,7 @@ export function ContaminationChart({ s }: { s: Service }) {
       <h2>What {s.name} Treats</h2>
       <ul className="mt-6 grid gap-3 sm:grid-cols-2">
         {s.treats.map((t) => (
-          <li key={t.item} className="flex items-center gap-3 bg-white rounded-lg p-3 shadow-[0_2px_10px_rgba(0,0,0,.05)]">
+          <li key={t.item} className="panel flex items-center gap-3 p-4">
             <span className="text-navy shrink-0"><Icon name={t.icon} size={36} /></span>
             <span><span className="font-semibold text-ink block">{t.item}</span><span className="text-sm">{t.how}</span></span>
           </li>
@@ -104,15 +104,15 @@ export function BeforeAfterSlider({ s, beforeSrc, afterSrc }: { s: Service; befo
       <h2>Before &amp; After</h2>
       <div className="mt-8 grid gap-8 md:gap-12 md:grid-cols-2 md:items-center">
         <div>
-          <div className="relative h-64 md:h-80 rounded-xl overflow-hidden select-none">
-            {layer(afterSrc, 'bg-ice text-aqua', 'After')}
-            <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - pct}% 0 0)` }}>{layer(beforeSrc, 'bg-[#d9c7a3] text-[#8a6d3b]', 'Before')}</div>
-            <span className="absolute top-3 left-3 text-sm font-bold bg-navy text-white rounded px-2 py-1">Before</span>
-            <span className="absolute top-3 right-3 text-sm font-bold bg-navy text-white rounded px-2 py-1">After</span>
-            <div className="absolute inset-y-0 w-0.5 bg-white" style={{ left: `${pct}%` }} />
+          <div className="relative h-64 md:h-80 rounded-[28px] overflow-hidden select-none ring-1 ring-black/[.08] shadow-[0_30px_60px_-36px_rgba(11,37,69,.5)]">
+            {layer(afterSrc, 'bg-[#cfe4f4] text-navy', 'After')}
+            <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - pct}% 0 0)` }}>{layer(beforeSrc, 'bg-[#dde2e9] text-[#7b8696]', 'Before')}</div>
+            <span className="absolute top-4 left-4 font-mono text-[14px] font-bold uppercase tracking-[.14em] bg-navy text-white rounded-full px-3 py-1">Before</span>
+            <span className="absolute top-4 right-4 font-mono text-[14px] font-bold uppercase tracking-[.14em] bg-navy text-white rounded-full px-3 py-1">After</span>
+            <div className="absolute inset-y-0 w-0.5 bg-white" style={{ left: `${pct}%` }}><span aria-hidden className="absolute top-1/2 left-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-navy shadow-lg text-[13px]">◂▸</span></div>
             <input type="range" min={0} max={100} value={pct} onChange={(e) => setPct(+e.target.value)} aria-label="Before and after slider" className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize" />
           </div>
-          {!beforeSrc && <p className="mt-2 text-sm">Illustration.</p>}
+          {!beforeSrc && <p className="mt-2 text-sm text-[#5b6472]">Illustration.</p>}
         </div>
         <div className="flex flex-col gap-6">
           <p><b className="text-ink block text-lg">Before</b>{s.before}</p>
@@ -136,8 +136,8 @@ export function PricingTimeline({ s }: { s: Service }) {
       <div className="mt-8 grid gap-10 md:gap-12 lg:grid-cols-[minmax(0,28rem)_1fr] lg:items-start">
         {s.kind === 'flagship' && (
           <div className="card p-8 md:p-10 !transform-none">
-            <p className="text-sm font-semibold">{PRICING.flagship.label}</p>
-            <p className="text-4xl font-bold text-ink">{flagshipPrice} <span className="text-base font-normal">{TAX_NOTE}</span></p>
+            <p className="eyebrow !py-0">{PRICING.flagship.label}</p>
+            <p className="font-mono text-[56px] font-bold leading-none text-ink">{flagshipPrice} <span className="font-sans text-[15px] font-medium text-[#5b6472]">{TAX_NOTE}</span></p>
             <p className="font-semibold text-ink">What’s included</p>
             <ul className="flex flex-col gap-1">{PRICING.flagship.includes.map((i) => <Check key={i}>{i}</Check>)}<Check>Testing after installation</Check><Check>1-year warranty</Check></ul>
             <p className="mt-2 text-sm">This is our Complete system. <Link href="/pricing" className="underline font-semibold text-ink">See all three systems and prices</Link>.</p>
@@ -145,8 +145,8 @@ export function PricingTimeline({ s }: { s: Service }) {
         )}
         {addon && (
           <div className="card p-8 md:p-10 !transform-none">
-            <p className="text-sm font-semibold">Add-on</p>
-            <p className="text-4xl font-bold text-ink">{formatUSD(addon.displayPrice)} <span className="text-base font-normal">{TAX_NOTE}</span></p>
+            <p className="eyebrow !py-0">Add-on</p>
+            <p className="font-mono text-[56px] font-bold leading-none text-ink">{formatUSD(addon.displayPrice)} <span className="font-sans text-[15px] font-medium text-[#5b6472]">{TAX_NOTE}</span></p>
             <p>{addon.label}, installed on the same visit as your whole-home system.</p>
             <Pill href={FLAGSHIP_HREF}>See the whole-home system</Pill>
           </div>
@@ -167,7 +167,7 @@ export function PricingTimeline({ s }: { s: Service }) {
             <p>{wellCredit}</p>
           </div>
         )}
-        <ol className="flex flex-col gap-6 border-l-2 border-teal/40 pl-6 max-w-2xl">
+        <ol className="flex flex-col gap-6 border-l-2 border-navy/25 pl-6 max-w-2xl">
           {(s.kind === 'well' ? wellSteps : days).map(([d, t]) => <li key={d}><span className="block font-bold text-ink text-lg">{d}</span><span>{t}</span></li>)}
         </ol>
       </div>
@@ -188,8 +188,8 @@ export function ComparisonTable({ s }: { s: Service }) {
       <h2>How {s.name} Compares</h2>
       <div className="mt-8 overflow-x-auto" tabIndex={0} role="region" aria-label="Comparison table, scrolls sideways on small screens">
         <table className="w-full text-left text-sm min-w-[560px]">
-          <thead><tr className="text-ink"><th className="p-3">Feature</th><th className="p-3 bg-aqua/20 rounded-t">US Water Pros</th><th className="p-3">Premium brand</th><th className="p-3">Budget option</th></tr></thead>
-          <tbody>{rows.map(([f, a, b, c]) => <tr key={f} className="border-t border-black/10"><td className="p-3 font-semibold text-ink">{f}</td><td className="p-3 bg-aqua/20">{a}</td><td className="p-3">{b}</td><td className="p-3">{c}</td></tr>)}</tbody>
+          <thead><tr className="text-ink"><th className="p-3">Feature</th><th className="p-3 bg-navy text-white rounded-t-2xl">US Water Pros</th><th className="p-3">Premium brand</th><th className="p-3">Budget option</th></tr></thead>
+          <tbody>{rows.map(([f, a, b, c]) => <tr key={f} className="border-t border-black/10"><td className="p-3 font-semibold text-ink">{f}</td><td className="p-3 bg-ice font-medium text-ink">{a}</td><td className="p-3">{b}</td><td className="p-3">{c}</td></tr>)}</tbody>
         </table>
       </div>
       <p className="mt-3 text-sm">Typical ranges for the local market. Actual prices vary by brand and home.</p>
@@ -205,7 +205,7 @@ export function FaqGroup({ title, items, id }: { title: string; items: [string, 
       <h2>{title}</h2>
       <div className="mt-8 flex flex-col gap-3">
         {items.map(([q, a]) => (
-          <details key={q} className="group rounded-xl bg-white shadow-[0_2px_10px_rgba(0,0,0,.06)]">
+          <details key={q} className="panel group">
             <summary className="cursor-pointer list-none min-h-14 px-6 py-4 flex items-center justify-between gap-4">
               <h3 className="text-lg !font-sans !tracking-normal">{q}</h3>
               <span aria-hidden className="shrink-0 text-cta text-2xl leading-none transition-transform duration-300 group-open:rotate-45">+</span>
@@ -256,7 +256,7 @@ export function UnfaqSection({ s }: { s: Service }) {
       <h2>Questions People Rarely Ask But Should</h2>
       <div className="mt-8 flex flex-col gap-3">
         {[s.uaq, ...UAQ_SHARED].map(([q, a]) => (
-          <div key={q} className="rounded-xl bg-white shadow-[0_2px_10px_rgba(0,0,0,.06)] px-6 py-5">
+          <div key={q} className="panel px-6 py-5">
             <h3 className="text-lg !font-sans !tracking-normal">{q}</h3>
             <p className="!pt-0 !pb-0 mt-2">{a}</p>
           </div>
@@ -292,7 +292,7 @@ export function InstallGallery({ s }: { s: Service }) {
       <h2>Recent Installs</h2>
       <div className="mt-8 flex flex-wrap gap-4">
         {s.gallery.map(([src, alt]) => (
-          <div key={src} className="relative aspect-[3/4] basis-[calc(50%-0.5rem)] md:basis-64 grow-0 rounded-xl overflow-hidden">
+          <div key={src} className="relative aspect-[3/4] basis-[calc(50%-0.5rem)] md:basis-64 grow-0 rounded-[24px] overflow-hidden ring-1 ring-black/[.08] shadow-[0_26px_50px_-34px_rgba(11,37,69,.5)]">
             <Image src={src} alt={alt} fill sizes="(min-width: 768px) 256px, 45vw" className="object-cover" />
           </div>
         ))}
